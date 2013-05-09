@@ -1,0 +1,208 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DomainModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="2.0.0.0" name="PortalProContext" namespace="PortalProModelo" showPropertiesCompartment="true" xmlns="http://www.telerik.com/ORM">
+  <orm:orm name="PortalProContext" backend="mysql" xmlns:orm="http://tempuri.org/ORM">
+    <orm:namespace name="PortalProModelo" default="true">
+      <orm:class name="GrupoUsuario" uniqueId="b762c127-e80b-49c4-9383-b5459bb74a37">
+        <orm:table name="GrupoUsuario" />
+        <orm:identity>
+          <orm:key-generator name="autoinc" />
+          <orm:single-field field-name="_grupoUsuarioId" />
+        </orm:identity>
+        <orm:field name="_grupoUsuarioId" property="GrupoUsuarioId" uniqueId="83815b08-156a-45a6-a2c3-c25d2c020395" type="System.Int32">
+          <orm:column name="GrupoUsuarioId" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" backend-calculated="true" ado-type="Int32" />
+        </orm:field>
+        <orm:field name="_nombre" property="Nombre" uniqueId="d878ce6d-3458-4ee6-8a39-e1381d0698d4" type="System.String">
+          <orm:column name="Nombre" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        </orm:field>
+        <orm:field name="_usuarios" property="Usuarios" behavior="readwrite" uniqueId="bbe21883-71fa-4f7e-8fd8-a0d5d9744782" type="PortalProModelo.Usuario">
+          <orm:collection element-class="PortalProModelo.Usuario" inverse-field="_grupoUsuario" order-by="" uniqueId="f8b2c1c9-0f68-4fc3-9caf-c3972302b575" />
+        </orm:field>
+      </orm:class>
+      <orm:class name="Usuario" uniqueId="b07afc74-f7bc-46f3-a8c3-a5080d80ab68">
+        <orm:table name="Usuario" />
+        <orm:identity>
+          <orm:key-generator name="autoinc" />
+          <orm:single-field field-name="_usuarioId" />
+        </orm:identity>
+        <orm:field name="_usuarioId" property="UsuarioId" uniqueId="aa4b2180-d3a9-4238-93cc-1e1a485b43fc" type="System.Int32">
+          <orm:column name="UsuarioId" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" backend-calculated="true" ado-type="Int32" />
+        </orm:field>
+        <orm:field name="_nombre" property="Nombre" uniqueId="bc0d2a8b-df29-47cc-b1af-ce31c1e0d77a" type="System.String">
+          <orm:column name="Nombre" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        </orm:field>
+        <orm:field name="_login" property="Login" uniqueId="f875fcdd-0ebd-4df5-9d3d-6d520d4c09da" type="System.String">
+          <orm:column name="Login" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        </orm:field>
+        <orm:field name="_email" property="Email" uniqueId="4e29ed63-a19a-4814-97eb-1b2aa395174b" type="System.String">
+          <orm:column name="Email" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        </orm:field>
+        <orm:field name="_password" property="Password" uniqueId="25ae671c-84a6-4be7-b0aa-56f759c4d98b" type="System.String">
+          <orm:column name="Password" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        </orm:field>
+        <orm:field name="_grupoUsuario" property="GrupoUsuario" behavior="readwrite" uniqueId="321cc6f5-1e41-458d-b02b-7fc74d983b53" type="PortalProModelo.GrupoUsuario">
+          <orm:reference uniqueId="f8b2c1c9-0f68-4fc3-9caf-c3972302b575" />
+        </orm:field>
+        <orm:field name="_webApiTickets" property="WebApiTickets" behavior="readwrite" uniqueId="9dd742e7-abbc-4ac1-a2d0-c623b2595a4d" type="PortalProModelo.WebApiTicket">
+          <orm:collection element-class="PortalProModelo.WebApiTicket" inverse-field="_usuario" order-by="" uniqueId="c3e169ad-5eef-432a-a48b-da821be8ba0b" />
+        </orm:field>
+      </orm:class>
+      <orm:class name="WebApiTicket" uniqueId="5986131f-345e-435f-8235-d87e4fc598c9">
+        <orm:table name="WebApiTicket" />
+        <orm:identity>
+          <orm:key-generator name="autoinc" />
+          <orm:single-field field-name="_webApiTicketId" />
+        </orm:identity>
+        <orm:field name="_webApiTicketId" property="WebApiTicketId" uniqueId="3db95d1e-f9c8-45e5-8bb3-4abe345d58b1" type="System.Int32">
+          <orm:column name="WebApiTicketId" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" backend-calculated="true" ado-type="Int32" />
+        </orm:field>
+        <orm:field name="_inicio" property="Inicio" uniqueId="1ed434bd-bc1b-4550-b926-401d3b4e3de1" type="System.DateTime">
+          <orm:column name="Inicio" sql-type="datetime" nullable="false" length="0" scale="0" converter="OpenAccessRuntime.Data.Timestamp2DateTimeConverter" ado-type="DateTime" />
+        </orm:field>
+        <orm:field name="_fin" property="Fin" uniqueId="49108145-821d-47e2-b957-1f3ea9b733b1" type="System.DateTime">
+          <orm:column name="Fin" sql-type="datetime" nullable="false" length="0" scale="0" converter="OpenAccessRuntime.Data.Timestamp2DateTimeConverter" ado-type="DateTime" />
+        </orm:field>
+        <orm:field name="_codigo" property="Codigo" uniqueId="357e1080-760b-4111-a13d-73fe787fb683" type="System.String">
+          <orm:column name="Codigo" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        </orm:field>
+        <orm:field name="_usuario" property="Usuario" behavior="readwrite" uniqueId="59864e4b-4f43-4156-822e-13e5dbdad586" type="PortalProModelo.Usuario">
+          <orm:reference uniqueId="c3e169ad-5eef-432a-a48b-da821be8ba0b" />
+        </orm:field>
+      </orm:class>
+    </orm:namespace>
+    <orm:schema schema="">
+      <orm:table name="GrupoUsuario">
+        <orm:column name="GrupoUsuarioId" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" backend-calculated="true" ado-type="Int32" />
+        <orm:column name="Nombre" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+      </orm:table>
+      <orm:table name="Usuario">
+        <orm:column name="UsuarioId" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" backend-calculated="true" ado-type="Int32" />
+        <orm:column name="Nombre" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        <orm:column name="Login" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        <orm:column name="Email" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        <orm:column name="Password" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+      </orm:table>
+      <orm:table name="WebApiTicket">
+        <orm:column name="WebApiTicketId" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" backend-calculated="true" ado-type="Int32" />
+        <orm:column name="Inicio" sql-type="datetime" nullable="false" length="0" scale="0" converter="OpenAccessRuntime.Data.Timestamp2DateTimeConverter" ado-type="DateTime" />
+        <orm:column name="Fin" sql-type="datetime" nullable="false" length="0" scale="0" converter="OpenAccessRuntime.Data.Timestamp2DateTimeConverter" ado-type="DateTime" />
+        <orm:column name="Codigo" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+      </orm:table>
+    </orm:schema>
+    <orm:relational-naming-settings>
+      <orm:remove-camel-case>False</orm:remove-camel-case>
+      <orm:source-strategy>Property</orm:source-strategy>
+      <orm:remove-leading-underscore>False</orm:remove-leading-underscore>
+    </orm:relational-naming-settings>
+  </orm:orm>
+  <ModelSettings xmlns="">
+    <AppConfigConnectionPropertyName>PortalproConnection</AppConfigConnectionPropertyName>
+    <AppConfigConnectionString>server=localhost;user id=root;password=aritel;persist security info=True;database=portalpro</AppConfigConnectionString>
+    <NamingSettings>
+      <ClassRules>
+        <CaseMode>PascalCase</CaseMode>
+        <PluralizationMode>Singularize</PluralizationMode>
+      </ClassRules>
+      <FieldRules>
+        <AddPrefix>_</AddPrefix>
+        <CaseMode>CamelCase</CaseMode>
+      </FieldRules>
+      <PropertyRules>
+        <CaseMode>PascalCase</CaseMode>
+      </PropertyRules>
+    </NamingSettings>
+    <CodeGenerationSettings>
+      <MappingDefinitionType>Xml</MappingDefinitionType>
+    </CodeGenerationSettings>
+    <SchemaUpdateSettings>
+      <ExecuteScript>true</ExecuteScript>
+      <DeploymentProject>PortalProModelo</DeploymentProject>
+      <DeploymentDirectory>SQL\</DeploymentDirectory>
+      <UpdateDatabaseOperation>Migrate</UpdateDatabaseOperation>
+    </SchemaUpdateSettings>
+    <BackendConfigurationSettings>
+      <BackendConfiguration>
+        <Backend>MySql</Backend>
+        <ProviderName>MySql.Data.MySqlClient</ProviderName>
+        <Logging>
+          <MetricStoreSnapshotInterval>0</MetricStoreSnapshotInterval>
+        </Logging>
+      </BackendConfiguration>
+    </BackendConfigurationSettings>
+  </ModelSettings>
+  <Types>
+    <DomainClass Id="b762c127-e80b-49c4-9383-b5459bb74a37" name="GrupoUsuario" namespace="PortalProModelo" showPropertiesCompartment="true" identityMechanism="DatabaseServerCalculated" showNavigationCompartment="true" showImplementationCompartment="true">
+      <Property Id="83815b08-156a-45a6-a2c3-c25d2c020395" name="GrupoUsuarioId" type="System.Int32" label="GrupoUsuarioId : System.Int32" identity="true" fieldName="_grupoUsuarioId" />
+      <Property Id="d878ce6d-3458-4ee6-8a39-e1381d0698d4" name="Nombre" label="Nombre : String" fieldName="_nombre" />
+      <navigationalProperties>
+        <classHasNavigationalProperties Id="c7b12891-b982-4a8a-962c-7916e32bf35c">
+          <NavigationalProperty Id="bbe21883-71fa-4f7e-8fd8-a0d5d9744782" name="Usuarios" type="IList&lt;Usuario&gt;" label="Usuarios : IList&lt;Usuario&gt;" nullable="true" kind="Persistent" fieldName="_usuarios" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
+      </navigationalProperties>
+    </DomainClass>
+    <DomainClass Id="b07afc74-f7bc-46f3-a8c3-a5080d80ab68" name="Usuario" namespace="PortalProModelo" showPropertiesCompartment="true" identityMechanism="DatabaseServerCalculated" showNavigationCompartment="true" showImplementationCompartment="true">
+      <Property Id="aa4b2180-d3a9-4238-93cc-1e1a485b43fc" name="UsuarioId" type="System.Int32" label="UsuarioId : System.Int32" identity="true" fieldName="_usuarioId" />
+      <Property Id="bc0d2a8b-df29-47cc-b1af-ce31c1e0d77a" name="Nombre" label="Nombre : String" fieldName="_nombre" />
+      <Property Id="f875fcdd-0ebd-4df5-9d3d-6d520d4c09da" name="Login" label="Login : String" fieldName="_login" />
+      <Property Id="4e29ed63-a19a-4814-97eb-1b2aa395174b" name="Email" label="Email : String" fieldName="_email" />
+      <Property Id="25ae671c-84a6-4be7-b0aa-56f759c4d98b" name="Password" label="Password : String" fieldName="_password" />
+      <AssociationTargets>
+        <Association Id="f8b2c1c9-0f68-4fc3-9caf-c3972302b575" SourceMultiplicity="ZeroOne" name="UsuarioHasGrupoUsuario">
+          <DomainClassMoniker name="/PortalProContext/GrupoUsuario" />
+          <targetNavigationalProperty>
+            <associationDefinesTargetProperty Id="d04f3491-a740-4ee5-aa5a-82aafdf8b2e3">
+              <NavigationalPropertyMoniker name="/PortalProContext/GrupoUsuario/Usuarios" />
+            </associationDefinesTargetProperty>
+          </targetNavigationalProperty>
+          <sourceNavigationalProperty>
+            <associationDefinesSourceProperty Id="d3ce2d96-eb78-4f57-8217-68b94824d941">
+              <NavigationalPropertyMoniker name="/PortalProContext/Usuario/GrupoUsuario" />
+            </associationDefinesSourceProperty>
+          </sourceNavigationalProperty>
+        </Association>
+      </AssociationTargets>
+      <navigationalProperties>
+        <classHasNavigationalProperties Id="65d3693e-feb3-4f58-8468-15ec8e9ed46c">
+          <NavigationalProperty Id="321cc6f5-1e41-458d-b02b-7fc74d983b53" name="GrupoUsuario" type="GrupoUsuario" label="GrupoUsuario : GrupoUsuario" nullable="true" kind="Persistent" fieldName="_grupoUsuario" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
+        <classHasNavigationalProperties Id="fa78c573-4387-4318-83dd-e995300a4d2c">
+          <NavigationalProperty Id="9dd742e7-abbc-4ac1-a2d0-c623b2595a4d" name="WebApiTickets" type="IList&lt;WebApiTicket&gt;" label="WebApiTickets : IList&lt;WebApiTicket&gt;" nullable="true" kind="Persistent" fieldName="_webApiTickets" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
+      </navigationalProperties>
+    </DomainClass>
+    <DomainClass Id="5986131f-345e-435f-8235-d87e4fc598c9" name="WebApiTicket" namespace="PortalProModelo" showPropertiesCompartment="true" identityMechanism="DatabaseServerCalculated" showNavigationCompartment="true" showImplementationCompartment="true">
+      <Property Id="3db95d1e-f9c8-45e5-8bb3-4abe345d58b1" name="WebApiTicketId" type="System.Int32" label="WebApiTicketId : System.Int32" identity="true" fieldName="_webApiTicketId" />
+      <Property Id="1ed434bd-bc1b-4550-b926-401d3b4e3de1" name="Inicio" type="DateTime" label="Inicio : DateTime" fieldName="_inicio" />
+      <Property Id="49108145-821d-47e2-b957-1f3ea9b733b1" name="Fin" type="DateTime" label="Fin : DateTime" fieldName="_fin" />
+      <Property Id="357e1080-760b-4111-a13d-73fe787fb683" name="Codigo" label="Codigo : String" fieldName="_codigo" />
+      <AssociationTargets>
+        <Association Id="c3e169ad-5eef-432a-a48b-da821be8ba0b" SourceMultiplicity="ZeroOne" name="WebApiTicketHasUsuario">
+          <DomainClassMoniker name="/PortalProContext/Usuario" />
+          <targetNavigationalProperty>
+            <associationDefinesTargetProperty Id="1da22fef-d439-4dec-b69b-589f09bf3cf1">
+              <NavigationalPropertyMoniker name="/PortalProContext/Usuario/WebApiTickets" />
+            </associationDefinesTargetProperty>
+          </targetNavigationalProperty>
+          <sourceNavigationalProperty>
+            <associationDefinesSourceProperty Id="deb00960-1f10-48b2-bd86-7989819af9d3">
+              <NavigationalPropertyMoniker name="/PortalProContext/WebApiTicket/Usuario" />
+            </associationDefinesSourceProperty>
+          </sourceNavigationalProperty>
+        </Association>
+      </AssociationTargets>
+      <navigationalProperties>
+        <classHasNavigationalProperties Id="7b9f1ab3-7cbe-4274-a2cd-199424e1ceb7">
+          <NavigationalProperty Id="59864e4b-4f43-4156-822e-13e5dbdad586" name="Usuario" type="Usuario" label="Usuario : Usuario" nullable="true" kind="Persistent" fieldName="_usuario" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
+      </navigationalProperties>
+    </DomainClass>
+  </Types>
+  <domainContext>
+    <domainModelHasDomainContext Id="b8a488e5-d05f-45aa-83ff-cddf4131e366">
+      <domainContainer name="PortalProContext" namespace="PortalProModelo" showPropertiesCompartment="true">
+        <entitySetProperty name="GrupoUsuarios" namespace="PortalProModelo" type="GrupoUsuario" label="GrupoUsuarios : IQueryable&lt;PortalProModelo.GrupoUsuario&gt;" />
+        <entitySetProperty name="Usuarios" namespace="PortalProModelo" type="Usuario" label="Usuarios : IQueryable&lt;PortalProModelo.Usuario&gt;" />
+        <entitySetProperty name="WebApiTickets" namespace="PortalProModelo" type="WebApiTicket" label="WebApiTickets : IQueryable&lt;PortalProModelo.WebApiTicket&gt;" />
+      </domainContainer>
+    </domainModelHasDomainContext>
+  </domainContext>
+</DomainModel>
