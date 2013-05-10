@@ -402,6 +402,21 @@
             </summary>
             <param name="documentPath">The physical path to XML document.</param>
         </member>
+        <member name="M:PortalProWebApi.Controllers.GruposUsuariosController.Get(System.String)">
+            <summary>
+            Obtiene todos los grupos de usarios de la base de datos
+            </summary>
+            <param name="tk">Código del tique de autorización (Véase "Login")</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.GruposUsuariosController.Get(System.Int32,System.String)">
+            <summary>
+            Obtiene un grupo de usuarios cuyo ID corresponde con el pasado
+            </summary>
+            <param name="id">Identificador único del grupo</param>
+            <param name="tk">Código del tique de autorización (Véase "Login")</param>
+            <returns></returns>
+        </member>
         <member name="M:PortalProWebApi.Controllers.LoginController.GetLogin(System.String,System.String)">
             <summary>
             Tras comprobar que un usuario con el login y password dados 
