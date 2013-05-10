@@ -11,7 +11,7 @@ namespace PortalProWebApi.Areas.HelpPage
     /// <summary>
     /// A custom <see cref="IDocumentationProvider"/> that reads the API documentation from an XML documentation file.
     /// </summary>
-    public class XmlDocumentationProvider : IDocumentationProvider
+    public class XmlDocumentationProvider : IDocumentationProvider,IResponseDocumentationProvider
     {
         private XPathNavigator _documentNavigator;
         private const string MethodExpression = "/doc/members/member[@name='M:{0}']";
@@ -60,6 +60,21 @@ namespace PortalProWebApi.Areas.HelpPage
                     {
                         return parameterNode.Value.Trim();
                     }
+                }
+            }
+
+            return null;
+        }
+
+        public virtual string GetResponseDocumentation(HttpActionDescriptor actionDescriptor)
+        {
+            XPathNavigator methodNode = GetMethodNode(actionDescriptor);
+            if (methodNode != null)
+            {
+                XPathNavigator returnsNode = methodNode.SelectSingleNode("returns");
+                if (returnsNode != null)
+                {
+                    return returnsNode.Value.Trim();
                 }
             }
 

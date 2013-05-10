@@ -13,6 +13,7 @@ namespace PortalProWebApi.Areas.HelpPage
 {
     public static class HelpPageConfigurationExtensions
     {
+
         private const string ApiModelPrefix = "MS_HelpPageApiModel_";
 
         /// <summary>
@@ -230,6 +231,20 @@ namespace PortalProWebApi.Areas.HelpPage
             catch (Exception e)
             {
                 apiModel.ErrorMessages.Add(String.Format(CultureInfo.CurrentCulture, "An exception has occurred while generating the sample. Exception Message: {0}", e.Message));
+            }
+
+            return apiModel;
+        }
+
+        private static HelpPageApiModel GenerateApiModel(ApiDescription apiDescription, HelpPageSampleGenerator sampleGenerator, HttpConfiguration config)
+        {
+            HelpPageApiModel apiModel = new HelpPageApiModel();
+            apiModel.ApiDescription = apiDescription;
+
+            IResponseDocumentationProvider responseDocProvider = config.Services.GetDocumentationProvider() as IResponseDocumentationProvider;
+            if (responseDocProvider != null)
+            {
+                apiModel.ResponseDocumentation = responseDocProvider.GetResponseDocumentation(apiDescription.ActionDescriptor);
             }
 
             return apiModel;

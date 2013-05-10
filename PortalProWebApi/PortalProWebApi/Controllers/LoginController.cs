@@ -16,15 +16,16 @@ namespace PortalProWebApi.Controllers
         /// </summary>
         /// <param name="login">Login del usuario</param>
         /// <param name="password">Contraseña del usuario</param>
-        /// <returns></returns>
-        public virtual HttpResponseMessage GetLogin(string login, string password)
+        /// <returns>Un objeto que representa un tique</returns>
+        /// <remarks>Este es un comentario adicional</remarks>
+        public virtual WebApiTicket GetLogin(string login, string password)
         {
             using (PortalProContext ctx = new PortalProContext())
             {
                 WebApiTicket tk = CntWebApiSeguridad.Login(login, password, 30, ctx);
                 if (tk == null)
                 {
-                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Nombre de usuario o contraseña incorrecto");
+                    throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotFound, "Nombre de usuario o contraseña incorrecto"));
                 }
                 else
                 {
@@ -32,7 +33,7 @@ namespace PortalProWebApi.Controllers
                     ctx.Add(tk);
                     ctx.SaveChanges();
                     tk = ctx.CreateDetachedCopy<WebApiTicket>(tk, x => x.Usuario);
-                    return Request.CreateResponse<WebApiTicket>(HttpStatusCode.OK, tk);
+                    return tk;
                 }
             }
         }

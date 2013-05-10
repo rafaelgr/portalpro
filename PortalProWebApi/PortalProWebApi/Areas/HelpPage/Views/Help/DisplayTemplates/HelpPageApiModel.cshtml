@@ -21,23 +21,24 @@
 
     @if (hasParameters || hasRequestSamples)
     {
-        <h2>Request Information</h2>
+        <h2>Información de solicitud</h2>
         if (hasParameters)
         {
-            <h3>Parameters</h3>
+            <h3>Parámetros</h3>
             @Html.DisplayFor(apiModel => apiModel.ApiDescription.ParameterDescriptions, "Parameters")
         }
         if (hasRequestSamples)
         {
-            <h3>Request body formats</h3>
+            <h3>Formatos cuerpo de petición</h3>
             @Html.DisplayFor(apiModel => apiModel.SampleRequests, "Samples")
         }
     } 
 
     @if (hasResponseSamples)
     {
-        <h2>Response Information</h2> 
-        <h3>Response body formats</h3>
+        <h2>Información de respuesta</h2> 
+        <h3>Formatos cuerpo de respuesta</h3>
         @Html.DisplayFor(apiModel => apiModel.SampleResponses, "Samples")
+
     }
 </div>

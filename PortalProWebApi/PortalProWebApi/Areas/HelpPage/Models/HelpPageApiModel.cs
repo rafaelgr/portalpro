@@ -39,5 +39,11 @@ namespace PortalProWebApi.Areas.HelpPage.Models
         /// Gets the error messages associated with this model.
         /// </summary>
         public Collection<string> ErrorMessages { get; private set; }
+
+        /// <summary>
+        /// Gets or sets the response documentation
+        /// Help page customizations
+        /// </summary>
+        public string ResponseDocumentation { get; set; }
     }
 }

@@ -5,7 +5,7 @@
 
 <table class="help-page-table">
     <thead>
-    <tr><th>Name</th><th>Description</th><th>Additional information</th></tr>
+    <tr><th>Name</th><th>Descripción</th><th>Información adicional</th></tr>
     </thead>
     <tbody>
     @foreach (ApiParameterDescription parameter in Model)
@@ -24,10 +24,10 @@
                     @switch (parameter.Source)
                     {
                         case ApiParameterSource.FromBody:
-                            <p>Define this parameter in the request <b>body</b>.</p>
+                            <p>Definir este parámetro en la petición <b>body</b>.</p>
                             break;
                         case ApiParameterSource.FromUri:
-                            <p>Define this parameter in the request <b>URI</b>.</p>
+                            <p>Definir este parámetro en la petición <b>URI</b>.</p>
                             break;
                         case ApiParameterSource.Unknown:
                         default:
