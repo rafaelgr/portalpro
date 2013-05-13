@@ -402,6 +402,46 @@
             </summary>
             <param name="documentPath">The physical path to XML document.</param>
         </member>
+        <member name="M:PortalProWebApi.Controllers.UsuariosController.Get(System.String)">
+            <summary>
+            Obtiene todos los usuarios de la base de datos
+            </summary>
+            <param name="tk">Código del tique de autorización (Véase "Login")</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.UsuariosController.Get(System.Int32,System.String)">
+            <summary>
+            Obtiene el usuario cuyo ID corresponde con el pasado
+            </summary>
+            <param name="id">Identificador único del grupo</param>
+            <param name="tk">Código del tique de autorización (Véase "Login")</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.UsuariosController.Post(PortalProModelo.Usuario,System.String)">
+            <summary>
+            Crear un nuevo usuario
+            </summary>
+            <param name="Usuario">Objeto a crear, el atributo UsuarioId lo genera la aplicación y es devuelto en el objeto incluido en la respuesta.</param>
+            <param name="tk"> Tique de autorzación (se debe obtener con la accion Login)</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.UsuariosController.Put(System.Int32,PortalProModelo.Usuario,System.String)">
+            <summary>
+            Modificar un usuario. En el cuerpo del mensaje se envía en el formato adecuado el objeto con los datos modificados
+            </summary>
+            <param name="id"> Identificador único del grupo </param>
+            <param name="usuario">Grupo de usuario con los valores que se desean en sus atributos</param>
+            <param name="tk"> Tique de autorización (Ver 'Login')</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.UsuariosController.Delete(System.Int32,System.String)">
+            <summary>
+            Elimina el usuario que coincide con el id pasado
+            </summary>
+            <param name="id">Identificador del usuario a eliminar</param>
+            <param name="tk">Tique de autorización (Ver 'Login')</param>
+            <returns></returns>
+        </member>
         <member name="M:PortalProWebApi.Controllers.GruposUsuariosController.Get(System.String)">
             <summary>
             Obtiene todos los grupos de usarios de la base de datos
@@ -417,6 +457,31 @@
             <param name="tk">Código del tique de autorización (Véase "Login")</param>
             <returns></returns>
         </member>
+        <member name="M:PortalProWebApi.Controllers.GruposUsuariosController.Post(PortalProModelo.GrupoUsuario,System.String)">
+            <summary>
+            Crear un nuevo grupo de usuarios
+            </summary>
+            <param name="grupoUsuario">Objeto a crear, el atributo GrupoUsuarioId lo genera la aplicación y es devuelto en el objeto incluido en la respuesta.</param>
+            <param name="tk"> Tique de autorzación (se debe obtener con la accion Login)</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.GruposUsuariosController.Put(System.Int32,PortalProModelo.GrupoUsuario,System.String)">
+            <summary>
+            Modificar un grupo de usuario. En el cuerpo del mensaje se envía en el formato adecuado el objeto con los datos modificados
+            </summary>
+            <param name="id"> Identificador único del grupo </param>
+            <param name="grupoUsuario">Grupo de usuario con los valores que se desean en sus atributos</param>
+            <param name="tk"> Tique de autorización (Ver 'Login')</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.GruposUsuariosController.Delete(System.Int32,System.String)">
+            <summary>
+            Elimina el grupo de usuario que coincide con el id pasado
+            </summary>
+            <param name="id">Identificador del grupo a eliminar</param>
+            <param name="tk">Tique de autorización (Ver 'Login')</param>
+            <returns></returns>
+        </member>
         <member name="M:PortalProWebApi.Controllers.LoginController.GetLogin(System.String,System.String)">
             <summary>
             Tras comprobar que un usuario con el login y password dados 
@@ -426,6 +491,13 @@
             <param name="password">Contraseña del usuario</param>
             <returns>Un objeto que representa un tique</returns>
             <remarks>Este es un comentario adicional</remarks>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.LoginController.PutLogin(System.String)">
+            <summary>
+            Renueva el tique por 30 minutos adicionales
+            </summary>
+            <param name="tk">Tique que se desea renovar</param>
+            <returns></returns>
         </member>
     </members>
 </doc>

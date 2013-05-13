@@ -37,5 +37,32 @@ namespace PortalProWebApi.Controllers
                 }
             }
         }
+
+        /// <summary>
+        /// Renueva el tique por 30 minutos adicionales
+        /// </summary>
+        /// <param name="tk">Tique que se desea renovar</param>
+        /// <returns></returns>
+        public virtual WebApiTicket PutLogin(string tk)
+        {
+            using (PortalProContext ctx = new PortalProContext())
+            {
+                // comprueba el tique
+                if (!CntWebApiSeguridad.CheckTicket(tk, ctx))
+                {
+                     throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.Unauthorized, "Se necesita tique de autorización (Login)"));
+                }
+                // renueva el tique por 30 minutos más
+                // en el futuro todo esto debería ser parametrizable
+                WebApiTicket wtck = (from t in ctx.WebApiTickets
+                                     where t.Codigo == tk
+                                     select t).FirstOrDefault<WebApiTicket>();
+                // dado que ha habido una comprobación previa del tique éste 
+                // debería existir.
+                wtck.Fin = DateTime.Now.AddMinutes(30);
+                ctx.SaveChanges();
+                return ctx.CreateDetachedCopy<WebApiTicket>(wtck);
+            }
+        }
     }
 }
