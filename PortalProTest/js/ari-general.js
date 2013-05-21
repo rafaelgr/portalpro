@@ -25,7 +25,6 @@ function setCookie(c_name, value, exdays) {
     exdate.setDate(exdate.getDate() + exdays);
     var c_value = escape(value) + ((exdays == null) ? "" : "; expires=" + exdate.toUTCString());
     document.cookie = c_name + "=" + c_value;
-    alert(c_name + "=" + c_value);
 }
 
 function getCookie(c_name) {
@@ -42,4 +41,80 @@ function getCookie(c_name) {
 
 function deleteCookie(c_name) {
     document.cookie = encodeURIComponent(c_name) + "=deleted; expires=" + new Date(0).toUTCString();
+}
+
+function ari_formatErrorMessage(msg) {
+    var s = "<h5 class='text-error'>" + msg.Message + "</h5>";
+    if (msg.ExceptionMessage != undefined) {
+        s += "<p class='text-warning'>" + msg.ExceptionMessage + "</p>";
+    }
+    return s;
+}
+
+
+function loadMenus() {
+    // load menu-superior
+    $.ajax({
+        type: 'GET',
+        url: "../../menu_superior.html",
+        dataType: 'html',
+        success: function (html, textStatus) {
+            $("#menu-superior").html(html);
+        },
+    });
+    // load menu-lateral
+    $.ajax({
+        type: 'GET',
+        url: "../../menu_lateral.html",
+        dataType: 'html',
+        success: function (html, textStatus) {
+            $("#menu-lateral").html(html);
+            //ace.js (hay que activar la funcionalidad del menu
+            handle_side_menu();
+        },
+    });
+}
+
+function checkAutorization() {
+    // leemos si hay una cookie con el tique
+    var tk = getCookie("ari_tique");
+    console.log("Tique:" + tk);
+    // sin no la hay directamente al login
+    if (typeof tk == "undefined") {
+        console.log("Tique no definido");
+        window.open("login.html", '_self');
+    }
+    // si la hay verificamos si sigue activa
+    // solicitamos el tique a la API
+    $.ajax({
+        type: "PUT",
+        url: ari_hosts.webapi + "/api/Login?tk=" + tk,
+        dataType: "json",
+        contentType: "application/json",
+        success: function (data, textStatus) {
+            // si sigue activa la renovamos y guardamos el tique en la cookie
+            var tique = data;
+            setCookie("ari_tique", tique.Codigo, 1);
+            console.log("Tique renovado");
+        },
+        error: function (xhr, textStatus, errorThrwon) {
+            // si no sigue activa al login
+            console.log("Tique incorrecto");
+            var message = ari_formatErrorMessage(JSON.parse(xhr.responseText));
+            bootbox.dialog(message, [
+                {
+                    "label": "OK",
+                    "class": "btn-small btn-primary",
+                    "callback": function () {
+                        window.open("login.html", '_self');
+                    }
+                }
+            ]);
+        }
+    });
+}
+
+
+function moniker() {
+    alert("MONIKER");
 }
