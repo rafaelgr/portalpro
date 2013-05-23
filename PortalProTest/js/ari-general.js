@@ -56,7 +56,7 @@ function loadMenus() {
     // load menu-superior
     $.ajax({
         type: 'GET',
-        url: "../../menu_superior.html",
+        url: "menu_superior.html",
         dataType: 'html',
         success: function (html, textStatus) {
             $("#menu-superior").html(html);
@@ -65,7 +65,7 @@ function loadMenus() {
     // load menu-lateral
     $.ajax({
         type: 'GET',
-        url: "../../menu_lateral.html",
+        url: "menu_lateral.html",
         dataType: 'html',
         success: function (html, textStatus) {
             $("#menu-lateral").html(html);
@@ -74,6 +74,32 @@ function loadMenus() {
         },
     });
 }
+
+function loadTopBar() {
+    // load menu-superior
+    $.ajax({
+        type: 'GET',
+        url: "topbar.html",
+        dataType: 'html',
+        success: function (html, textStatus) {
+            $("#topbar").html(html);
+        },
+    });
+}
+function loadSideBar() {
+    // load menu-lateral
+    $.ajax({
+        type: 'GET',
+        url: "sidebar.html",
+        dataType: 'html',
+        success: function (html, textStatus) {
+            $("#sidebar").html(html);
+            //ace.js (hay que activar la funcionalidad del menu
+            handle_side_menu();
+        },
+    });
+}
+
 
 function checkAutorization() {
     // leemos si hay una cookie con el tique
