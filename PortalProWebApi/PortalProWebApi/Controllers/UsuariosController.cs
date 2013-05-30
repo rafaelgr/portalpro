@@ -166,14 +166,14 @@ namespace PortalProWebApi.Controllers
         /// <param name="id">Identificador del usuario a eliminar</param>
         /// <param name="tk">Tique de autorización (Ver 'Login')</param>
         /// <returns></returns>
-        public virtual HttpResponseMessage Delete(int id, string tk)
+        public virtual bool Delete(int id, string tk)
         {
             using (PortalProContext ctx = new PortalProContext())
             {
                 // comprobar el tique
                 if (!CntWebApiSeguridad.CheckTicket(tk, ctx))
                 {
-                    return Request.CreateErrorResponse(HttpStatusCode.Unauthorized, "Se necesita tique de autorización (Usuarios)");
+                     throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.Unauthorized, "Se necesita tique de autorización (Usuarios)"));
                 }
                 // primero buscamos si un grupo con ese id existe
                 Usuario usu = (from u in ctx.Usuarios
@@ -182,11 +182,11 @@ namespace PortalProWebApi.Controllers
                 // existe?
                 if (usu == null)
                 {
-                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "No hay un grupo con el id proporcionado (Usuarios)");
+                     throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotFound, "No hay un grupo con el id proporcionado (Usuarios)"));
                 }
                 ctx.Delete(usu);
                 ctx.SaveChanges();
-                return Request.CreateResponse(HttpStatusCode.OK);
+                return true;
             }
         }
     }

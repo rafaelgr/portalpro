@@ -52,26 +52,32 @@ function ari_formatErrorMessage(msg) {
 }
 
 
-function loadMenus() {
-    // load menu-superior
-    $.ajax({
-        type: 'GET',
-        url: "menu_superior.html",
-        dataType: 'html',
-        success: function (html, textStatus) {
-            $("#menu-superior").html(html);
-        },
-    });
-    // load menu-lateral
-    $.ajax({
-        type: 'GET',
-        url: "menu_lateral.html",
-        dataType: 'html',
-        success: function (html, textStatus) {
-            $("#menu-lateral").html(html);
-            //ace.js (hay que activar la funcionalidad del menu
-            handle_side_menu();
-        },
+function generalAjaxErrorTreatment() {
+    // tratamiento común de AJAX
+    $.ajaxSetup({
+        error: function (xhr, textStatus, errorThrwon) {
+            console.log("Error AJAX\n" + xhr);
+            // tratar el error producido
+            var message = "[" + xhr.status + "] " + xhr.statusText;
+            // controlar si está devolviendo una página web, un objeto JSON o XML
+            if (xhr.responseText != "") {
+                try {
+                    message = JSON.parse(xhr.responseText);
+                    message = ari_formatErrorMessage(message);
+                } catch (err) {
+                    if (typeof(xhr.responseText) != "undefined")
+                        message = xhr.responseText;
+                }
+            }
+            bootbox.dialog(message, [
+                {
+                    "label": "OK",
+                    "class": "btn-small btn-success",
+                    "callback": function () {
+                    }
+                }
+            ]);
+        }
     });
 }
 
@@ -124,39 +130,22 @@ function checkAutorization() {
             console.log("Tique renovado");
         },
         error: function (xhr, textStatus, errorThrwon) {
-            // si no sigue activa al login
-            console.log("Tique incorrecto");
-            var message = ari_formatErrorMessage(JSON.parse(xhr.responseText));
-            bootbox.dialog(message, [
-                {
-                    "label": "OK",
-                    "class": "btn-small btn-primary",
-                    "callback": function () {
-                        window.open("login.html", '_self');
-                    }
+            // tratar el error producido
+            var message = "[" + xhr.status + "] " + xhr.statusText;
+            // controlar si está devolviendo una página web, un objeto JSON o XML
+            if (xhr.responseText != "") {
+                try {
+                    message = JSON.parse(xhr.responseText);
+                    message = ari_formatErrorMessage(message);
+                } catch (err) {
+                    if (typeof (xhr.responseText) != "undefined")
+                        message = xhr.responseText;
                 }
-            ]);
-        }
-    });
-    $.ajax({
-        type: "PUT",
-        url: ari_hosts.webapi + "/api/Login?tk=" + tk,
-        dataType: "json",
-        contentType: "application/json",
-        success: function (data, textStatus) {
-            // si sigue activa la renovamos y guardamos el tique en la cookie
-            var tique = data;
-            setCookie("ari_tique", tique.Codigo, 1);
-            console.log("Tique renovado");
-        },
-        error: function (xhr, textStatus, errorThrwon) {
-            // si no sigue activa al login
-            console.log("Tique incorrecto");
-            var message = ari_formatErrorMessage(JSON.parse(xhr.responseText));
+            }
             bootbox.dialog(message, [
                 {
                     "label": "OK",
-                    "class": "btn-small btn-primary",
+                    "class": "btn-small btn-success",
                     "callback": function () {
                         window.open("login.html", '_self');
                     }
