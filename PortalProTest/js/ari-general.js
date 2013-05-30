@@ -138,8 +138,33 @@ function checkAutorization() {
             ]);
         }
     });
+    $.ajax({
+        type: "PUT",
+        url: ari_hosts.webapi + "/api/Login?tk=" + tk,
+        dataType: "json",
+        contentType: "application/json",
+        success: function (data, textStatus) {
+            // si sigue activa la renovamos y guardamos el tique en la cookie
+            var tique = data;
+            setCookie("ari_tique", tique.Codigo, 1);
+            console.log("Tique renovado");
+        },
+        error: function (xhr, textStatus, errorThrwon) {
+            // si no sigue activa al login
+            console.log("Tique incorrecto");
+            var message = ari_formatErrorMessage(JSON.parse(xhr.responseText));
+            bootbox.dialog(message, [
+                {
+                    "label": "OK",
+                    "class": "btn-small btn-primary",
+                    "callback": function () {
+                        window.open("login.html", '_self');
+                    }
+                }
+            ]);
+        }
+    });
 }
-
 
 function moniker() {
     alert("MONIKER");
