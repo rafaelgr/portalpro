@@ -76,6 +76,38 @@ namespace PortalProModelo
 	    	}
 		}
 		
+		public IQueryable<TipoDocumento> TipoDocumentos 
+		{
+	    	get
+	    	{
+	        	return this.GetAll<TipoDocumento>();
+	    	}
+		}
+		
+		public IQueryable<GrupoProveedor> GrupoProveedors 
+		{
+	    	get
+	    	{
+	        	return this.GetAll<GrupoProveedor>();
+	    	}
+		}
+		
+		public IQueryable<TipoDocumentoGrupoProveedor> TipoDocumentoGrupoProveedors 
+		{
+	    	get
+	    	{
+	        	return this.GetAll<TipoDocumentoGrupoProveedor>();
+	    	}
+		}
+		
+		public IQueryable<Proveedor> Proveedors 
+		{
+	    	get
+	    	{
+	        	return this.GetAll<Proveedor>();
+	    	}
+		}
+		
 		public static BackendConfiguration GetBackendConfiguration()
 		{
 			BackendConfiguration backend = new BackendConfiguration();
@@ -99,6 +131,26 @@ namespace PortalProModelo
 		}
 
 		IQueryable<WebApiTicket> WebApiTickets 
+		{ 
+			get;
+		}
+
+		IQueryable<TipoDocumento> TipoDocumentos 
+		{ 
+			get;
+		}
+
+		IQueryable<GrupoProveedor> GrupoProveedors 
+		{ 
+			get;
+		}
+
+		IQueryable<TipoDocumentoGrupoProveedor> TipoDocumentoGrupoProveedors 
+		{ 
+			get;
+		}
+
+		IQueryable<Proveedor> Proveedors 
 		{ 
 			get;
 		}

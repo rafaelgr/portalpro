@@ -90,21 +90,27 @@ namespace PortalProWebApi.Controllers
                 {
                     throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.BadRequest));
                 }
-                // Controlamos las propiedades que son en realidad objetos.
-                if (usuario.GrupoUsuario != null)
-                {
-                    usuario.GrupoUsuario = (from g in ctx.GrupoUsuarios
-                                            where g.GrupoUsuarioId == usuario.GrupoUsuario.GrupoUsuarioId
-                                            select g).FirstOrDefault<GrupoUsuario>();
-                }
                 // controlar la contraseña.
                 if (usuario.Password != null && usuario.Password != "")
                 {
                     // se guarda la contraseña encriptada
                     usuario.Password = CntWebApiSeguridad.GetHashCode(usuario.Password);
                 }
+                int grupoUsuarioId = 0;
+                // Controlamos las propiedades que son en realidad objetos.
+                if (usuario.GrupoUsuario != null)
+                {
+                    grupoUsuarioId = usuario.GrupoUsuario.GrupoUsuarioId;
+                    usuario.GrupoUsuario = null;
+                }
                 // dar de alta el objeto en la base de datos y devolverlo en el mensaje
                 ctx.Add(usuario);
+                if (grupoUsuarioId != 0)
+                {
+                    usuario.GrupoUsuario = (from g in ctx.GrupoUsuarios
+                                            where g.GrupoUsuarioId == grupoUsuarioId
+                                            select g).FirstOrDefault<GrupoUsuario>();
+                }
                 ctx.SaveChanges();
                 return ctx.CreateDetachedCopy<Usuario>(usuario, x => x.GrupoUsuario);
             }
@@ -140,23 +146,33 @@ namespace PortalProWebApi.Controllers
                 {
                     throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotFound, "No hay un usuario con el id proporcionado (Usuarios)"));
                 }
-                // Controlamos las propiedades que son en realidad objetos.
-                if (usuario.GrupoUsuario != null)
-                {
-                    usuario.GrupoUsuario = (from g in ctx.GrupoUsuarios
-                                            where g.GrupoUsuarioId == usuario.GrupoUsuario.GrupoUsuarioId
-                                            select g).FirstOrDefault<GrupoUsuario>();
-                }
                 // controlar la contraseña.
-                if (usuario.Password != null && usuario.Password != "")
+                if (usuario.Password != null && usuario.Password != "" && usuario.Password != usu.Password)
                 {
                     // se guarda la contraseña encriptada
                     usuario.Password = CntWebApiSeguridad.GetHashCode(usuario.Password);
                 }
+                int grupoUsuarioId = 0;
+                // Controlamos las propiedades que son en realidad objetos.
+                if (usuario.GrupoUsuario != null)
+                {
+                    grupoUsuarioId = usuario.GrupoUsuario.GrupoUsuarioId;
+                    usuario.GrupoUsuario = null;
+                }
                 // modificar el objeto
                 ctx.AttachCopy<Usuario>(usuario);
+                // volvemos a leer el objecto para que lo maneje este contexto.
+                usuario = (from u in ctx.Usuarios
+                           where u.UsuarioId == id
+                           select u).FirstOrDefault<Usuario>();
+                if (grupoUsuarioId != 0)
+                {
+                    usuario.GrupoUsuario = (from g in ctx.GrupoUsuarios
+                                            where g.GrupoUsuarioId == grupoUsuarioId
+                                            select g).FirstOrDefault<GrupoUsuario>();
+                }
                 ctx.SaveChanges();
-                return usuario;
+                return ctx.CreateDetachedCopy<Usuario>(usuario, x => x.GrupoUsuario);
             }
         }
 

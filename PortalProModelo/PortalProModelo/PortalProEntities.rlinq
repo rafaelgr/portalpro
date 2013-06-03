@@ -68,6 +68,103 @@
           <orm:reference uniqueId="c3e169ad-5eef-432a-a48b-da821be8ba0b" />
         </orm:field>
       </orm:class>
+      <orm:class name="TipoDocumento" uniqueId="f6d1679c-9fa5-4d7e-8de5-26fe83d743c3">
+        <orm:table name="TipoDocumento" />
+        <orm:identity>
+          <orm:key-generator name="autoinc" />
+          <orm:single-field field-name="_tipoDocumentoId" />
+        </orm:identity>
+        <orm:field name="_tipoDocumentoId" property="TipoDocumentoId" uniqueId="994af06e-811b-4c75-b531-2e5794c74c83" type="System.Int32">
+          <orm:column name="TipoDocumentoId" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" backend-calculated="true" ado-type="Int32" />
+        </orm:field>
+        <orm:field name="_nombre" property="Nombre" uniqueId="291c56cf-2e5a-490c-8a47-22264f204641" type="System.String">
+          <orm:column name="Nombre" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        </orm:field>
+        <orm:field name="_tipoDocumentoGrupoProveedors" property="TipoDocumentoGrupoProveedors" behavior="readwrite" uniqueId="e43886fa-80c9-4e29-baed-21dbac57ae15" type="PortalProModelo.TipoDocumentoGrupoProveedor">
+          <orm:collection element-class="PortalProModelo.TipoDocumentoGrupoProveedor" inverse-field="_tipoDocumento" order-by="" uniqueId="2ff97e89-5f4b-4a26-aadb-73c5fc7d37da" />
+        </orm:field>
+      </orm:class>
+      <orm:class name="GrupoProveedor" uniqueId="f40f73a6-43c8-4b40-99b8-f34b252985db">
+        <orm:table name="GrupoProveedor" />
+        <orm:identity>
+          <orm:key-generator name="autoinc" />
+          <orm:single-field field-name="_grupoProveedorId" />
+        </orm:identity>
+        <orm:field name="_grupoProveedorId" property="GrupoProveedorId" uniqueId="94c34bc4-aeac-412c-8b2f-ca0c1f880cea" type="System.Int32">
+          <orm:column name="GrupoProveedorId" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" backend-calculated="true" ado-type="Int32" />
+        </orm:field>
+        <orm:field name="_nombre" property="Nombre" uniqueId="cffa2fb2-25ee-4f94-b269-f6d16351dfe3" type="System.String">
+          <orm:column name="Nombre" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        </orm:field>
+        <orm:field name="_tipoDocumentoGrupoProveedors" property="TipoDocumentoGrupoProveedors" behavior="readwrite" uniqueId="10130499-a57d-4952-8da2-85757c56956a" type="PortalProModelo.TipoDocumentoGrupoProveedor">
+          <orm:collection element-class="PortalProModelo.TipoDocumentoGrupoProveedor" inverse-field="_grupoProveedor" order-by="" uniqueId="0755e32a-245e-411c-9e45-08fe5cc7d7e1" />
+        </orm:field>
+        <orm:field name="_proveedors" property="Proveedors" behavior="readwrite" uniqueId="8b5ab442-ad7f-4531-a57d-54968a238004" type="PortalProModelo.Proveedor">
+          <orm:collection element-class="PortalProModelo.Proveedor" inverse-field="_grupoProveedor" order-by="" uniqueId="b14ef8f6-9864-4a68-b3e8-b658ea48dedb" />
+        </orm:field>
+      </orm:class>
+      <orm:class name="TipoDocumentoGrupoProveedor" uniqueId="99cb61cb-6dbf-482b-ae26-37ef6e297c5c">
+        <orm:identity>
+          <orm:key-generator name="autoinc" />
+          <orm:single-field field-name="_tipoDocumentoGrupoProveedorId" />
+        </orm:identity>
+        <orm:field name="_tipoDocumentoGrupoProveedorId" property="TipoDocumentoGrupoProveedorId" uniqueId="28ccd7ba-d15f-4916-8eff-d85840d853af" type="System.Int32" />
+        <orm:field name="_tipoDocumento" property="TipoDocumento" behavior="readwrite" uniqueId="984a1939-0d19-4f83-b786-a3f8e473cb26" type="PortalProModelo.TipoDocumento">
+          <orm:reference uniqueId="2ff97e89-5f4b-4a26-aadb-73c5fc7d37da" />
+        </orm:field>
+        <orm:field name="_grupoProveedor" property="GrupoProveedor" behavior="readwrite" uniqueId="5fb07211-c38e-4646-a037-c41490f82f0e" type="PortalProModelo.GrupoProveedor">
+          <orm:reference uniqueId="0755e32a-245e-411c-9e45-08fe5cc7d7e1" />
+        </orm:field>
+      </orm:class>
+      <orm:class name="Proveedor" uniqueId="5013e5fd-6205-4655-a5b7-d9ef04a4a13d">
+        <orm:table name="Proveedor" />
+        <orm:identity>
+          <orm:key-generator name="autoinc" />
+          <orm:single-field field-name="_proveedorId" />
+        </orm:identity>
+        <orm:field name="_proveedorId" property="ProveedorId" uniqueId="281b716c-b7c8-4df4-a121-2a0bfeddaaa4" type="System.Int32">
+          <orm:column name="ProveedorId" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" backend-calculated="true" ado-type="Int32" />
+        </orm:field>
+        <orm:field name="_nombre" property="Nombre" uniqueId="6203caac-6a3d-497a-9c8c-105a7ad83343" type="System.String">
+          <orm:column name="Nombre" sql-type="varchar" nullable="false" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        </orm:field>
+        <orm:field name="_calle" property="Calle" uniqueId="16fda250-befa-4dde-87c8-e33c1e5e3515" type="System.String">
+          <orm:column name="Calle" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        </orm:field>
+        <orm:field name="_ciudad" property="Ciudad" uniqueId="cd817e53-ea85-4b12-a0fb-98b2972540f7" type="System.String">
+          <orm:column name="Ciudad" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        </orm:field>
+        <orm:field name="_codPostal" property="CodPostal" uniqueId="ac362d50-e047-48ee-a02b-15968f6d53ba" type="System.String">
+          <orm:column name="CodPostal" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        </orm:field>
+        <orm:field name="_provincia" property="Provincia" uniqueId="845f8435-a82d-441f-a721-63d3d4dfde35" type="System.String">
+          <orm:column name="Provincia" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        </orm:field>
+        <orm:field name="_comunidad" property="Comunidad" uniqueId="0ac487f4-d6cc-4192-ad31-c32543337890" type="System.String">
+          <orm:column name="Comunidad" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        </orm:field>
+        <orm:field name="_pais" property="Pais" uniqueId="e9bf5144-4d1d-41b3-be19-d4da4f44a410" type="System.String">
+          <orm:column name="Pais" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        </orm:field>
+        <orm:field name="_telefono" property="Telefono" uniqueId="fc44890c-bd40-46fa-9e96-0bc8fc78879d" type="System.String">
+          <orm:column name="Telefono" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        </orm:field>
+        <orm:field name="_fax" property="Fax" uniqueId="94bc91d6-4ecb-405c-9287-c6585a0732e0" type="System.String">
+          <orm:column name="Fax" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        </orm:field>
+        <orm:field name="_movil" property="Movil" uniqueId="c5804a09-8a45-4940-a9d8-dea284580813" type="System.String">
+          <orm:column name="Movil" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        </orm:field>
+        <orm:field name="_url" property="Url" uniqueId="e445418d-2241-413c-8f41-edca44136bf9" type="System.String">
+          <orm:column name="Url" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        </orm:field>
+        <orm:field name="_email" property="Email" uniqueId="b113550f-863f-4f81-9b15-bbd4a7beafe0" type="System.String">
+          <orm:column name="Email" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        </orm:field>
+        <orm:field name="_grupoProveedor" property="GrupoProveedor" behavior="readwrite" uniqueId="770bad8d-fa9f-4718-81ce-4d10a60b42b8" type="PortalProModelo.GrupoProveedor">
+          <orm:reference uniqueId="b14ef8f6-9864-4a68-b3e8-b658ea48dedb" />
+        </orm:field>
+      </orm:class>
     </orm:namespace>
     <orm:schema schema="">
       <orm:table name="GrupoUsuario">
@@ -86,6 +183,29 @@
         <orm:column name="Inicio" sql-type="datetime" nullable="false" length="0" scale="0" converter="OpenAccessRuntime.Data.Timestamp2DateTimeConverter" ado-type="DateTime" />
         <orm:column name="Fin" sql-type="datetime" nullable="false" length="0" scale="0" converter="OpenAccessRuntime.Data.Timestamp2DateTimeConverter" ado-type="DateTime" />
         <orm:column name="Codigo" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+      </orm:table>
+      <orm:table name="TipoDocumento">
+        <orm:column name="TipoDocumentoId" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" backend-calculated="true" ado-type="Int32" />
+        <orm:column name="Nombre" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+      </orm:table>
+      <orm:table name="GrupoProveedor">
+        <orm:column name="GrupoProveedorId" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" backend-calculated="true" ado-type="Int32" />
+        <orm:column name="Nombre" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+      </orm:table>
+      <orm:table name="Proveedor">
+        <orm:column name="ProveedorId" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" backend-calculated="true" ado-type="Int32" />
+        <orm:column name="Nombre" sql-type="varchar" nullable="false" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        <orm:column name="Calle" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        <orm:column name="Ciudad" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        <orm:column name="CodPostal" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        <orm:column name="Provincia" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        <orm:column name="Comunidad" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        <orm:column name="Pais" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        <orm:column name="Telefono" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        <orm:column name="Fax" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        <orm:column name="Movil" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        <orm:column name="Url" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        <orm:column name="Email" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
       </orm:table>
     </orm:schema>
     <orm:relational-naming-settings>
@@ -195,6 +315,101 @@
         </classHasNavigationalProperties>
       </navigationalProperties>
     </DomainClass>
+    <DomainClass Id="f6d1679c-9fa5-4d7e-8de5-26fe83d743c3" name="TipoDocumento" namespace="PortalProModelo" showPropertiesCompartment="true" identityMechanism="DatabaseServerCalculated" showNavigationCompartment="true" showImplementationCompartment="true">
+      <Property Id="994af06e-811b-4c75-b531-2e5794c74c83" name="TipoDocumentoId" type="System.Int32" label="TipoDocumentoId : System.Int32" identity="true" fieldName="_tipoDocumentoId" />
+      <Property Id="291c56cf-2e5a-490c-8a47-22264f204641" name="Nombre" label="Nombre : String" fieldName="_nombre" />
+      <navigationalProperties>
+        <classHasNavigationalProperties Id="133331cf-956b-418d-8bb9-a81aedcfd059">
+          <NavigationalProperty Id="e43886fa-80c9-4e29-baed-21dbac57ae15" name="TipoDocumentoGrupoProveedors" type="IList&lt;TipoDocumentoGrupoProveedor&gt;" label="TipoDocumentoGrupoProveedors : IList&lt;TipoDocumentoGrupoProveedor&gt;" nullable="true" kind="Persistent" fieldName="_tipoDocumentoGrupoProveedors" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
+      </navigationalProperties>
+    </DomainClass>
+    <DomainClass Id="f40f73a6-43c8-4b40-99b8-f34b252985db" name="GrupoProveedor" namespace="PortalProModelo" showPropertiesCompartment="true" identityMechanism="DatabaseServerCalculated" showNavigationCompartment="true" showImplementationCompartment="true">
+      <Property Id="94c34bc4-aeac-412c-8b2f-ca0c1f880cea" name="GrupoProveedorId" type="System.Int32" label="GrupoProveedorId : System.Int32" identity="true" fieldName="_grupoProveedorId" />
+      <Property Id="cffa2fb2-25ee-4f94-b269-f6d16351dfe3" name="Nombre" label="Nombre : String" fieldName="_nombre" />
+      <navigationalProperties>
+        <classHasNavigationalProperties Id="dc5d9dd2-60fb-49e5-bde0-033e95b76334">
+          <NavigationalProperty Id="10130499-a57d-4952-8da2-85757c56956a" name="TipoDocumentoGrupoProveedors" type="IList&lt;TipoDocumentoGrupoProveedor&gt;" label="TipoDocumentoGrupoProveedors : IList&lt;TipoDocumentoGrupoProveedor&gt;" nullable="true" kind="Persistent" fieldName="_tipoDocumentoGrupoProveedors" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
+        <classHasNavigationalProperties Id="32e956ba-412d-4e16-bb19-2d7a31c4665a">
+          <NavigationalProperty Id="8b5ab442-ad7f-4531-a57d-54968a238004" name="Proveedors" type="IList&lt;Proveedor&gt;" label="Proveedors : IList&lt;Proveedor&gt;" nullable="true" kind="Persistent" fieldName="_proveedors" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
+      </navigationalProperties>
+    </DomainClass>
+    <DomainClass Id="99cb61cb-6dbf-482b-ae26-37ef6e297c5c" name="TipoDocumentoGrupoProveedor" namespace="PortalProModelo" showPropertiesCompartment="true" identityMechanism="DatabaseServerCalculated" showNavigationCompartment="true" showImplementationCompartment="true">
+      <Property Id="28ccd7ba-d15f-4916-8eff-d85840d853af" name="TipoDocumentoGrupoProveedorId" type="System.Int32" label="TipoDocumentoGrupoProveedorId : System.Int32" identity="true" fieldName="_tipoDocumentoGrupoProveedorId" />
+      <AssociationTargets>
+        <Association Id="2ff97e89-5f4b-4a26-aadb-73c5fc7d37da" SourceMultiplicity="ZeroOne" name="TipoDocumentoGrupoProveedorHasTipoDocumento">
+          <DomainClassMoniker name="/PortalProContext/TipoDocumento" />
+          <targetNavigationalProperty>
+            <associationDefinesTargetProperty Id="e98651c5-1c7c-4108-85c5-f8c06eb1908f">
+              <NavigationalPropertyMoniker name="/PortalProContext/TipoDocumento/TipoDocumentoGrupoProveedors" />
+            </associationDefinesTargetProperty>
+          </targetNavigationalProperty>
+          <sourceNavigationalProperty>
+            <associationDefinesSourceProperty Id="c7caeafe-869c-4c7c-83a9-b65e9c6ba11a">
+              <NavigationalPropertyMoniker name="/PortalProContext/TipoDocumentoGrupoProveedor/TipoDocumento" />
+            </associationDefinesSourceProperty>
+          </sourceNavigationalProperty>
+        </Association>
+        <Association Id="0755e32a-245e-411c-9e45-08fe5cc7d7e1" SourceMultiplicity="ZeroOne" name="TipoDocumentoGrupoProveedorHasGrupoProveedor">
+          <DomainClassMoniker name="/PortalProContext/GrupoProveedor" />
+          <targetNavigationalProperty>
+            <associationDefinesTargetProperty Id="5691fa09-0051-42ac-a635-237dac1d0dd8">
+              <NavigationalPropertyMoniker name="/PortalProContext/GrupoProveedor/TipoDocumentoGrupoProveedors" />
+            </associationDefinesTargetProperty>
+          </targetNavigationalProperty>
+          <sourceNavigationalProperty>
+            <associationDefinesSourceProperty Id="f32c7c75-99c2-4e78-83fe-a77ef8a1b2ff">
+              <NavigationalPropertyMoniker name="/PortalProContext/TipoDocumentoGrupoProveedor/GrupoProveedor" />
+            </associationDefinesSourceProperty>
+          </sourceNavigationalProperty>
+        </Association>
+      </AssociationTargets>
+      <navigationalProperties>
+        <classHasNavigationalProperties Id="5a5fbcd9-5e9e-4a54-895d-31c9b83af523">
+          <NavigationalProperty Id="984a1939-0d19-4f83-b786-a3f8e473cb26" name="TipoDocumento" type="TipoDocumento" label="TipoDocumento : TipoDocumento" nullable="true" kind="Persistent" fieldName="_tipoDocumento" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
+        <classHasNavigationalProperties Id="f2afe474-2de1-4cb5-8160-6f0a8d417a53">
+          <NavigationalProperty Id="5fb07211-c38e-4646-a037-c41490f82f0e" name="GrupoProveedor" type="GrupoProveedor" label="GrupoProveedor : GrupoProveedor" nullable="true" kind="Persistent" fieldName="_grupoProveedor" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
+      </navigationalProperties>
+    </DomainClass>
+    <DomainClass Id="5013e5fd-6205-4655-a5b7-d9ef04a4a13d" name="Proveedor" namespace="PortalProModelo" showPropertiesCompartment="true" identityMechanism="DatabaseServerCalculated" showNavigationCompartment="true" showImplementationCompartment="true">
+      <Property Id="281b716c-b7c8-4df4-a121-2a0bfeddaaa4" name="ProveedorId" type="System.Int32" label="ProveedorId : System.Int32" identity="true" fieldName="_proveedorId" />
+      <Property Id="6203caac-6a3d-497a-9c8c-105a7ad83343" name="Nombre" label="Nombre : String" fieldName="_nombre" />
+      <Property Id="16fda250-befa-4dde-87c8-e33c1e5e3515" name="Calle" label="Calle : String" fieldName="_calle" />
+      <Property Id="cd817e53-ea85-4b12-a0fb-98b2972540f7" name="Ciudad" label="Ciudad : String" fieldName="_ciudad" />
+      <Property Id="ac362d50-e047-48ee-a02b-15968f6d53ba" name="CodPostal" label="CodPostal : String" fieldName="_codPostal" />
+      <Property Id="845f8435-a82d-441f-a721-63d3d4dfde35" name="Provincia" label="Provincia : String" fieldName="_provincia" />
+      <Property Id="0ac487f4-d6cc-4192-ad31-c32543337890" name="Comunidad" label="Comunidad : String" fieldName="_comunidad" />
+      <Property Id="e9bf5144-4d1d-41b3-be19-d4da4f44a410" name="Pais" label="Pais : String" fieldName="_pais" />
+      <Property Id="fc44890c-bd40-46fa-9e96-0bc8fc78879d" name="Telefono" label="Telefono : String" fieldName="_telefono" />
+      <Property Id="94bc91d6-4ecb-405c-9287-c6585a0732e0" name="Fax" label="Fax : String" fieldName="_fax" />
+      <Property Id="c5804a09-8a45-4940-a9d8-dea284580813" name="Movil" label="Movil : String" fieldName="_movil" />
+      <Property Id="e445418d-2241-413c-8f41-edca44136bf9" name="Url" label="Url : String" fieldName="_url" />
+      <Property Id="b113550f-863f-4f81-9b15-bbd4a7beafe0" name="Email" label="Email : String" fieldName="_email" />
+      <AssociationTargets>
+        <Association Id="b14ef8f6-9864-4a68-b3e8-b658ea48dedb" SourceMultiplicity="ZeroOne" name="ProveedorHasGrupoProveedor">
+          <DomainClassMoniker name="/PortalProContext/GrupoProveedor" />
+          <targetNavigationalProperty>
+            <associationDefinesTargetProperty Id="33abc923-aed9-4e7b-b180-7510c435e737">
+              <NavigationalPropertyMoniker name="/PortalProContext/GrupoProveedor/Proveedors" />
+            </associationDefinesTargetProperty>
+          </targetNavigationalProperty>
+          <sourceNavigationalProperty>
+            <associationDefinesSourceProperty Id="3e5fe8fc-666a-490c-89bd-be413d56f29a">
+              <NavigationalPropertyMoniker name="/PortalProContext/Proveedor/GrupoProveedor" />
+            </associationDefinesSourceProperty>
+          </sourceNavigationalProperty>
+        </Association>
+      </AssociationTargets>
+      <navigationalProperties>
+        <classHasNavigationalProperties Id="b92c6c79-ae13-4570-9509-9e852b85659c">
+          <NavigationalProperty Id="770bad8d-fa9f-4718-81ce-4d10a60b42b8" name="GrupoProveedor" type="GrupoProveedor" label="GrupoProveedor : GrupoProveedor" nullable="true" kind="Persistent" fieldName="_grupoProveedor" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
+      </navigationalProperties>
+    </DomainClass>
   </Types>
   <domainContext>
     <domainModelHasDomainContext Id="b8a488e5-d05f-45aa-83ff-cddf4131e366">
@@ -202,6 +417,10 @@
         <entitySetProperty name="GrupoUsuarios" namespace="PortalProModelo" type="GrupoUsuario" label="GrupoUsuarios : IQueryable&lt;PortalProModelo.GrupoUsuario&gt;" />
         <entitySetProperty name="Usuarios" namespace="PortalProModelo" type="Usuario" label="Usuarios : IQueryable&lt;PortalProModelo.Usuario&gt;" />
         <entitySetProperty name="WebApiTickets" namespace="PortalProModelo" type="WebApiTicket" label="WebApiTickets : IQueryable&lt;PortalProModelo.WebApiTicket&gt;" />
+        <entitySetProperty name="TipoDocumentos" namespace="PortalProModelo" type="TipoDocumento" label="TipoDocumentos : IQueryable&lt;PortalProModelo.TipoDocumento&gt;" />
+        <entitySetProperty name="GrupoProveedors" namespace="PortalProModelo" type="GrupoProveedor" label="GrupoProveedors : IQueryable&lt;PortalProModelo.GrupoProveedor&gt;" />
+        <entitySetProperty name="TipoDocumentoGrupoProveedors" namespace="PortalProModelo" type="TipoDocumentoGrupoProveedor" label="TipoDocumentoGrupoProveedors : IQueryable&lt;PortalProModelo.TipoDocumentoGrupoProveedor&gt;" />
+        <entitySetProperty name="Proveedors" namespace="PortalProModelo" type="Proveedor" label="Proveedors : IQueryable&lt;PortalProModelo.Proveedor&gt;" />
       </domainContainer>
     </domainModelHasDomainContext>
   </domainContext>

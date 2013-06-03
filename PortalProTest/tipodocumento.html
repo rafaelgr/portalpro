@@ -48,26 +48,26 @@
                             <span class="divider"><i class="icon-angle-right"></i></span>
                             <a href="administracion.html">Administración</a>
                             <span class="divider"><i class="icon-angle-right"></i></span>
-                            <a href="grupousuario.html">Grupos de usuarios</a>
+                            <a href="tipodocumento.html">Tipos de documentos</a>
                         </li>
                     </ul><!--.breadcrumb-->
                 </div><!--#breadcrumbs-->
                 <div id="page-content" class="clearfix">
                     <div class="page-header position-relative">
-                        <h1>Grupos de usuarios <i id="isearch" class="icon-search" style="display:none;"></i></h1>
+                        <h1>Tipos de documentos <i id="isearch" class="icon-search" style="display:none;"></i></h1>
                     </div>
-                    <div id="grupousuario-grid" class="row-fluid">
+                    <div id="tipodocumento-grid" class="row-fluid">
                     </div><!--/#usuario-grid-->
-                    <div id="grupousuario-form" class="row-fluid" style="display:none;">
+                    <div id="tipodocumento-form" class="row-fluid" style="display:none;">
                         <div class="row-fluid">
                             <div class="span6">
                                 <h4>
-                                    <span class="blue" id="form-title">Nuevo grupo</span>
+                                    <span class="blue" id="form-title">Nuevo tipo</span>
                                 </h4>
                             </div>
                             <div class="span6">
                                 <h4 class="blue pull-right">
-                                    ID:<span data-bind="text: GrupoUsuarioId"></span>
+                                    ID:<span data-bind="text: TipoDocumentoId"></span>
                                 </h4>
                             </div>
                         </div>
@@ -115,17 +115,17 @@
             </script>
             <script type="tex/x-kendo-template" id="tEdit">
                 <div class="pull-right">
-                    <button class="btn btn-small btn-primary" onclick="formEdit(#=GrupoUsuarioId#);" title="Editar registro">
+                    <button class="btn btn-small btn-primary" onclick="formEdit(#=TipoDocumentoId#);" title="Editar registro">
                         <i class="icon-pencil icon-white"></i>
                     </button>
-                    <button class="btn btn-small btn-primary" onclick="gridDelete(#=GrupoUsuarioId#,'#=Nombre#');" title="Eliminar registro">
+                    <button class="btn btn-small btn-primary" onclick="gridDelete(#=TipoDocumentoId#,'#=Nombre#');" title="Eliminar registro">
                         <i class="icon-trash icon-white"></i>
                     </button>
                 </div>
             </script>
             <script type="tex/x-kendo-template" id="tEditS">
                 <div class="pull-right">
-                    <button class="btn btn-small btn-primary" onclick="gridSelect(#=GrupoUsuarioId#,'#=Nombre#');" title="Seleccionar registro">
+                    <button class="btn btn-small btn-primary" onclick="gridSelect(#=TipoDocumentoId#,'#=Nombre#');" title="Seleccionar registro">
                         <i class="icon-share icon-white"></i>
                     </button>
                 </div>
@@ -160,7 +160,7 @@
             var regId; // para cargar identificadores de registro;
             var caller; // establece quién, si alguien nos ha llamado.
             // validador de los campos de formulario
-            var validator = $("#grupousuario-form").kendoValidator({
+            var validator = $("#tipodocumento-form").kendoValidator({
                 validateOnBlur: false,
                 messages: {
                     required: "Este campo es requerido",
@@ -170,7 +170,7 @@
             }).data("kendoValidator");
             // modelo de datos knockout
             var viewModel = {
-                GrupoUsuarioId: ko.observable(),
+                TipoDocumentoId: ko.observable(),
                 Nombre: ko.observable(),
             }
             ko.applyBindings(viewModel);
@@ -202,7 +202,7 @@
             var gridDataSource = new kendo.data.DataSource({
                 transport: {
                     read: {
-                        url: ari_hosts.webapi + "/api/gruposusuarios?tk=" + getCookie("ari_tique"),
+                        url: ari_hosts.webapi + "/api/tiposdocumentos?tk=" + getCookie("ari_tique"),
                         dataType: "json",
                         type: "GET",
                         contentType: "application/json"
@@ -214,9 +214,9 @@
                 },
                 schema: {
                     model: {
-                        id: "GrupoUsuarioId",
+                        id: "TipoDocumentoId",
                         fields: {
-                            GrupoUsuarioId: { type: "number" },
+                            TipoDocumentoId: { type: "number" },
                             Nombre: { type: "string" },
                         }
                     }
@@ -236,10 +236,10 @@
             // por último la función que lo integra todo y que monta el grid en el espacio
             // para ello
             function gridBuild() {
-                $("#grupousuario-grid").kendoGrid({
+                $("#tipodocumento-grid").kendoGrid({
                     dataSource: gridDataSource,
                     columns: [
-                        { field: "GrupoUsuarioId", title: "ID" },
+                        { field: "TipoDocumentoId", title: "ID" },
                         { field: "Nombre", title: "Nombre" },
                         { template: t_edit }
                     ],
@@ -259,7 +259,7 @@
                 // en funcion del caller volvemos a un sitio u otro
                 switch (caller) {
                     case "usuario":
-                        window.open("usuario.html?caller=grupousuario", '_self');
+                        window.open("usuario.html?caller=tipodocumento", '_self');
                         break;
                 }
             }
@@ -276,7 +276,7 @@
                         "label": "Aceptar",
                         "class": "btn-small btn-error",
                         "callback": function () {
-                            var url = ari_hosts.webapi + "/api/gruposusuarios/" + regId + "?tk=" + getCookie("ari_tique");
+                            var url = ari_hosts.webapi + "/api/tiposdocumentos/" + regId + "?tk=" + getCookie("ari_tique");
                             var options = {
                                 type: 'DELETE',
                                 url: url,
@@ -303,20 +303,20 @@
                 }
                 // actualizamos con los valores seleccionados
                 var u = JSON.parse(data);
-                u.GrupoUsuario.GrupoUsuarioId = id;
-                u.GrupoUsuario.Nombre = nombre;
+                u.TipoDocumento.TipoDocumentoId = id;
+                u.TipoDocumento.Nombre = nombre;
                 var dataS = JSON.stringify(u);
                 // guardamos en la cookie y volvemos al llamante
                 switch (caller) {
                     case "usuario":
                         setCookie("usuario", dataS, 1);
-                        window.open("usuario.html?caller=grupousuario", '_self');
+                        window.open("usuario.html?caller=tipodocumento", '_self');
                         break;
                 }
 
             }
             function gridRefresh() {
-                var ds = $("#grupousuario-grid").data("kendoGrid").dataSource;
+                var ds = $("#tipodocumento-grid").data("kendoGrid").dataSource;
                 ds.read();
                 return ds;
             }
@@ -328,17 +328,17 @@
             function formNew() {
                 type = "new";
                 // ocultar grid - mostrar form
-                $("#grupousuario-grid").hide();
-                $("#grupousuario-form").show();
-                $("#form-title").text("Nuevo grupo");
+                $("#tipodocumento-grid").hide();
+                $("#tipodocumento-form").show();
+                $("#form-title").text("Nuevo tipo");
                 clearData();
                 $("#Nombre").focus();
             }
             function formEdit(id) {
                 type = "edit";
-                $("#grupousuario-grid").hide();
-                $("#grupousuario-form").show();
-                $("#form-title").text("Editar grupo");
+                $("#tipodocumento-grid").hide();
+                $("#tipodocumento-form").show();
+                $("#form-title").text("Editar tipo");
                 loadData(id);
                 $("#Nombre").focus();
             }
@@ -356,26 +356,26 @@
             function formExit() {
                 // ocultar posibles mensajes de validación 
                 validator.hideMessages();
-                $("#grupousuario-grid").show();
-                $("#grupousuario-form").hide()
+                $("#tipodocumento-grid").show();
+                $("#tipodocumento-form").hide()
             }
             // carga los datos en el grid
             function loadData(id) {
                 $.ajax({
                     type: "GET",
-                    url: ari_hosts.webapi + "/api/gruposusuarios/" + id + "/?tk=" + getCookie("ari_tique"),
+                    url: ari_hosts.webapi + "/api/tiposdocumentos/" + id + "/?tk=" + getCookie("ari_tique"),
                     dataType: "json",
                     contentType: "application/json",
                     success: function (data, textStatus) {
                         // incluir aqui el tratamiento de los datos recibidos
-                        viewModel.GrupoUsuarioId(data.GrupoUsuarioId);
+                        viewModel.TipoDocumentoId(data.TipoDocumentoId);
                         viewModel.Nombre(data.Nombre);
                     },
                 });
             }
             // limpiar los datos del modelo
             function clearData() {
-                viewModel.GrupoUsuarioId("");
+                viewModel.TipoDocumentoId("");
                 viewModel.Nombre("");
             }
             // salvar los datos del form
@@ -384,11 +384,11 @@
                 var url = "";
                 if (arg == "new") {
                     verb = "POST";
-                    url = ari_hosts.webapi + "/api/gruposusuarios/?tk=" + getCookie("ari_tique");
+                    url = ari_hosts.webapi + "/api/tiposdocumentos/?tk=" + getCookie("ari_tique");
                 }
                 else {
                     verb = "PUT";
-                    url = ari_hosts.webapi + "/api/gruposusuarios/" + viewModel.GrupoUsuarioId() + "/?tk=" + getCookie("ari_tique");
+                    url = ari_hosts.webapi + "/api/tiposdocumentos/" + viewModel.TipoDocumentoId() + "/?tk=" + getCookie("ari_tique");
                 }
                 $.ajax({
                     type: verb,
@@ -407,14 +407,14 @@
                             var totalPages = ds.totalPages();
                             ds.page(totalPages);
                             // por si el alta es en el marco de una búsqueda
-                            if (caller != "") gridSelect(data.GrupoUsuarioId, data.Nombre)
+                            if (caller != "") gridSelect(data.TipoDocumentoId, data.Nombre)
                         }
                         else {
                             // en edición simplemnete mostramos el grid, se supone
                             // que ya está donde debía estar.
                         }
-                        $("#grupousuario-form").hide();
-                        $("#grupousuario-grid").show();
+                        $("#tipodocumento-form").hide();
+                        $("#tipodocumento-grid").show();
                     },
                 });
             }

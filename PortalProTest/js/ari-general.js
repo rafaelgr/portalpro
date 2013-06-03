@@ -127,6 +127,7 @@ function checkAutorization() {
             // si sigue activa la renovamos y guardamos el tique en la cookie
             var tique = data;
             setCookie("ari_tique", tique.Codigo, 1);
+            $("#login-name").text(data.Usuario.Nombre);
             console.log("Tique renovado");
         },
         error: function (xhr, textStatus, errorThrwon) {
@@ -153,6 +154,18 @@ function checkAutorization() {
             ]);
         }
     });
+}
+
+// gup stands from Get Url Parameters
+function gup(name) {
+    name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+    var regexS = "[\\?&]" + name + "=([^&#]*)";
+    var regex = new RegExp(regexS);
+    var results = regex.exec(window.location.href);
+    if (results == null)
+        return "";
+    else
+        return results[1];
 }
 
 function moniker() {

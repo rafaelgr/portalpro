@@ -61,7 +61,7 @@ namespace PortalProWebApi.Controllers
                 // debería existir.
                 wtck.Fin = DateTime.Now.AddMinutes(30);
                 ctx.SaveChanges();
-                return ctx.CreateDetachedCopy<WebApiTicket>(wtck);
+                return ctx.CreateDetachedCopy<WebApiTicket>(wtck, x => x.Usuario);
             }
         }
     }

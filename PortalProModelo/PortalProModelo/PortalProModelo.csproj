@@ -90,6 +90,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CntWebApiSeguridad.cs" />
+    <Compile Include="GrupoProveedor.generated.cs">
+      <DependentUpon>PortalProEntities.rlinq</DependentUpon>
+    </Compile>
     <Compile Include="GrupoUsuario.generated.cs">
       <DependentUpon>PortalProEntities.rlinq</DependentUpon>
     </Compile>
@@ -99,6 +102,15 @@
       <DependentUpon>PortalProEntities.rlinq</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Proveedor.generated.cs">
+      <DependentUpon>PortalProEntities.rlinq</DependentUpon>
+    </Compile>
+    <Compile Include="TipoDocumento.generated.cs">
+      <DependentUpon>PortalProEntities.rlinq</DependentUpon>
+    </Compile>
+    <Compile Include="TipoDocumentoGrupoProveedor.generated.cs">
+      <DependentUpon>PortalProEntities.rlinq</DependentUpon>
+    </Compile>
     <Compile Include="Usuario.generated.cs">
       <DependentUpon>PortalProEntities.rlinq</DependentUpon>
     </Compile>
@@ -122,6 +134,11 @@
   <ItemGroup>
     <Content Include="SQL\PortalproConnection%282013-05-09 17-35-48%29.rlinq.sql" />
     <Content Include="SQL\PortalproConnection%282013-05-09 18-26-37%29.rlinq.sql" />
+    <Content Include="SQL\PortalproConnection%282013-06-03 11-19-23%29.rlinq.sql" />
+    <Content Include="SQL\PortalproConnection%282013-06-03 12-10-39%29.rlinq.sql" />
+    <Content Include="SQL\PortalproConnection%282013-06-03 12-11-33%29.rlinq.sql" />
+    <Content Include="SQL\PortalproConnection%282013-06-03 13-00-09%29.rlinq.sql" />
+    <Content Include="SQL\PortalproConnection%282013-06-03 13-00-31%29.rlinq.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

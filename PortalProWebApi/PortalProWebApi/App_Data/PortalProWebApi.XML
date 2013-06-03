@@ -402,6 +402,134 @@
             </summary>
             <param name="documentPath">The physical path to XML document.</param>
         </member>
+        <member name="M:PortalProWebApi.Controllers.ProveedoresController.Get(System.String)">
+            <summary>
+            Obtiene todos los proveedores de la base de datos
+            </summary>
+            <param name="tk">Código del tique de autorización (Véase "Login")</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.ProveedoresController.Get(System.Int32,System.String)">
+            <summary>
+            Obtiene el proveedor cuyo ID corresponde con el pasado
+            </summary>
+            <param name="id">Identificador único del proveedor</param>
+            <param name="tk">Código del tique de autorización (Véase "Login")</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.ProveedoresController.Post(PortalProModelo.Proveedor,System.String)">
+            <summary>
+            Crear un nuevo proveedor
+            </summary>
+            <param name="Proveedor">Objeto a crear, el atributo ProveedorId lo genera la aplicación y es devuelto en el objeto incluido en la respuesta.</param>
+            <param name="tk"> Tique de autorzación (se debe obtener con la accion Login)</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.ProveedoresController.Put(System.Int32,PortalProModelo.Proveedor,System.String)">
+            <summary>
+            Modificar un proveedor. En el cuerpo del mensaje se envía en el formato adecuado el objeto con los datos modificados
+            </summary>
+            <param name="id"> Identificador único del grupo </param>
+            <param name="proveedor">Grupo de proveedor con los valores que se desean en sus atributos</param>
+            <param name="tk"> Tique de autorización (Ver 'Login')</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.ProveedoresController.Delete(System.Int32,System.String)">
+            <summary>
+            Elimina el proveedor que coincide con el id pasado
+            </summary>
+            <param name="id">Identificador del proveedor a eliminar</param>
+            <param name="tk">Tique de autorización (Ver 'Login')</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.GruposProveedoresController.Get(System.String)">
+            <summary>
+            Obtiene todos los grupos de proveedores de la base de datos
+            </summary>
+            <param name="tk">Código del tique de autorización (Véase "Login")</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.GruposProveedoresController.Get(System.Int32,System.String)">
+            <summary>
+            Obtiene un grupo de proveedores cuyo ID corresponde con el pasado
+            </summary>
+            <param name="id">Identificador único del grupo</param>
+            <param name="tk">Código del tique de autorización (Véase "Login")</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.GruposProveedoresController.Post(PortalProModelo.GrupoProveedor,System.String)">
+            <summary>
+            Crear un nuevo grupo de proveedores
+            </summary>
+            <param name="grupoProveedor">Objeto a crear, el atributo GrupoProveedorId lo genera la aplicación y es devuelto en el objeto incluido en la respuesta.</param>
+            <param name="tk"> Tique de autorzación (se debe obtener con la accion Login)</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.GruposProveedoresController.Put(System.Int32,PortalProModelo.GrupoProveedor,System.String)">
+            <summary>
+            Modificar un grupo de proveedor. En el cuerpo del mensaje se envía en el formato adecuado el objeto con los datos modificados
+            </summary>
+            <param name="id"> Identificador único del grupo </param>
+            <param name="grupoProveedor">Grupo de poveedor con los valores que se desean en sus atributos</param>
+            <param name="tk"> Tique de autorización (Ver 'Login')</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.GruposProveedoresController.Delete(System.Int32,System.String)">
+            <summary>
+            Elimina el grupo de proveedor que coincide con el id pasado
+            </summary>
+            <param name="id">Identificador del grupo a eliminar</param>
+            <param name="tk">Tique de autorización (Ver 'Login')</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.TiposDocumentosController.Get(System.String)">
+            <summary>
+            Obtiene todos los tipos de la base de datos
+            </summary>
+            <param name="tk">Código del tique de autorización (Véase "Login")</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.TiposDocumentosController.Get(System.String,System.String)">
+            <summary>
+            Devuelve la lista de los tipos de documentos asociados al grupo de usuarios cuyo id correspone a la cadena pasada
+            </summary>
+            <param name="tk">Tique obtienido en el login</param>
+            <param name="grupoCode">Identificador de grupo de proveedor pasado como cadena</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.TiposDocumentosController.Get(System.Int32,System.String)">
+            <summary>
+            Obtiene un tipo de documento cuyo ID corresponde con el pasado
+            </summary>
+            <param name="id">Identificador único del tipo</param>
+            <param name="tk">Código del tique de autorización (Véase "Login")</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.TiposDocumentosController.Post(PortalProModelo.TipoDocumento,System.String)">
+            <summary>
+            Crear un nuevo tipo de documento
+            </summary>
+            <param name="tipoDocumento">Objeto a crear, el atributo TipoDocumentoId lo genera la aplicación y es devuelto en el objeto incluido en la respuesta.</param>
+            <param name="tk"> Tique de autorización (se debe obtener con la accion Login)</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.TiposDocumentosController.Put(System.Int32,PortalProModelo.TipoDocumento,System.String)">
+            <summary>
+            Modificar un tipo de documento. En el cuerpo del mensaje se envía en el formato adecuado el objeto con los datos modificados
+            </summary>
+            <param name="id"> Identificador único del tipo </param>
+            <param name="tipoDocumento">Tipo de documento con los valores que se desean en sus atributos</param>
+            <param name="tk"> Tique de autorización (Ver 'Login')</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.TiposDocumentosController.Delete(System.Int32,System.String)">
+            <summary>
+            Elimina el tipo de docuemnto que coincide con el id pasado
+            </summary>
+            <param name="id">Identificador del tipo a eliminar</param>
+            <param name="tk">Tique de autorización (Ver 'Login')</param>
+            <returns></returns>
+        </member>
         <member name="M:PortalProWebApi.Controllers.UsuariosController.Get(System.String)">
             <summary>
             Obtiene todos los usuarios de la base de datos
