@@ -83,13 +83,10 @@
                         </div>
                         <div class="row-fluid">
                             <div class="span12" style="margin-bottom:10px;">
-                                <label for="form-field-select-4">Tipos de documentos (Puede elegir varios)</label>
-                                <select multiple id="Tipos" class="chzn-select-width" data-placeholder="Escoja los documentos...">
-                                    <option value=""></option>
-                                </select>
+                                <label for="Tipos">Tipos de documentos (puede elegir varios)</label>
+                                <div id="Tipos"></div>
                             </div>
                         </div>
-
                         <div class="row-fluid">
                             <div class="pull-right">
                                 <button class="btn btn-small btn-primary" onclick ="formAccept()">
@@ -149,7 +146,6 @@
         <script src="js/bootstrap.min.js"></script>
         <script src="js/bootbox.min.js"></script>
         <script src="js/knockout-2.2.1.js"></script>
-        <script src="js/knockout.mapping-latest.debug.js"></script>
         <!-- kendo scripts -->
         <script src="js/kendo.web.js"></script>
 
@@ -185,6 +181,8 @@
             var viewModel = {
                 GrupoProveedorId: ko.observable(),
                 Nombre: ko.observable(),
+                Tipos: ko.observableArray(),
+                AllTipos: ko.observableArray()
             }
             
             ko.applyBindings(viewModel);
@@ -285,7 +283,6 @@
             
             // otras funciones de manejo
             function gridExit() {
-                console.log("EXIT")
                 // en funcion del caller volvemos a un sitio u otro
                 switch (caller) {
                     case "proveedor":
@@ -323,7 +320,6 @@
             }
             
             function gridSelect(id, nombre) {
-                console.log("SELECT");
                 // en funcion del llamante tomamos una cookie un otra.
                 var data;
                 switch (caller) {
@@ -361,7 +357,7 @@
                 $("#grupoproveedor-form").show();
                 $("#form-title").text("Nuevo grupo");
                 clearData();
-                loadChosen();
+                loadAllTipos();
                 $("#Nombre").focus();
             }
             function formEdit(id) {
@@ -370,6 +366,7 @@
                 $("#grupoproveedor-form").show();
                 $("#form-title").text("Editar grupo");
                 loadData(id);
+                loadAllTipos();
                 $("#Nombre").focus();
             }
             function formAccept() {
@@ -408,6 +405,8 @@
             function clearData() {
                 viewModel.GrupoProveedorId("");
                 viewModel.Nombre("");
+                viewModel.AllTipos([]);
+                viewModel.Tipos([]);
             }
             // salvar los datos del form
             function saveData(arg) {
@@ -429,6 +428,7 @@
                     data: ko.toJSON(viewModel),
                     success: function (data, textStatus) {
                         // incluir aqui el tratamiento de los datos recibidos
+                        saveDataTipos(data.GrupoProveedorId);
                         // refrescamos el grid con los nuevos datos
                         var ds = gridRefresh();
                         // el tratamiento es diferente si se trata de altas o ediciones
@@ -450,24 +450,90 @@
                     },
                 });
             }
-            // cargar el select
+
+            // Esta función dá de alta los valores de los tipos asociados a un 
+            // grupo de proveedor
+            function saveDataTipos(grupoProveedorId) {
+                var tipos = $("#TiposSelect").val();
+                if (tipos == null) tipos = [];
+                viewModel.Tipos([]);
+                for (var i = 0; i < tipos.length; i++) {
+                    var vTipo = getTipoDocumento(tipos[i]);
+                    if (vTipo != null) viewModel.Tipos().push(vTipo);
+                }
+                $.ajax({
+                    type: "POST",
+                    url: ari_hosts.webapi + "/api/tiposdocumentos/?tk=" + getCookie("ari_tique")+ "&grupoCode=" + grupoProveedorId,
+                    dataType: "json",
+                    contentType: "application/json",
+                    data: JSON.stringify(tipos),
+                    success: function (data, textStatus) {
+                    },
+                });
+            }
+
+            // cragar el select
             function loadChosen() {
+                var options =  "<select multiple id=\"TiposSelect\" class=\"chzn-select-width\" data-placeholder=\"Escoja tipos...\">";
+                options += " <option value=\"\"></option>";
+                for (var i = 0; i < viewModel.AllTipos().length; i++) {
+                    var item = viewModel.AllTipos()[i];
+                    if (isInTipos(item.TipoDocumentoId)) {
+                        options += "<option value=\"" + item.TipoDocumentoId + "\" selected>" + item.Nombre + "</option>";
+                    } else {
+                        options += "<option value=\"" + item.TipoDocumentoId + "\">" + item.Nombre + "</option>";
+                    }
+                }
+                options += "</select>";
+                $("#Tipos").html(options);
+                chosenOptions();
+            }
+            // cargar los tipos
+            function loadTipos() {
+                $.ajax({
+                    type: "GET",
+                    url: ari_hosts.webapi + "/api/tiposdocumentos/?tk=" + getCookie("ari_tique") + "&grupoCode=" + viewModel.GrupoProveedorId(),
+                    dataType: "json",
+                    contentType: "application/json",
+                    success: function (data, textStatus) {
+                        //// incluir aqui el tratamiento de los datos recibidos
+                        viewModel.Tipos(data);
+                        loadChosen();
+                    },
+                });
+            }
+            function loadAllTipos() {
+                viewModel.AllTipos([]);
+                viewModel.Tipos([]);
                 $.ajax({
                     type: "GET",
                     url: ari_hosts.webapi + "/api/tiposdocumentos/?tk=" + getCookie("ari_tique"),
                     dataType: "json",
                     contentType: "application/json",
                     success: function (data, textStatus) {
-                        // incluir aqui el tratamiento de los datos recibidos
-                        var options = " <option value=\"\"></option>";
-                        for (var i = 0; i < data.length; i++) {
-                            var item = data[i];
-                            options += "<option value=\"" + item.TipoDocumentoId + "\">" + item.Nombre + "</option>";
+                        //// incluir aqui el tratamiento de los datos recibidos
+                        viewModel.AllTipos(data);
+                        if (viewModel.GrupoProveedorId() != "") {
+                            loadTipos();
+                        } else {
+                            loadChosen();
                         }
-                        $("#Tipos").html(options);
-                        chosenOptions();
                     },
                 });
+            }
+            function isInTipos(id) {
+                for (var i = 0; i < viewModel.Tipos().length; i++) {
+                    var tipoItem = viewModel.Tipos()[i];
+                    if (tipoItem.TipoDocumentoId === id) return true;
+                }
+                return false;
+            }
+            function getTipoDocumento(id) {
+                for (var i = 0; i < viewModel.AllTipos().length; i++) {
+                    var tipoItem = viewModel.AllTipos()[i];
+                    if (tipoItem.TipoDocumentoId === id) return tipoItem;
+                }
+                return null;
             }
         </script>
 

@@ -47,7 +47,8 @@ namespace PortalProWebApi.Controllers
             {
                 if (CntWebApiSeguridad.CheckTicket(tk, ctx))
                 {
-                    int id = int.Parse(grupoCode);
+                    int id = 0;
+                    bool res = int.TryParse(grupoCode, out id);
                     GrupoProveedor grupoProveedor = (from gp in ctx.GrupoProveedors
                                                      where gp.GrupoProveedorId == id
                                                      select gp).FirstOrDefault<GrupoProveedor>();
@@ -131,6 +132,44 @@ namespace PortalProWebApi.Controllers
                 ctx.SaveChanges();
                 return tipoDocumento;
             }
+        }
+
+        public virtual bool Post(IList<int> tipos, string tk, string grupoCode)
+        {
+            using (PortalProContext ctx = new PortalProContext())
+            {
+                if (CntWebApiSeguridad.CheckTicket(tk, ctx))
+                {
+                    int id = 0;
+                    bool res = int.TryParse(grupoCode, out id);
+                    GrupoProveedor grupoProveedor = (from gp in ctx.GrupoProveedors
+                                                     where gp.GrupoProveedorId == id
+                                                     select gp).FirstOrDefault<GrupoProveedor>();
+                    if (grupoProveedor == null)
+                    {
+                        throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.Unauthorized, "Debe proporcionar un grupo de proveedores existente"));
+                    }
+                    // eliminamos todos os asociados posibles, que serán sustituidos por los nuevos
+                    ctx.Delete(grupoProveedor.TipoDocumentoGrupoProveedors);
+                    // vamos a comprobar todos los id pasados
+                    foreach (int i in tipos)
+                    {
+                        // ya está en la lista de este grupo
+                        TipoDocumentoGrupoProveedor tdgp = new TipoDocumentoGrupoProveedor();
+                        tdgp.GrupoProveedor = grupoProveedor;
+                        TipoDocumento td = (from t in ctx.TipoDocumentos
+                                            where t.TipoDocumentoId == i
+                                            select t).FirstOrDefault<TipoDocumento>();
+                        if (td != null)
+                        {
+                            tdgp.TipoDocumento = td;
+                            ctx.Add(tdgp);
+                        }
+                    }
+                    ctx.SaveChanges();
+                }
+            }
+            return true;
         }
 
         /// <summary>
