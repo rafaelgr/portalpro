@@ -513,6 +513,15 @@
             <param name="tk"> Tique de autorización (se debe obtener con la accion Login)</param>
             <returns></returns>
         </member>
+        <member name="M:PortalProWebApi.Controllers.TiposDocumentosController.Post(System.Collections.Generic.IList{System.Int32},System.String,System.String)">
+            <summary>
+            Se utiliza para cargar los tipos de documentos asociados a un grupo de proveedores
+            </summary>
+            <param name="tipos">Vector de enteros con los identificadores de los tipos de documento a asociar</param>
+            <param name="tk">Tique de autorización (ver Login)</param>
+            <param name="grupoCode">Identificador del grupo de proveedores</param>
+            <returns></returns>
+        </member>
         <member name="M:PortalProWebApi.Controllers.TiposDocumentosController.Put(System.Int32,PortalProModelo.TipoDocumento,System.String)">
             <summary>
             Modificar un tipo de documento. En el cuerpo del mensaje se envía en el formato adecuado el objeto con los datos modificados
@@ -528,6 +537,13 @@
             </summary>
             <param name="id">Identificador del tipo a eliminar</param>
             <param name="tk">Tique de autorización (Ver 'Login')</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.UploadsController.PostFile(System.String)">
+            <summary>
+            Se utiliza par subir ficheros al servidor
+            </summary>
+            <param name="tk">Tique de autorizacion (ver Login)</param>
             <returns></returns>
         </member>
         <member name="M:PortalProWebApi.Controllers.UsuariosController.Get(System.String)">

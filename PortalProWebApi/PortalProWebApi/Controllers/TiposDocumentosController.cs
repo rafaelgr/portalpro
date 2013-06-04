@@ -133,7 +133,13 @@ namespace PortalProWebApi.Controllers
                 return tipoDocumento;
             }
         }
-
+        /// <summary>
+        /// Se utiliza para cargar los tipos de documentos asociados a un grupo de proveedores
+        /// </summary>
+        /// <param name="tipos">Vector de enteros con los identificadores de los tipos de documento a asociar</param>
+        /// <param name="tk">Tique de autorización (ver Login)</param>
+        /// <param name="grupoCode">Identificador del grupo de proveedores</param>
+        /// <returns></returns>
         public virtual bool Post(IList<int> tipos, string tk, string grupoCode)
         {
             using (PortalProContext ctx = new PortalProContext())

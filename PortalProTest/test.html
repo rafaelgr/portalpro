@@ -47,17 +47,24 @@
                         <li>
                             <i class="icon-home"></i>
                             <a href="main.html">Inicio</a>
-                            <span class="divider"><i class="icon-angle-right"></i></span><a href="administracion.html">Administración</a>
+                            <span class="divider"><i class="icon-angle-right"></i></span>
+                            <a href="administracion.html">Administración</a>
                         </li>
                     </ul><!--.breadcrumb-->
                 </div><!--#breadcrumbs-->
 
                 <div id="page-content" class="clearfix">
                     <div class="page-header position-relative">
-                        <h1>Administración</h1>
+                        <h1>
+                            Test <i class="icon-fighter-jet"></i>
+                        </h1>
                     </div>
                     <div class="row-fluid">
                         <!-- PAGE CONTENT BEGINS HERE -->
+                        <div class="span12">
+                            <label>Select the files you want to upload</label>
+                            <input name="files" id="filesu" type="file" />
+                        </div>
                         <!-- PAGE CONTENT ENDS HERE -->
                     </div><!--/row-->
 
@@ -75,6 +82,8 @@
         <script src="js/jquery-1.9.1.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
         <script src="js/bootbox.min.js"></script>
+
+        <script src="js/kendo.web.js"></script>
         <!-- page specific plugin scripts -->
 
         <!-- ace scripts -->
@@ -99,6 +108,12 @@
                     checkAutorization();
                     loadTopBar();
                     loadSideBar();
+                    $("#filesu").kendoUpload({
+                        async: {
+                            saveUrl: ari_hosts.webapi + "/api/uploads",
+                            autoUpload: true
+                        }
+                    });
                 });
             })(jQuery);
         </script>

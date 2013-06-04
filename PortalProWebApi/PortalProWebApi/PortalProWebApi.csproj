@@ -176,6 +176,7 @@
     <Compile Include="Controllers\ProveedoresController.cs" />
     <Compile Include="Controllers\GruposProveedores.cs" />
     <Compile Include="Controllers\TiposDocumentosController.cs" />
+    <Compile Include="Controllers\UploadsController.cs" />
     <Compile Include="Controllers\UsuariosController.cs" />
     <Compile Include="Controllers\GruposUsuariosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -309,6 +310,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\Uploads\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>

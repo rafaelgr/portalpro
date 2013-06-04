@@ -119,12 +119,12 @@
                             </div>
                             <div class="span3">
                                 <label>Comunidad / Estado</label>
-                                <input id="Comunidad" class="span12" type="text" 
+                                <input id="Comunidad" class="span12" type="text" data-bind="value:Comunidad"
                                        name="Comunidad" required/>
                             </div>
                             <div class="span3">
                                 <label>Pais</label>
-                                <input id="Pais" class="span12" type="text" 
+                                <input id="Pais" class="span12" type="text" data-bind="value: Pais"
                                        name="Pais" required/>
                             </div>
                         </div>
@@ -147,13 +147,25 @@
                             </div>
                             <div class="span3">
                                 <label>Correo electrónico</label>
-                                <input id="Email" class="span12" type="text" data-bind="value: Email" 
+                                <input id="Email" class="span12" type="email" data-bind="value: Email" 
                                        name="Email" required />
                             </div>
                             <div class="span3">
                                 <label>Página web</label>
-                                <input id="Url" class="span12" type="text" data-bind="value: Url" 
+                                <input id="Url" class="span12" type="url" data-bind="value: Url" 
                                        name="Url" required />
+                            </div>
+                        </div>
+                        <div>
+                            <h5>
+                                <span class="blue">Ficheros asociados</span>
+                            </h5>
+                        </div>
+                        <hr class="dotted" />
+                        <div class="row-fluid">
+                            <div class="span12">
+                                <label>Select the files you want to upload</label>
+                                <input name="files" id="filesu" type="file" />
                             </div>
                         </div>
                         <div class="row-fluid">
@@ -161,9 +173,9 @@
                                 <button class="btn btn-small btn-primary" onclick ="formAccept()">
                                     <i class="icon-ok icon-white"></i>
                                 </button>
-                                <buttom class="btn btn-small btn-primary" onclick="formExit()">
+                                <button class="btn btn-small btn-primary" onclick="formExit()">
                                     <i class="icon-signout icon-white"></i>
-                                </buttom>
+                                </button>
                             </div>
                         </div>
                     </div><!-- #proveedor-form -->
@@ -266,9 +278,11 @@
                     Nombre: ko.observable()
                 }
             }
+            
             ko.applyBindings(viewModel);
+
         </script>
-        
+
         <!-- manejo de los templates que usará el grid -->
         <script type="text/javascript">
             var t_new;
@@ -409,7 +423,7 @@
             }
         
         </script>
-            
+
         <!-- manejo del form -->
         <script type="text/javascript">
             // botón nuevo (del grid)
@@ -604,18 +618,53 @@
                 saveDataCookie();
                 switch (option) {
                     case "GrupoProveedor":
-                        window.open("grupoproveedor.html?mode=S&caller=proveedor",'_self');
+                        window.open("grupoproveedor.html?mode=S&caller=proveedor", '_self');
                         break;
                 }
             }
+            // 
+            function fileSelect(e) {
+                var numero = $("#Fichero").val();
+                console.log("Fich:" + numero + " Num:" + e.files.length);
+                if (e.files.length > 1) {
+                    bootbox.alert("Solo se puede elegir un fichero", "Aceptar");
+                    e.preventDefault();
+                }
+            }
+            function formFiles() {
+                var options = {
+                    localization: {
+                        cancel: "Cancelar",
+                        dropsFileHere: "Arrastre ficheros aqui",
+                        remove: "Eliminar",
+                        retry: "Reintentar",
+                        select: "Seleccionar...      ",
+                        statusFailed: "Erróneo",
+                        statusUpLoaded: "Subido",
+                        statusUpLoading: "Subiendo...",
+                        uploadSelectFiles: "Subir los ficheros seleccionados"
+                    },
+                    async: {
+                        saveUrl: ari_hosts.webapi + "/api/uploads",
+                        autoUpload: true
+                    },
+                    select: fileSelect
+                };
+                $("#filesu").kendoUpload({
+                    async: {
+                        saveUrl: ari_hosts.webapi + "/api/uploads",
+                        autoUpload: true
+                    },
+                });
+            }
         </script>
-            
+
         <!-- Script en arranque -->
         <script type="text/javascript">
             (function ($) {
                 $(document).ready(function () {
                     // tratamiento general de errores Ajax
-                    generalAjaxErrorTreatment();
+                    //generalAjaxErrorTreatment();
                     // en cualquier página hay que verificar la autorización
                     checkAutorization();
                     // cargar el menú superior
@@ -640,6 +689,8 @@
                             $("#proveedor-form").show();
                             break;
                     }
+                    //
+                    formFiles();
                 });
             })(jQuery);
         </script>
