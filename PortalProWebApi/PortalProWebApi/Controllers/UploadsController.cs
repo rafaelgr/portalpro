@@ -16,8 +16,13 @@ namespace PortalProWebApi.Controllers
 
         /// <summary>
         /// Se utiliza par subir ficheros al servidor
+        /// el nombre completo del fichero a guardar se monta encadenando 
+        /// tk#tipo#nombre_del_fichero
+        /// Esta operación se realiza sobre el directorio de carga, habitualemnte 
+        /// \App_Data\Uploads
         /// </summary>
         /// <param name="tk">Tique de autorizacion (ver Login)</param>
+        /// <param name="tipo">Tipo del fichero subido según la acción TiposDocumentos</param>
         /// <returns></returns>
         public bool PostFile(string tk, string tipo)
         {
@@ -54,6 +59,16 @@ namespace PortalProWebApi.Controllers
             });
             return true;
         }
+        /// <summary>
+        /// Elimina el fichero con ell nombre pasado en una variable en el body
+        /// el nombre completo del fichero a borrar se monta encadenando 
+        /// tk#tipo#nombre_del_fichero
+        /// Esta operación se realiza sobre el directorio de carga, habitualemnte 
+        /// \App_Data\Uploads
+        /// </summary>
+        /// <param name="tk"></param>
+        /// <param name="tipo"></param>
+        /// <returns></returns>
         public bool DeleteFile(string tk, string tipo)
         {
             using (PortalProContext ctx = new PortalProContext())

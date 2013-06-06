@@ -12,7 +12,7 @@ namespace PortalProWebApi
     {
         /// <summary>
         /// Comprueba que los ficheros necesarios para asociar a un proveedor están peresentes
-        /// Si esa comprobación es superada dá de alta / modifica los ficheros asociados.
+        /// Si esa comprobación es superada dá de alta los ficheros asociados.
         /// </summary>
         /// <param name="webRoot">Directorio en el que la carga ha dejado los ficheros</param>
         /// <param name="tk">El código de tique usado en este momento</param>
@@ -77,6 +77,12 @@ namespace PortalProWebApi
                 File.Delete(f);
             }
             return mens;
+        }
+
+        public static string ObtenerUrlDeDocumento(string webRoot, string tk, Documento doc, PortalProContext ctx)
+        {
+            string url = "";
+            return url;
         }
     }
 }

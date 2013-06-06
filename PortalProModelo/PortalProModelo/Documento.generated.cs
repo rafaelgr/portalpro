@@ -64,6 +64,19 @@ namespace PortalProModelo
 		    }
 		}
 		
+		private string _descargaUrl;
+		public virtual string DescargaUrl 
+		{ 
+		    get
+		    {
+		        return this._descargaUrl;
+		    }
+		    set
+		    {
+		        this._descargaUrl = value;
+		    }
+		}
+		
 		private TipoDocumento _tipoDocumento;
 		public virtual TipoDocumento TipoDocumento 
 		{ 

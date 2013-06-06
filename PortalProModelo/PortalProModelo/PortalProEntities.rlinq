@@ -193,6 +193,9 @@
         <orm:field name="_extension" property="Extension" uniqueId="0a7746bc-3991-40f1-bad9-a73e674aa204" type="System.String">
           <orm:column name="Extension" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
         </orm:field>
+        <orm:field name="_descargaUrl" property="DescargaUrl" uniqueId="5ff156ce-7433-4d24-a8fe-ade99975522d" type="System.String">
+          <orm:column name="DescargaUrl" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        </orm:field>
         <orm:field name="_tipoDocumento" property="TipoDocumento" behavior="readwrite" uniqueId="53a0c1dc-0104-4fca-81d6-f8b864a739ef" type="PortalProModelo.TipoDocumento">
           <orm:reference uniqueId="44abc319-65e6-47aa-843a-8981c06944ac" />
         </orm:field>
@@ -466,6 +469,7 @@
       <Property Id="e6610a83-c792-4b42-8711-20e535c6bc72" name="DocumentoId" type="System.Int32" label="DocumentoId : System.Int32" identity="true" fieldName="_documentoId" />
       <Property Id="5fb9a084-d295-4739-bc29-2871bbd81407" name="NomFichero" label="NomFichero : String" fieldName="_nomFichero" />
       <Property Id="0a7746bc-3991-40f1-bad9-a73e674aa204" name="Extension" label="Extension : String" fieldName="_extension" />
+      <Property Id="5ff156ce-7433-4d24-a8fe-ade99975522d" name="DescargaUrl" label="DescargaUrl : String" fieldName="_descargaUrl" />
       <AssociationTargets>
         <Association Id="44abc319-65e6-47aa-843a-8981c06944ac" SourceMultiplicity="ZeroOne" name="DocumentoHasTipoDocumento">
           <DomainClassMoniker name="/PortalProContext/TipoDocumento" />

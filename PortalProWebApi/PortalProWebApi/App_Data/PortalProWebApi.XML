@@ -542,8 +542,25 @@
         <member name="M:PortalProWebApi.Controllers.UploadsController.PostFile(System.String,System.String)">
             <summary>
             Se utiliza par subir ficheros al servidor
+            el nombre completo del fichero a guardar se monta encadenando 
+            tk#tipo#nombre_del_fichero
+            Esta operación se realiza sobre el directorio de carga, habitualemnte 
+            \App_Data\Uploads
             </summary>
             <param name="tk">Tique de autorizacion (ver Login)</param>
+            <param name="tipo">Tipo del fichero subido según la acción TiposDocumentos</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.UploadsController.DeleteFile(System.String,System.String)">
+            <summary>
+            Elimina el fichero con ell nombre pasado en una variable en el body
+            el nombre completo del fichero a borrar se monta encadenando 
+            tk#tipo#nombre_del_fichero
+            Esta operación se realiza sobre el directorio de carga, habitualemnte 
+            \App_Data\Uploads
+            </summary>
+            <param name="tk"></param>
+            <param name="tipo"></param>
             <returns></returns>
         </member>
         <member name="M:PortalProWebApi.Controllers.UsuariosController.Get(System.String)">
