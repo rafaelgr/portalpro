@@ -12,7 +12,8 @@ namespace PortalProWebApi.Controllers
     public class DocumentosController : ApiController
     {
         /// <summary>
-        /// Obtiene todos los documentos de la base de datos
+        /// Obtiene todos los documentos de la base de datos. Lo que se devuelven los objetos tal cual
+        /// sin haber sido copiados a su directorio de descarga y sin haber propocionado el enlace para hacerla
         /// </summary>
         /// <param name="tk">Código del tique de autorización (Véase "Login")</param>
         /// <returns></returns>
@@ -40,7 +41,60 @@ namespace PortalProWebApi.Controllers
         }
 
         /// <summary>
-        /// Obtiene el documento cuyo ID corresponde con el pasado
+        /// Se obtienen todos los documentos pertenecientes a un poveedor.
+        /// Los documentos se copian al directorio de descarga y se proporciona su enlace en la propiedad "DescargaUrl"
+        /// </summary>
+        /// <param name="tk">Tique de autorización</param>
+        /// <param name="codigoProveedor">Código del proveedor del que se solcitan los documentos.</param>
+        /// <returns></returns>
+        public virtual IEnumerable<Documento> Get(string tk, string codigoProveedor)
+        {
+            using (PortalProContext ctx = new PortalProContext())
+            {
+                if (CntWebApiSeguridad.CheckTicket(tk, ctx))
+                {
+                    // comprobamos que el proveedor pasado existe
+                    int id = 0;
+                    bool res = int.TryParse(codigoProveedor, out id);
+                    Proveedor proveedor = (from p in ctx.Proveedors
+                                                     where p.ProveedorId == id
+                                                     select p).FirstOrDefault<Proveedor>();
+                    if (proveedor == null)
+                    {
+                        throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.Unauthorized, "Debe proporcionar un proveedor existente"));
+                    }
+                    IEnumerable<Documento> documentos = (from d in ctx.Documentos
+                                                         where d.Proveedor.ProveedorId == id
+                                                         select d).ToList<Documento>();
+                    // por cada documento hay que copiarlo al directorio de descarga
+                    // y proporcionar el enlace
+                    foreach (Documento doc in documentos)
+                    {
+                        string root = System.Web.HttpContext.Current.Server.MapPath("~/downloads");
+                        string resultado = PortalProWebUtility.ObtenerUrlDeDocumento(root, tk, doc, ctx);
+                        if (resultado != "")
+                        {
+                            throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.InternalServerError, resultado));
+                        }
+                    }
+                    // fetch estrategy, necesaria para poder devolver el grupo junto con cada usuariuo
+                    FetchStrategy fs = new FetchStrategy();
+                    fs.LoadWith<Documento>(x => x.Proveedor);
+                    fs.LoadWith<Documento>(x => x.TipoDocumento);
+                    documentos = ctx.CreateDetachedCopy<IEnumerable<Documento>>(documentos, fs);
+                    return documentos;
+                }
+                else
+                {
+                    throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.Unauthorized, "Se necesita tique de autorización (Documentos)"));
+                }
+            }
+        }
+
+        /// <summary>
+        /// Obtiene el documento cuyo ID corresponde con el pasado.
+        /// Cuando se devuelve el objeto documento en su url de descarga figura en enlace
+        /// para visualizarlo.
         /// </summary>
         /// <param name="id">Identificador único del grupo</param>
         /// <param name="tk">Código del tique de autorización (Véase "Login")</param>
@@ -56,8 +110,16 @@ namespace PortalProWebApi.Controllers
                                        select u).FirstOrDefault<Documento>();
                     if (documento != null)
                     {
-                        documento = ctx.CreateDetachedCopy<Documento>(documento, x => x.Proveedor, x => x.TipoDocumento);
-                        return documento;
+                        string root = System.Web.HttpContext.Current.Server.MapPath("~/downloads");
+                        string resultado = PortalProWebUtility.ObtenerUrlDeDocumento(root, tk, documento, ctx);
+                        if (resultado == "")
+                        {
+                            documento = ctx.CreateDetachedCopy<Documento>(documento, x => x.Proveedor, x => x.TipoDocumento);
+                            return documento;
+                        }else
+                        {
+                            throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.InternalServerError, resultado));
+                        }
                     }
                     else
                     {

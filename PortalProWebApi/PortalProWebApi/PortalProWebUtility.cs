@@ -81,8 +81,28 @@ namespace PortalProWebApi
 
         public static string ObtenerUrlDeDocumento(string webRoot, string tk, Documento doc, PortalProContext ctx)
         {
-            string url = "";
-            return url;
+            string mens = ""; // mensaje que devoveremos, si vacío todo OK
+            string[] listaFicheros; // lista de los ficheros contenidos en el directorio de carga
+            // lo primero de todo que no ha habido un error en el directorio 
+            if (!Directory.Exists(webRoot))
+            {
+                return "No existe el directorio de carga";
+            }
+            // Hay que copiar los ficheros al directorio de carga para obtener la url
+            // leer de parámetros la ubicación del repositorio.
+            string repo = ConfigurationManager.AppSettings["PortalProRepositorio"];
+            if (repo == null || repo == "")
+            {
+                return "No existe o está vació el parámetro de ubicación del repositorio en el Web.config";
+            }
+            // a partir de la información del documento copiar al directorio de descarga el 
+            // fichero en cuestión, identificado con el ticket y el tipo.
+            // En el propio objeto documento se monta la url
+            string fichero = Path.Combine(repo, doc.NomFichero);
+            string destino = Path.Combine(webRoot, String.Format("{0}_{1}", tk, doc.NomFichero));
+            File.Copy(fichero, destino, true);
+            doc.DescargaUrl = "/downloads/" + String.Format("{0}_{1}", tk, doc.NomFichero);
+            return mens;
         }
     }
 }

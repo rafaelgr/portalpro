@@ -326,6 +326,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\Uploads\" />
+    <Folder Include="downloads\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>

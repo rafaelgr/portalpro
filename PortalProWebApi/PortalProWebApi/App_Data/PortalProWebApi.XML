@@ -402,6 +402,41 @@
             </summary>
             <param name="documentPath">The physical path to XML document.</param>
         </member>
+        <member name="M:PortalProWebApi.Controllers.DocumentosController.Get(System.String)">
+            <summary>
+            Obtiene todos los documentos de la base de datos. Lo que se devuelven los objetos tal cual
+            sin haber sido copiados a su directorio de descarga y sin haber propocionado el enlace para hacerla
+            </summary>
+            <param name="tk">Código del tique de autorización (Véase "Login")</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.DocumentosController.Get(System.String,System.String)">
+            <summary>
+            Se obtienen todos los documentos pertenecientes a un poveedor.
+            Los documentos se copian al directorio de descarga y se proporciona su enlace en la propiedad "DescargaUrl"
+            </summary>
+            <param name="tk">Tique de autorización</param>
+            <param name="codigoProveedor">Código del proveedor del que se solcitan los documentos.</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.DocumentosController.Get(System.Int32,System.String)">
+            <summary>
+            Obtiene el documento cuyo ID corresponde con el pasado.
+            Cuando se devuelve el objeto documento en su url de descarga figura en enlace
+            para visualizarlo.
+            </summary>
+            <param name="id">Identificador único del grupo</param>
+            <param name="tk">Código del tique de autorización (Véase "Login")</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.DocumentosController.Delete(System.Int32,System.String)">
+            <summary>
+            Elimina el documento que coincide con el id pasado
+            </summary>
+            <param name="id">Identificador del documento a eliminar</param>
+            <param name="tk">Tique de autorización (Ver 'Login')</param>
+            <returns></returns>
+        </member>
         <member name="M:PortalProWebApi.Controllers.ProveedoresController.Get(System.String)">
             <summary>
             Obtiene todos los proveedores de la base de datos
@@ -663,7 +698,7 @@
         <member name="M:PortalProWebApi.PortalProWebUtility.ComprobarCargarFicherosProveedor(System.String,System.String,PortalProModelo.Proveedor,PortalProModelo.PortalProContext)">
             <summary>
             Comprueba que los ficheros necesarios para asociar a un proveedor están peresentes
-            Si esa comprobación es superada dá de alta / modifica los ficheros asociados.
+            Si esa comprobación es superada dá de alta los ficheros asociados.
             </summary>
             <param name="webRoot">Directorio en el que la carga ha dejado los ficheros</param>
             <param name="tk">El código de tique usado en este momento</param>
