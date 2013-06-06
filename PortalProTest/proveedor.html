@@ -472,6 +472,7 @@
             function formExit() {
                 // ocultar posibles mensajes de validación 
                 validator.hideMessages();
+                clearDownloads();
                 $("#proveedor-grid").show();
                 $("#proveedor-form").hide()
             }
@@ -630,7 +631,7 @@
                 }
             }
         </script>
-        <!-- Montaje de los controles para carga de documentos -->
+        <!-- Montaje de los controles para carga de documentos  y funciones auxiliares-->
         <script type="text/javascript">
             var uploadOptions = {
                 localization: {
@@ -747,6 +748,18 @@
                 if (resultado.length > 0) {
                     resultado[0].contador = 0;
                 }
+            }
+            // 
+            function clearDownloads() {
+                $.ajax({
+                    type: "DELETE",
+                    url: ari_hosts.webapi + "/api/documentos/?tk=" + getCookie("ari_tique"),
+                    dataType: "json",
+                    contentType: "application/json",
+                    success: function (data, textStatus) {
+                        // nada que decir
+                    }
+                });
             }
         </script>
         <!-- Script en arranque -->

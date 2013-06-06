@@ -6,6 +6,8 @@ using System.Net.Http;
 using System.Web.Http;
 using PortalProModelo;
 using Telerik.OpenAccess.FetchOptimization;
+using System.Configuration;
+using System.IO;
 
 namespace PortalProWebApi.Controllers
 {
@@ -149,16 +151,53 @@ namespace PortalProWebApi.Controllers
                      throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.Unauthorized, "Se necesita tique de autorización (Documentos)"));
                 }
                 // primero buscamos si un grupo con ese id existe
-                Documento usu = (from u in ctx.Documentos
+                Documento doc = (from u in ctx.Documentos
                                where u.DocumentoId == id
                                select u).FirstOrDefault<Documento>();
                 // existe?
-                if (usu == null)
+                if (doc == null)
                 {
                      throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotFound, "No hay un documento con el id proporcionado (Documentos)"));
                 }
-                ctx.Delete(usu);
-                ctx.SaveChanges();
+                // eliminamos el fichero del repositorio.
+                string repo = ConfigurationManager.AppSettings["PortalProRepositorio"];
+                if (repo != null && repo != "")
+                {
+                    string fichero = Path.Combine(repo, "\\", doc.NomFichero);
+                    File.Delete(fichero);
+                    ctx.Delete(doc);
+                    ctx.SaveChanges();
+                }
+                return true;
+            }
+        }
+
+        /// <summary>
+        /// Elimina del directorio de descarga los ficheros de ese tique. Su
+        /// utilidad es limpiar el directorio tras salir de formularios
+        /// </summary>
+        /// <param name="tk">Tique de autorización</param>
+        /// <returns></returns>
+        public virtual bool Delete(string tk)
+        {
+            using (PortalProContext ctx = new PortalProContext())
+            {
+                // comprobar el tique
+                if (!CntWebApiSeguridad.CheckTicket(tk, ctx))
+                {
+                    throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.Unauthorized, "Se necesita tique de autorización (Documentos)"));
+                }
+                // buscamos los ficheros del directorio de descargas que son de este tk
+                string root = System.Web.HttpContext.Current.Server.MapPath("~/downloads");
+                string[] ficheros = Directory.GetFiles(root);
+                var rs = (from f in ficheros
+                          where f.Contains(tk)
+                          select f);
+                string repo = ConfigurationManager.AppSettings["PortalProRepositorio"];
+                foreach (string fichero in rs)
+                {
+                    File.Delete(fichero);
+                }
                 return true;
             }
         }

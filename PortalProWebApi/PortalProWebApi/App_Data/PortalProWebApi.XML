@@ -437,6 +437,14 @@
             <param name="tk">Tique de autorización (Ver 'Login')</param>
             <returns></returns>
         </member>
+        <member name="M:PortalProWebApi.Controllers.DocumentosController.Delete(System.String)">
+            <summary>
+            Elimina del directorio de descarga los ficheros de ese tique. Su
+            utilidad es limpiar el directorio tras salir de formularios
+            </summary>
+            <param name="tk">Tique de autorización</param>
+            <returns></returns>
+        </member>
         <member name="M:PortalProWebApi.Controllers.ProveedoresController.Get(System.String)">
             <summary>
             Obtiene todos los proveedores de la base de datos
