@@ -110,7 +110,6 @@ function loadSideBar() {
 function checkAutorization() {
     // leemos si hay una cookie con el tique
     var tk = getCookie("ari_tique");
-    console.log("Tique:" + tk);
     // sin no la hay directamente al login
     if (typeof tk == "undefined") {
         console.log("Tique no definido");
@@ -166,6 +165,16 @@ function gup(name) {
         return "";
     else
         return results[1];
+}
+
+// searchInArry(array, id)
+// It searches inside the "array" of Json object
+// elements that match the "id" attribute
+function searchInArray(array, id) {
+    var result = $.grep(array, function (e) {
+        return e.id == id;
+    });
+    return result;
 }
 
 function moniker() {

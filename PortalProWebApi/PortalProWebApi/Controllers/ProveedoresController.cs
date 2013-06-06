@@ -105,8 +105,17 @@ namespace PortalProWebApi.Controllers
                                             where gp.GrupoProveedorId == grupoProveedorId
                                             select gp).FirstOrDefault<GrupoProveedor>();
                 }
-                ctx.SaveChanges();
-                return ctx.CreateDetachedCopy<Proveedor>(proveedor, x => x.GrupoProveedor);
+                var webRoot = System.Web.HttpContext.Current.Server.MapPath("~/App_Data/Uploads");
+                var res = PortalProWebUtility.ComprobarCargarFicherosProveedor(webRoot,tk,proveedor,ctx);
+                if (res != "")
+                {
+                    throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.InternalServerError, res));
+                }
+                else
+                {
+                    ctx.SaveChanges();
+                    return ctx.CreateDetachedCopy<Proveedor>(proveedor, x => x.GrupoProveedor);
+                }
             }
         }
 
@@ -193,5 +202,6 @@ namespace PortalProWebApi.Controllers
                 return true;
             }
         }
+        
     }
 }

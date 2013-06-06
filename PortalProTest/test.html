@@ -56,14 +56,19 @@
                 <div id="page-content" class="clearfix">
                     <div class="page-header position-relative">
                         <h1>
-                            Test <i class="icon-fighter-jet"></i>
+                            Test <i class="icon-coffee"></i>
                         </h1>
                     </div>
                     <div class="row-fluid">
                         <!-- PAGE CONTENT BEGINS HERE -->
                         <div class="span12">
-                            <label>Select the files you want to upload</label>
-                            <input name="files" id="filesu" type="file" />
+                            <label>Zona de pruebas</label>
+                            <div  id="zonaTest">
+                                <label>Entrada de búsqueda</label>
+                                <input type="text" id="entrada" />
+                                <button id="btnAccept">Aceptar</button>
+                                <div id="resultado"></div>
+                            </div>
                         </div>
                         <!-- PAGE CONTENT ENDS HERE -->
                     </div><!--/row-->
@@ -97,21 +102,30 @@
         <script src="js/config.js"></script>
         <!-- Scrip personalizado de apoyo -->
         <script type="text/javascript">
-
+            var lista = [{ id: "1", nombre: "uno" }, { id: "2", nombre: "dos" }, { id: "3", nombre: "tres" }, { id: "4", nombre: "cuatro" }];
+            function busqueda(l,id) {
+                var result = $.grep(lista, function (e) {
+                    return e.id == id;
+                });
+                return result;
+            }
 
         </script>
         <!-- Script en arranque -->
         <script type="text/javascript">
             (function ($) {
                 $(document).ready(function () {
-                    // en cualquier página hay que verificarcla autorización
+                    // en cualquier página hay que verificarla autorización
                     checkAutorization();
                     loadTopBar();
                     loadSideBar();
-                    $("#filesu").kendoUpload({
-                        async: {
-                            saveUrl: ari_hosts.webapi + "/api/uploads",
-                            autoUpload: true
+                    $("#btnAccept").click(function () {
+                        var id = $("#entrada").val();
+                        var resultado = busqueda(lista, id);
+                        if (resultado.length > 0) {
+                            $("#resultado").text(resultado[0].nombre);
+                        } else {
+                            $("#resultado").text("No encontrado");
                         }
                     });
                 });

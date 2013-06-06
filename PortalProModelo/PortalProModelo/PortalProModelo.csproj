@@ -90,6 +90,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CntWebApiSeguridad.cs" />
+    <Compile Include="Documento.generated.cs">
+      <DependentUpon>PortalProEntities.rlinq</DependentUpon>
+    </Compile>
     <Compile Include="GrupoProveedor.generated.cs">
       <DependentUpon>PortalProEntities.rlinq</DependentUpon>
     </Compile>
@@ -139,6 +142,8 @@
     <Content Include="SQL\PortalproConnection%282013-06-03 12-11-33%29.rlinq.sql" />
     <Content Include="SQL\PortalproConnection%282013-06-03 13-00-09%29.rlinq.sql" />
     <Content Include="SQL\PortalproConnection%282013-06-03 13-00-31%29.rlinq.sql" />
+    <Content Include="SQL\PortalproConnection%282013-06-06 10-24-53%29.rlinq.sql" />
+    <Content Include="SQL\PortalproConnection%282013-06-06 10-40-32%29.rlinq.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

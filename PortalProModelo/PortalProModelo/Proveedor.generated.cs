@@ -194,6 +194,19 @@ namespace PortalProModelo
 		    }
 		}
 		
+		private string _nif;
+		public virtual string Nif 
+		{ 
+		    get
+		    {
+		        return this._nif;
+		    }
+		    set
+		    {
+		        this._nif = value;
+		    }
+		}
+		
 		private GrupoProveedor _grupoProveedor;
 		public virtual GrupoProveedor GrupoProveedor 
 		{ 
@@ -204,6 +217,15 @@ namespace PortalProModelo
 		    set
 		    {
 		        this._grupoProveedor = value;
+		    }
+		}
+		
+		private IList<Documento> _documentos = new List<Documento>();
+		public virtual IList<Documento> Documentos 
+		{ 
+		    get
+		    {
+		        return this._documentos;
 		    }
 		}
 		

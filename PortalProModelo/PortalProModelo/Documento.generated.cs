@@ -23,49 +23,70 @@ using PortalProModelo;
 
 namespace PortalProModelo	
 {
-	public partial class TipoDocumento
+	public partial class Documento
 	{
-		private int _tipoDocumentoId;
-		public virtual int TipoDocumentoId 
+		private int _documentoId;
+		public virtual int DocumentoId 
 		{ 
 		    get
 		    {
-		        return this._tipoDocumentoId;
+		        return this._documentoId;
 		    }
 		    set
 		    {
-		        this._tipoDocumentoId = value;
+		        this._documentoId = value;
 		    }
 		}
 		
-		private string _nombre;
-		public virtual string Nombre 
+		private string _nomFichero;
+		public virtual string NomFichero 
 		{ 
 		    get
 		    {
-		        return this._nombre;
+		        return this._nomFichero;
 		    }
 		    set
 		    {
-		        this._nombre = value;
+		        this._nomFichero = value;
 		    }
 		}
 		
-		private IList<TipoDocumentoGrupoProveedor> _tipoDocumentoGrupoProveedors = new List<TipoDocumentoGrupoProveedor>();
-		public virtual IList<TipoDocumentoGrupoProveedor> TipoDocumentoGrupoProveedors 
+		private string _extension;
+		public virtual string Extension 
 		{ 
 		    get
 		    {
-		        return this._tipoDocumentoGrupoProveedors;
+		        return this._extension;
+		    }
+		    set
+		    {
+		        this._extension = value;
 		    }
 		}
 		
-		private IList<Documento> _documentos = new List<Documento>();
-		public virtual IList<Documento> Documentos 
+		private TipoDocumento _tipoDocumento;
+		public virtual TipoDocumento TipoDocumento 
 		{ 
 		    get
 		    {
-		        return this._documentos;
+		        return this._tipoDocumento;
+		    }
+		    set
+		    {
+		        this._tipoDocumento = value;
+		    }
+		}
+		
+		private Proveedor _proveedor;
+		public virtual Proveedor Proveedor 
+		{ 
+		    get
+		    {
+		        return this._proveedor;
+		    }
+		    set
+		    {
+		        this._proveedor = value;
 		    }
 		}
 		
