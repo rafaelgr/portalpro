@@ -73,13 +73,22 @@
                     <div class="row-fluid">
                         <div class="span12">
                             <label>
-                                Pruebas de acciones 
-                                <button id="btnAccion" class="btn btn-mini btn-primary" onclick="window.open('usuario.html');"><i class="icon-folder-open"></i></button>
+                                Pruebas de acciones
+                                <button id="btnAccion" class="btn btn-mini btn-primary" onclick="window.open('usuario.html');">
+                                    <i class="icon-folder-open"></i>
+                                </button>
                             </label>
 
                         </div>
                     </div>
-
+                    <div class="row-fluid">
+                        <div class="span10">
+                            <input type="file" id="id-input-file-1" />
+                        </div>
+                        <div class="span2">
+                            <button id="btnAcct" class="btn btn-primary btn-small remove">Enviar <i class="icon-upload-alt"></i></button>
+                        </div>
+                    </div>
                 </div><!--/#page-content-->
 
             </div><!-- #main-content -->
@@ -110,13 +119,18 @@
         <!-- Scrip personalizado de apoyo -->
         <script type="text/javascript">
             var lista = [{ id: "1", nombre: "uno" }, { id: "2", nombre: "dos" }, { id: "3", nombre: "tres" }, { id: "4", nombre: "cuatro" }];
-            function busqueda(l,id) {
+            
+            function busqueda(l, id) {
                 var result = $.grep(lista, function (e) {
                     return e.id == id;
                 });
                 return result;
             }
-
+            function cambio() {
+                alert("CAMBIO");
+            }
+        </script>
+        <script type="text/javascript">
         </script>
         <!-- Script en arranque -->
         <script type="text/javascript">
@@ -131,9 +145,30 @@
                         var resultado = busqueda(lista, id);
                         if (resultado.length > 0) {
                             $("#resultado").text(resultado[0].nombre);
-                        } else {
+                        }
+                        else {
                             $("#resultado").text("No encontrado");
                         }
+                    });
+                    $('#id-input-file-1').ace_file_input({
+                        no_file: 'Selecione un fichero ...',
+                        btn_choose: 'Seleccionar',
+                        btn_change: 'Cambiar',
+                        droppable: false,
+                        //onchange: function () {
+                        //    alert("OnChange Ace");
+                        //},
+                        //before_change: function (par1, par2, par3) {
+                        //    return par1;
+                        //},
+                        //before_remove: function (par1, par2, par3) {
+                        //    return par1;
+                        //},
+                        thumbnail: false //| true | large
+                        //whitelist:'gif|png|jpg|jpeg'
+                        //blacklist:'exe|php'
+                        //onchange:''
+                        //
                     });
                 });
             })(jQuery);
