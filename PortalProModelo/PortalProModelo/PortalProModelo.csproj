@@ -128,7 +128,9 @@
     </OpenAccessDeploy>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.Config" />
+    <None Include="App.Config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
     <None Include="PortalProEntities.rlinq.diagram">
       <DependentUpon>PortalProEntities.rlinq</DependentUpon>
@@ -145,6 +147,7 @@
     <Content Include="SQL\PortalproConnection%282013-06-06 10-24-53%29.rlinq.sql" />
     <Content Include="SQL\PortalproConnection%282013-06-06 10-40-32%29.rlinq.sql" />
     <Content Include="SQL\PortalproConnection%282013-06-06 13-10-08%29.rlinq.sql" />
+    <Content Include="SQL\PortalproConnection%282013-06-06 18-36-47%29.rlinq.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

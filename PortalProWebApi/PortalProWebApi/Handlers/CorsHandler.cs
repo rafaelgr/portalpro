@@ -34,7 +34,7 @@ namespace PortalProWebApi.Handlers
                     {
                         response.Headers.Add(AccessControlAllowMethods, accessControlRequestMethod);
                     }
-                    // FireFox doesn't have AccessControlRequestHeaders
+                    // FireFox and Opera doesn't have AccessControlRequestHeaders
                     bool controlFireFox = request.Headers.Contains(AccessControlRequestHeaders);
                     if (controlFireFox)
                     {

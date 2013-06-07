@@ -129,7 +129,7 @@
           <orm:column name="ProveedorId" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" backend-calculated="true" ado-type="Int32" />
         </orm:field>
         <orm:field name="_nombre" property="Nombre" uniqueId="6203caac-6a3d-497a-9c8c-105a7ad83343" type="System.String">
-          <orm:column name="Nombre" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+          <orm:column name="Nombre" sql-type="varchar" nullable="false" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
         </orm:field>
         <orm:field name="_calle" property="Calle" uniqueId="16fda250-befa-4dde-87c8-e33c1e5e3515" type="System.String">
           <orm:column name="Calle" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
@@ -164,20 +164,13 @@
         <orm:field name="_email" property="Email" uniqueId="b113550f-863f-4f81-9b15-bbd4a7beafe0" type="System.String">
           <orm:column name="Email" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
         </orm:field>
-        <orm:field name="_nif" property="Nif" uniqueId="f5142d9d-9def-4ed7-9f7c-b8c083655907" type="System.String">
-          <orm:column name="Nif" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
-        </orm:field>
+        <orm:field name="_nif" property="Nif" uniqueId="f5142d9d-9def-4ed7-9f7c-b8c083655907" type="System.String" />
         <orm:field name="_grupoProveedor" property="GrupoProveedor" behavior="readwrite" uniqueId="770bad8d-fa9f-4718-81ce-4d10a60b42b8" type="PortalProModelo.GrupoProveedor">
           <orm:reference uniqueId="b14ef8f6-9864-4a68-b3e8-b658ea48dedb" />
         </orm:field>
         <orm:field name="_documentos" property="Documentos" behavior="readwrite" uniqueId="0f1a945c-3975-4395-929f-2b2581c1e5ea" type="PortalProModelo.Documento">
           <orm:collection element-class="PortalProModelo.Documento" inverse-field="_proveedor" order-by="" uniqueId="9a7121ef-80bd-4a5d-bb91-69ca9f185752" />
         </orm:field>
-        <orm:index name="idx_Proveedor_GrupoProveedorId">
-          <orm:columnMapping>
-            <orm:column name="GrupoProveedorId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
-          </orm:columnMapping>
-        </orm:index>
       </orm:class>
       <orm:class name="Documento" use-default-mapping="true" uniqueId="170cdc07-d980-489a-8e5c-01d7f487cc30">
         <orm:identity>
@@ -264,7 +257,7 @@
   </orm:orm>
   <ModelSettings xmlns="">
     <AppConfigConnectionPropertyName>PortalproConnection</AppConfigConnectionPropertyName>
-    <AppConfigConnectionString>server=localhost;user id=root;password=aritel;persist security info=True;database=portalpro</AppConfigConnectionString>
+    <AppConfigConnectionString>server=portalpro.ariadnasoftware.com;user id=portalpro;password=aritel;persist security info=True;database=portalpro</AppConfigConnectionString>
     <NamingSettings>
       <ClassRules>
         <CaseMode>PascalCase</CaseMode>
