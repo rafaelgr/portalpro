@@ -69,5 +69,14 @@ namespace PortalProModelo
 		    }
 		}
 		
+		private IList<SolicitudProveedor> _solicitudProveedors = new List<SolicitudProveedor>();
+		public virtual IList<SolicitudProveedor> SolicitudProveedors 
+		{ 
+		    get
+		    {
+		        return this._solicitudProveedors;
+		    }
+		}
+		
 	}
 }

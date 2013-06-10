@@ -173,7 +173,7 @@ namespace PortalProWebApi.Controllers
         }
 
         /// <summary>
-        /// Elimina del directorio de descarga los ficheros de ese tique. Su
+        /// Elimina del directorio de descarga los ficheros de ese tique y los parciales que pudieran haber quedado. Su
         /// utilidad es limpiar el directorio tras salir de formularios
         /// </summary>
         /// <param name="tk">Tique de autorización</param>
@@ -183,7 +183,7 @@ namespace PortalProWebApi.Controllers
             using (PortalProContext ctx = new PortalProContext())
             {
                 // comprobar el tique
-                if (!CntWebApiSeguridad.CheckTicket(tk, ctx))
+                if (!CntWebApiSeguridad.CheckTicket(tk, ctx) && tk != "solicitud")
                 {
                     throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.Unauthorized, "Se necesita tique de autorización (Documentos)"));
                 }
@@ -192,6 +192,7 @@ namespace PortalProWebApi.Controllers
                 string[] ficheros = Directory.GetFiles(root);
                 var rs = (from f in ficheros
                           where f.Contains(tk)
+                          || f.Contains("BodyPart")
                           select f);
                 string repo = ConfigurationManager.AppSettings["PortalProRepositorio"];
                 foreach (string fichero in rs)

@@ -116,6 +116,14 @@ namespace PortalProModelo
 	    	}
 		}
 		
+		public IQueryable<SolicitudProveedor> SolicitudProveedors 
+		{
+	    	get
+	    	{
+	        	return this.GetAll<SolicitudProveedor>();
+	    	}
+		}
+		
 		public static BackendConfiguration GetBackendConfiguration()
 		{
 			BackendConfiguration backend = new BackendConfiguration();
@@ -164,6 +172,11 @@ namespace PortalProModelo
 		}
 
 		IQueryable<Documento> Documentos 
+		{ 
+			get;
+		}
+
+		IQueryable<SolicitudProveedor> SolicitudProveedors 
 		{ 
 			get;
 		}

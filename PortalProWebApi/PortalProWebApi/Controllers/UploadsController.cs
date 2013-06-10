@@ -21,14 +21,14 @@ namespace PortalProWebApi.Controllers
         /// Esta operación se realiza sobre el directorio de carga, habitualemnte 
         /// \App_Data\Uploads
         /// </summary>
-        /// <param name="tk">Tique de autorizacion (ver Login)</param>
+        /// <param name="tk">Tique de autorizacion o el valor "solicitud" (ver Login)</param>
         /// <param name="tipo">Tipo del fichero subido según la acción TiposDocumentos</param>
         /// <returns></returns>
         public bool PostFile(string tk, string tipo)
         {
             using (PortalProContext ctx = new PortalProContext())
             {
-                if (!CntWebApiSeguridad.CheckTicket(tk, ctx))
+                if (!CntWebApiSeguridad.CheckTicket(tk, ctx) && tk!= "solicitud")
                 {
                     throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.Unauthorized, "Se necesita tique de autorización (Carga de ficheros)"));
                 }
@@ -74,7 +74,7 @@ namespace PortalProWebApi.Controllers
         {
             using (PortalProContext ctx = new PortalProContext())
             {
-                if (!CntWebApiSeguridad.CheckTicket(tk, ctx))
+                if (!CntWebApiSeguridad.CheckTicket(tk, ctx) && tk != "solicitud")
                 {
                     throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.Unauthorized, "Se necesita tique de autorización (Carga de ficheros)"));
                 }

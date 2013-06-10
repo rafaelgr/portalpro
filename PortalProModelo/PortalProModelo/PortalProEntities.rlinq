@@ -105,6 +105,9 @@
         <orm:field name="_proveedors" property="Proveedors" behavior="readwrite" uniqueId="8b5ab442-ad7f-4531-a57d-54968a238004" type="PortalProModelo.Proveedor">
           <orm:collection element-class="PortalProModelo.Proveedor" inverse-field="_grupoProveedor" order-by="" uniqueId="b14ef8f6-9864-4a68-b3e8-b658ea48dedb" />
         </orm:field>
+        <orm:field name="_solicitudProveedors" property="SolicitudProveedors" behavior="readwrite" uniqueId="fd9b4352-ca32-4778-910b-7b2b188f8cff" type="PortalProModelo.SolicitudProveedor">
+          <orm:collection element-class="PortalProModelo.SolicitudProveedor" inverse-field="_grupoProveedor" order-by="" uniqueId="a6016d2b-968a-4597-977f-5973d26e08d3" />
+        </orm:field>
       </orm:class>
       <orm:class name="TipoDocumentoGrupoProveedor" uniqueId="99cb61cb-6dbf-482b-ae26-37ef6e297c5c">
         <orm:identity>
@@ -172,7 +175,8 @@
           <orm:collection element-class="PortalProModelo.Documento" inverse-field="_proveedor" order-by="" uniqueId="9a7121ef-80bd-4a5d-bb91-69ca9f185752" />
         </orm:field>
       </orm:class>
-      <orm:class name="Documento" use-default-mapping="true" uniqueId="170cdc07-d980-489a-8e5c-01d7f487cc30">
+      <orm:class name="Documento" uniqueId="170cdc07-d980-489a-8e5c-01d7f487cc30">
+        <orm:table name="Documento" />
         <orm:identity>
           <orm:key-generator name="autoinc" />
           <orm:single-field field-name="_documentoId" />
@@ -195,16 +199,35 @@
         <orm:field name="_proveedor" property="Proveedor" behavior="readwrite" uniqueId="eb1b112e-d445-4587-b57b-98943b4703dc" type="PortalProModelo.Proveedor">
           <orm:reference uniqueId="9a7121ef-80bd-4a5d-bb91-69ca9f185752" />
         </orm:field>
-        <orm:index name="idx_Documento_ProveedorId">
-          <orm:columnMapping>
-            <orm:column name="ProveedorId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
-          </orm:columnMapping>
-        </orm:index>
-        <orm:index name="idx_Documento_TipoDocumentoId">
-          <orm:columnMapping>
-            <orm:column name="TipoDocumentoId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
-          </orm:columnMapping>
-        </orm:index>
+        <orm:field name="_solicitudProveedor" property="SolicitudProveedor" behavior="readwrite" uniqueId="7004d2a0-a60a-43b1-a9e3-1240e5383abd" type="PortalProModelo.SolicitudProveedor">
+          <orm:reference uniqueId="38fb6818-4bb8-47aa-a77c-dbc923a4c7c5" />
+        </orm:field>
+      </orm:class>
+      <orm:class name="SolicitudProveedor" uniqueId="2335b462-3777-4219-b736-d4f1654eeb56">
+        <orm:identity>
+          <orm:key-generator name="autoinc" />
+          <orm:single-field field-name="_solicitudProveedorId" />
+        </orm:identity>
+        <orm:field name="_solicitudProveedorId" property="SolicitudProveedorId" uniqueId="9f138b7a-1fd2-4e8f-8a93-5d963f3ef14b" type="System.Int32" />
+        <orm:field name="_nombre" property="Nombre" uniqueId="344988d3-8d66-4280-848a-6aeaf3ae69eb" type="System.String" />
+        <orm:field name="_calle" property="Calle" uniqueId="7fd67bdf-3c74-4980-9b76-a2176971413e" type="System.String" />
+        <orm:field name="_ciudad" property="Ciudad" uniqueId="c5abb3b9-b134-4773-827e-a2945e250604" type="System.String" />
+        <orm:field name="_codPostal" property="CodPostal" uniqueId="60b5e9ac-ab29-4b72-a91b-520f622dce4a" type="System.String" />
+        <orm:field name="_provincia" property="Provincia" uniqueId="11605ab1-26da-411d-88bc-3495af2e1063" type="System.String" />
+        <orm:field name="_comunidad" property="Comunidad" uniqueId="fb331dae-4d5b-48c5-b3e5-d0348b58648b" type="System.String" />
+        <orm:field name="_pais" property="Pais" uniqueId="93bd1118-592a-47e5-8611-21fd8363d89e" type="System.String" />
+        <orm:field name="_telefono" property="Telefono" uniqueId="03336363-3c2f-4eba-ba1d-03358b4b8f02" type="System.String" />
+        <orm:field name="_fax" property="Fax" uniqueId="7d8b865f-08b6-4df6-ba64-02f501207f3a" type="System.String" />
+        <orm:field name="_movil" property="Movil" uniqueId="169139fb-21a0-4624-aafc-69bba5714964" type="System.String" />
+        <orm:field name="_url" property="Url" uniqueId="1433132e-e8da-4902-b838-72aec56e69c9" type="System.String" />
+        <orm:field name="_email" property="Email" uniqueId="e51d6629-6715-49a0-8afc-02d69cc0ab92" type="System.String" />
+        <orm:field name="_nif" property="Nif" uniqueId="c91d5836-9f64-4222-b6d8-eda8381d0e30" type="System.String" />
+        <orm:field name="_grupoProveedor" property="GrupoProveedor" behavior="readwrite" uniqueId="08cd3337-7360-4902-995d-381de10e73f3" type="PortalProModelo.GrupoProveedor">
+          <orm:reference uniqueId="a6016d2b-968a-4597-977f-5973d26e08d3" />
+        </orm:field>
+        <orm:field name="_documentos" property="Documentos" behavior="readwrite" uniqueId="eef56a64-62a5-4e99-a6e6-6a2029d5d26e" type="PortalProModelo.Documento">
+          <orm:collection element-class="PortalProModelo.Documento" inverse-field="_solicitudProveedor" order-by="" uniqueId="38fb6818-4bb8-47aa-a77c-dbc923a4c7c5" />
+        </orm:field>
       </orm:class>
     </orm:namespace>
     <orm:schema schema="">
@@ -248,6 +271,14 @@
         <orm:column name="Url" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
         <orm:column name="Email" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
       </orm:table>
+      <orm:table name="Documento">
+        <orm:column name="DocumentoId" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" backend-calculated="true" ado-type="Int32" />
+        <orm:column name="NomFichero" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        <orm:column name="Extension" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        <orm:column name="DescargaUrl" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        <orm:column name="TipoDocumentoId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+        <orm:column name="ProveedorId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+      </orm:table>
     </orm:schema>
     <orm:relational-naming-settings>
       <orm:remove-camel-case>False</orm:remove-camel-case>
@@ -257,7 +288,7 @@
   </orm:orm>
   <ModelSettings xmlns="">
     <AppConfigConnectionPropertyName>PortalproConnection</AppConfigConnectionPropertyName>
-    <AppConfigConnectionString>server=portalpro.ariadnasoftware.com;user id=portalpro;password=aritel;persist security info=True;database=portalpro</AppConfigConnectionString>
+    <AppConfigConnectionString>server=localhost;user id=root;password=aritel;persist security info=True;database=portalpro</AppConfigConnectionString>
     <NamingSettings>
       <ClassRules>
         <CaseMode>PascalCase</CaseMode>
@@ -378,6 +409,9 @@
         <classHasNavigationalProperties Id="32e956ba-412d-4e16-bb19-2d7a31c4665a">
           <NavigationalProperty Id="8b5ab442-ad7f-4531-a57d-54968a238004" name="Proveedors" type="IList&lt;Proveedor&gt;" label="Proveedors : IList&lt;Proveedor&gt;" nullable="true" kind="Persistent" fieldName="_proveedors" isDependent="false" isManaged="false" />
         </classHasNavigationalProperties>
+        <classHasNavigationalProperties Id="d96a500e-236b-42c9-af91-f3a4c5c58ce7">
+          <NavigationalProperty Id="fd9b4352-ca32-4778-910b-7b2b188f8cff" name="SolicitudProveedors" type="IList&lt;SolicitudProveedor&gt;" label="SolicitudProveedors : IList&lt;SolicitudProveedor&gt;" nullable="true" kind="Persistent" fieldName="_solicitudProveedors" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
       </navigationalProperties>
     </DomainClass>
     <DomainClass Id="99cb61cb-6dbf-482b-ae26-37ef6e297c5c" name="TipoDocumentoGrupoProveedor" namespace="PortalProModelo" showPropertiesCompartment="true" identityMechanism="DatabaseServerCalculated" showNavigationCompartment="true" showImplementationCompartment="true">
@@ -490,6 +524,19 @@
             </associationDefinesSourceProperty>
           </sourceNavigationalProperty>
         </Association>
+        <Association Id="38fb6818-4bb8-47aa-a77c-dbc923a4c7c5" SourceMultiplicity="ZeroOne" name="DocumentoHasSolicitudProveedor">
+          <DomainClassMoniker name="/PortalProContext/SolicitudProveedor" />
+          <targetNavigationalProperty>
+            <associationDefinesTargetProperty Id="c8f0b12e-036e-4b08-aafa-cf6218b5f55e">
+              <NavigationalPropertyMoniker name="/PortalProContext/SolicitudProveedor/Documentos" />
+            </associationDefinesTargetProperty>
+          </targetNavigationalProperty>
+          <sourceNavigationalProperty>
+            <associationDefinesSourceProperty Id="7aa9df1e-faa9-4e72-a515-e5e0f53f95a0">
+              <NavigationalPropertyMoniker name="/PortalProContext/Documento/SolicitudProveedor" />
+            </associationDefinesSourceProperty>
+          </sourceNavigationalProperty>
+        </Association>
       </AssociationTargets>
       <navigationalProperties>
         <classHasNavigationalProperties Id="8a0b93e5-ea04-456a-b86f-ee2eca3853ee">
@@ -497,6 +544,48 @@
         </classHasNavigationalProperties>
         <classHasNavigationalProperties Id="0ce7e50c-6626-4fb8-bba8-f435d798a48f">
           <NavigationalProperty Id="eb1b112e-d445-4587-b57b-98943b4703dc" name="Proveedor" type="Proveedor" label="Proveedor : Proveedor" nullable="true" kind="Persistent" fieldName="_proveedor" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
+        <classHasNavigationalProperties Id="e447526c-a2b3-48f4-bbc3-b6435d4defa5">
+          <NavigationalProperty Id="7004d2a0-a60a-43b1-a9e3-1240e5383abd" name="SolicitudProveedor" type="SolicitudProveedor" label="SolicitudProveedor : SolicitudProveedor" nullable="true" kind="Persistent" fieldName="_solicitudProveedor" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
+      </navigationalProperties>
+    </DomainClass>
+    <DomainClass Id="2335b462-3777-4219-b736-d4f1654eeb56" name="SolicitudProveedor" namespace="PortalProModelo" showPropertiesCompartment="true" identityMechanism="DatabaseServerCalculated" showNavigationCompartment="true" showImplementationCompartment="true">
+      <Property Id="9f138b7a-1fd2-4e8f-8a93-5d963f3ef14b" name="SolicitudProveedorId" type="System.Int32" label="SolicitudProveedorId : System.Int32" identity="true" fieldName="_solicitudProveedorId" />
+      <Property Id="344988d3-8d66-4280-848a-6aeaf3ae69eb" name="Nombre" label="Nombre : String" fieldName="_nombre" />
+      <Property Id="7fd67bdf-3c74-4980-9b76-a2176971413e" name="Calle" label="Calle : String" fieldName="_calle" />
+      <Property Id="c5abb3b9-b134-4773-827e-a2945e250604" name="Ciudad" label="Ciudad : String" fieldName="_ciudad" />
+      <Property Id="60b5e9ac-ab29-4b72-a91b-520f622dce4a" name="CodPostal" label="CodPostal : String" fieldName="_codPostal" />
+      <Property Id="11605ab1-26da-411d-88bc-3495af2e1063" name="Provincia" label="Provincia : String" fieldName="_provincia" />
+      <Property Id="fb331dae-4d5b-48c5-b3e5-d0348b58648b" name="Comunidad" label="Comunidad : String" fieldName="_comunidad" />
+      <Property Id="93bd1118-592a-47e5-8611-21fd8363d89e" name="Pais" label="Pais : String" fieldName="_pais" />
+      <Property Id="03336363-3c2f-4eba-ba1d-03358b4b8f02" name="Telefono" label="Telefono : String" fieldName="_telefono" />
+      <Property Id="7d8b865f-08b6-4df6-ba64-02f501207f3a" name="Fax" label="Fax : String" fieldName="_fax" />
+      <Property Id="169139fb-21a0-4624-aafc-69bba5714964" name="Movil" label="Movil : String" fieldName="_movil" />
+      <Property Id="1433132e-e8da-4902-b838-72aec56e69c9" name="Url" label="Url : String" fieldName="_url" />
+      <Property Id="e51d6629-6715-49a0-8afc-02d69cc0ab92" name="Email" label="Email : String" fieldName="_email" />
+      <Property Id="c91d5836-9f64-4222-b6d8-eda8381d0e30" name="Nif" label="Nif : String" fieldName="_nif" />
+      <AssociationTargets>
+        <Association Id="a6016d2b-968a-4597-977f-5973d26e08d3" SourceMultiplicity="ZeroOne" name="SolicitudProveedorHasGrupoProveedor">
+          <DomainClassMoniker name="/PortalProContext/GrupoProveedor" />
+          <targetNavigationalProperty>
+            <associationDefinesTargetProperty Id="969ff0f6-918d-4ec8-95cb-59dd3ea5352e">
+              <NavigationalPropertyMoniker name="/PortalProContext/GrupoProveedor/SolicitudProveedors" />
+            </associationDefinesTargetProperty>
+          </targetNavigationalProperty>
+          <sourceNavigationalProperty>
+            <associationDefinesSourceProperty Id="8079ec38-354f-432c-82c1-cf0c729533b4">
+              <NavigationalPropertyMoniker name="/PortalProContext/SolicitudProveedor/GrupoProveedor" />
+            </associationDefinesSourceProperty>
+          </sourceNavigationalProperty>
+        </Association>
+      </AssociationTargets>
+      <navigationalProperties>
+        <classHasNavigationalProperties Id="1b149754-a932-45d2-a528-f826f087567f">
+          <NavigationalProperty Id="08cd3337-7360-4902-995d-381de10e73f3" name="GrupoProveedor" type="GrupoProveedor" label="GrupoProveedor : GrupoProveedor" nullable="true" kind="Persistent" fieldName="_grupoProveedor" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
+        <classHasNavigationalProperties Id="47edfb22-74db-4e1c-8758-c230ec239322">
+          <NavigationalProperty Id="eef56a64-62a5-4e99-a6e6-6a2029d5d26e" name="Documentos" type="IList&lt;Documento&gt;" label="Documentos : IList&lt;Documento&gt;" nullable="true" kind="Persistent" fieldName="_documentos" isDependent="false" isManaged="false" />
         </classHasNavigationalProperties>
       </navigationalProperties>
     </DomainClass>
@@ -512,6 +601,7 @@
         <entitySetProperty name="TipoDocumentoGrupoProveedors" namespace="PortalProModelo" type="TipoDocumentoGrupoProveedor" label="TipoDocumentoGrupoProveedors : IQueryable&lt;PortalProModelo.TipoDocumentoGrupoProveedor&gt;" />
         <entitySetProperty name="Proveedors" namespace="PortalProModelo" type="Proveedor" label="Proveedors : IQueryable&lt;PortalProModelo.Proveedor&gt;" />
         <entitySetProperty name="Documentos" namespace="PortalProModelo" type="Documento" label="Documentos : IQueryable&lt;PortalProModelo.Documento&gt;" />
+        <entitySetProperty name="SolicitudProveedors" namespace="PortalProModelo" type="SolicitudProveedor" label="SolicitudProveedors : IQueryable&lt;PortalProModelo.SolicitudProveedor&gt;" />
       </domainContainer>
     </domainModelHasDomainContext>
   </domainContext>

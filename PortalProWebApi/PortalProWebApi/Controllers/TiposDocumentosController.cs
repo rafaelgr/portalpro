@@ -37,7 +37,7 @@ namespace PortalProWebApi.Controllers
         /// <summary>
         /// Devuelve la lista de los tipos de documentos asociados al grupo de usuarios cuyo id correspone a la cadena pasada
         /// </summary>
-        /// <param name="tk">Tique obtienido en el login</param>
+        /// <param name="tk">Tique obtienido en el login se puede forzar con el valor "solicitud"</param>
         /// <param name="grupoCode">Identificador de grupo de proveedor pasado como cadena</param>
         /// <returns></returns>
         public virtual IList<TipoDocumento> Get(string tk, string grupoCode)
@@ -45,7 +45,7 @@ namespace PortalProWebApi.Controllers
 
             using (PortalProContext ctx = new PortalProContext())
             {
-                if (CntWebApiSeguridad.CheckTicket(tk, ctx))
+                if (CntWebApiSeguridad.CheckTicket(tk, ctx) || tk=="solicitud")
                 {
                     int id = 0;
                     bool res = int.TryParse(grupoCode, out id);
@@ -74,6 +74,10 @@ namespace PortalProWebApi.Controllers
                 }
             }
         }
+
+
+
+
 
         /// <summary>
         /// Obtiene un tipo de documento cuyo ID corresponde con el pasado

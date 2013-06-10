@@ -17,13 +17,12 @@ namespace PortalProWebApi.Controllers
         /// <returns></returns>
         public virtual IEnumerable<GrupoProveedor> Get(string tk)
         {
-            
             using (PortalProContext ctx = new PortalProContext())
             {
                 if (CntWebApiSeguridad.CheckTicket(tk, ctx))
                 {
                     IEnumerable<GrupoProveedor> gruposProveedores = (from gp in ctx.GrupoProveedors
-                                                                select gp).ToList<GrupoProveedor>();
+                                                                     select gp).ToList<GrupoProveedor>();
                     gruposProveedores = ctx.CreateDetachedCopy<IEnumerable<GrupoProveedor>>(gruposProveedores);
                     return gruposProveedores;
                 }
@@ -47,8 +46,8 @@ namespace PortalProWebApi.Controllers
                 if (CntWebApiSeguridad.CheckTicket(tk, ctx))
                 {
                     GrupoProveedor grupoProveedor = (from gp in ctx.GrupoProveedors
-                                                 where gp.GrupoProveedorId == id
-                                                 select gp).FirstOrDefault<GrupoProveedor>();
+                                                     where gp.GrupoProveedorId == id
+                                                     select gp).FirstOrDefault<GrupoProveedor>();
                     if (grupoProveedor != null)
                     {
                         grupoProveedor = ctx.CreateDetachedCopy<GrupoProveedor>(grupoProveedor);
@@ -67,6 +66,31 @@ namespace PortalProWebApi.Controllers
         }
 
         /// <summary>
+        /// Obtiene un grupo de proveedores cuyo ID corresponde con el pasado
+        /// en este caso no necesita tique porque es para solicitudes.
+        /// </summary>
+        /// <param name="id">Identificador único del grupo</param>
+        /// <returns></returns>
+        public virtual GrupoProveedor Get(int id)
+        {
+            using (PortalProContext ctx = new PortalProContext())
+            {
+                GrupoProveedor grupoProveedor = (from gp in ctx.GrupoProveedors
+                                                 where gp.GrupoProveedorId == id
+                                                 select gp).FirstOrDefault<GrupoProveedor>();
+                if (grupoProveedor != null)
+                {
+                    grupoProveedor = ctx.CreateDetachedCopy<GrupoProveedor>(grupoProveedor);
+                    return grupoProveedor;
+                }
+                else
+                {
+                    throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotFound, "No hay un grupo con el id proporcionado (Grupo de proveedores)"));
+                }
+            }
+        }
+
+        /// <summary>
         /// Crear un nuevo grupo de proveedores
         /// </summary>
         /// <param name="grupoProveedor">Objeto a crear, el atributo GrupoProveedorId lo genera la aplicación y es devuelto en el objeto incluido en la respuesta.</param>
@@ -77,7 +101,7 @@ namespace PortalProWebApi.Controllers
             using (PortalProContext ctx = new PortalProContext())
             {
                 // comprobar el tique
-                if (!CntWebApiSeguridad.CheckTicket(tk,ctx))
+                if (!CntWebApiSeguridad.CheckTicket(tk, ctx))
                 {
                     throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.Unauthorized, "Se necesita tique de autorización (Grupo de proveedores)"));
                 }
@@ -116,8 +140,8 @@ namespace PortalProWebApi.Controllers
                 }
                 // primero buscamos si un grupo con ese id existe
                 GrupoProveedor gp = (from g in ctx.GrupoProveedors
-                                   where g.GrupoProveedorId == id
-                                   select g).FirstOrDefault<GrupoProveedor>();
+                                     where g.GrupoProveedorId == id
+                                     select g).FirstOrDefault<GrupoProveedor>();
                 // existe?
                 if (gp == null)
                 {
@@ -147,8 +171,8 @@ namespace PortalProWebApi.Controllers
                 }
                 // primero buscamos si un grupo con ese id existe
                 GrupoProveedor gu = (from g in ctx.GrupoProveedors
-                                   where g.GrupoProveedorId == id
-                                   select g).FirstOrDefault<GrupoProveedor>();
+                                     where g.GrupoProveedorId == id
+                                     select g).FirstOrDefault<GrupoProveedor>();
                 // existe?
                 if (gu == null)
                 {

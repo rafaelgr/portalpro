@@ -402,6 +402,41 @@
             </summary>
             <param name="documentPath">The physical path to XML document.</param>
         </member>
+        <member name="M:PortalProWebApi.Controllers.SolicitudProveedoresController.Get(System.String)">
+            <summary>
+            Obtiene todos las solicitudes de proveedores de la base de datos
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.SolicitudProveedoresController.Get(System.Int32)">
+            <summary>
+            Obtiene la solicitud cuyo ID corresponde con el pasado
+            </summary>
+            <param name="id">Identificador único de la solicitud</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.SolicitudProveedoresController.Post(PortalProModelo.SolicitudProveedor)">
+            <summary>
+            Crear una nueva solicitud
+            </summary>
+            <param name="SolicitudProveedor">Objeto a crear, el atributo SolicitudProveedorId lo genera la aplicación y es devuelto en el objeto incluido en la respuesta.</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.SolicitudProveedoresController.Put(System.Int32,PortalProModelo.SolicitudProveedor)">
+            <summary>
+            Modificar una solicitud. En el cuerpo del mensaje se envía en el formato adecuado el objeto con los datos modificados
+            </summary>
+            <param name="id"> Identificador único del grupo </param>
+            <param name="proveedor">Grupo de proveedor con los valores que se desean en sus atributos</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.SolicitudProveedoresController.Delete(System.Int32)">
+            <summary>
+            Elimina la solicitud que coincide con el id pasado
+            </summary>
+            <param name="id">Identificador del proveedor a eliminar</param>
+            <returns></returns>
+        </member>
         <member name="M:PortalProWebApi.Controllers.DocumentosController.Get(System.String)">
             <summary>
             Obtiene todos los documentos de la base de datos. Lo que se devuelven los objetos tal cual
@@ -439,7 +474,7 @@
         </member>
         <member name="M:PortalProWebApi.Controllers.DocumentosController.Delete(System.String)">
             <summary>
-            Elimina del directorio de descarga los ficheros de ese tique. Su
+            Elimina del directorio de descarga los ficheros de ese tique y los parciales que pudieran haber quedado. Su
             utilidad es limpiar el directorio tras salir de formularios
             </summary>
             <param name="tk">Tique de autorización</param>
@@ -500,6 +535,14 @@
             <param name="tk">Código del tique de autorización (Véase "Login")</param>
             <returns></returns>
         </member>
+        <member name="M:PortalProWebApi.Controllers.GruposProveedoresController.Get(System.Int32)">
+            <summary>
+            Obtiene un grupo de proveedores cuyo ID corresponde con el pasado
+            en este caso no necesita tique porque es para solicitudes.
+            </summary>
+            <param name="id">Identificador único del grupo</param>
+            <returns></returns>
+        </member>
         <member name="M:PortalProWebApi.Controllers.GruposProveedoresController.Post(PortalProModelo.GrupoProveedor,System.String)">
             <summary>
             Crear un nuevo grupo de proveedores
@@ -536,7 +579,7 @@
             <summary>
             Devuelve la lista de los tipos de documentos asociados al grupo de usuarios cuyo id correspone a la cadena pasada
             </summary>
-            <param name="tk">Tique obtienido en el login</param>
+            <param name="tk">Tique obtienido en el login se puede forzar con el valor "solicitud"</param>
             <param name="grupoCode">Identificador de grupo de proveedor pasado como cadena</param>
             <returns></returns>
         </member>
@@ -590,7 +633,7 @@
             Esta operación se realiza sobre el directorio de carga, habitualemnte 
             \App_Data\Uploads
             </summary>
-            <param name="tk">Tique de autorizacion (ver Login)</param>
+            <param name="tk">Tique de autorizacion o el valor "solicitud" (ver Login)</param>
             <param name="tipo">Tipo del fichero subido según la acción TiposDocumentos</param>
             <returns></returns>
         </member>
@@ -711,6 +754,17 @@
             <param name="webRoot">Directorio en el que la carga ha dejado los ficheros</param>
             <param name="tk">El código de tique usado en este momento</param>
             <param name="proveedor">Proveedor al que asociarán los ficheros</param>
+            <param name="ctx">Contexto de OpenAccess usado por el proceso.</param>
+            <returns>Una cadena vacía en el caso de que todo haya sido correcto y si no el mensaje explicativo</returns>
+        </member>
+        <member name="M:PortalProWebApi.PortalProWebUtility.ComprobarCargarFicherosSolicitudProveedor(System.String,PortalProModelo.SolicitudProveedor,PortalProModelo.PortalProContext)">
+            <summary>
+            Comprueba que los ficheros necesarios para asociar a una solicitud de proveedor están peresentes
+            Si esa comprobación es superada dá de alta los ficheros asociados.
+            </summary>
+            <param name="webRoot">Directorio en el que la carga ha dejado los ficheros</param>
+            <param name="tk">El código de tique usado en este momento</param>
+            <param name="solProveedor">Proveedor al que asociarán los ficheros</param>
             <param name="ctx">Contexto de OpenAccess usado por el proceso.</param>
             <returns>Una cadena vacía en el caso de que todo haya sido correcto y si no el mensaje explicativo</returns>
         </member>
