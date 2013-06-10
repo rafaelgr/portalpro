@@ -33,6 +33,8 @@ namespace PortalProWebApi.Handlers
                     if (accessControlRequestMethod != null)
                     {
                         response.Headers.Add(AccessControlAllowMethods, accessControlRequestMethod);
+                        // This access control necessary for Autoupload (kendo UI)
+                        response.Headers.Add("Access-Control-Allow-Credentials", "true");
                     }
                     // FireFox and Opera doesn't have AccessControlRequestHeaders
                     bool controlFireFox = request.Headers.Contains(AccessControlRequestHeaders);

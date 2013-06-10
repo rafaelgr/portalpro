@@ -56,6 +56,7 @@ namespace PortalProWebApi.Controllers
                     Content = new StringContent("")
                 };
             });
+            HttpContext.Current.Response.AddHeader("Access-Control-Allow-Credentials", "true");
             return true;
         }
         /// <summary>
@@ -86,6 +87,8 @@ namespace PortalProWebApi.Controllers
             fichero = String.Format("{0}#{1}#{2}", tk, tipo, fichero);
             string destino = Path.Combine(root, fichero);
             File.Delete(destino);
+            // This access control necessary for Autoupload (kendo UI)
+            HttpContext.Current.Response.AddHeader("Access-Control-Allow-Credentials", "true");
             return true;
         }
     }
