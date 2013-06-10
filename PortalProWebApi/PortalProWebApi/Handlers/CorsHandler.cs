@@ -26,30 +26,31 @@ namespace PortalProWebApi.Handlers
             {
                 if (isPreflightRequest)
                 {
-                    HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
-                    response.Headers.Add(AccessControlAllowOrigin, request.Headers.GetValues(Origin).First());
+                    return Task.Factory.StartNew<HttpResponseMessage>(() =>
+                    {
+                        HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
+                        response.Headers.Add(AccessControlAllowOrigin, request.Headers.GetValues(Origin).First());
 
-                    string accessControlRequestMethod = request.Headers.GetValues(AccessControlRequestMethod).FirstOrDefault();
-                    if (accessControlRequestMethod != null)
-                    {
-                        response.Headers.Add(AccessControlAllowMethods, accessControlRequestMethod);
-                        // This access control necessary for Autoupload (kendo UI)
-                        response.Headers.Add("Access-Control-Allow-Credentials", "true");
-                    }
-                    // FireFox and Opera doesn't have AccessControlRequestHeaders
-                    bool controlFireFox = request.Headers.Contains(AccessControlRequestHeaders);
-                    if (controlFireFox)
-                    {
-                        string requestedHeaders = string.Join(", ", request.Headers.GetValues(AccessControlRequestHeaders));
-                        if (!string.IsNullOrEmpty(requestedHeaders))
+                        string accessControlRequestMethod = request.Headers.GetValues(AccessControlRequestMethod).FirstOrDefault();
+                        if (accessControlRequestMethod != null)
                         {
-                            response.Headers.Add(AccessControlAllowHeaders, requestedHeaders);
+                            response.Headers.Add(AccessControlAllowMethods, accessControlRequestMethod);
+                            response.Headers.Add("Access-Control-Allow-Credentials", "true"); // realated toa problem with Autoupload (Kendo UI)
                         }
-                    }
 
-                    TaskCompletionSource<HttpResponseMessage> tcs = new TaskCompletionSource<HttpResponseMessage>();
-                    tcs.SetResult(response);
-                    return tcs.Task;
+                        // FireFox and Opera don't have AccessControlRequestHeaders
+                        bool controlFireFoxOpera = request.Headers.Contains(AccessControlRequestHeaders);
+                        if (controlFireFoxOpera)
+                        {
+                            string requestedHeaders = string.Join(", ", request.Headers.GetValues(AccessControlRequestHeaders));
+                            if (!string.IsNullOrEmpty(requestedHeaders))
+                            {
+                                response.Headers.Add(AccessControlAllowHeaders, requestedHeaders);
+                            }
+                        }
+
+                        return response;
+                    }, cancellationToken);
                 }
                 else
                 {
@@ -58,7 +59,7 @@ namespace PortalProWebApi.Handlers
                         HttpResponseMessage resp = t.Result;
                         resp.Headers.Add(AccessControlAllowOrigin, request.Headers.GetValues(Origin).First());
                         return resp;
-                    });
+                    }, TaskContinuationOptions.ExecuteSynchronously);   // ### Need to ExecuteSynchronously as doing Asyc hangs the app
                 }
             }
             else
@@ -66,5 +67,54 @@ namespace PortalProWebApi.Handlers
                 return base.SendAsync(request, cancellationToken);
             }
         }
+
+        //protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+        //{
+        //    bool isCorsRequest = request.Headers.Contains(Origin);
+        //    bool isPreflightRequest = request.Method == HttpMethod.Options;
+        //    if (isCorsRequest)
+        //    {
+        //        if (isPreflightRequest)
+        //        {
+        //            HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
+        //            response.Headers.Add(AccessControlAllowOrigin, request.Headers.GetValues(Origin).First());
+
+        //            string accessControlRequestMethod = request.Headers.GetValues(AccessControlRequestMethod).FirstOrDefault();
+        //            if (accessControlRequestMethod != null)
+        //            {
+        //                response.Headers.Add(AccessControlAllowMethods, accessControlRequestMethod);
+        //                // This access control necessary for Autoupload (kendo UI)
+        //                response.Headers.Add("Access-Control-Allow-Credentials", "true");
+        //            }
+        //            // FireFox and Opera doesn't have AccessControlRequestHeaders
+        //            bool controlFireFox = request.Headers.Contains(AccessControlRequestHeaders);
+        //            if (controlFireFox)
+        //            {
+        //                string requestedHeaders = string.Join(", ", request.Headers.GetValues(AccessControlRequestHeaders));
+        //                if (!string.IsNullOrEmpty(requestedHeaders))
+        //                {
+        //                    response.Headers.Add(AccessControlAllowHeaders, requestedHeaders);
+        //                }
+        //            }
+
+        //            TaskCompletionSource<HttpResponseMessage> tcs = new TaskCompletionSource<HttpResponseMessage>();
+        //            tcs.SetResult(response);
+        //            return tcs.Task;
+        //        }
+        //        else
+        //        {
+        //            return base.SendAsync(request, cancellationToken).ContinueWith<HttpResponseMessage>(t =>
+        //            {
+        //                HttpResponseMessage resp = t.Result;
+        //                resp.Headers.Add(AccessControlAllowOrigin, request.Headers.GetValues(Origin).First());
+        //                return resp;
+        //            });
+        //        }
+        //    }
+        //    else
+        //    {
+        //        return base.SendAsync(request, cancellationToken);
+        //    }
+        //}
     }
 }
