@@ -37,13 +37,13 @@ namespace PortalProWebApi.Controllers
         /// Obtiene un grupo de proveedores cuyo ID corresponde con el pasado
         /// </summary>
         /// <param name="id">Identificador único del grupo</param>
-        /// <param name="tk">Código del tique de autorización (Véase "Login")</param>
+        /// <param name="tk">Código del tique de autorización (Véase "Login"), admite "solicitud"</param>
         /// <returns></returns>
         public virtual GrupoProveedor Get(int id, string tk)
         {
             using (PortalProContext ctx = new PortalProContext())
             {
-                if (CntWebApiSeguridad.CheckTicket(tk, ctx))
+                if (CntWebApiSeguridad.CheckTicket(tk, ctx) || tk == "solicitud")
                 {
                     GrupoProveedor grupoProveedor = (from gp in ctx.GrupoProveedors
                                                      where gp.GrupoProveedorId == id

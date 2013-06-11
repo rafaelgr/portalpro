@@ -21,7 +21,7 @@ namespace PortalProWebApi.Controllers
         /// Esta operación se realiza sobre el directorio de carga, habitualemnte 
         /// \App_Data\Uploads
         /// </summary>
-        /// <param name="tk">Tique de autorizacion o el valor "solicitud" (ver Login)</param>
+        /// <param name="tk">Tique de autorizacion o el valor "solicitud" (ver Login). Admite el caso "solicitud"</param>
         /// <param name="tipo">Tipo del fichero subido según la acción TiposDocumentos</param>
         /// <returns></returns>
         public bool PostFile(string tk, string tipo)
@@ -67,8 +67,8 @@ namespace PortalProWebApi.Controllers
         /// Esta operación se realiza sobre el directorio de carga, habitualemnte 
         /// \App_Data\Uploads
         /// </summary>
-        /// <param name="tk"></param>
-        /// <param name="tipo"></param>
+        /// <param name="tk">Tique de autorización, admite "solicitud"</param>
+        /// <param name="tipo">Tipo del fichero a borra</param>
         /// <returns></returns>
         public bool DeleteFile(string tk, string tipo)
         {

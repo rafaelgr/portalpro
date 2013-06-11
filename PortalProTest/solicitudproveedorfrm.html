@@ -138,6 +138,10 @@
                             <h5>
                                 <span class="blue">Ficheros asociados</span>
                             </h5>
+                            <p class="blue">
+                                Según su grupo de proveedor necesitará aportar un tipo de documentos u otros. 
+                                Seleccione los ficheros que en formato PDF contienen la documentación que se solicita en cada apartado.
+                            </p>
                         </div>
                         <hr class="dotted" />
                         <div class="row-fluid" id="ficheros">
@@ -266,7 +270,7 @@
             function loadData(id) {
                 $.ajax({
                     type: "GET",
-                    url: ari_hosts.webapi + "/api/proveedores/" + id + "/?tk=" + getCookie("ari_tique"),
+                    url: ari_hosts.webapi + "/api/solicitudesproveedores/" + id + "/?tk=solicitud",
                     dataType: "json",
                     contentType: "application/json",
                     success: function (data, textStatus) {
@@ -324,7 +328,7 @@
             function loadGrupoProveedor(id) {
                 $.ajax({
                     type: "GET",
-                    url: ari_hosts.webapi + "/api/GruposProveedores/" + id,
+                    url: ari_hosts.webapi + "/api/GruposProveedores/" + id +"?tk=solicitud",
                     dataType: "json",
                     contentType: "application/json",
                     data: ko.toJSON(viewModel),
@@ -342,11 +346,11 @@
                 var url = "";
                 if (arg == "new") {
                     verb = "POST";
-                    url = ari_hosts.webapi + "/api/solicitudproveedores/";
+                    url = ari_hosts.webapi + "/api/solicitudesproveedores/" + "?tk=solicitud";
                 }
                 else {
                     verb = "PUT";
-                    url = ari_hosts.webapi + "/api/solicitudproveedores/" + viewModel.SolicitudProveedorId();
+                    url = ari_hosts.webapi + "/api/solicitudesproveedores/" + viewModel.SolicitudProveedorId() + "?tk=solicitud";
                 }
                 $.ajax({
                     type: verb,
@@ -380,15 +384,6 @@
                 var data = JSON.parse(dataS);
                 loadModel(data);
             }
-            // llamada externa para búsquedas
-            function formSearch(option) {
-                saveDataCookie();
-                switch (option) {
-                    case "GrupoProveedor":
-                        window.open("grupoproveedor.html?mode=S&caller=proveedor", '_self');
-                        break;
-                }
-            }
             // abrir una window Kendo UI y mostrar la url pasada
             function formLoadWindow(url, title) {
                 var window = $("#window");
@@ -420,8 +415,8 @@
                     uploadSelectFiles: "Subir los ficheros seleccionados"
                 },
                 async: {
-                    saveUrl: ari_hosts.webapi + "/api/uploads?tk=" + getCookie("ari_tique"),
-                    removeUrl: ari_hosts.webapi + "/api/uploads?tk=" + getCookie("ari_tique"),
+                    saveUrl: ari_hosts.webapi + "/api/uploads?tk=solicitud",
+                    removeUrl: ari_hosts.webapi + "/api/uploads?tk=solicitud",
                     removeVerb: "DELETE",
                     autoUpload: true
                 },
@@ -438,7 +433,7 @@
                 // obtenenmos los documentos de este proveedor
                 $.ajax({
                     type: "GET",
-                    url: ari_hosts.webapi + "/api/documentos/?tk=" + getCookie("ari_tique") + "&codigoSolicitudProveedor=" + id,
+                    url: ari_hosts.webapi + "/api/documentos/?tk=solicitud&codigoSolicitudProveedor=" + id,
                     dataType: "json",
                     contentType: "application/json",
                     success: function (data, textStatus) {

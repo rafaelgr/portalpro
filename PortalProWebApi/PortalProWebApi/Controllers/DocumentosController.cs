@@ -23,7 +23,7 @@ namespace PortalProWebApi.Controllers
         {
             using (PortalProContext ctx = new PortalProContext())
             {
-                if (CntWebApiSeguridad.CheckTicket(tk, ctx))
+                if (CntWebApiSeguridad.CheckTicket(tk, ctx) || tk == "solicitud")
                 {
                     IEnumerable<Documento> documentos = (from gu in ctx.Documentos
                                                      select gu).ToList<Documento>();
