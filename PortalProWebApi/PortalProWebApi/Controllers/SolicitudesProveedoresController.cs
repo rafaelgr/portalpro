@@ -115,6 +115,8 @@ namespace PortalProWebApi.Controllers
                 else
                 {
                     ctx.SaveChanges();
+                    // preparamos y enviamos el correo de confirmación.
+                    PortalProMailController.SendEmail(solProveedor.Email, "[PortalPro] Recibida solicitud", String.Format("Su solicitud con ID:{0} ha sido recibida. No responda este mensaje", solProveedor.SolicitudProveedorId));
                     return ctx.CreateDetachedCopy<SolicitudProveedor>(solProveedor, x => x.GrupoProveedor);
                 }
             }

@@ -196,11 +196,14 @@
     <Compile Include="Controllers\GruposUsuariosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Email.cs" />
+    <Compile Include="EmailConfig.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Handlers\CorsHandler.cs" />
     <Compile Include="IResponseDocumentationProvider.cs" />
+    <Compile Include="PortalProMailController.cs" />
     <Compile Include="PortalProWebUtility.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -279,6 +282,7 @@
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\TestClientReferences.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\TestClientDialogs.cshtml" />
+    <Content Include="PortalProDiagram.cd" />
     <None Include="Properties\PublishProfiles\portalpro-webapi.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Images\logo-grupo-dominguis.gif" />

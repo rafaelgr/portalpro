@@ -751,6 +751,41 @@
             <param name="tk">Tique que se desea renovar</param>
             <returns></returns>
         </member>
+        <member name="P:PortalProWebApi.EmailConfig.Server">
+            <summary>
+            Servidor smtp
+            </summary>
+        </member>
+        <member name="P:PortalProWebApi.EmailConfig.Port">
+            <summary>
+            Puerto de smtp
+            </summary>
+        </member>
+        <member name="P:PortalProWebApi.EmailConfig.Address">
+            <summary>
+            Dirección from del correo
+            </summary>
+        </member>
+        <member name="P:PortalProWebApi.EmailConfig.AddressCc">
+            <summary>
+            Copia por defecto a esta dirección
+            </summary>
+        </member>
+        <member name="P:PortalProWebApi.EmailConfig.Usr">
+            <summary>
+            Autenticación (Usuario)
+            </summary>
+        </member>
+        <member name="P:PortalProWebApi.EmailConfig.Password">
+            <summary>
+            Autenticación (Password)
+            </summary>
+        </member>
+        <member name="P:PortalProWebApi.EmailConfig.UseSsl">
+            <summary>
+            Usa SSL?
+            </summary>
+        </member>
         <member name="M:PortalProWebApi.PortalProWebUtility.ComprobarCargarFicherosProveedor(System.String,System.String,PortalProModelo.SolicitudProveedor,PortalProModelo.PortalProContext)">
             <summary>
             Comprueba que los ficheros necesarios para rellenar al solicitud están.
