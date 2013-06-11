@@ -26,7 +26,7 @@ namespace PortalProWebApi.Controllers
                 if (CntWebApiSeguridad.CheckTicket(tk, ctx) || tk == "solicitud")
                 {
                     IEnumerable<Documento> documentos = (from gu in ctx.Documentos
-                                                     select gu).ToList<Documento>();
+                                                         select gu).ToList<Documento>();
 
                     // fetch estrategy, necesaria para poder devolver el grupo junto con cada usuariuo
                     FetchStrategy fs = new FetchStrategy();
@@ -49,7 +49,7 @@ namespace PortalProWebApi.Controllers
         /// <param name="tk">Tique de autorización</param>
         /// <param name="codigoProveedor">Código del proveedor del que se solcitan los documentos.</param>
         /// <returns></returns>
-        public virtual IEnumerable<Documento> Get(string tk, string codigoProveedor)
+        public virtual IEnumerable<Documento> GetFromProveedor(string tk, string codigoProveedor)
         {
             using (PortalProContext ctx = new PortalProContext())
             {
@@ -59,14 +59,58 @@ namespace PortalProWebApi.Controllers
                     int id = 0;
                     bool res = int.TryParse(codigoProveedor, out id);
                     Proveedor proveedor = (from p in ctx.Proveedors
-                                                     where p.ProveedorId == id
-                                                     select p).FirstOrDefault<Proveedor>();
+                                           where p.ProveedorId == id
+                                           select p).FirstOrDefault<Proveedor>();
                     if (proveedor == null)
                     {
-                        throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.Unauthorized, "Debe proporcionar un proveedor existente"));
+                        throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.Unauthorized, "Debe proporcionar un proveedor existente [GetFromProveedor]"));
                     }
                     IEnumerable<Documento> documentos = (from d in ctx.Documentos
                                                          where d.Proveedor.ProveedorId == id
+                                                         select d).ToList<Documento>();
+                    // por cada documento hay que copiarlo al directorio de descarga
+                    // y proporcionar el enlace
+                    foreach (Documento doc in documentos)
+                    {
+                        string root = System.Web.HttpContext.Current.Server.MapPath("~/downloads");
+                        string resultado = PortalProWebUtility.ObtenerUrlDeDocumento(root, tk, doc, ctx);
+                        if (resultado != "")
+                        {
+                            throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.InternalServerError, resultado));
+                        }
+                    }
+                    // fetch estrategy, necesaria para poder devolver el grupo junto con cada usuariuo
+                    FetchStrategy fs = new FetchStrategy();
+                    fs.LoadWith<Documento>(x => x.Proveedor);
+                    fs.LoadWith<Documento>(x => x.TipoDocumento);
+                    documentos = ctx.CreateDetachedCopy<IEnumerable<Documento>>(documentos, fs);
+                    return documentos;
+                }
+                else
+                {
+                    throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.Unauthorized, "Se necesita tique de autorización (Documentos)"));
+                }
+            }
+        }
+
+        public virtual IEnumerable<Documento> GetFromSolicitudProveedor(string tk, string codigoSolicitudProveedor)
+        {
+            using (PortalProContext ctx = new PortalProContext())
+            {
+                if (CntWebApiSeguridad.CheckTicket(tk, ctx))
+                {
+                    // comprobamos que el proveedor pasado existe
+                    int id = 0;
+                    bool res = int.TryParse(codigoSolicitudProveedor, out id);
+                    SolicitudProveedor solProveedor = (from sp in ctx.SolicitudProveedors
+                                                       where sp.SolicitudProveedorId == id
+                                                       select sp).FirstOrDefault<SolicitudProveedor>();
+                    if (solProveedor == null)
+                    {
+                        throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.Unauthorized, "Debe proporcionar una solicitud existente [GetFromSolicitudProveedor]"));
+                    }
+                    IEnumerable<Documento> documentos = (from d in ctx.Documentos
+                                                         where d.SolicitudProveedor.SolicitudProveedorId == id
                                                          select d).ToList<Documento>();
                     // por cada documento hay que copiarlo al directorio de descarga
                     // y proporcionar el enlace
@@ -108,8 +152,8 @@ namespace PortalProWebApi.Controllers
                 if (CntWebApiSeguridad.CheckTicket(tk, ctx))
                 {
                     Documento documento = (from u in ctx.Documentos
-                                       where u.DocumentoId == id
-                                       select u).FirstOrDefault<Documento>();
+                                           where u.DocumentoId == id
+                                           select u).FirstOrDefault<Documento>();
                     if (documento != null)
                     {
                         string root = System.Web.HttpContext.Current.Server.MapPath("~/downloads");
@@ -118,7 +162,8 @@ namespace PortalProWebApi.Controllers
                         {
                             documento = ctx.CreateDetachedCopy<Documento>(documento, x => x.Proveedor, x => x.TipoDocumento);
                             return documento;
-                        }else
+                        }
+                        else
                         {
                             throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.InternalServerError, resultado));
                         }
@@ -148,16 +193,16 @@ namespace PortalProWebApi.Controllers
                 // comprobar el tique
                 if (!CntWebApiSeguridad.CheckTicket(tk, ctx))
                 {
-                     throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.Unauthorized, "Se necesita tique de autorización (Documentos)"));
+                    throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.Unauthorized, "Se necesita tique de autorización (Documentos)"));
                 }
                 // primero buscamos si un grupo con ese id existe
                 Documento doc = (from u in ctx.Documentos
-                               where u.DocumentoId == id
-                               select u).FirstOrDefault<Documento>();
+                                 where u.DocumentoId == id
+                                 select u).FirstOrDefault<Documento>();
                 // existe?
                 if (doc == null)
                 {
-                     throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotFound, "No hay un documento con el id proporcionado (Documentos)"));
+                    throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotFound, "No hay un documento con el id proporcionado (Documentos)"));
                 }
                 // eliminamos el fichero del repositorio.
                 string repo = ConfigurationManager.AppSettings["PortalProRepositorio"];
@@ -191,10 +236,21 @@ namespace PortalProWebApi.Controllers
                 string root = System.Web.HttpContext.Current.Server.MapPath("~/downloads");
                 string[] ficheros = Directory.GetFiles(root);
                 var rs = (from f in ficheros
-                          where f.Contains(tk)
-                          || f.Contains("BodyPart")
+                          where f.Contains(tk) ||
+                                f.Contains("BodyPart")
                           select f);
                 string repo = ConfigurationManager.AppSettings["PortalProRepositorio"];
+                foreach (string fichero in rs)
+                {
+                    File.Delete(fichero);
+                }
+                // hacemos lo mismo para el directorio uploads
+                root = System.Web.HttpContext.Current.Server.MapPath("~/uploads");
+                ficheros = Directory.GetFiles(root);
+                rs = (from f in ficheros
+                      where f.Contains(tk) ||
+                            f.Contains("BodyPart")
+                      select f);
                 foreach (string fichero in rs)
                 {
                     File.Delete(fichero);

@@ -48,14 +48,14 @@
                             <span class="divider"><i class="icon-angle-right"></i></span>
                             <a href="administracion.html">Administración</a>
                             <span class="divider"><i class="icon-angle-right"></i></span>
-                            <a href="proveedor.html">Proveedores</a>
+                            <a href="solicitudproveedor.html">Solicitud de proveedores</a>
                         </li>
                     </ul><!--.breadcrumb-->
                 </div><!--#breadcrumbs-->
                 <div id="page-content" class="clearfix">
                     <div class="page-header position-relative">
                         <h1>
-                            Proveedores <i id="isearch" class="icon-search" style="display:none;"></i>
+                            Solicitudes de proveedores <i id="isearch" class="icon-search" style="display:none;"></i>
                         </h1>
                     </div>
                     <div id="proveedor-grid" class="row-fluid">
@@ -65,12 +65,12 @@
                         <div class="row-fluid">
                             <div class="span6">
                                 <h4>
-                                    <span class="blue" id="form-title">Nuevo proveedor</span>
+                                    <span class="blue" id="form-title">Nueva solicitud</span>
                                 </h4>
                             </div>
                             <div class="span6">
                                 <h4 class="blue pull-right">
-                                    ID:<span data-bind="text: ProveedorId"></span>
+                                    ID:<span data-bind="text: SolicitudProveedorId"></span>
                                 </h4>
                             </div>
                         </div>
@@ -173,10 +173,16 @@
 
                         <div class="row-fluid">
                             <div class="pull-right">
-                                <button class="btn btn-small btn-primary" onclick ="formAccept()">
+                                <button id="Approval" class="btn btn-small btn-success" onclick ="formApproval()" title="Aprobar la solicitud">
+                                    <i class="icon-check icon-white"></i>
+                                </button>
+                                <button id="Reject" class="btn btn-small btn-danger" onclick ="formReject()" title="rechazar la solicitud">
+                                    <i class="icon-ban-circle icon-white"></i>
+                                </button>
+                                <button class="btn btn-small btn-primary" onclick ="formAccept()" title="Guardar cambios y salir">
                                     <i class="icon-ok icon-white"></i>
                                 </button>
-                                <button class="btn btn-small btn-primary" onclick="formExit()">
+                                <button class="btn btn-small btn-primary" onclick="formExit()" title="Salir sin guardar">
                                     <i class="icon-signout icon-white"></i>
                                 </button>
                             </div>
@@ -208,17 +214,17 @@
             </script>
             <script type="tex/x-kendo-template" id="tEdit">
                 <div class="pull-right">
-                    <button class="btn btn-small btn-primary" onclick="formEdit(#=ProveedorId#);" title="Editar registro">
+                    <button class="btn btn-small btn-primary" onclick="formEdit(#=SolicitudProveedorId#);" title="Editar registro">
                         <i class="icon-pencil icon-white"></i>
                     </button>
-                    <button class="btn btn-small btn-primary" onclick="gridDelete(#=ProveedorId#,'#=Nombre#');" title="Eliminar registro">
+                    <button class="btn btn-small btn-primary" onclick="gridDelete(#=SolicitudProveedorId#,'#=Nombre#');" title="Eliminar registro">
                         <i class="icon-trash icon-white"></i>
                     </button>
                 </div>
             </script>
             <script type="tex/x-kendo-template" id="tEditS">
                 <div class="pull-right">
-                    <button class="btn btn-small btn-primary" onclick="gridSelect(#=ProveedorId#,'#=Nombre#');" title="Seleccionar registro">
+                    <button class="btn btn-small btn-primary" onclick="gridSelect(#=SolicitudProveedorId#,'#=Nombre#');" title="Seleccionar registro">
                         <i class="icon-share icon-white"></i>
                     </button>
                 </div>
@@ -259,12 +265,12 @@
                 messages: {
                     required: "Este campo es requerido",
                     email: "Introduzca un correo válido",
-                    url: "Introduzca una dirección válida"
+                    url: "Introduzca una dirección válida (ejemplo: http://www.google.com)"
                 }
             }).data("kendoValidator");
             // modelo de datos knockout
             var viewModel = {
-                ProveedorId: ko.observable(),
+                SolicitudProveedorId: ko.observable(),
                 Nombre: ko.observable(),
                 Calle: ko.observable(),
                 CodPostal: ko.observable(),
@@ -313,7 +319,7 @@
             var gridDataSource = new kendo.data.DataSource({
                 transport: {
                     read: {
-                        url: ari_hosts.webapi + "/api/proveedores?tk=" + getCookie("ari_tique"),
+                        url: ari_hosts.webapi + "/api/solicitudesproveedores?tk=" + getCookie("ari_tique"),
                         dataType: "json",
                         type: "GET",
                         contentType: "application/json"
@@ -325,9 +331,9 @@
                 },
                 schema: {
                     model: {
-                        id: "ProveedorId",
+                        id: "SolicitudProveedorId",
                         fields: {
-                            ProveedorId: { type: "number" },
+                            SolicitudProveedorId: { type: "number" },
                             Nombre: { type: "string" },
                             Calle: { type: "string" },
                             CodPostal: { type: "string" },
@@ -363,7 +369,7 @@
                 $("#proveedor-grid").kendoGrid({
                     dataSource: gridDataSource,
                     columns: [
-                        { field: "ProveedorId", title: "ID" },
+                        { field: "SolicitudProveedorId", title: "ID" },
                         { field: "Nombre", title: "Nombre" },
                         { field: "Nif", title: "NIF"},
                         { field: "GrupoProveedor", title: "Grupo", template: "#=GrupoProveedor?GrupoProveedor.Nombre:''#", filterable:false },
@@ -404,7 +410,7 @@
                         "label": "Aceptar",
                         "class": "btn-small btn-error",
                         "callback": function () {
-                            var url = ari_hosts.webapi + "/api/proveedores/" + regId + "?tk=" + getCookie("ari_tique");
+                            var url = ari_hosts.webapi + "/api/solicitudesproveedores/" + regId + "?tk=" + getCookie("ari_tique");
                             var options = {
                                 type: 'DELETE',
                                 url: url,
@@ -438,7 +444,10 @@
                 // ocultar grid - mostrar form
                 $("#proveedor-grid").hide();
                 $("#proveedor-form").show();
-                $("#form-title").text("Nuevo proveedor");
+                // oclutar los botones de aprobación y rechazo
+                $("#Approval").hide();
+                $("#Reject").hide();
+                $("#form-title").text("Nueva solicitud");
                 clearData();
                 loadCombos();
                 $("#Nombre").focus();
@@ -448,10 +457,19 @@
                 type = "edit";
                 $("#proveedor-grid").hide();
                 $("#proveedor-form").show();
-                $("#form-title").text("Editar proveedor");
+                $("#form-title").text("Procesar solicitud");
+                // mostrar los botones de aprovación y rechazo
+                $("#Approval").show();
+                $("#Reject").show();
                 loadData(id);
                 loadCombos();
                 $("#Nombre").focus();
+            }
+            //
+            function formApproval() {
+            }
+            // 
+            function formReject() {
             }
             // botón aceptar / salvar
             function formAccept() {
@@ -483,7 +501,7 @@
             function loadData(id) {
                 $.ajax({
                     type: "GET",
-                    url: ari_hosts.webapi + "/api/proveedores/" + id + "/?tk=" + getCookie("ari_tique"),
+                    url: ari_hosts.webapi + "/api/solicitudesproveedores/" + id + "/?tk=" + getCookie("ari_tique"),
                     dataType: "json",
                     contentType: "application/json",
                     success: function (data, textStatus) {
@@ -494,7 +512,7 @@
             }
             // limpiar los datos del modelo
             function clearData() {
-                viewModel.ProveedorId("");
+                viewModel.SolicitudProveedorId("");
                 viewModel.Nombre("");
                 viewModel.Calle("");
                 viewModel.CodPostal("");
@@ -511,13 +529,10 @@
                 viewModel.GrupoProveedor.GrupoProveedorId("");
                 viewModel.GrupoProveedor.Nombre("");
                 numFicheros = [];
-                // limpiamos la zona de ficheros;
-                $("#ficheros").html("");
-
             }
             // cargar el modelo
             function loadModel(data) {
-                viewModel.ProveedorId(data.ProveedorId);
+                viewModel.SolicitudProveedorId(data.SolicitudProveedorId);
                 viewModel.Nombre(data.Nombre);
                 viewModel.Calle(data.Calle);
                 viewModel.CodPostal(data.CodPostal);
@@ -584,11 +599,11 @@
                 var url = "";
                 if (arg == "new") {
                     verb = "POST";
-                    url = ari_hosts.webapi + "/api/proveedores/?tk=" + getCookie("ari_tique");
+                    url = ari_hosts.webapi + "/api/solicitudesproveedores/?tk=" + getCookie("ari_tique");
                 }
                 else {
                     verb = "PUT";
-                    url = ari_hosts.webapi + "/api/proveedores/" + viewModel.ProveedorId() + "/?tk=" + getCookie("ari_tique");
+                    url = ari_hosts.webapi + "/api/solicitudesproveedores/" + viewModel.SolicitudProveedorId() + "/?tk=" + getCookie("ari_tique");
                 }
                 $.ajax({
                     type: verb,
@@ -619,11 +634,11 @@
             // salvar el modelo actual en una cookie
             function saveDataCookie() {
                 var data = ko.toJSON(viewModel);
-                setCookie("proveedor", data, 1);
+                setCookie("solicitudProveedor", data, 1);
             }
             // recuperar el modelo desde la cookie
             function loadDataCookie() {
-                var dataS = getCookie("proveedor");
+                var dataS = getCookie("solicitudProveedor");
                 var data = JSON.parse(dataS);
                 loadModel(data);
             }
@@ -632,7 +647,7 @@
                 saveDataCookie();
                 switch (option) {
                     case "GrupoProveedor":
-                        window.open("grupoproveedor.html?mode=S&caller=proveedor", '_self');
+                        window.open("grupoproveedor.html?mode=S&caller=solicitudproveedor", '_self');
                         break;
                 }
             }
@@ -685,7 +700,7 @@
                 // obtenenmos los documentos de este proveedor
                 $.ajax({
                     type: "GET",
-                    url: ari_hosts.webapi + "/api/documentos/?tk=" + getCookie("ari_tique") + "&codigoProveedor=" + id,
+                    url: ari_hosts.webapi + "/api/documentos/?tk=" + getCookie("ari_tique") + "&codigoSolicitudProveedor=" + id,
                     dataType: "json",
                     contentType: "application/json",
                     success: function (data, textStatus) {

@@ -40,7 +40,7 @@ namespace PortalProWebApi.Controllers
                 throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.UnsupportedMediaType));
             }
 
-            string root = System.Web.HttpContext.Current.Server.MapPath("~/App_Data/Uploads");
+            string root = System.Web.HttpContext.Current.Server.MapPath("~/uploads");
             var provider = new MultipartFormDataStreamProvider(root);
 
             var task = request.Content.ReadAsMultipartAsync(provider).
@@ -50,8 +50,9 @@ namespace PortalProWebApi.Controllers
                 string fichero = provider.FileData.First().Headers.ContentDisposition.FileName.Replace("\"", "");
                 fichero = String.Format("{0}#{1}#{2}", tk, tipo, fichero);
                 string destino = Path.Combine(root, fichero);
-                File.Copy(finfo.FullName, destino, true);
-                File.Delete(finfo.FullName);
+                //File.Copy(finfo.FullName, destino, true);
+                //File.Delete(finfo.FullName);
+                File.Move(finfo.FullName, destino);
                 return new HttpResponseMessage()
                 {
                     Content = new StringContent("")
@@ -60,6 +61,7 @@ namespace PortalProWebApi.Controllers
             HttpContext.Current.Response.AddHeader("Access-Control-Allow-Credentials", "true");
             return true;
         }
+
         /// <summary>
         /// Elimina el fichero con ell nombre pasado en una variable en el body
         /// el nombre completo del fichero a borrar se monta encadenando 
@@ -84,7 +86,7 @@ namespace PortalProWebApi.Controllers
             string str = HttpUtility.UrlDecode(request.Content.ReadAsStringAsync().Result);
             int pos = str.IndexOf("=");
             string fichero = str.Substring(pos + 1);
-            string root = System.Web.HttpContext.Current.Server.MapPath("~/App_Data/Uploads");
+            string root = System.Web.HttpContext.Current.Server.MapPath("~/uploads");
             fichero = String.Format("{0}#{1}#{2}", tk, tipo, fichero);
             string destino = Path.Combine(root, fichero);
             File.Delete(destino);

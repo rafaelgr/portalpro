@@ -450,7 +450,7 @@
             <param name="tk">Código del tique de autorización (Véase "Login")</param>
             <returns></returns>
         </member>
-        <member name="M:PortalProWebApi.Controllers.DocumentosController.Get(System.String,System.String)">
+        <member name="M:PortalProWebApi.Controllers.DocumentosController.GetFromProveedor(System.String,System.String)">
             <summary>
             Se obtienen todos los documentos pertenecientes a un poveedor.
             Los documentos se copian al directorio de descarga y se proporciona su enlace en la propiedad "DescargaUrl"

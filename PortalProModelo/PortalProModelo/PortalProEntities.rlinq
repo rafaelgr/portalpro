@@ -229,6 +229,24 @@
           <orm:collection element-class="PortalProModelo.Documento" inverse-field="_solicitudProveedor" order-by="" uniqueId="38fb6818-4bb8-47aa-a77c-dbc923a4c7c5" />
         </orm:field>
       </orm:class>
+      <orm:class name="Plantilla" uniqueId="5f126aa5-d263-471b-908f-8c3c273928f9">
+        <orm:table name="Plantilla" />
+        <orm:identity>
+          <orm:single-field field-name="_plantillaId" />
+        </orm:identity>
+        <orm:field name="_plantillaId" property="PlantillaId" uniqueId="e6a7ac01-836b-43b8-ab53-5a7b6e780957" type="System.Int32">
+          <orm:column name="PlantillaId" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+        </orm:field>
+        <orm:field name="_nombre" property="Nombre" uniqueId="db8c54f8-3cec-48c8-ada5-3f9397970173" type="System.String">
+          <orm:column name="Nombre" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        </orm:field>
+        <orm:field name="_asunto" property="Asunto" uniqueId="17128444-6ed7-4825-9990-aae3ad851b44" type="System.String">
+          <orm:column name="Asunto" sql-type="varchar" nullable="true" length="255" scale="0" ado-type="Varchar" />
+        </orm:field>
+        <orm:field name="_cuerpo" property="Cuerpo" uniqueId="0e7011c4-12ee-45c0-a33b-f561bd233298" type="System.String">
+          <orm:column name="Cuerpo" sql-type="text" nullable="true" length="0" scale="0" ado-type="Varchar" />
+        </orm:field>
+      </orm:class>
     </orm:namespace>
     <orm:schema schema="">
       <orm:table name="GrupoUsuario">
@@ -278,6 +296,12 @@
         <orm:column name="DescargaUrl" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
         <orm:column name="TipoDocumentoId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
         <orm:column name="ProveedorId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+      </orm:table>
+      <orm:table name="Plantilla">
+        <orm:column name="PlantillaId" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+        <orm:column name="Nombre" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        <orm:column name="Asunto" sql-type="varchar" nullable="true" length="255" scale="0" ado-type="Varchar" />
+        <orm:column name="Cuerpo" sql-type="text" nullable="true" length="0" scale="0" ado-type="Varchar" />
       </orm:table>
     </orm:schema>
     <orm:relational-naming-settings>
@@ -589,6 +613,12 @@
         </classHasNavigationalProperties>
       </navigationalProperties>
     </DomainClass>
+    <DomainClass Id="5f126aa5-d263-471b-908f-8c3c273928f9" name="Plantilla" namespace="PortalProModelo" showPropertiesCompartment="true" showNavigationCompartment="true" showImplementationCompartment="true">
+      <Property Id="e6a7ac01-836b-43b8-ab53-5a7b6e780957" name="PlantillaId" type="System.Int32" label="PlantillaId : System.Int32" identity="true" fieldName="_plantillaId" />
+      <Property Id="db8c54f8-3cec-48c8-ada5-3f9397970173" name="Nombre" label="Nombre : String" fieldName="_nombre" />
+      <Property Id="17128444-6ed7-4825-9990-aae3ad851b44" name="Asunto" label="Asunto : String" fieldName="_asunto" />
+      <Property Id="0e7011c4-12ee-45c0-a33b-f561bd233298" name="Cuerpo" label="Cuerpo : String" fieldName="_cuerpo" />
+    </DomainClass>
   </Types>
   <domainContext>
     <domainModelHasDomainContext Id="b8a488e5-d05f-45aa-83ff-cddf4131e366">
@@ -602,6 +632,7 @@
         <entitySetProperty name="Proveedors" namespace="PortalProModelo" type="Proveedor" label="Proveedors : IQueryable&lt;PortalProModelo.Proveedor&gt;" />
         <entitySetProperty name="Documentos" namespace="PortalProModelo" type="Documento" label="Documentos : IQueryable&lt;PortalProModelo.Documento&gt;" />
         <entitySetProperty name="SolicitudProveedors" namespace="PortalProModelo" type="SolicitudProveedor" label="SolicitudProveedors : IQueryable&lt;PortalProModelo.SolicitudProveedor&gt;" />
+        <entitySetProperty name="Plantillas" namespace="PortalProModelo" type="Plantilla" label="Plantillas : IQueryable&lt;PortalProModelo.Plantilla&gt;" />
       </domainContainer>
     </domainModelHasDomainContext>
   </domainContext>

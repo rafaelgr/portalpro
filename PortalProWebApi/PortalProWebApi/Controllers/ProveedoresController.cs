@@ -105,7 +105,7 @@ namespace PortalProWebApi.Controllers
                                             where gp.GrupoProveedorId == grupoProveedorId
                                             select gp).FirstOrDefault<GrupoProveedor>();
                 }
-                var webRoot = System.Web.HttpContext.Current.Server.MapPath("~/App_Data/Uploads");
+                var webRoot = System.Web.HttpContext.Current.Server.MapPath("~/uploads");
                 var res = PortalProWebUtility.ComprobarCargarFicherosProveedor(webRoot,tk,proveedor,ctx);
                 if (res != "")
                 {
