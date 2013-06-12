@@ -241,10 +241,13 @@
           <orm:column name="Nombre" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
         </orm:field>
         <orm:field name="_asunto" property="Asunto" uniqueId="17128444-6ed7-4825-9990-aae3ad851b44" type="System.String">
-          <orm:column name="Asunto" sql-type="varchar" nullable="true" length="255" scale="0" ado-type="Varchar" />
+          <orm:column name="Asunto" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
         </orm:field>
         <orm:field name="_cuerpo" property="Cuerpo" uniqueId="0e7011c4-12ee-45c0-a33b-f561bd233298" type="System.String">
           <orm:column name="Cuerpo" sql-type="text" nullable="true" length="0" scale="0" ado-type="Varchar" />
+        </orm:field>
+        <orm:field name="_opciones" property="Opciones" uniqueId="18a362fa-8701-47fd-9120-e893bb2bd40c" type="System.String">
+          <orm:column name="Opciones" sql-type="text" nullable="true" length="0" scale="0" ado-type="Varchar" />
         </orm:field>
       </orm:class>
     </orm:namespace>
@@ -300,8 +303,9 @@
       <orm:table name="Plantilla">
         <orm:column name="PlantillaId" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
         <orm:column name="Nombre" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
-        <orm:column name="Asunto" sql-type="varchar" nullable="true" length="255" scale="0" ado-type="Varchar" />
+        <orm:column name="Asunto" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
         <orm:column name="Cuerpo" sql-type="text" nullable="true" length="0" scale="0" ado-type="Varchar" />
+        <orm:column name="Opciones" sql-type="text" nullable="true" length="0" scale="0" ado-type="Varchar" />
       </orm:table>
     </orm:schema>
     <orm:relational-naming-settings>
@@ -618,6 +622,7 @@
       <Property Id="db8c54f8-3cec-48c8-ada5-3f9397970173" name="Nombre" label="Nombre : String" fieldName="_nombre" />
       <Property Id="17128444-6ed7-4825-9990-aae3ad851b44" name="Asunto" label="Asunto : String" fieldName="_asunto" />
       <Property Id="0e7011c4-12ee-45c0-a33b-f561bd233298" name="Cuerpo" label="Cuerpo : String" fieldName="_cuerpo" />
+      <Property Id="18a362fa-8701-47fd-9120-e893bb2bd40c" name="Opciones" label="Opciones : String" fieldName="_opciones" />
     </DomainClass>
   </Types>
   <domainContext>

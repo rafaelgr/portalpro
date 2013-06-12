@@ -115,8 +115,23 @@ namespace PortalProWebApi.Controllers
                 else
                 {
                     ctx.SaveChanges();
-                    // preparamos y enviamos el correo de confirmación.
-                    PortalProMailController.SendEmail(solProveedor.Email, "[PortalPro] Recibida solicitud", String.Format("Su solicitud con ID:{0} ha sido recibida. No responda este mensaje", solProveedor.SolicitudProveedorId));
+                    // preparamos y enviamos el correo de confirmación por defecto (por si falla la plantilla).
+                    string asunto = "[PortalPro] Recibida solicitud";
+                    string cuerpo = String.Format("Su solicitud con ID:{0} ha sido recibida. No responda este mensaje", solProveedor.SolicitudProveedorId);
+                    // El primer paso es obtener la plantilla ID=1
+                    Plantilla plantilla = (from pl in ctx.Plantillas
+                                           where pl.PlantillaId == 1
+                                           select pl).FirstOrDefault<Plantilla>();
+                    if (plantilla != null)
+                    {
+                        asunto = String.Format(plantilla.Asunto, solProveedor.SolicitudProveedorId, solProveedor.Nombre, solProveedor.Calle, solProveedor.Ciudad,
+                            solProveedor.CodPostal, solProveedor.Provincia, solProveedor.Comunidad, solProveedor.Pais, solProveedor.Telefono, solProveedor.Fax,
+                            solProveedor.Movil, solProveedor.Email, solProveedor.Url, solProveedor.Nif);
+                        cuerpo = String.Format(plantilla.Cuerpo, solProveedor.SolicitudProveedorId, solProveedor.Nombre, solProveedor.Calle, solProveedor.Ciudad,
+                            solProveedor.CodPostal, solProveedor.Provincia, solProveedor.Comunidad, solProveedor.Pais, solProveedor.Telefono, solProveedor.Fax,
+                            solProveedor.Movil, solProveedor.Email, solProveedor.Url, solProveedor.Nif);
+                    }
+                    PortalProMailController.SendEmail(solProveedor.Email, asunto, cuerpo);
                     return ctx.CreateDetachedCopy<SolicitudProveedor>(solProveedor, x => x.GrupoProveedor);
                 }
             }

@@ -29,134 +29,130 @@
     </head>
 
     <body>
-        <div class="container-fluid" id="main-container">
-            <div id="main-content" class="clearfix">
-                <div id="page-content" class="clearfix">
-                    <div class="page-header position-relative">
-                        <img src="images/logo-grupo-dominguis.gif" />
-                        <h1>
-                            Solicitud de proveedor <i id="isearch" class="icon-search" style="display:none;"></i>
-                        </h1>
+        <div id="main-container" style="width:80%;margin-left:auto;margin-right:auto;">
+            <div class="page-header position-relative">
+                <img src="images/logo-grupo-dominguis.gif" />
+                <h1>
+                    Solicitud de proveedor <i id="isearch" class="icon-search" style="display:none;"></i>
+                </h1>
+            </div>
+            <div id="proveedor-form" class="row-fluid">
+                <div id="window"></div>
+                <div class="row-fluid">
+                    <div class="span12 blue">
+                        <h4>
+                            <span class="blue" id="form-title">Nuevo proveedor:</span>
+                        </h4>
+                        <p>Debe rellenar todos los campos de este este formulario. No olvide incluir los ficheros que se le solicitan. Una vez que haya finalizado haga clic en el botón "Enviar". </p>
+                        <p>Recibirá un mensaje de confirmación en la dirección de correo que nos proporcione</p>
                     </div>
-                    <div id="proveedor-form" class="row-fluid">
-                        <div id="window"></div>
-                        <div class="row-fluid">
-                            <div class="span12 blue">
-                                <h4>
-                                    <span class="blue" id="form-title">Nuevo proveedor:</span>
-                                </h4>
-                                <p>Debe rellenar todos los campos de este este formulario. No olvide incluir los ficheros que se le solicitan. Una vez que haya finalizado haga clic en el botón "Enviar". </p>
-                                <p>Recibirá un mensaje de confirmación en la dirección de correo que nos proporcione</p>
-                            </div>
-                        </div>
-                        <div class="row-fluid">
-                            <div class="span10">
-                                <label>Nombre</label>
-                                <input id="Nombre" class="span12" type="text" data-bind="value: Nombre" 
-                                       name="Nombre" required />
-                            </div>
-                            <div class="span2">
-                                <label>Nif</label>
-                                <input id="Nif" class="span12" type="text" data-bind="value: Nif"
-                                       name="Nif" required />
-                            </div>
-                        </div>
-                        <div class="row-fluid">
-                            <div class="span12">
-                                <label>
-                                    Grupo de proveedores (*)
-                                </label>
-                                <input id="GrupoProveedor" type="text" readonly="true" data-bind="value: GrupoProveedor.Nombre" class="span12"/>
-                                <input id="GrupoProveedorId" data-bind="value: GrupoProveedor.GrupoProveedorId" type="hidden" />
-                            </div>
-                        </div>
-                        <!-- Calle, código postal y ciudad -->
-                        <div class="row-fluid">
-                            <div class="span6">
-                                <label>Calle</label>
-                                <input id="Calle" class="span12" type="text" data-bind="value: Calle" 
-                                       name="Calle" required/>
-                            </div>
-                            <div class="span3">
-                                <label>Código postal</label>
-                                <input id="CodPostal" class="span12" type="text" data-bind="value: CodPostal" 
-                                       name="CodPostal" required/>
-                            </div>
-                            <div class="span3">
-                                <label>Ciudad</label>
-                                <input id="Ciudad" class="span12" type="text" data-bind="value: Ciudad" 
-                                       name="Ciudad" required/>
-                            </div>
-                        </div>
-                        <!-- Provincia, comunidad y pais -->
-                        <div class="row-fluid">
-                            <div class="span6">
-                                <label>Provincia</label>
-                                <input id="Provincia" class="span12" type="text" data-bind="value: Provincia" 
-                                       name="Provincia" required />
-                            </div>
-                            <div class="span3">
-                                <label>Comunidad / Estado</label>
-                                <input id="Comunidad" class="span12" type="text" data-bind="value:Comunidad"
-                                       name="Comunidad" required/>
-                            </div>
-                            <div class="span3">
-                                <label>Pais</label>
-                                <input id="Pais" class="span12" type="text" data-bind="value: Pais"
-                                       name="Pais" required/>
-                            </div>
-                        </div>
-                        <!-- teléfono, fax, movil, correo, url -->
-                        <div class="row-fluid">
-                            <div class="span2">
-                                <label>Telefono</label>
-                                <input id="Telefono" class="span12" type="text" data-bind="value: Telefono" 
-                                       name="Telefono" required />
-                            </div>
-                            <div class="span2">
-                                <label>Fax</label>
-                                <input id="Fax" class="span12" type="text" data-bind="value: Fax" 
-                                       name="Fax" required />
-                            </div>
-                            <div class="span2">
-                                <label>Móvil</label>
-                                <input id="Movil" class="span12" type="text" data-bind="value: Movil" 
-                                       name="Movil" required />
-                            </div>
-                            <div class="span3">
-                                <label>Correo electrónico</label>
-                                <input id="Email" class="span12" type="email" data-bind="value: Email" 
-                                       name="Email" required />
-                            </div>
-                            <div class="span3">
-                                <label>Página web</label>
-                                <input id="Url" class="span12" type="url" data-bind="value: Url" 
-                                       name="Url" required />
-                            </div>
-                        </div>
-                        <div>
-                            <h5>
-                                <span class="blue">Ficheros asociados</span>
-                            </h5>
-                            <p class="blue">
-                                Según su grupo de proveedor necesitará aportar un tipo de documentos u otros. 
-                                Seleccione los ficheros que en formato PDF contienen la documentación que se solicita en cada apartado.
-                            </p>
-                        </div>
-                        <hr class="dotted" />
-                        <div class="row-fluid" id="ficheros">
-                        </div>
+                </div>
+                <div class="row-fluid">
+                    <div class="span10">
+                        <label>Nombre</label>
+                        <input id="Nombre" class="span12" type="text" data-bind="value: Nombre" 
+                               name="Nombre" required />
+                    </div>
+                    <div class="span2">
+                        <label>Nif</label>
+                        <input id="Nif" class="span12" type="text" data-bind="value: Nif"
+                               name="Nif" required />
+                    </div>
+                </div>
+                <div class="row-fluid">
+                    <div class="span12">
+                        <label>
+                            Grupo de proveedores (*)
+                        </label>
+                        <input id="GrupoProveedor" type="text" readonly="true" data-bind="value: GrupoProveedor.Nombre" class="span12"/>
+                        <input id="GrupoProveedorId" data-bind="value: GrupoProveedor.GrupoProveedorId" type="hidden" />
+                    </div>
+                </div>
+                <!-- Calle, código postal y ciudad -->
+                <div class="row-fluid">
+                    <div class="span6">
+                        <label>Calle</label>
+                        <input id="Calle" class="span12" type="text" data-bind="value: Calle" 
+                               name="Calle" required/>
+                    </div>
+                    <div class="span3">
+                        <label>Código postal</label>
+                        <input id="CodPostal" class="span12" type="text" data-bind="value: CodPostal" 
+                               name="CodPostal" required/>
+                    </div>
+                    <div class="span3">
+                        <label>Ciudad</label>
+                        <input id="Ciudad" class="span12" type="text" data-bind="value: Ciudad" 
+                               name="Ciudad" required/>
+                    </div>
+                </div>
+                <!-- Provincia, comunidad y pais -->
+                <div class="row-fluid">
+                    <div class="span6">
+                        <label>Provincia</label>
+                        <input id="Provincia" class="span12" type="text" data-bind="value: Provincia" 
+                               name="Provincia" required />
+                    </div>
+                    <div class="span3">
+                        <label>Comunidad / Estado</label>
+                        <input id="Comunidad" class="span12" type="text" data-bind="value:Comunidad"
+                               name="Comunidad" required/>
+                    </div>
+                    <div class="span3">
+                        <label>Pais</label>
+                        <input id="Pais" class="span12" type="text" data-bind="value: Pais"
+                               name="Pais" required/>
+                    </div>
+                </div>
+                <!-- teléfono, fax, movil, correo, url -->
+                <div class="row-fluid">
+                    <div class="span2">
+                        <label>Telefono</label>
+                        <input id="Telefono" class="span12" type="text" data-bind="value: Telefono" 
+                               name="Telefono" required />
+                    </div>
+                    <div class="span2">
+                        <label>Fax</label>
+                        <input id="Fax" class="span12" type="text" data-bind="value: Fax" 
+                               name="Fax" required />
+                    </div>
+                    <div class="span2">
+                        <label>Móvil</label>
+                        <input id="Movil" class="span12" type="text" data-bind="value: Movil" 
+                               name="Movil" required />
+                    </div>
+                    <div class="span3">
+                        <label>Correo electrónico</label>
+                        <input id="Email" class="span12" type="email" data-bind="value: Email" 
+                               name="Email" required />
+                    </div>
+                    <div class="span3">
+                        <label>Página web</label>
+                        <input id="Url" class="span12" type="url" data-bind="value: Url" 
+                               name="Url" required />
+                    </div>
+                </div>
+                <div>
+                    <h5>
+                        <span class="blue">Ficheros asociados</span>
+                    </h5>
+                    <p class="blue">
+                        Según su grupo de proveedor necesitará aportar un tipo de documentos u otros.
+                        Seleccione los ficheros que en formato PDF contienen la documentación que se solicita en cada apartado.
+                    </p>
+                </div>
+                <hr class="dotted" />
+                <div class="row-fluid" id="ficheros">
+                </div>
 
-                        <div class="row-fluid">
-                            <div class="pull-right">
-                                <button class="btn btn-small btn-primary" onclick ="formAccept()">
-                                    Enviar los datos <i class="icon-ok icon-white"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div><!-- #proveedor-form -->
-                </div><!--/#page-content-->
-            </div><!-- #main-content -->
+                <div class="row-fluid">
+                    <div class="pull-right">
+                        <button class="btn btn-small btn-primary" onclick ="formAccept()">
+                            Enviar los datos <i class="icon-ok icon-white"></i>
+                        </button>
+                    </div>
+                </div>
+            </div><!-- #proveedor-form -->
 
         </div><!--/.fluid-container#main-container-->
 
@@ -244,7 +240,6 @@
                 if (!formOk())
                     return;
                 saveData(type);
-
             }
             // comprobar la correción de datos
             function formOk() {
@@ -322,13 +317,13 @@
                     viewModel.GrupoProveedor.Nombre(data.GrupoProveedor.Nombre);
                 }
             }
-
+            
             // La idea es cargar el campo del grupo de proveedor y mostrar los
             // campos adecuados para poder subir los ficheros.
             function loadGrupoProveedor(id) {
                 $.ajax({
                     type: "GET",
-                    url: ari_hosts.webapi + "/api/GruposProveedores/" + id +"?tk=solicitud",
+                    url: ari_hosts.webapi + "/api/GruposProveedores/" + id + "?tk=solicitud",
                     dataType: "json",
                     contentType: "application/json",
                     data: ko.toJSON(viewModel),
@@ -339,7 +334,7 @@
                     },
                 });
             }
-
+            
             // salvar los datos del form
             function saveData(arg) {
                 var verb = "";
@@ -362,7 +357,7 @@
                         var message = "Su solicitud se encuentra en tramitación. En breve contactaremos con usted via correo electrónico. GRACIAS";
                         bootbox.dialog(message, [
                             {
-                                "label": "Cancelar",
+                                "label": "Aceptar",
                                 "class": "btn-small btn-success",
                                 "callback": function () {
                                     clearDownloads();
@@ -398,7 +393,7 @@
                 window.data("kendoWindow").refresh(url);
                 window.data("kendoWindow").open();
             }
-        
+            
         </script>
         <!-- Montaje de los controles para carga de documentos  y funciones auxiliares-->
         <script type="text/javascript">
@@ -422,6 +417,8 @@
                 },
                 select: uploadSelect,
                 remove: uploadRemove,
+                complete: uploadComplete,
+                error: uploadError
             };
             
             function onBlurGrupoProveedor() {
@@ -522,6 +519,11 @@
                     resultado[0].contador = 0;
                 }
             }
+            function uploadComplete(e) {
+                var tipo = e.sender.localization.tipo;
+            }
+            function uploadError(e) {
+            }
             // 
             function clearDownloads() {
                 $.ajax({
@@ -552,4 +554,3 @@
         </script>
     </body>
 </html>
-    

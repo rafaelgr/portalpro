@@ -76,5 +76,18 @@ namespace PortalProModelo
 		    }
 		}
 		
+		private string _opciones;
+		public virtual string Opciones 
+		{ 
+		    get
+		    {
+		        return this._opciones;
+		    }
+		    set
+		    {
+		        this._opciones = value;
+		    }
+		}
+		
 	}
 }

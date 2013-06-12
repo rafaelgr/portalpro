@@ -402,6 +402,54 @@
             </summary>
             <param name="documentPath">The physical path to XML document.</param>
         </member>
+        <member name="M:PortalProWebApi.Controllers.PlantillasController.Get(System.String)">
+            <summary>
+            Obtiene todos las plantillas de la base de datos
+            </summary>
+            <param name="tk">Código del tique de autorización (Véase "Login")</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.PlantillasController.Get(System.Int32,System.String)">
+            <summary>
+            Obtiene una plantilla cuyo ID corresponde con el pasado
+            </summary>
+            <param name="id">Identificador único de la plantilla</param>
+            <param name="tk">Código del tique de autorización (Véase "Login")</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.PlantillasController.Get(System.Int32)">
+            <summary>
+            Obtiene una plantilla cuyo ID corresponde con el pasado
+            en este caso no necesita tique porque es para solicitudes.
+            </summary>
+            <param name="id">Identificador único de la plantilla</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.PlantillasController.Post(PortalProModelo.Plantilla,System.String)">
+            <summary>
+            Crear un nuevo plantilla de proveedores
+            </summary>
+            <param name="plantilla">Objeto a crear, el atributo PlantillaId lo genera la aplicación y es devuelto en el objeto incluido en la respuesta.</param>
+            <param name="tk"> Tique de autorzación (se debe obtener con la accion Login)</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.PlantillasController.Put(System.Int32,PortalProModelo.Plantilla,System.String)">
+            <summary>
+            Modificar un plantilla de proveedor. En el cuerpo del mensaje se envía en el formato adecuado el objeto con los datos modificados
+            </summary>
+            <param name="id"> Identificador único de la plantilla </param>
+            <param name="plantilla">Grupo de poveedor con los valores que se desean en sus atributos</param>
+            <param name="tk"> Tique de autorización (Ver 'Login')</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.PlantillasController.Delete(System.Int32,System.String)">
+            <summary>
+            Elimina el plantilla que coincide con el id pasado
+            </summary>
+            <param name="id">Identificador de la plantilla a eliminar</param>
+            <param name="tk">Tique de autorización (Ver 'Login')</param>
+            <returns></returns>
+        </member>
         <member name="M:PortalProWebApi.Controllers.SolicitudesProveedoresController.Get(System.String)">
             <summary>
             Obtiene todos las solicitudes de la base de datos
