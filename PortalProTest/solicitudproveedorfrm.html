@@ -417,7 +417,7 @@
                 },
                 select: uploadSelect,
                 remove: uploadRemove,
-                complete: uploadComplete,
+                success: uploadSuccess,
                 error: uploadError
             };
             
@@ -469,6 +469,9 @@
                                 fileStr += "<label>" + data[i].Nombre + "</label>"
                                 fileStr += "<input name=\"TPN" + data[i].TipoDocumentoId + "\" id=\"TPU" + data[i].TipoDocumentoId + "\" type=\"file\" />";
                                 fileStr += "</div>";
+                                fileStr += "<a href=\"#\" id=\"VER" + data[i].TipoDocumentoId + "\" target='_blank'>";
+                                fileStr += "Ver el fichero recién subido <i class='icon-search'></i>";
+                                fileStr += "</a>";
                             }
                             else {
                                 // editando uno que ya existe
@@ -499,6 +502,7 @@
                 numFich.id = tipo;
                 numFich.contador = 0;
                 numFicheros.push(numFich);
+                $("#VER" + tipo).hide();
             }
             // 
             function uploadSelect(e) {
@@ -519,8 +523,24 @@
                     resultado[0].contador = 0;
                 }
             }
-            function uploadComplete(e) {
+            function uploadSuccess(e) {
+                // mostar el enlace
+                var tk = "solicitud";
                 var tipo = e.sender.localization.tipo;
+                var fichero = getFileInfo(e);
+                var url = ari_hosts.webapi + "/uploads/" + tk + "%23" + tipo + "%23" + fichero
+                $("#VER" + tipo).attr("href", url);
+                $("#VER" + tipo).show();
+                console.log("TK:" + tk + " TIPO:" + tipo + " FICHERO:" + fichero);
+            }
+
+
+
+            function getFileInfo(e) {
+                return $.map(e.files, function (file) {
+                    var info = file.name;
+                    return info;
+                }).join(", ");
             }
             function uploadError(e) {
             }

@@ -699,6 +699,7 @@
                                 fileStr += " <i class=\"icon-folder-open blue\"";
                                 fileStr += "onclick=\"formLoadWindow('" + ari_hosts.webapi + data[i].DescargaUrl + "','" + data[i].TipoDocumento.Nombre + "');\">";
                                 fileStr += "</i></label> </div>";
+                                console.log("LINK: " + ari_hosts.webapi + data[i].DescargaUrl);
                             } 
                         }
                         $("#ficheros").html(fileStr);
