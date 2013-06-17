@@ -482,6 +482,18 @@
             <param name="tk"> Tique de autorización (Ver 'Login'). Caso "solicitud"</param>
             <returns></returns>
         </member>
+        <member name="M:PortalProWebApi.Controllers.SolicitudesProveedoresController.PutStatus(System.Int32,System.String,System.Int32,System.Int32,System.String)">
+            <summary>
+            Cambia el estado de una solicitud y realiza la grabación 
+            correspondiente en el log
+            </summary>
+            <param name="id">Identificador de la solicitud a procesar</param>
+            <param name="tk">Tique de autorización (ver Login)</param>
+            <param name="status">Código del estado al que se quiere pasar (2=Aceptada / 3=Rechazada)</param>
+            <param name="userId">Identificador del usuario que avala el cambio</param>
+            <param name="comentarios">Comentarios adicionales</param>
+            <returns></returns>
+        </member>
         <member name="M:PortalProWebApi.Controllers.SolicitudesProveedoresController.Delete(System.Int32,System.String)">
             <summary>
             Elimina la solicitud que coincide con el id pasado

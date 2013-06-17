@@ -45,6 +45,9 @@
         <orm:field name="_webApiTickets" property="WebApiTickets" behavior="readwrite" uniqueId="9dd742e7-abbc-4ac1-a2d0-c623b2595a4d" type="PortalProModelo.WebApiTicket">
           <orm:collection element-class="PortalProModelo.WebApiTicket" inverse-field="_usuario" order-by="" uniqueId="c3e169ad-5eef-432a-a48b-da821be8ba0b" />
         </orm:field>
+        <orm:field name="_solicitudLogs" property="SolicitudLogs" behavior="readwrite" uniqueId="c5afdc17-7748-4a44-9686-850218dce387" type="PortalProModelo.SolicitudLog">
+          <orm:collection element-class="PortalProModelo.SolicitudLog" inverse-field="_usuario" order-by="" uniqueId="c538ceac-a6f5-40d6-904b-93aea77551c0" />
+        </orm:field>
       </orm:class>
       <orm:class name="WebApiTicket" uniqueId="5986131f-345e-435f-8235-d87e4fc598c9">
         <orm:table name="WebApiTicket" />
@@ -225,6 +228,9 @@
         <orm:field name="_grupoProveedor" property="GrupoProveedor" behavior="readwrite" uniqueId="08cd3337-7360-4902-995d-381de10e73f3" type="PortalProModelo.GrupoProveedor">
           <orm:reference uniqueId="a6016d2b-968a-4597-977f-5973d26e08d3" />
         </orm:field>
+        <orm:field name="_solicitudStatus" property="SolicitudStatus" behavior="readwrite" uniqueId="a87ddbfa-7bfe-4c82-acff-99169acc58bb" type="PortalProModelo.SolicitudStatus">
+          <orm:reference uniqueId="a459ed92-5212-4e9c-a261-ce02eca7b45c" />
+        </orm:field>
         <orm:field name="_documentos" property="Documentos" behavior="readwrite" uniqueId="eef56a64-62a5-4e99-a6e6-6a2029d5d26e" type="PortalProModelo.Documento">
           <orm:collection element-class="PortalProModelo.Documento" inverse-field="_solicitudProveedor" order-by="" uniqueId="38fb6818-4bb8-47aa-a77c-dbc923a4c7c5" />
         </orm:field>
@@ -250,7 +256,8 @@
           <orm:column name="Opciones" sql-type="text" nullable="true" length="0" scale="0" ado-type="Varchar" />
         </orm:field>
       </orm:class>
-      <orm:class name="SolicitudStatus" use-default-mapping="true" uniqueId="04d51ab2-f220-4575-8530-2c49871de6f2">
+      <orm:class name="SolicitudStatus" uniqueId="04d51ab2-f220-4575-8530-2c49871de6f2">
+        <orm:table name="SolicitudStatus" />
         <orm:identity>
           <orm:single-field field-name="_solicitudStatusId" />
         </orm:identity>
@@ -260,6 +267,55 @@
         <orm:field name="_nombre" property="Nombre" uniqueId="c11cdc83-1fa0-4cc1-9a6b-b927c5ced664" type="System.String">
           <orm:column name="Nombre" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
         </orm:field>
+        <orm:field name="_solicitudProveedors" property="SolicitudProveedors" behavior="readwrite" uniqueId="053daaa0-cc6e-4381-bf08-ff00dc17ae8c" type="PortalProModelo.SolicitudProveedor">
+          <orm:collection element-class="PortalProModelo.SolicitudProveedor" inverse-field="_solicitudStatus" order-by="" uniqueId="a459ed92-5212-4e9c-a261-ce02eca7b45c" />
+        </orm:field>
+        <orm:field name="_solicitudLogs" property="SolicitudLogsIniciales" behavior="readwrite" uniqueId="40c523ee-da76-4815-95ea-9a714c301cbf" type="PortalProModelo.SolicitudLog">
+          <orm:collection element-class="PortalProModelo.SolicitudLog" inverse-field="_solicitudStatus" order-by="" uniqueId="b29f0638-a706-46a3-a86f-ebc4b25e8f41" />
+        </orm:field>
+        <orm:field name="_solicitudLogs1" property="SolicitudLogsFinales" behavior="readwrite" uniqueId="c52d7ea2-70da-417e-8840-c69d763107da" type="PortalProModelo.SolicitudLog">
+          <orm:collection element-class="PortalProModelo.SolicitudLog" inverse-field="_solicitudStatus1" order-by="" uniqueId="d4fc083c-3df8-4bcc-8f83-446f1cfefa8e" />
+        </orm:field>
+      </orm:class>
+      <orm:class name="SolicitudLog" uniqueId="bcd3bd77-33d7-4d12-b00d-221ecd342ded">
+        <orm:table name="SolicitudLog" />
+        <orm:identity>
+          <orm:key-generator name="autoinc" />
+          <orm:single-field field-name="_solicitudLogId" />
+        </orm:identity>
+        <orm:field name="_solicitudLogId" property="SolicitudLogId" uniqueId="cdee77ad-8d23-41c1-92ac-d9153f77d1ed" type="System.Int32">
+          <orm:column name="SolicitudLogId" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" backend-calculated="true" ado-type="Int32" />
+        </orm:field>
+        <orm:field name="_sello" property="Sello" uniqueId="72221be7-08a5-4daa-a11a-effa944ec784" type="System.DateTime">
+          <orm:column name="Sello" sql-type="datetime" nullable="false" length="0" scale="0" converter="OpenAccessRuntime.Data.Timestamp2DateTimeConverter" ado-type="DateTime" />
+        </orm:field>
+        <orm:field name="_comentarios" property="Comentarios" uniqueId="e1126edc-8a97-4872-85d5-5b64a65bb808" type="System.String">
+          <orm:column name="Comentarios" sql-type="text" nullable="true" length="0" scale="0" ado-type="Varchar" />
+        </orm:field>
+        <orm:field name="_usuario" property="Usuario" behavior="readwrite" uniqueId="61b56703-f3c0-4840-b0f3-e4bcd4b96103" type="PortalProModelo.Usuario">
+          <orm:reference uniqueId="c538ceac-a6f5-40d6-904b-93aea77551c0" />
+        </orm:field>
+        <orm:field name="_solicitudStatus" property="SolicitudStatusInicial" behavior="readwrite" uniqueId="3335767f-bead-4a0e-be27-d6acd437b938" type="PortalProModelo.SolicitudStatus">
+          <orm:reference uniqueId="b29f0638-a706-46a3-a86f-ebc4b25e8f41" />
+        </orm:field>
+        <orm:field name="_solicitudStatus1" property="SolicitudStatusFinal" behavior="readwrite" uniqueId="e2310943-b9e0-4c8a-b9fa-08b6c09e4310" type="PortalProModelo.SolicitudStatus">
+          <orm:reference uniqueId="d4fc083c-3df8-4bcc-8f83-446f1cfefa8e" />
+        </orm:field>
+        <orm:index name="idx_SolicitudLog_SolicitudStatusFinal_SolicitudStatusId">
+          <orm:columnMapping>
+            <orm:column name="SolicitudStatusFinal_SolicitudStatusId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+          </orm:columnMapping>
+        </orm:index>
+        <orm:index name="idx_SolicitudLog_SolicitudStatusInicial_SolicitudStatusId">
+          <orm:columnMapping>
+            <orm:column name="SolicitudStatusInicial_SolicitudStatusId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+          </orm:columnMapping>
+        </orm:index>
+        <orm:index name="idx_SolicitudLog_UsuarioId">
+          <orm:columnMapping>
+            <orm:column name="UsuarioId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+          </orm:columnMapping>
+        </orm:index>
       </orm:class>
     </orm:namespace>
     <orm:schema schema="">
@@ -317,6 +373,33 @@
         <orm:column name="Asunto" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
         <orm:column name="Cuerpo" sql-type="text" nullable="true" length="0" scale="0" ado-type="Varchar" />
         <orm:column name="Opciones" sql-type="text" nullable="true" length="0" scale="0" ado-type="Varchar" />
+      </orm:table>
+      <orm:table name="SolicitudStatus">
+        <orm:column name="SolicitudStatusId" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+        <orm:column name="Nombre" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+      </orm:table>
+      <orm:table name="SolicitudLog">
+        <orm:column name="SolicitudLogId" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" backend-calculated="true" ado-type="Int32" />
+        <orm:column name="Sello" sql-type="datetime" nullable="false" length="0" scale="0" converter="OpenAccessRuntime.Data.Timestamp2DateTimeConverter" ado-type="DateTime" />
+        <orm:column name="UsuarioId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+        <orm:column name="SolicitudStatusInicial_SolicitudStatusId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+        <orm:column name="SolicitudStatusFinal_SolicitudStatusId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+        <orm:column name="Comentarios" sql-type="text" nullable="true" length="0" scale="0" ado-type="Varchar" />
+        <orm:index name="idx_SolicitudLog_SolicitudStatusFinal_SolicitudStatusId">
+          <orm:columnMapping>
+            <orm:column name="SolicitudStatusFinal_SolicitudStatusId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+          </orm:columnMapping>
+        </orm:index>
+        <orm:index name="idx_SolicitudLog_SolicitudStatusInicial_SolicitudStatusId">
+          <orm:columnMapping>
+            <orm:column name="SolicitudStatusInicial_SolicitudStatusId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+          </orm:columnMapping>
+        </orm:index>
+        <orm:index name="idx_SolicitudLog_UsuarioId">
+          <orm:columnMapping>
+            <orm:column name="UsuarioId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+          </orm:columnMapping>
+        </orm:index>
       </orm:table>
     </orm:schema>
     <orm:relational-naming-settings>
@@ -397,6 +480,9 @@
         </classHasNavigationalProperties>
         <classHasNavigationalProperties Id="fa78c573-4387-4318-83dd-e995300a4d2c">
           <NavigationalProperty Id="9dd742e7-abbc-4ac1-a2d0-c623b2595a4d" name="WebApiTickets" type="IList&lt;WebApiTicket&gt;" label="WebApiTickets : IList&lt;WebApiTicket&gt;" nullable="true" kind="Persistent" fieldName="_webApiTickets" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
+        <classHasNavigationalProperties Id="5370fc97-abae-4595-857d-070aaa12d536">
+          <NavigationalProperty Id="c5afdc17-7748-4a44-9686-850218dce387" name="SolicitudLogs" type="IList&lt;SolicitudLog&gt;" label="SolicitudLogs : IList&lt;SolicitudLog&gt;" nullable="true" kind="Persistent" fieldName="_solicitudLogs" isDependent="false" isManaged="false" />
         </classHasNavigationalProperties>
       </navigationalProperties>
     </DomainClass>
@@ -618,6 +704,19 @@
             </associationDefinesSourceProperty>
           </sourceNavigationalProperty>
         </Association>
+        <Association Id="a459ed92-5212-4e9c-a261-ce02eca7b45c" SourceMultiplicity="ZeroOne" name="SolicitudProveedorHasSolicitudStatus">
+          <DomainClassMoniker name="/PortalProContext/SolicitudStatus" />
+          <targetNavigationalProperty>
+            <associationDefinesTargetProperty Id="bbd4bc25-eb9d-4c80-a73c-56ec9ba711e6">
+              <NavigationalPropertyMoniker name="/PortalProContext/SolicitudStatus/SolicitudProveedors" />
+            </associationDefinesTargetProperty>
+          </targetNavigationalProperty>
+          <sourceNavigationalProperty>
+            <associationDefinesSourceProperty Id="654c01b6-4ce5-48b9-8118-5a76e49a129a">
+              <NavigationalPropertyMoniker name="/PortalProContext/SolicitudProveedor/SolicitudStatus" />
+            </associationDefinesSourceProperty>
+          </sourceNavigationalProperty>
+        </Association>
       </AssociationTargets>
       <navigationalProperties>
         <classHasNavigationalProperties Id="1b149754-a932-45d2-a528-f826f087567f">
@@ -625,6 +724,9 @@
         </classHasNavigationalProperties>
         <classHasNavigationalProperties Id="47edfb22-74db-4e1c-8758-c230ec239322">
           <NavigationalProperty Id="eef56a64-62a5-4e99-a6e6-6a2029d5d26e" name="Documentos" type="IList&lt;Documento&gt;" label="Documentos : IList&lt;Documento&gt;" nullable="true" kind="Persistent" fieldName="_documentos" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
+        <classHasNavigationalProperties Id="48c4b942-06cb-4cf1-bba4-9aaef273ec38">
+          <NavigationalProperty Id="a87ddbfa-7bfe-4c82-acff-99169acc58bb" name="SolicitudStatus" type="SolicitudStatus" label="SolicitudStatus : SolicitudStatus" nullable="true" kind="Persistent" fieldName="_solicitudStatus" isDependent="false" isManaged="false" />
         </classHasNavigationalProperties>
       </navigationalProperties>
     </DomainClass>
@@ -638,6 +740,74 @@
     <DomainClass Id="04d51ab2-f220-4575-8530-2c49871de6f2" name="SolicitudStatus" namespace="PortalProModelo" showPropertiesCompartment="true" showNavigationCompartment="true" showImplementationCompartment="true">
       <Property Id="7266cd44-ac7e-44f6-a4ea-b7774b22386d" name="SolicitudStatusId" type="System.Int32" label="SolicitudStatusId : System.Int32" identity="true" fieldName="_solicitudStatusId" />
       <Property Id="c11cdc83-1fa0-4cc1-9a6b-b927c5ced664" name="Nombre" label="Nombre : String" fieldName="_nombre" />
+      <navigationalProperties>
+        <classHasNavigationalProperties Id="3aa05ccc-7db5-44e4-8d5b-2caf93055aab">
+          <NavigationalProperty Id="053daaa0-cc6e-4381-bf08-ff00dc17ae8c" name="SolicitudProveedors" type="IList&lt;SolicitudProveedor&gt;" label="SolicitudProveedors : IList&lt;SolicitudProveedor&gt;" nullable="true" kind="Persistent" fieldName="_solicitudProveedors" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
+        <classHasNavigationalProperties Id="b7972ff9-7f5a-4b11-9645-e13951279d02">
+          <NavigationalProperty Id="40c523ee-da76-4815-95ea-9a714c301cbf" name="SolicitudLogsIniciales" type="IList&lt;SolicitudLog&gt;" label="SolicitudLogsIniciales : IList&lt;SolicitudLog&gt;" nullable="true" kind="Persistent" fieldName="_solicitudLogs" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
+        <classHasNavigationalProperties Id="02bc425c-46b7-4d52-abdd-fe7008342ce7">
+          <NavigationalProperty Id="c52d7ea2-70da-417e-8840-c69d763107da" name="SolicitudLogsFinales" type="IList&lt;SolicitudLog&gt;" label="SolicitudLogsFinales : IList&lt;SolicitudLog&gt;" nullable="true" kind="Persistent" fieldName="_solicitudLogs1" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
+      </navigationalProperties>
+    </DomainClass>
+    <DomainClass Id="bcd3bd77-33d7-4d12-b00d-221ecd342ded" name="SolicitudLog" namespace="PortalProModelo" showPropertiesCompartment="true" identityMechanism="DatabaseServerCalculated" showNavigationCompartment="true" showImplementationCompartment="true">
+      <Property Id="cdee77ad-8d23-41c1-92ac-d9153f77d1ed" name="SolicitudLogId" type="System.Int32" label="SolicitudLogId : System.Int32" identity="true" fieldName="_solicitudLogId" />
+      <Property Id="72221be7-08a5-4daa-a11a-effa944ec784" name="Sello" type="DateTime" label="Sello : DateTime" fieldName="_sello" />
+      <Property Id="e1126edc-8a97-4872-85d5-5b64a65bb808" name="Comentarios" label="Comentarios : String" fieldName="_comentarios" />
+      <AssociationTargets>
+        <Association Id="c538ceac-a6f5-40d6-904b-93aea77551c0" SourceMultiplicity="ZeroOne" name="SolicitudLogHasUsuario">
+          <DomainClassMoniker name="/PortalProContext/Usuario" />
+          <targetNavigationalProperty>
+            <associationDefinesTargetProperty Id="e592c340-fc57-4376-adc2-066707f779aa">
+              <NavigationalPropertyMoniker name="/PortalProContext/Usuario/SolicitudLogs" />
+            </associationDefinesTargetProperty>
+          </targetNavigationalProperty>
+          <sourceNavigationalProperty>
+            <associationDefinesSourceProperty Id="3de93723-1d24-4edb-9d80-20e2511597df">
+              <NavigationalPropertyMoniker name="/PortalProContext/SolicitudLog/Usuario" />
+            </associationDefinesSourceProperty>
+          </sourceNavigationalProperty>
+        </Association>
+        <Association Id="b29f0638-a706-46a3-a86f-ebc4b25e8f41" SourceMultiplicity="ZeroOne" name="SolicitudLogHasSolicitudStatus">
+          <DomainClassMoniker name="/PortalProContext/SolicitudStatus" />
+          <targetNavigationalProperty>
+            <associationDefinesTargetProperty Id="dbc5110e-70bb-44e5-9aa2-119b3bf07984">
+              <NavigationalPropertyMoniker name="/PortalProContext/SolicitudStatus/SolicitudLogsIniciales" />
+            </associationDefinesTargetProperty>
+          </targetNavigationalProperty>
+          <sourceNavigationalProperty>
+            <associationDefinesSourceProperty Id="5d74610f-81ce-43de-818f-68bddce1918a">
+              <NavigationalPropertyMoniker name="/PortalProContext/SolicitudLog/SolicitudStatusInicial" />
+            </associationDefinesSourceProperty>
+          </sourceNavigationalProperty>
+        </Association>
+        <Association Id="d4fc083c-3df8-4bcc-8f83-446f1cfefa8e" SourceMultiplicity="ZeroOne" name="SolicitudLogHasSolicitudStatus1">
+          <DomainClassMoniker name="/PortalProContext/SolicitudStatus" />
+          <targetNavigationalProperty>
+            <associationDefinesTargetProperty Id="6c0d5b24-be30-45c4-8db1-dfac3db21bf3">
+              <NavigationalPropertyMoniker name="/PortalProContext/SolicitudStatus/SolicitudLogsFinales" />
+            </associationDefinesTargetProperty>
+          </targetNavigationalProperty>
+          <sourceNavigationalProperty>
+            <associationDefinesSourceProperty Id="d6105c55-0a74-43ba-9d42-2a6af0428552">
+              <NavigationalPropertyMoniker name="/PortalProContext/SolicitudLog/SolicitudStatusFinal" />
+            </associationDefinesSourceProperty>
+          </sourceNavigationalProperty>
+        </Association>
+      </AssociationTargets>
+      <navigationalProperties>
+        <classHasNavigationalProperties Id="a4d4e80a-db5f-44b9-839f-2f1114b89e70">
+          <NavigationalProperty Id="61b56703-f3c0-4840-b0f3-e4bcd4b96103" name="Usuario" type="Usuario" label="Usuario : Usuario" nullable="true" kind="Persistent" fieldName="_usuario" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
+        <classHasNavigationalProperties Id="6a95189e-5f2c-47ac-b529-f3ca02d99419">
+          <NavigationalProperty Id="3335767f-bead-4a0e-be27-d6acd437b938" name="SolicitudStatusInicial" type="SolicitudStatus" label="SolicitudStatusInicial : SolicitudStatus" nullable="true" kind="Persistent" fieldName="_solicitudStatus" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
+        <classHasNavigationalProperties Id="1f60a5d0-971e-47b0-aacf-01eb16e60972">
+          <NavigationalProperty Id="e2310943-b9e0-4c8a-b9fa-08b6c09e4310" name="SolicitudStatusFinal" type="SolicitudStatus" label="SolicitudStatusFinal : SolicitudStatus" nullable="true" kind="Persistent" fieldName="_solicitudStatus1" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
+      </navigationalProperties>
     </DomainClass>
   </Types>
   <domainContext>
@@ -654,6 +824,7 @@
         <entitySetProperty name="SolicitudProveedors" namespace="PortalProModelo" type="SolicitudProveedor" label="SolicitudProveedors : IQueryable&lt;PortalProModelo.SolicitudProveedor&gt;" />
         <entitySetProperty name="Plantillas" namespace="PortalProModelo" type="Plantilla" label="Plantillas : IQueryable&lt;PortalProModelo.Plantilla&gt;" />
         <entitySetProperty name="SolicitudStatus" namespace="PortalProModelo" type="SolicitudStatus" label="SolicitudStatus : IQueryable&lt;PortalProModelo.SolicitudStatus&gt;" />
+        <entitySetProperty name="SolicitudLogs" namespace="PortalProModelo" type="SolicitudLog" label="SolicitudLogs : IQueryable&lt;PortalProModelo.SolicitudLog&gt;" />
       </domainContainer>
     </domainModelHasDomainContext>
   </domainContext>

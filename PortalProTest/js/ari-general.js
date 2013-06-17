@@ -126,6 +126,7 @@ function checkAutorization() {
             // si sigue activa la renovamos y guardamos el tique en la cookie
             var tique = data;
             setCookie("ari_tique", tique.Codigo, 1);
+            setCookie("ari_usuario", JSON.stringify(data.Usuario), 1);
             $("#login-name").text(data.Usuario.Nombre);
             console.log("Tique renovado");
         },

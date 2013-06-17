@@ -1,0 +1,19 @@
++		Request	{Method: DELETE, RequestUri: 'http://localhost:56405/api/uploads?tk=ALNQ1292AL', Version: 1.1, Content: System.Net.Http.StreamContent, Headers:
+{
+  Connection: Keep-Alive
+  Pragma: no-cache
+  Accept: application/json
+  Accept: text/javascript
+  Accept: */*; q=0.01
+  Accept-Encoding: gzip
+  Accept-Encoding: deflate
+  Accept-Language: es-ES
+  Cookie: Ariadna=%7B%22Name%22%3A%22This%20is%20a%20name%22%2C%22Address%22%3A%22This%20is%20the%20address%22%2C%22Phone%22%3A%7B%22Type%22%3A%22Mobile%22%2C%22Number%22%3A%2299945678%22%7D%7D; ari_tique=ALNQ1292AL
+  Host: localhost:56405
+  Referer: http://localhost:65228/proveedor.html
+  User-Agent: Mozilla/5.0
+  User-Agent: (compatible; MSIE 10.0; Windows NT 6.2; WOW64; Trident/6.0)
+  DNT: 1
+  Content-Length: 36
+  Content-Type: application/x-www-form-urlencoded; charset=UTF-8
+}}	System.Net.Http.HttpRequestMessage

@@ -111,7 +111,13 @@
     <Compile Include="Proveedor.generated.cs">
       <DependentUpon>PortalProEntities.rlinq</DependentUpon>
     </Compile>
+    <Compile Include="SolicitudLog.generated.cs">
+      <DependentUpon>PortalProEntities.rlinq</DependentUpon>
+    </Compile>
     <Compile Include="SolicitudProveedor.generated.cs">
+      <DependentUpon>PortalProEntities.rlinq</DependentUpon>
+    </Compile>
+    <Compile Include="SolicitudStatus.generated.cs">
       <DependentUpon>PortalProEntities.rlinq</DependentUpon>
     </Compile>
     <Compile Include="TipoDocumento.generated.cs">
@@ -142,23 +148,9 @@
       <DependentUpon>PortalProEntities.rlinq</DependentUpon>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Content Include="SQL\PortalproConnection%282013-05-09 17-35-48%29.rlinq.sql" />
-    <Content Include="SQL\PortalproConnection%282013-05-09 18-26-37%29.rlinq.sql" />
-    <Content Include="SQL\PortalproConnection%282013-06-03 11-19-23%29.rlinq.sql" />
-    <Content Include="SQL\PortalproConnection%282013-06-03 12-10-39%29.rlinq.sql" />
-    <Content Include="SQL\PortalproConnection%282013-06-03 12-11-33%29.rlinq.sql" />
-    <Content Include="SQL\PortalproConnection%282013-06-03 13-00-09%29.rlinq.sql" />
-    <Content Include="SQL\PortalproConnection%282013-06-03 13-00-31%29.rlinq.sql" />
-    <Content Include="SQL\PortalproConnection%282013-06-06 10-24-53%29.rlinq.sql" />
-    <Content Include="SQL\PortalproConnection%282013-06-06 10-40-32%29.rlinq.sql" />
-    <Content Include="SQL\PortalproConnection%282013-06-06 13-10-08%29.rlinq.sql" />
-    <Content Include="SQL\PortalproConnection%282013-06-06 18-36-47%29.rlinq.sql" />
-    <Content Include="SQL\PortalproConnection%282013-06-10 16-12-07%29.rlinq.sql" />
-    <Content Include="SQL\PortalproConnection%282013-06-11 17-51-31%29.rlinq.sql" />
-    <Content Include="SQL\PortalproConnection%282013-06-11 17-52-37%29.rlinq.sql" />
-    <Content Include="SQL\PortalproConnection%282013-06-12 10-44-17%29.rlinq.sql" />
-    <Content Include="SQL\PortalproConnection%282013-06-12 10-46-39%29.rlinq.sql" />
+    <Content Include="SQL\PortalproConnection%282013-06-17 10-27-22%29.rlinq.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -220,6 +220,19 @@ namespace PortalProModelo
 		    }
 		}
 		
+		private SolicitudStatus _solicitudStatus;
+		public virtual SolicitudStatus SolicitudStatus 
+		{ 
+		    get
+		    {
+		        return this._solicitudStatus;
+		    }
+		    set
+		    {
+		        this._solicitudStatus = value;
+		    }
+		}
+		
 		private IList<Documento> _documentos = new List<Documento>();
 		public virtual IList<Documento> Documentos 
 		{ 

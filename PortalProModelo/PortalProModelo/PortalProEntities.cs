@@ -140,6 +140,14 @@ namespace PortalProModelo
 	    	}
 		}
 		
+		public IQueryable<SolicitudLog> SolicitudLogs 
+		{
+	    	get
+	    	{
+	        	return this.GetAll<SolicitudLog>();
+	    	}
+		}
+		
 		public static BackendConfiguration GetBackendConfiguration()
 		{
 			BackendConfiguration backend = new BackendConfiguration();
@@ -203,6 +211,11 @@ namespace PortalProModelo
 		}
 
 		IQueryable<SolicitudStatus> SolicitudStatus 
+		{ 
+			get;
+		}
+
+		IQueryable<SolicitudLog> SolicitudLogs 
 		{ 
 			get;
 		}

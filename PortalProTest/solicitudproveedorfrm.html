@@ -44,7 +44,6 @@
                             <span class="blue" id="form-title">Nuevo proveedor:</span>
                         </h4>
                         <p>Debe rellenar todos los campos de este este formulario. No olvide incluir los ficheros que se le solicitan.</p>
-                        <p>Verifique con el enlace "ver fichero subido", que su carga se ha realizado correctamente y que ha escogido el fichero adecuado. Una vez que haya finalizado haga clic en el botón "Enviar".</p>
                         <p>Recibirá un mensaje de confirmación en la dirección de correo que nos proporcione</p>
                     </div>
                 </div>
@@ -141,6 +140,11 @@
                         Según su grupo de proveedor necesitará aportar un tipo de documentos u otros.
                         Seleccione los ficheros que en formato PDF contienen la documentación que se solicita en cada apartado.
                     </p>
+                    <p class="blue">
+                        Verifique con el enlace "ver fichero subido", que su carga se ha realizado correctamente y que ha escogido el fichero adecuado. 
+                        Una vez que haya finalizado haga clic en el botón "Enviar".
+                    </p>
+
                 </div>
                 
                 <div class="row-fluid" id="ficheros">
@@ -467,6 +471,7 @@
                         for (var i = 0; i < data.length; i++) {
                             if (type = "new") {
                                 // estamos creando uno nuevo.
+                                fileStr += "<hr class='dotted' />"
                                 fileStr += "<div class='row-fluid'>"
                                 fileStr += "<div class='span6' id=\"TP" + data[i].TipoDocumentoId + "\" style=\"margin-bottom:10px;\"  >";
                                 fileStr += "<label>" + data[i].Nombre + "</label>"
@@ -515,10 +520,24 @@
                 var tipo = e.sender.localization.tipo;
                 var resultado = searchInArray(numFicheros, tipo);
                 if (resultado.length > 0) {
+                    // verificamos que no se sube más de uno
                     resultado[0].contador++;
                     if (resultado[0].contador > 1) {
                         bootbox.alert("Solo se puede elegir un fichero", "Aceptar");
                         e.preventDefault();
+                        return false;
+                    }
+                    // veroificamos que sólo es pdf
+                    var noPdf = false;
+                    var noXML = false;
+                    $.each(e.files, function (index, value) {
+                        if (value.extension != "PDF") noPdf = true;
+                        if (value.extension != "XML") noXML = true;
+                    });
+                    if (noPdf || noXML) {
+                        bootbox.alert("Sólo ficheros PDF o XML");
+                        e.preventDefault();
+                        return false;
                     }
                 }
             }
