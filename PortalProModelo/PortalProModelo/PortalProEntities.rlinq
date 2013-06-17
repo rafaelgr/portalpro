@@ -250,6 +250,17 @@
           <orm:column name="Opciones" sql-type="text" nullable="true" length="0" scale="0" ado-type="Varchar" />
         </orm:field>
       </orm:class>
+      <orm:class name="SolicitudStatus" use-default-mapping="true" uniqueId="04d51ab2-f220-4575-8530-2c49871de6f2">
+        <orm:identity>
+          <orm:single-field field-name="_solicitudStatusId" />
+        </orm:identity>
+        <orm:field name="_solicitudStatusId" property="SolicitudStatusId" uniqueId="7266cd44-ac7e-44f6-a4ea-b7774b22386d" type="System.Int32">
+          <orm:column name="SolicitudStatusId" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+        </orm:field>
+        <orm:field name="_nombre" property="Nombre" uniqueId="c11cdc83-1fa0-4cc1-9a6b-b927c5ced664" type="System.String">
+          <orm:column name="Nombre" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        </orm:field>
+      </orm:class>
     </orm:namespace>
     <orm:schema schema="">
       <orm:table name="GrupoUsuario">
@@ -624,6 +635,10 @@
       <Property Id="0e7011c4-12ee-45c0-a33b-f561bd233298" name="Cuerpo" label="Cuerpo : String" fieldName="_cuerpo" />
       <Property Id="18a362fa-8701-47fd-9120-e893bb2bd40c" name="Opciones" label="Opciones : String" fieldName="_opciones" />
     </DomainClass>
+    <DomainClass Id="04d51ab2-f220-4575-8530-2c49871de6f2" name="SolicitudStatus" namespace="PortalProModelo" showPropertiesCompartment="true" showNavigationCompartment="true" showImplementationCompartment="true">
+      <Property Id="7266cd44-ac7e-44f6-a4ea-b7774b22386d" name="SolicitudStatusId" type="System.Int32" label="SolicitudStatusId : System.Int32" identity="true" fieldName="_solicitudStatusId" />
+      <Property Id="c11cdc83-1fa0-4cc1-9a6b-b927c5ced664" name="Nombre" label="Nombre : String" fieldName="_nombre" />
+    </DomainClass>
   </Types>
   <domainContext>
     <domainModelHasDomainContext Id="b8a488e5-d05f-45aa-83ff-cddf4131e366">
@@ -638,6 +653,7 @@
         <entitySetProperty name="Documentos" namespace="PortalProModelo" type="Documento" label="Documentos : IQueryable&lt;PortalProModelo.Documento&gt;" />
         <entitySetProperty name="SolicitudProveedors" namespace="PortalProModelo" type="SolicitudProveedor" label="SolicitudProveedors : IQueryable&lt;PortalProModelo.SolicitudProveedor&gt;" />
         <entitySetProperty name="Plantillas" namespace="PortalProModelo" type="Plantilla" label="Plantillas : IQueryable&lt;PortalProModelo.Plantilla&gt;" />
+        <entitySetProperty name="SolicitudStatus" namespace="PortalProModelo" type="SolicitudStatus" label="SolicitudStatus : IQueryable&lt;PortalProModelo.SolicitudStatus&gt;" />
       </domainContainer>
     </domainModelHasDomainContext>
   </domainContext>

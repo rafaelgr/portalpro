@@ -43,7 +43,8 @@
                         <h4>
                             <span class="blue" id="form-title">Nuevo proveedor:</span>
                         </h4>
-                        <p>Debe rellenar todos los campos de este este formulario. No olvide incluir los ficheros que se le solicitan. Una vez que haya finalizado haga clic en el botón "Enviar". </p>
+                        <p>Debe rellenar todos los campos de este este formulario. No olvide incluir los ficheros que se le solicitan.</p>
+                        <p>Verifique con el enlace "ver fichero subido", que su carga se ha realizado correctamente y que ha escogido el fichero adecuado. Una vez que haya finalizado haga clic en el botón "Enviar".</p>
                         <p>Recibirá un mensaje de confirmación en la dirección de correo que nos proporcione</p>
                     </div>
                 </div>
@@ -141,7 +142,7 @@
                         Seleccione los ficheros que en formato PDF contienen la documentación que se solicita en cada apartado.
                     </p>
                 </div>
-                <hr class="dotted" />
+                
                 <div class="row-fluid" id="ficheros">
                 </div>
 
@@ -439,6 +440,7 @@
                         for (var i = 0; i < data.length; i++) {
                             if (type = "edit") {
                                 // Mostrando los docmentos de un proveedor
+                                fileStr += "<hr class='dotted' />"
                                 fileStr += "<div id=\"TP" + data[i].DocumentoId + "\" style=\"margin-bottom:10px;\"  >";
                                 fileStr += "<label>" + data[i].TipoDocumento.Nombre 
                                 fileStr += " <i class=\"icon-folder-open blue\"";
@@ -465,13 +467,17 @@
                         for (var i = 0; i < data.length; i++) {
                             if (type = "new") {
                                 // estamos creando uno nuevo.
-                                fileStr += "<div id=\"TP" + data[i].TipoDocumentoId + "\" style=\"margin-bottom:10px;\"  >";
+                                fileStr += "<div class='row-fluid'>"
+                                fileStr += "<div class='span6' id=\"TP" + data[i].TipoDocumentoId + "\" style=\"margin-bottom:10px;\"  >";
                                 fileStr += "<label>" + data[i].Nombre + "</label>"
                                 fileStr += "<input name=\"TPN" + data[i].TipoDocumentoId + "\" id=\"TPU" + data[i].TipoDocumentoId + "\" type=\"file\" />";
                                 fileStr += "</div>";
+                                fileStr += "<div class='span6'>";
                                 fileStr += "<a href=\"#\" id=\"VER" + data[i].TipoDocumentoId + "\" target='_blank'>";
                                 fileStr += "Ver el fichero recién subido <i class='icon-search'></i>";
                                 fileStr += "</a>";
+                                fileStr += "</div>";
+                                fileStr += "</div>";
                             }
                             else {
                                 // editando uno que ya existe
