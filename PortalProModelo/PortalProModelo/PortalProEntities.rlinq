@@ -234,6 +234,9 @@
         <orm:field name="_documentos" property="Documentos" behavior="readwrite" uniqueId="eef56a64-62a5-4e99-a6e6-6a2029d5d26e" type="PortalProModelo.Documento">
           <orm:collection element-class="PortalProModelo.Documento" inverse-field="_solicitudProveedor" order-by="" uniqueId="38fb6818-4bb8-47aa-a77c-dbc923a4c7c5" />
         </orm:field>
+        <orm:field name="_solicitudLogs" property="SolicitudLogs" behavior="readwrite" uniqueId="fe880eda-7872-4fa8-8091-aa74b7ed9440" type="PortalProModelo.SolicitudLog">
+          <orm:collection element-class="PortalProModelo.SolicitudLog" inverse-field="_solicitudProveedor" order-by="" uniqueId="8b01bc97-c240-4b45-a044-c716db625aef" />
+        </orm:field>
       </orm:class>
       <orm:class name="Plantilla" uniqueId="5f126aa5-d263-471b-908f-8c3c273928f9">
         <orm:table name="Plantilla" />
@@ -300,6 +303,9 @@
         </orm:field>
         <orm:field name="_solicitudStatus1" property="SolicitudStatusFinal" behavior="readwrite" uniqueId="e2310943-b9e0-4c8a-b9fa-08b6c09e4310" type="PortalProModelo.SolicitudStatus">
           <orm:reference uniqueId="d4fc083c-3df8-4bcc-8f83-446f1cfefa8e" />
+        </orm:field>
+        <orm:field name="_solicitudProveedor" property="SolicitudProveedor" behavior="readwrite" uniqueId="d7181d42-8721-4de3-9a1a-8fd6b376a2cf" type="PortalProModelo.SolicitudProveedor">
+          <orm:reference uniqueId="8b01bc97-c240-4b45-a044-c716db625aef" />
         </orm:field>
         <orm:index name="idx_SolicitudLog_SolicitudStatusFinal_SolicitudStatusId">
           <orm:columnMapping>
@@ -728,6 +734,9 @@
         <classHasNavigationalProperties Id="48c4b942-06cb-4cf1-bba4-9aaef273ec38">
           <NavigationalProperty Id="a87ddbfa-7bfe-4c82-acff-99169acc58bb" name="SolicitudStatus" type="SolicitudStatus" label="SolicitudStatus : SolicitudStatus" nullable="true" kind="Persistent" fieldName="_solicitudStatus" isDependent="false" isManaged="false" />
         </classHasNavigationalProperties>
+        <classHasNavigationalProperties Id="825a137e-6ebe-4817-bae3-e33c72a86907">
+          <NavigationalProperty Id="fe880eda-7872-4fa8-8091-aa74b7ed9440" name="SolicitudLogs" type="IList&lt;SolicitudLog&gt;" label="SolicitudLogs : IList&lt;SolicitudLog&gt;" nullable="true" kind="Persistent" fieldName="_solicitudLogs" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
       </navigationalProperties>
     </DomainClass>
     <DomainClass Id="5f126aa5-d263-471b-908f-8c3c273928f9" name="Plantilla" namespace="PortalProModelo" showPropertiesCompartment="true" showNavigationCompartment="true" showImplementationCompartment="true">
@@ -796,6 +805,19 @@
             </associationDefinesSourceProperty>
           </sourceNavigationalProperty>
         </Association>
+        <Association Id="8b01bc97-c240-4b45-a044-c716db625aef" SourceMultiplicity="ZeroOne" name="SolicitudLogHasSolicitudProveedor">
+          <DomainClassMoniker name="/PortalProContext/SolicitudProveedor" />
+          <targetNavigationalProperty>
+            <associationDefinesTargetProperty Id="468ea068-8154-4292-b475-2890b17e0ed6">
+              <NavigationalPropertyMoniker name="/PortalProContext/SolicitudProveedor/SolicitudLogs" />
+            </associationDefinesTargetProperty>
+          </targetNavigationalProperty>
+          <sourceNavigationalProperty>
+            <associationDefinesSourceProperty Id="37e57335-3c87-4790-b5ff-224c31a6f5dd">
+              <NavigationalPropertyMoniker name="/PortalProContext/SolicitudLog/SolicitudProveedor" />
+            </associationDefinesSourceProperty>
+          </sourceNavigationalProperty>
+        </Association>
       </AssociationTargets>
       <navigationalProperties>
         <classHasNavigationalProperties Id="a4d4e80a-db5f-44b9-839f-2f1114b89e70">
@@ -806,6 +828,9 @@
         </classHasNavigationalProperties>
         <classHasNavigationalProperties Id="1f60a5d0-971e-47b0-aacf-01eb16e60972">
           <NavigationalProperty Id="e2310943-b9e0-4c8a-b9fa-08b6c09e4310" name="SolicitudStatusFinal" type="SolicitudStatus" label="SolicitudStatusFinal : SolicitudStatus" nullable="true" kind="Persistent" fieldName="_solicitudStatus1" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
+        <classHasNavigationalProperties Id="57c81d93-b69a-4325-886d-15724e23812c">
+          <NavigationalProperty Id="d7181d42-8721-4de3-9a1a-8fd6b376a2cf" name="SolicitudProveedor" type="SolicitudProveedor" label="SolicitudProveedor : SolicitudProveedor" nullable="true" kind="Persistent" fieldName="_solicitudProveedor" isDependent="false" isManaged="false" />
         </classHasNavigationalProperties>
       </navigationalProperties>
     </DomainClass>

@@ -658,6 +658,9 @@
                     success: function (data, textStatus) {
                         loadModel(data);
                         createFileLinks(id);
+                        // limpiar los campos de ventana
+                        $("#Password").val("");
+                        $("#Comentarios").val("");
                     },
                 });
             }

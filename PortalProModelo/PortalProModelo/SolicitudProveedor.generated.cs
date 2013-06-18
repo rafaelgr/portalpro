@@ -242,5 +242,14 @@ namespace PortalProModelo
 		    }
 		}
 		
+		private IList<SolicitudLog> _solicitudLogs = new List<SolicitudLog>();
+		public virtual IList<SolicitudLog> SolicitudLogs 
+		{ 
+		    get
+		    {
+		        return this._solicitudLogs;
+		    }
+		}
+		
 	}
 }

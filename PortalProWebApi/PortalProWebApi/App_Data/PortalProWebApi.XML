@@ -402,6 +402,46 @@
             </summary>
             <param name="documentPath">The physical path to XML document.</param>
         </member>
+        <member name="M:PortalProWebApi.Controllers.SolicitudesLogController.Get(System.String)">
+            <summary>
+            Obtiene todos los log de solicitudes de la base de datos
+            </summary>
+            <param name="tk">Código del tique de autorización (Véase "Login")</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.SolicitudesLogController.Get(System.Int32,System.String)">
+            <summary>
+            Obtiene log de solicitud que corresponde con el pasado
+            </summary>
+            <param name="id">Identificador único del log</param>
+            <param name="tk">Código del tique de autorización (Véase "Login")</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.SolicitudesLogController.Post(PortalProModelo.SolicitudLog,System.String)">
+            <summary>
+            Crear un nuevo solog
+            </summary>
+            <param name="SolicitudLog">Objeto a crear, el atributo SolicitudLogId lo genera la aplicación y es devuelto en el objeto incluido en la respuesta.</param>
+            <param name="tk"> Tique de autorzación (se debe obtener con la accion Login)</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.SolicitudesLogController.Put(System.Int32,PortalProModelo.SolicitudLog,System.String)">
+            <summary>
+            Modificar un log de solicitud. En el cuerpo del mensaje se envía en el formato adecuado el objeto con los datos modificados
+            </summary>
+            <param name="id"> Identificador único del log </param>
+            <param name="solog">Log de solicitud con los valores que se desean en sus atributos</param>
+            <param name="tk"> Tique de autorización (Ver 'Login')</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.SolicitudesLogController.Delete(System.Int32,System.String)">
+            <summary>
+            Elimina el log que coincide con el id pasado
+            </summary>
+            <param name="id">Identificador del log a eliminar</param>
+            <param name="tk">Tique de autorización (Ver 'Login')</param>
+            <returns></returns>
+        </member>
         <member name="M:PortalProWebApi.Controllers.PlantillasController.Get(System.String)">
             <summary>
             Obtiene todos las plantillas de la base de datos

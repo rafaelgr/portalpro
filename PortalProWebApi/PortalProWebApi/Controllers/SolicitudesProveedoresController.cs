@@ -228,14 +228,14 @@ namespace PortalProWebApi.Controllers
             using (PortalProContext ctx = new PortalProContext())
             {
                 // Comprobamos la solicitud
-                SolicitudProveedor solicitudProveedor = (from sp in ctx.SolicitudProveedors
+                SolicitudProveedor solProveedor = (from sp in ctx.SolicitudProveedors
                                                          where sp.SolicitudProveedorId == id
                                                          select sp).FirstOrDefault<SolicitudProveedor>();
-                if (solicitudProveedor == null)
+                if (solProveedor == null)
                 {
                     throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotFound, "No hay una solicitud con el id proporcionado (Solicitudes proveedores)"));
                 }
-                if (solicitudProveedor.SolicitudStatus == null || solicitudProveedor.SolicitudStatus.SolicitudStatusId != 1)
+                if (solProveedor.SolicitudStatus == null || solProveedor.SolicitudStatus.SolicitudStatusId != 1)
                 {
                     throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "La solicitud ya ha sido procesada"));
                 }
@@ -260,13 +260,31 @@ namespace PortalProWebApi.Controllers
                 slg.Sello = DateTime.Now;
                 slg.Comentarios = comentarios;
                 slg.Usuario = usu;
-                slg.SolicitudStatusInicial = solicitudProveedor.SolicitudStatus;
+                slg.SolicitudStatusInicial = solProveedor.SolicitudStatus;
                 slg.SolicitudStatusFinal = st;
                 ctx.Add(slg);
                 // cambiamos el estado de la solicitud
-                solicitudProveedor.SolicitudStatus = st;
+                solProveedor.SolicitudStatus = st;
                 // y salvamos todo
                 ctx.SaveChanges();
+                // una vez hecho esto hay que informar por correo
+                // preparamos y enviamos el correo de confirmación por defecto (por si falla la plantilla).
+                string asunto = "[PortalPro] Recibida solicitud";
+                string cuerpo = String.Format("Su solicitud con ID:{0} ha sido recibida. No responda este mensaje", solProveedor.SolicitudProveedorId);
+                // El primer paso es obtener la plantilla en este caso su código coincide con el estatus
+                Plantilla plantilla = (from pl in ctx.Plantillas
+                                       where pl.PlantillaId == status
+                                       select pl).FirstOrDefault<Plantilla>();
+                if (plantilla != null)
+                {
+                    asunto = String.Format(plantilla.Asunto, solProveedor.SolicitudProveedorId, solProveedor.Nombre, solProveedor.Calle, solProveedor.Ciudad,
+                        solProveedor.CodPostal, solProveedor.Provincia, solProveedor.Comunidad, solProveedor.Pais, solProveedor.Telefono, solProveedor.Fax,
+                        solProveedor.Movil, solProveedor.Email, solProveedor.Url, solProveedor.Nif, comentarios);
+                    cuerpo = String.Format(plantilla.Cuerpo, solProveedor.SolicitudProveedorId, solProveedor.Nombre, solProveedor.Calle, solProveedor.Ciudad,
+                        solProveedor.CodPostal, solProveedor.Provincia, solProveedor.Comunidad, solProveedor.Pais, solProveedor.Telefono, solProveedor.Fax,
+                        solProveedor.Movil, solProveedor.Email, solProveedor.Url, solProveedor.Nif, comentarios);
+                }
+                PortalProMailController.SendEmail(solProveedor.Email, asunto, cuerpo);
             }
             return res;
         }

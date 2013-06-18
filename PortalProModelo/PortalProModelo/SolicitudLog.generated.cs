@@ -103,5 +103,18 @@ namespace PortalProModelo
 		    }
 		}
 		
+		private SolicitudProveedor _solicitudProveedor;
+		public virtual SolicitudProveedor SolicitudProveedor 
+		{ 
+		    get
+		    {
+		        return this._solicitudProveedor;
+		    }
+		    set
+		    {
+		        this._solicitudProveedor = value;
+		    }
+		}
+		
 	}
 }
