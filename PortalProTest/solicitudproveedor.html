@@ -103,7 +103,14 @@
                             </div>
                         </div>
                     </div> <!-- / ventana cambio de estatus -->
+                    <div id="selector" class="row-fluid">
+<!--                        <label>
+                            <input id="solo-pendientes" type="checkbox"/><span class="lbl"> Mostrar sólo las solicitudes pendientes</span>
+                        </label>-->
+                        <label>Sólo se muestran las solcitudes pendientes, las procesadas las encontrará en "Registros"</label>
+                    </div>
                     <div id="proveedor-grid" class="row-fluid">
+
                     </div><!--/#proveedor-grid-->
                     <div id="proveedor-form" class="row-fluid" style="display:none;">
                         <div id="window"></div>
@@ -387,7 +394,7 @@
             var gridDataSource = new kendo.data.DataSource({
                 transport: {
                     read: {
-                        url: ari_hosts.webapi + "/api/solicitudesproveedores?tk=" + getCookie("ari_tique"),
+                        url: ari_hosts.webapi + "/api/solicitudesproveedores?tk=" + getCookie("ari_tique") + "&estado=1",
                         dataType: "json",
                         type: "GET",
                         contentType: "application/json"
@@ -498,7 +505,7 @@
             
             function gridSelect(id, nombre) {
             }
-            function gridRefresh() {
+            function gridRefresh(status) {
                 var ds = $("#proveedor-grid").data("kendoGrid").dataSource;
                 ds.read();
                 return ds;
@@ -513,6 +520,7 @@
                 type = "new";
                 // ocultar grid - mostrar form
                 $("#proveedor-grid").hide();
+                $("#selector").hide();
                 $("#proveedor-form").show();
                 // oclutar los botones de aprobación y rechazo
                 $("#Approval").hide();
@@ -526,6 +534,7 @@
             function formEdit(id) {
                 type = "edit";
                 $("#proveedor-grid").hide();
+                $("#selector").hide();
                 $("#proveedor-form").show();
                 $("#form-title").text("Procesar solicitud");
                 // mostrar los botones de aprovación y rechazo
@@ -619,6 +628,7 @@
                         // el tratamiento es diferente si se trata de altas o ediciones
                         $("#proveedor-form").hide();
                         $("#proveedor-grid").show();
+                        $("#selector").show();
                     },
                 });
             }
@@ -646,6 +656,7 @@
                 validator.hideMessages();
                 clearDownloads();
                 $("#proveedor-grid").show();
+                $("#selector").show();
                 $("#proveedor-form").hide()
             }
             // carga los datos en el grid
@@ -683,7 +694,7 @@
                 viewModel.GrupoProveedor.GrupoProveedorId("");
                 viewModel.GrupoProveedor.Nombre("");
                 viewModel.SolicitudStatus.SolicitudStatusId("");
-                viewModel.SolitudStatus.Nombre("");
+                viewModel.SolicitudStatus.Nombre("");
                 numFicheros = [];
             }
             // cargar el modelo
@@ -788,6 +799,7 @@
                         }
                         $("#proveedor-form").hide();
                         $("#proveedor-grid").show();
+                        $("#selector").show();
                     },
                 });
             }
@@ -838,6 +850,8 @@
                 var aux = getCookie("ari_usuario");
                 usuario = JSON.parse(aux);
                 $("#usuarioNombre").val(usuario.Nombre);
+                $("#password").val("");
+                $("#comentarios").val("");
                 $("#password").focus();
                 window.data("kendoWindow").title("Confirmación");
                 window.data("kendoWindow").open();
@@ -978,6 +992,17 @@
                     }
                 });
             }
+            //
+            function changeCheck() {
+                var ds = $("#proveedor-grid").data("kendoGrid").dataSource;
+                if ($("#solo-pendientes").is(':checked')) {
+                    ds.transport.read.url = ari_hosts.webapi + "/api/solicitudesproveedores?tk=" + getCookie("ari_tique") + "&estado=1";
+                } else {
+                    ds.transport.read.url = ari_hosts.webapi + "/api/solicitudesproveedores?tk=" + getCookie("ari_tique");
+                }
+                console.log(ds.transport.read.url);
+                ds.read();
+            };
         </script>
         <!-- Script en arranque -->
         <script type="text/javascript">
@@ -998,6 +1023,10 @@
                     loadTemplates();
                     // cargar el grid
                     gridBuild();
+                    // agrgar manejador al check
+                    $("#solo-pendientes").click(function () {
+                        changeCheck();
+                    });
                     // comprobar como hemos sido llamados 
                     switch (caller) {
                         case "grupoproveedor":
@@ -1006,6 +1035,7 @@
                             loadDataCookie();
                             loadCombos();
                             $("#proveedor-grid").hide();
+                            $("#selector").hide();
                             $("#proveedor-form").show();
                             break;
                     }

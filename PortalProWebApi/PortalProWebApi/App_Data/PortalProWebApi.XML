@@ -436,7 +436,8 @@
         </member>
         <member name="M:PortalProWebApi.Controllers.SolicitudesLogController.Delete(System.Int32,System.String)">
             <summary>
-            Elimina el log que coincide con el id pasado
+            Elimina el log que coincide con el id pasado. La solicitud a la que pertenece
+            pasa al estado de pendiente.
             </summary>
             <param name="id">Identificador del log a eliminar</param>
             <param name="tk">Tique de autorización (Ver 'Login')</param>
@@ -495,6 +496,14 @@
             Obtiene todos las solicitudes de la base de datos
             </summary>
             <param name="tk">Código del tique de autorización (Véase "Login")</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.SolicitudesProveedoresController.GetPorEstado(System.String,System.String)">
+            <summary>
+            Devuelve las solicitudes que se encuentran en un determinado estado
+            </summary>
+            <param name="tk">Tique de autorización</param>
+            <param name="estado">Posibles estados (1=pendiente / 2=Aceptada / 3=Rechazada)</param>
             <returns></returns>
         </member>
         <member name="M:PortalProWebApi.Controllers.SolicitudesProveedoresController.Get(System.Int32,System.String)">

@@ -236,7 +236,8 @@ namespace PortalProWebApi.Controllers
         }
 
         /// <summary>
-        /// Elimina el log que coincide con el id pasado
+        /// Elimina el log que coincide con el id pasado. La solicitud a la que pertenece
+        /// pasa al estado de pendiente.
         /// </summary>
         /// <param name="id">Identificador del log a eliminar</param>
         /// <param name="tk">Tique de autorización (Ver 'Login')</param>
@@ -257,9 +258,19 @@ namespace PortalProWebApi.Controllers
                 // existe?
                 if (slg == null)
                 {
-                    throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotFound, "No hay un grupo con el id proporcionado (SolicitudLogs)"));
+                    throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotFound, "No hay un log con el id proporcionado (SolicitudLogs)"));
+                }
+                // salvamos la solicitud que habrá que actualizar
+                SolicitudProveedor sp = slg.SolicitudProveedor;
+                if (sp != null)
+                {
+                    // Estado 1 = Pendiente
+                    sp.SolicitudStatus = (from s in ctx.SolicitudStatus
+                                          where s.SolicitudStatusId == 1
+                                          select s).FirstOrDefault<SolicitudStatus>();
                 }
                 ctx.Delete(slg);
+                
                 ctx.SaveChanges();
                 return true;
             }

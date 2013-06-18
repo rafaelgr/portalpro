@@ -40,6 +40,37 @@ namespace PortalProWebApi.Controllers
         }
 
         /// <summary>
+        /// Devuelve las solicitudes que se encuentran en un determinado estado
+        /// </summary>
+        /// <param name="tk">Tique de autorización</param>
+        /// <param name="estado">Posibles estados (1=pendiente / 2=Aceptada / 3=Rechazada)</param>
+        /// <returns></returns>
+        public virtual IEnumerable<SolicitudProveedor> GetPorEstado(string tk, string estado)
+        {
+            using (PortalProContext ctx = new PortalProContext())
+            {
+                if (CntWebApiSeguridad.CheckTicket(tk, ctx))
+                {
+                    IEnumerable<SolicitudProveedor> solProveedores = (from pr in ctx.SolicitudProveedors
+                                                                      where pr.SolicitudStatus.SolicitudStatusId == int.Parse(estado)
+                                                                      select pr).ToList<SolicitudProveedor>();
+
+                    // fetch estrategy, necesaria para poder devolver el grupo junto con cada usuariuo
+                    FetchStrategy fs = new FetchStrategy();
+                    fs.LoadWith<SolicitudProveedor>(x => x.GrupoProveedor);
+                    fs.LoadWith<SolicitudProveedor>(x => x.SolicitudStatus);
+                    solProveedores = ctx.CreateDetachedCopy<IEnumerable<SolicitudProveedor>>(solProveedores, fs);
+                    return solProveedores;
+                }
+                else
+                {
+                    throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.Unauthorized, "Se necesita tique de autorización (Solicitudes proveedores)"));
+                }
+            }
+        }
+
+
+        /// <summary>
         /// Obtiene la solicitud cuyo ID corresponde con el pasado
         /// </summary>
         /// <param name="id">Identificador únicode la solicitud</param>
@@ -259,6 +290,7 @@ namespace PortalProWebApi.Controllers
                 SolicitudLog slg = new SolicitudLog();
                 slg.Sello = DateTime.Now;
                 slg.Comentarios = comentarios;
+                slg.SolicitudProveedor = solProveedor;
                 slg.Usuario = usu;
                 slg.SolicitudStatusInicial = solProveedor.SolicitudStatus;
                 slg.SolicitudStatusFinal = st;
