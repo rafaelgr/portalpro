@@ -207,6 +207,19 @@ namespace PortalProModelo
 		    }
 		}
 		
+		private DateTime _sello;
+		public virtual DateTime Sello 
+		{ 
+		    get
+		    {
+		        return this._sello;
+		    }
+		    set
+		    {
+		        this._sello = value;
+		    }
+		}
+		
 		private GrupoProveedor _grupoProveedor;
 		public virtual GrupoProveedor GrupoProveedor 
 		{ 

@@ -402,6 +402,17 @@
             </summary>
             <param name="documentPath">The physical path to XML document.</param>
         </member>
+        <member name="M:PortalProWebApi.Controllers.IndicadoresController.Get(System.String)">
+            <summary>
+            Retorna un vector con parejas de nombre y valor
+            que reflejan una serie de indicadores:
+            n_solPro = Número de solicitudes de proveedores
+            n_solProA = Núemro de solicitudes aceptadas.
+            n_solProR = Número de solicitudes rechazadas
+            </summary>
+            <param name="tk">Tique de autorización (ver Login)</param>
+            <returns></returns>
+        </member>
         <member name="M:PortalProWebApi.Controllers.SolicitudesLogController.Get(System.String)">
             <summary>
             Obtiene todos los log de solicitudes de la base de datos

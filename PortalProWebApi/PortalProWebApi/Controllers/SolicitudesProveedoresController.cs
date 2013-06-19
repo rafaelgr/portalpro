@@ -136,6 +136,8 @@ namespace PortalProWebApi.Controllers
                     solicitudStatusId = solProveedor.SolicitudStatus.SolicitudStatusId;
                     solProveedor.SolicitudStatus = null;
                 }
+                // justo antes de darlo de alta le ponemos el sello
+                solProveedor.Sello = DateTime.Now;
                 // dar de alta el objeto en la base de datos y devolverlo en el mensaje
                 ctx.Add(solProveedor);
                 if (grupoProveedorId != 0)

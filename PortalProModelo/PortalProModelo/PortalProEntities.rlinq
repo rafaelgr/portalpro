@@ -206,25 +206,56 @@
           <orm:reference uniqueId="38fb6818-4bb8-47aa-a77c-dbc923a4c7c5" />
         </orm:field>
       </orm:class>
-      <orm:class name="SolicitudProveedor" uniqueId="2335b462-3777-4219-b736-d4f1654eeb56">
+      <orm:class name="SolicitudProveedor" use-default-mapping="true" uniqueId="2335b462-3777-4219-b736-d4f1654eeb56">
         <orm:identity>
           <orm:key-generator name="autoinc" />
           <orm:single-field field-name="_solicitudProveedorId" />
         </orm:identity>
-        <orm:field name="_solicitudProveedorId" property="SolicitudProveedorId" uniqueId="9f138b7a-1fd2-4e8f-8a93-5d963f3ef14b" type="System.Int32" />
-        <orm:field name="_nombre" property="Nombre" uniqueId="344988d3-8d66-4280-848a-6aeaf3ae69eb" type="System.String" />
-        <orm:field name="_calle" property="Calle" uniqueId="7fd67bdf-3c74-4980-9b76-a2176971413e" type="System.String" />
-        <orm:field name="_ciudad" property="Ciudad" uniqueId="c5abb3b9-b134-4773-827e-a2945e250604" type="System.String" />
-        <orm:field name="_codPostal" property="CodPostal" uniqueId="60b5e9ac-ab29-4b72-a91b-520f622dce4a" type="System.String" />
-        <orm:field name="_provincia" property="Provincia" uniqueId="11605ab1-26da-411d-88bc-3495af2e1063" type="System.String" />
-        <orm:field name="_comunidad" property="Comunidad" uniqueId="fb331dae-4d5b-48c5-b3e5-d0348b58648b" type="System.String" />
-        <orm:field name="_pais" property="Pais" uniqueId="93bd1118-592a-47e5-8611-21fd8363d89e" type="System.String" />
-        <orm:field name="_telefono" property="Telefono" uniqueId="03336363-3c2f-4eba-ba1d-03358b4b8f02" type="System.String" />
-        <orm:field name="_fax" property="Fax" uniqueId="7d8b865f-08b6-4df6-ba64-02f501207f3a" type="System.String" />
-        <orm:field name="_movil" property="Movil" uniqueId="169139fb-21a0-4624-aafc-69bba5714964" type="System.String" />
-        <orm:field name="_url" property="Url" uniqueId="1433132e-e8da-4902-b838-72aec56e69c9" type="System.String" />
-        <orm:field name="_email" property="Email" uniqueId="e51d6629-6715-49a0-8afc-02d69cc0ab92" type="System.String" />
-        <orm:field name="_nif" property="Nif" uniqueId="c91d5836-9f64-4222-b6d8-eda8381d0e30" type="System.String" />
+        <orm:field name="_solicitudProveedorId" property="SolicitudProveedorId" uniqueId="9f138b7a-1fd2-4e8f-8a93-5d963f3ef14b" type="System.Int32">
+          <orm:column name="SolicitudProveedorId" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" backend-calculated="true" ado-type="Int32" />
+        </orm:field>
+        <orm:field name="_nombre" property="Nombre" uniqueId="344988d3-8d66-4280-848a-6aeaf3ae69eb" type="System.String">
+          <orm:column name="Nombre" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        </orm:field>
+        <orm:field name="_calle" property="Calle" uniqueId="7fd67bdf-3c74-4980-9b76-a2176971413e" type="System.String">
+          <orm:column name="Calle" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        </orm:field>
+        <orm:field name="_ciudad" property="Ciudad" uniqueId="c5abb3b9-b134-4773-827e-a2945e250604" type="System.String">
+          <orm:column name="Ciudad" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        </orm:field>
+        <orm:field name="_codPostal" property="CodPostal" uniqueId="60b5e9ac-ab29-4b72-a91b-520f622dce4a" type="System.String">
+          <orm:column name="CodPostal" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        </orm:field>
+        <orm:field name="_provincia" property="Provincia" uniqueId="11605ab1-26da-411d-88bc-3495af2e1063" type="System.String">
+          <orm:column name="Provincia" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        </orm:field>
+        <orm:field name="_comunidad" property="Comunidad" uniqueId="fb331dae-4d5b-48c5-b3e5-d0348b58648b" type="System.String">
+          <orm:column name="Comunidad" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        </orm:field>
+        <orm:field name="_pais" property="Pais" uniqueId="93bd1118-592a-47e5-8611-21fd8363d89e" type="System.String">
+          <orm:column name="Pais" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        </orm:field>
+        <orm:field name="_telefono" property="Telefono" uniqueId="03336363-3c2f-4eba-ba1d-03358b4b8f02" type="System.String">
+          <orm:column name="Telefono" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        </orm:field>
+        <orm:field name="_fax" property="Fax" uniqueId="7d8b865f-08b6-4df6-ba64-02f501207f3a" type="System.String">
+          <orm:column name="Fax" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        </orm:field>
+        <orm:field name="_movil" property="Movil" uniqueId="169139fb-21a0-4624-aafc-69bba5714964" type="System.String">
+          <orm:column name="Movil" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        </orm:field>
+        <orm:field name="_url" property="Url" uniqueId="1433132e-e8da-4902-b838-72aec56e69c9" type="System.String">
+          <orm:column name="Url" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        </orm:field>
+        <orm:field name="_email" property="Email" uniqueId="e51d6629-6715-49a0-8afc-02d69cc0ab92" type="System.String">
+          <orm:column name="Email" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        </orm:field>
+        <orm:field name="_nif" property="Nif" uniqueId="c91d5836-9f64-4222-b6d8-eda8381d0e30" type="System.String">
+          <orm:column name="Nif" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        </orm:field>
+        <orm:field name="_sello" property="Sello" uniqueId="78c6c129-7c05-41f8-80b4-30fbb161dc77" type="System.DateTime">
+          <orm:column name="Sello" sql-type="datetime" nullable="false" length="0" scale="0" converter="OpenAccessRuntime.Data.Timestamp2DateTimeConverter" ado-type="DateTime" />
+        </orm:field>
         <orm:field name="_grupoProveedor" property="GrupoProveedor" behavior="readwrite" uniqueId="08cd3337-7360-4902-995d-381de10e73f3" type="PortalProModelo.GrupoProveedor">
           <orm:reference uniqueId="a6016d2b-968a-4597-977f-5973d26e08d3" />
         </orm:field>
@@ -237,6 +268,16 @@
         <orm:field name="_solicitudLogs" property="SolicitudLogs" behavior="readwrite" uniqueId="fe880eda-7872-4fa8-8091-aa74b7ed9440" type="PortalProModelo.SolicitudLog">
           <orm:collection element-class="PortalProModelo.SolicitudLog" inverse-field="_solicitudProveedor" order-by="" uniqueId="8b01bc97-c240-4b45-a044-c716db625aef" />
         </orm:field>
+        <orm:index name="idx_SolicitudProveedor_GrupoProveedorId">
+          <orm:columnMapping>
+            <orm:column name="GrupoProveedorId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+          </orm:columnMapping>
+        </orm:index>
+        <orm:index name="idx_SolicitudProveedor_SolicitudStatusId">
+          <orm:columnMapping>
+            <orm:column name="SolicitudStatusId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+          </orm:columnMapping>
+        </orm:index>
       </orm:class>
       <orm:class name="Plantilla" uniqueId="5f126aa5-d263-471b-908f-8c3c273928f9">
         <orm:table name="Plantilla" />
@@ -696,6 +737,7 @@
       <Property Id="1433132e-e8da-4902-b838-72aec56e69c9" name="Url" label="Url : String" fieldName="_url" />
       <Property Id="e51d6629-6715-49a0-8afc-02d69cc0ab92" name="Email" label="Email : String" fieldName="_email" />
       <Property Id="c91d5836-9f64-4222-b6d8-eda8381d0e30" name="Nif" label="Nif : String" fieldName="_nif" />
+      <Property Id="78c6c129-7c05-41f8-80b4-30fbb161dc77" name="Sello" type="DateTime" label="Sello : DateTime" fieldName="_sello" />
       <AssociationTargets>
         <Association Id="a6016d2b-968a-4597-977f-5973d26e08d3" SourceMultiplicity="ZeroOne" name="SolicitudProveedorHasGrupoProveedor">
           <DomainClassMoniker name="/PortalProContext/GrupoProveedor" />
