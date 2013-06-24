@@ -222,6 +222,10 @@
                 GrupoProveedor: {
                     GrupoProveedorId: ko.observable(),
                     Nombre: ko.observable()
+                },
+                SolicitudStatus: {
+                    SolicitudStatusId: ko.observable(),
+                    Nombre: ko.observable()
                 }
             }
             
@@ -342,6 +346,8 @@
             
             // salvar los datos del form
             function saveData(arg) {
+                // hay que marcar como pendiente la solicitud
+                viewModel.SolicitudStatus.SolicitudStatusId(1);
                 var verb = "";
                 var url = "";
                 if (arg == "new") {
@@ -531,10 +537,10 @@
                     var noPdf = false;
                     var noXML = false;
                     $.each(e.files, function (index, value) {
-                        if (value.extension != "PDF") noPdf = true;
-                        if (value.extension != "XML") noXML = true;
+                        if (value.extension.toUpperCase() != ".PDF") noPdf = true;
+                        if (value.extension.toUpperCase() != ".XML") noXML = true;
                     });
-                    if (noPdf || noXML) {
+                    if (noPdf && noXML) {
                         bootbox.alert("Sólo ficheros PDF o XML");
                         e.preventDefault();
                         return false;

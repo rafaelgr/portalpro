@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using PortalProModelo;
+using Telerik.OpenAccess.FetchOptimization;
 
 namespace PortalProWebApi.Controllers
 {
@@ -23,6 +24,7 @@ namespace PortalProWebApi.Controllers
                 {
                     IEnumerable<GrupoProveedor> gruposProveedores = (from gp in ctx.GrupoProveedors
                                                                      select gp).ToList<GrupoProveedor>();
+                    
                     gruposProveedores = ctx.CreateDetachedCopy<IEnumerable<GrupoProveedor>>(gruposProveedores);
                     return gruposProveedores;
                 }
