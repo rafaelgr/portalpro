@@ -81,10 +81,10 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="Telerik.OpenAccess, Version=2013.1.219.3, Culture=neutral, PublicKeyToken=7ce17eeaf1d59342">
+    <Reference Include="Telerik.OpenAccess, Version=2013.2.702.1, Culture=neutral, PublicKeyToken=7ce17eeaf1d59342">
       <HintPath>C:\Program Files (x86)\Telerik\OpenAccess ORM\bin\Telerik.OpenAccess.dll</HintPath>
     </Reference>
-    <Reference Include="Telerik.OpenAccess.35.Extensions, Version=2013.1.219.3, Culture=neutral, PublicKeyToken=7ce17eeaf1d59342">
+    <Reference Include="Telerik.OpenAccess.35.Extensions, Version=2013.2.702.1, Culture=neutral, PublicKeyToken=7ce17eeaf1d59342">
       <HintPath>C:\Program Files (x86)\Telerik\OpenAccess ORM\bin\Telerik.OpenAccess.35.Extensions.dll</HintPath>
     </Reference>
   </ItemGroup>
@@ -154,6 +154,10 @@
     <Content Include="SQL\PortalproConnection%282013-06-18 09-48-36%29.rlinq.sql" />
     <Content Include="SQL\PortalproConnection%282013-06-18 09-49-50%29.rlinq.sql" />
     <Content Include="SQL\PortalproConnection%282013-06-19 08-24-27%29.rlinq.sql" />
+    <Content Include="SQL\PortalproConnection%282013-07-08 10-27-49%29.rlinq.sql" />
+    <Content Include="SQL\PortalproConnection%282013-07-08 11-50-55%29.rlinq.sql" />
+    <Content Include="SQL\PortalproConnection%282013-07-08 12-27-50%29.rlinq.sql" />
+    <Content Include="SQL\PortalproConnection%282013-07-08 13-07-18%29.rlinq.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -170,10 +170,10 @@ namespace PortalProWebApi.Controllers
                                            select pl).FirstOrDefault<Plantilla>();
                     if (plantilla != null)
                     {
-                        asunto = String.Format(plantilla.Asunto, solProveedor.SolicitudProveedorId, solProveedor.Nombre, solProveedor.Calle, solProveedor.Ciudad,
+                        asunto = String.Format(plantilla.Asunto, solProveedor.SolicitudProveedorId, solProveedor.RazonSocial, solProveedor.Direccion, solProveedor.Localidad,
                             solProveedor.CodPostal, solProveedor.Provincia, solProveedor.Comunidad, solProveedor.Pais, solProveedor.Telefono, solProveedor.Fax,
                             solProveedor.Movil, solProveedor.Email, solProveedor.Url, solProveedor.Nif);
-                        cuerpo = String.Format(plantilla.Cuerpo, solProveedor.SolicitudProveedorId, solProveedor.Nombre, solProveedor.Calle, solProveedor.Ciudad,
+                        cuerpo = String.Format(plantilla.Cuerpo, solProveedor.SolicitudProveedorId, solProveedor.RazonSocial, solProveedor.Direccion, solProveedor.Localidad,
                             solProveedor.CodPostal, solProveedor.Provincia, solProveedor.Comunidad, solProveedor.Pais, solProveedor.Telefono, solProveedor.Fax,
                             solProveedor.Movil, solProveedor.Email, solProveedor.Url, solProveedor.Nif);
                     }
@@ -311,10 +311,10 @@ namespace PortalProWebApi.Controllers
                                        select pl).FirstOrDefault<Plantilla>();
                 if (plantilla != null)
                 {
-                    asunto = String.Format(plantilla.Asunto, solProveedor.SolicitudProveedorId, solProveedor.Nombre, solProveedor.Calle, solProveedor.Ciudad,
+                    asunto = String.Format(plantilla.Asunto, solProveedor.SolicitudProveedorId, solProveedor.RazonSocial, solProveedor.Direccion, solProveedor.Localidad,
                         solProveedor.CodPostal, solProveedor.Provincia, solProveedor.Comunidad, solProveedor.Pais, solProveedor.Telefono, solProveedor.Fax,
                         solProveedor.Movil, solProveedor.Email, solProveedor.Url, solProveedor.Nif, comentarios);
-                    cuerpo = String.Format(plantilla.Cuerpo, solProveedor.SolicitudProveedorId, solProveedor.Nombre, solProveedor.Calle, solProveedor.Ciudad,
+                    cuerpo = String.Format(plantilla.Cuerpo, solProveedor.SolicitudProveedorId, solProveedor.RazonSocial, solProveedor.Direccion, solProveedor.Localidad,
                         solProveedor.CodPostal, solProveedor.Provincia, solProveedor.Comunidad, solProveedor.Pais, solProveedor.Telefono, solProveedor.Fax,
                         solProveedor.Movil, solProveedor.Email, solProveedor.Url, solProveedor.Nif, comentarios);
                 }

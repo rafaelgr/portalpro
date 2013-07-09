@@ -76,9 +76,9 @@
                         </div>
                         <div class="row-fluid">
                             <div class="span10">
-                                <label>Nombre</label>
-                                <input id="Nombre" class="span12" type="text" data-bind="value: Nombre" 
-                                       name="Nombre" required />
+                                <label>Razón social</label>
+                                <input id="RazonSocial" class="span12" type="text" data-bind="value: RazonSocial" 
+                                       name="RazonSocial" required />
                             </div>
                             <div class="span2">
                                 <label>Nif</label>
@@ -87,7 +87,12 @@
                             </div>
                         </div>
                         <div class="row-fluid">
-                            <div class="span12">
+                            <div class="span6">
+                                <label>Nombre comercial</label>
+                                <input id="NombreComercial" class="span12" type="text" data-bind="value: NombreComercial"
+                                       name="NombreComercial" required />
+                            </div>
+                            <div class="span6">
                                 <label>
                                     Grupo de proveedores
                                     <a onclick="formSearch('GrupoProveedor');">
@@ -98,12 +103,19 @@
                                 <input id="GrupoProveedorId" data-bind="value: GrupoProveedor.GrupoProveedorId" type="hidden" />
                             </div>
                         </div>
+                        <div class="row-fluid">
+                            <div class="span12">
+                                <label>Actividad principal</label>
+                                <input id="ActividadPrincipal" class="span12" type="text" data-bind="value: ActividadPrincipal"
+                                       name="ActividadPrincipal" />
+                            </div>
+                        </div>
                         <!-- Calle, código postal y ciudad -->
                         <div class="row-fluid">
                             <div class="span6">
-                                <label>Calle</label>
-                                <input id="Calle" class="span12" type="text" data-bind="value: Calle" 
-                                       name="Calle" required/>
+                                <label>Direccion</label>
+                                <input id="Direccion" class="span12" type="text" data-bind="value: Direccion" 
+                                       name="Direccion" required/>
                             </div>
                             <div class="span3">
                                 <label>Código postal</label>
@@ -111,9 +123,9 @@
                                        name="CodPostal" required/>
                             </div>
                             <div class="span3">
-                                <label>Ciudad</label>
-                                <input id="Ciudad" class="span12" type="text" data-bind="value: Ciudad" 
-                                       name="Ciudad" required/>
+                                <label>Localidad</label>
+                                <input id="Localidad" class="span12" type="text" data-bind="value: Localidad" 
+                                       name="Localidad" required/>
                             </div>
                         </div>
                         <!-- Provincia, comunidad y pais -->
@@ -152,14 +164,45 @@
                                        name="Movil" required />
                             </div>
                             <div class="span3">
-                                <label>Correo electrónico</label>
+                                <label>Correo electrónico (General)</label>
                                 <input id="Email" class="span12" type="email" data-bind="value: Email" 
                                        name="Email" required />
                             </div>
                             <div class="span3">
-                                <label>Página web</label>
-                                <input id="Url" class="span12" type="url" data-bind="value: Url" 
-                                       name="Url" required />
+                                <label>Correo electrónico (Facturas)</label>
+                                <input id="EmailFacturas" class="span12" type="url" data-bind="value: Email" 
+                                       name="EmailFacturas" required />
+                            </div>
+                        </div>
+                        <div class="row-fluid">
+                            <div class="span6">
+                                <label>Persona de contacto</label>
+                                <input id="PersonaContacto" class="span12" type="text" data-bind="value: PersonaContacto" 
+                                       name="PersonaContacto" />
+                            </div>
+                            <div class="span6">
+                                <div class="row-fluid">
+                                    <div class="span2">
+                                        <label>IBAN1</label>
+                                        <input id="IBAN1" class="span12" type="text" name="IBAN1" />
+                                    </div>
+                                    <div class="span2">
+                                        <label>Entidad</label>
+                                        <input id="Entidad" class="span12" type="text" name="Entidad" />
+                                    </div>
+                                    <div class="span2">
+                                        <label>Sucursal</label>
+                                        <input id="Sucursal" class="span12" type="text" name="Sucursal" />
+                                    </div>
+                                    <div class="span1">
+                                        <label>Control</label>
+                                        <input id="Control" class="span12" type="text" name="Control" />
+                                    </div>
+                                    <div class="span5">
+                                        <label>Cuenta corriente</label>
+                                        <input id="Cuenta corriente" class="span12" type="text" name="Cuenta corriente" />
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div>
@@ -265,10 +308,12 @@
             // modelo de datos knockout
             var viewModel = {
                 ProveedorId: ko.observable(),
-                Nombre: ko.observable(),
-                Calle: ko.observable(),
+                RazonSocial: ko.observable(),
+                NombreComercial: ko.observable(),
+                ActividadPrincipal: ko.observable(),
+                Direccion: ko.observable(),
                 CodPostal: ko.observable(),
-                Ciudad: ko.observable(),
+                Localidad: ko.observable(),
                 Provincia: ko.observable(),
                 Comunidad: ko.observable(),
                 Pais: ko.observable(),
@@ -278,6 +323,9 @@
                 Email: ko.observable(),
                 Url: ko.observable(),
                 Nif: ko.observable(),
+                EmailFacturas: ko.observable(),
+                PersonaContacto: ko.observable(),
+                IBAN: ko.observable(),
                 GrupoProveedor: {
                     GrupoProveedorId: ko.observable(),
                     Nombre: ko.observable()
@@ -287,7 +335,7 @@
             ko.applyBindings(viewModel);
         
         </script>
-        
+
         <!-- manejo de los templates que usará el grid -->
         <script type="text/javascript">
             var t_new;
@@ -305,7 +353,7 @@
             }
         
         </script>
-        
+
         <!-- manejo del grid  -->
         <script type="text/javascript">
             
@@ -328,10 +376,13 @@
                         id: "ProveedorId",
                         fields: {
                             ProveedorId: { type: "number" },
-                            Nombre: { type: "string" },
-                            Calle: { type: "string" },
+                            RazonSocial: {type: "string"},
+                            NombreComercial: { type: "string" },
+                            ActividadPrincipal: { type: "string" },
+                            PersonaContacto: {type:"string"},
+                            Direccion: { type: "string" },
                             CodPostal: { type: "string" },
-                            Ciudad: { type: "string" },
+                            Localidad: { type: "string" },
                             Provincia: { type: "string" },
                             Comunidad: { type: "string" },
                             Pais: { type: "string" },
@@ -340,7 +391,9 @@
                             Fax: { type: "string" },
                             Url: { type: "string" },
                             Email: { type: "string" },
-                            Nif: {type:"string"},
+                            EmailFacturas: {type: "string"},
+                            Nif: { type: "string" },
+                            IBAN: {type:"string"},
                             GrupoProveedor: {}
                         }
                     }
@@ -364,18 +417,22 @@
                     dataSource: gridDataSource,
                     columns: [
                         { field: "ProveedorId", title: "ID" },
-                        { field: "Nombre", title: "Nombre" },
+                        { field: "RazonSocial", title: "Razon social" },
+                        { field: "NombreComercial", title: "Nombre comercial", hidden:true },
                         { field: "Nif", title: "NIF"},
                         { field: "GrupoProveedor", title: "Grupo", template: "#=GrupoProveedor?GrupoProveedor.Nombre:''#", filterable:false },
-                        { field: "Calle", title: "Direccion" },
+                        { field: "Direccion", title: "Direccion" },
                         { field: "CodPostal", title: "Código postal" },
-                        { field: "Ciudad", title: "Ciudad" },
+                        { field: "Localidad", title: "Localidad" },
                         { field: "Provincia", title: "Provincia" },
                         { field: "Comunidad", title: "Comunidad / Estado", hidden: true },
                         { field: "Pais", title: "Pais", hidden: true },
                         { field: "Telefono", title: "Teléfono", hidden: true },
                         { field: "Fax", title: "Fax", hidden: true },
                         { field: "Email", title: "Correo electrónico", hidden: true },
+                        { field: "EmailFacturas", title: "Correo electrónico (facturas)", hidden: true },
+                        { field: "ActividadPrincipal", title: "Act. principal", hidden: true },
+                        { field: "PersonaContacto", title: "Persona de contacto", hidden: true },
                         { field: "Url", title: "Web", hidden: true },
                         { template: t_edit }
                     ],
@@ -429,7 +486,7 @@
             }
         
         </script>
-        
+
         <!-- manejo del form -->
         <script type="text/javascript">
             // botón nuevo (del grid)
@@ -451,7 +508,7 @@
                 $("#form-title").text("Editar proveedor");
                 loadData(id);
                 loadCombos();
-                $("#Nombre").focus();
+                $("#RazonSocial").focus();
             }
             // botón aceptar / salvar
             function formAccept() {
@@ -495,10 +552,11 @@
             // limpiar los datos del modelo
             function clearData() {
                 viewModel.ProveedorId("");
-                viewModel.Nombre("");
-                viewModel.Calle("");
+                viewModel.RazonSocial("");
+                viewModel.NombreComercial("");
+                viewModel.Direccion("");
                 viewModel.CodPostal("");
-                viewModel.Ciudad("");
+                viewModel.Localidad("");
                 viewModel.Provincia("");
                 viewModel.Comunidad("");
                 viewModel.Pais("");
@@ -507,21 +565,25 @@
                 viewModel.Movil("");
                 viewModel.Url("");
                 viewModel.Email("");
+                viewModel.EmailFacturas("");
+                viewModel.ActividadPrincipal("");
+                viewModel.PersonaContacto("");
+                viewModel.IBAN("");
                 viewModel.Nif("");
                 viewModel.GrupoProveedor.GrupoProveedorId("");
                 viewModel.GrupoProveedor.Nombre("");
                 numFicheros = [];
                 // limpiamos la zona de ficheros;
                 $("#ficheros").html("");
-
             }
             // cargar el modelo
             function loadModel(data) {
                 viewModel.ProveedorId(data.ProveedorId);
-                viewModel.Nombre(data.Nombre);
-                viewModel.Calle(data.Calle);
+                viewModel.RazonSocial(data.RazonSocial);
+                viewModel.NombreComercial(data.NombreComercial);
+                viewModel.Direccion(data.Direccion);
                 viewModel.CodPostal(data.CodPostal);
-                viewModel.Ciudad(data.Ciudad);
+                viewModel.Localidad(data.Localidad);
                 viewModel.Provincia(data.Provincia);
                 viewModel.Comunidad(data.Comunidad);
                 viewModel.Pais(data.Pais);
@@ -530,6 +592,10 @@
                 viewModel.Movil(data.Movil);
                 viewModel.Url(data.Url);
                 viewModel.Email(data.Email);
+                viewModel.EmailFacturas(data.EmailFacturas);
+                viewModel.ActividadPrincipal(data.ActividadPrincipal);
+                viewModel.PersonaContacto(data.PersonaContacto);
+                viewModel.IBAN(data.IBAN);
                 viewModel.Nif(data.Nif);
                 // el grupo al que pertenece
                 // ya que se admiten nulos hay que controlarlo
@@ -650,9 +716,9 @@
                 window.data("kendoWindow").refresh(url);
                 window.data("kendoWindow").open();
             }
-        
+            
         </script>
-
+        
         <!-- Montaje de los controles para carga de documentos  y funciones auxiliares-->
         <script type="text/javascript">
             var uploadOptions = {
@@ -789,7 +855,7 @@
                 });
             }
         </script>
-
+        
         <!-- Script en arranque -->
         <script type="text/javascript">
             (function ($) {
@@ -826,4 +892,3 @@
         </script>
     </body>
 </html>
-    

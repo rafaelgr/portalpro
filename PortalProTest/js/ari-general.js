@@ -178,6 +178,8 @@ function searchInArray(array, id) {
     return result;
 }
 
+
 function moniker() {
     alert("MONIKER");
 }
+

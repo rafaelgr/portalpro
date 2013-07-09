@@ -47,91 +47,137 @@
                         <p>Recibirá un mensaje de confirmación en la dirección de correo que nos proporcione</p>
                     </div>
                 </div>
-                <div class="row-fluid">
-                    <div class="span10">
-                        <label>Nombre</label>
-                        <input id="Nombre" class="span12" type="text" data-bind="value: Nombre" 
-                               name="Nombre" required />
-                    </div>
-                    <div class="span2">
-                        <label>Nif</label>
-                        <input id="Nif" class="span12" type="text" data-bind="value: Nif"
-                               name="Nif" required />
-                    </div>
-                </div>
-                <div class="row-fluid">
-                    <div class="span12">
-                        <label>
-                            Grupo de proveedores (*)
-                        </label>
-                        <input id="GrupoProveedor" type="text" readonly="true" data-bind="value: GrupoProveedor.Nombre" class="span12"/>
-                        <input id="GrupoProveedorId" data-bind="value: GrupoProveedor.GrupoProveedorId" type="hidden" />
-                    </div>
-                </div>
-                <!-- Calle, código postal y ciudad -->
-                <div class="row-fluid">
-                    <div class="span6">
-                        <label>Calle</label>
-                        <input id="Calle" class="span12" type="text" data-bind="value: Calle" 
-                               name="Calle" required/>
-                    </div>
-                    <div class="span3">
-                        <label>Código postal</label>
-                        <input id="CodPostal" class="span12" type="text" data-bind="value: CodPostal" 
-                               name="CodPostal" required/>
-                    </div>
-                    <div class="span3">
-                        <label>Ciudad</label>
-                        <input id="Ciudad" class="span12" type="text" data-bind="value: Ciudad" 
-                               name="Ciudad" required/>
-                    </div>
-                </div>
-                <!-- Provincia, comunidad y pais -->
-                <div class="row-fluid">
-                    <div class="span6">
-                        <label>Provincia</label>
-                        <input id="Provincia" class="span12" type="text" data-bind="value: Provincia" 
-                               name="Provincia" required />
-                    </div>
-                    <div class="span3">
-                        <label>Comunidad / Estado</label>
-                        <input id="Comunidad" class="span12" type="text" data-bind="value:Comunidad"
-                               name="Comunidad" required/>
-                    </div>
-                    <div class="span3">
-                        <label>Pais</label>
-                        <input id="Pais" class="span12" type="text" data-bind="value: Pais"
-                               name="Pais" required/>
-                    </div>
-                </div>
-                <!-- teléfono, fax, movil, correo, url -->
-                <div class="row-fluid">
-                    <div class="span2">
-                        <label>Telefono</label>
-                        <input id="Telefono" class="span12" type="text" data-bind="value: Telefono" 
-                               name="Telefono" required />
-                    </div>
-                    <div class="span2">
-                        <label>Fax</label>
-                        <input id="Fax" class="span12" type="text" data-bind="value: Fax" 
-                               name="Fax" required />
-                    </div>
-                    <div class="span2">
-                        <label>Móvil</label>
-                        <input id="Movil" class="span12" type="text" data-bind="value: Movil" 
-                               name="Movil" required />
-                    </div>
-                    <div class="span3">
-                        <label>Correo electrónico</label>
-                        <input id="Email" class="span12" type="email" data-bind="value: Email" 
-                               name="Email" required />
-                    </div>
-                    <div class="span3">
-                        <label>Página web</label>
-                        <input id="Url" class="span12" type="url" data-bind="value: Url" 
-                               name="Url" required />
-                    </div>
-                </div>
+                        <div class="row-fluid">
+                            <div class="span10">
+                                <label>Razón social</label>
+                                <input id="RazonSocial" class="span12" type="text" data-bind="value: RazonSocial" 
+                                       name="RazonSocial" required />
+                            </div>
+                            <div class="span2">
+                                <label>Nif</label>
+                                <input id="Nif" class="span12" type="text" data-bind="value: Nif"
+                                       name="Nif" required />
+                            </div>
+                        </div>
+                        <div class="row-fluid">
+                            <div class="span6">
+                                <label>Nombre comercial</label>
+                                <input id="NombreComercial" class="span12" type="text" data-bind="value: NombreComercial"
+                                       name="NombreComercial" required />
+                            </div>
+                            <div class="span6">
+                                <label>
+                                    Grupo de proveedores
+                                    <a onclick="formSearch('GrupoProveedor');">
+                                        <i class="icon-search"></i>
+                                    </a>
+                                </label>
+                                <input id="GrupoProveedor" data-bind="value: GrupoProveedor.Nombre" style="width:100%;" onblur="onBlurGrupoProveedor()" />
+                                <input id="GrupoProveedorId" data-bind="value: GrupoProveedor.GrupoProveedorId" type="hidden" />
+                            </div>
+                        </div>
+                        <div class="row-fluid">
+                            <div class="span12">
+                                <label>Actividad principal</label>
+                                <input id="ActividadPrincipal" class="span12" type="text" data-bind="value: ActividadPrincipal"
+                                       name="ActividadPrincipal" />
+                            </div>
+                        </div>
+                        <!-- Calle, código postal y ciudad -->
+                        <div class="row-fluid">
+                            <div class="span6">
+                                <label>Direccion</label>
+                                <input id="Direccion" class="span12" type="text" data-bind="value: Direccion" 
+                                       name="Direccion" required/>
+                            </div>
+                            <div class="span3">
+                                <label>Código postal</label>
+                                <input id="CodPostal" class="span12" type="text" data-bind="value: CodPostal" 
+                                       name="CodPostal" required/>
+                            </div>
+                            <div class="span3">
+                                <label>Localidad</label>
+                                <input id="Localidad" class="span12" type="text" data-bind="value: Localidad" 
+                                       name="Localidad" required/>
+                            </div>
+                        </div>
+                        <!-- Provincia, comunidad y pais -->
+                        <div class="row-fluid">
+                            <div class="span6">
+                                <label>Provincia</label>
+                                <input id="Provincia" class="span12" type="text" data-bind="value: Provincia" 
+                                       name="Provincia" required />
+                            </div>
+                            <div class="span3">
+                                <label>Comunidad / Estado</label>
+                                <input id="Comunidad" class="span12" type="text" data-bind="value: Comunidad"
+                                       name="Comunidad" required/>
+                            </div>
+                            <div class="span3">
+                                <label>Pais</label>
+                                <input id="Pais" class="span12" type="text" data-bind="value: Pais"
+                                       name="Pais" required/>
+                            </div>
+                        </div>
+                        <!-- teléfono, fax, movil, correo, url -->
+                        <div class="row-fluid">
+                            <div class="span2">
+                                <label>Telefono</label>
+                                <input id="Telefono" class="span12" type="text" data-bind="value: Telefono" 
+                                       name="Telefono" required />
+                            </div>
+                            <div class="span2">
+                                <label>Fax</label>
+                                <input id="Fax" class="span12" type="text" data-bind="value: Fax" 
+                                       name="Fax" required />
+                            </div>
+                            <div class="span2">
+                                <label>Móvil</label>
+                                <input id="Movil" class="span12" type="text" data-bind="value: Movil" 
+                                       name="Movil" required />
+                            </div>
+                            <div class="span3">
+                                <label>Correo electrónico (General)</label>
+                                <input id="Email" class="span12" type="email" data-bind="value: Email" 
+                                       name="Email" required />
+                            </div>
+                            <div class="span3">
+                                <label>Correo electrónico (Facturas)</label>
+                                <input id="EmailFacturas" class="span12" type="url" data-bind="value: Email" 
+                                       name="EmailFacturas" required />
+                            </div>
+                        </div>
+                        <div class="row-fluid">
+                            <div class="span6">
+                                <label>Persona de contacto</label>
+                                <input id="PersonaContacto" class="span12" type="text" data-bind="value: PersonaContacto" 
+                                       name="PersonaContacto" />
+                            </div>
+                            <div class="span6">
+                                <div class="row-fluid">
+                                    <div class="span2">
+                                        <label>IBAN1</label>
+                                        <input id="IBAN1" class="span12" type="text" name="IBAN1" />
+                                    </div>
+                                    <div class="span2">
+                                        <label>Entidad</label>
+                                        <input id="Entidad" class="span12" type="text" name="Entidad" />
+                                    </div>
+                                    <div class="span2">
+                                        <label>Sucursal</label>
+                                        <input id="Sucursal" class="span12" type="text" name="Sucursal" />
+                                    </div>
+                                    <div class="span1">
+                                        <label>Control</label>
+                                        <input id="Control" class="span12" type="text" name="Control" />
+                                    </div>
+                                    <div class="span5">
+                                        <label>Cuenta corriente</label>
+                                        <input id="Cuenta corriente" class="span12" type="text" name="Cuenta corriente" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                 <div>
                     <h5>
                         <span class="blue">Ficheros asociados</span>
@@ -206,19 +252,24 @@
             // modelo de datos knockout
             var viewModel = {
                 SolicitudProveedorId: ko.observable(),
-                Nombre: ko.observable(),
-                Calle: ko.observable(),
+                RazonSocial: ko.observable(),
+                NombreComercial: ko.observable(),
+                Direccion: ko.observable(),
                 CodPostal: ko.observable(),
-                Ciudad: ko.observable(),
+                Localidad: ko.observable(),
                 Provincia: ko.observable(),
                 Comunidad: ko.observable(),
                 Pais: ko.observable(),
+                ActividadPrincipal: ko.observable(),
+                PersonaContacto: ko.observable(),
                 Telefono: ko.observable(),
                 Fax: ko.observable(),
                 Movil: ko.observable(),
                 Email: ko.observable(),
+                EmailFacturas: ko.observable(),
                 Url: ko.observable(),
                 Nif: ko.observable(),
+                IBAN: ko.observable(),
                 GrupoProveedor: {
                     GrupoProveedorId: ko.observable(),
                     Nombre: ko.observable()
@@ -286,19 +337,24 @@
             // limpiar los datos del modelo
             function clearData() {
                 viewModel.SolicitudProveedorId("");
-                viewModel.Nombre("");
-                viewModel.Calle("");
+                viewModel.RazonSocial("");
+                viewModel.NombreComercial("");
+                viewModel.Direccion("");
                 viewModel.CodPostal("");
-                viewModel.Ciudad("");
+                viewModel.Localidad("");
                 viewModel.Provincia("");
                 viewModel.Comunidad("");
                 viewModel.Pais("");
+                viewModel.ActividadPrincipal("");
+                viewModel.PersonaContacto("");
                 viewModel.Telefono("");
                 viewModel.Fax("");
                 viewModel.Movil("");
                 viewModel.Url("");
                 viewModel.Email("");
+                viewModel.EmailFacturas("");
                 viewModel.Nif("");
+                viewModel.IBAN("");
                 viewModel.GrupoProveedor.GrupoProveedorId("");
                 viewModel.GrupoProveedor.Nombre("");
                 numFicheros = [];
@@ -306,8 +362,9 @@
             // cargar el modelo
             function loadModel(data) {
                 viewModel.SolicitudProveedorId(data.SolicitudProveedorId);
-                viewModel.Nombre(data.Nombre);
-                viewModel.Calle(data.Calle);
+                viewModel.RazonSocial(data.RazonSocial);
+                viewModel.NombreComercial(data.NombreComercial);
+                viewModel.Direccion(data.Direccion);
                 viewModel.CodPostal(data.CodPostal);
                 viewModel.Ciudad(data.Ciudad);
                 viewModel.Provincia(data.Provincia);
@@ -318,7 +375,9 @@
                 viewModel.Movil(data.Movil);
                 viewModel.Url(data.Url);
                 viewModel.Email(data.Email);
+                viewModel.EmailFacturas(data.EmailFacturas);
                 viewModel.Nif(data.Nif);
+                viewModel.IBAN(data.IBAN);
                 // el grupo al que pertenece
                 // ya que se admiten nulos hay que controlarlo
                 if (data.GrupoProveedor != null) {

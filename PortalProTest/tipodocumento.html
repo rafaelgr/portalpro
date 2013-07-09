@@ -54,7 +54,9 @@
                 </div><!--#breadcrumbs-->
                 <div id="page-content" class="clearfix">
                     <div class="page-header position-relative">
-                        <h1>Tipos de documentos <i id="isearch" class="icon-search" style="display:none;"></i></h1>
+                        <h1>
+                            Tipos de documentos <i id="isearch" class="icon-search" style="display:none;"></i>
+                        </h1>
                     </div>
                     <div id="tipodocumento-grid" class="row-fluid">
                     </div><!--/#usuario-grid-->
@@ -75,7 +77,14 @@
                             <div class="span12">
                                 <label>Nombre</label>
                                 <input id="Nombre" class="span12" type="text" data-bind="value: Nombre" 
-                                    name="Nombre" required />
+                                       name="Nombre" required />
+                            </div>
+                        </div>
+                        <div class="row-fluid">
+                            <div class="span12">
+                                <label>
+                                    <input type="checkbox" data-bind="checked: Obligatorio" /><span class="lbl"> Obligatorio: Si esta opción está marcada el proveedor deberá "necesariamente" adjuntar este tipo de fichero</span>
+                                </label>
                             </div>
                         </div>
                         <div class="row-fluid">
@@ -172,11 +181,13 @@
             var viewModel = {
                 TipoDocumentoId: ko.observable(),
                 Nombre: ko.observable(),
+                Obligatorio: ko.observable()
             }
+            
             ko.applyBindings(viewModel);
-
+        
         </script>
-
+        
         <!-- manejo de los templates que usará el grid -->
         <script type="text/javascript">
             var t_new;
@@ -194,7 +205,7 @@
             }
         
         </script>
-
+        
         <!-- manejo del grid  -->
         <script type="text/javascript">
             
@@ -218,6 +229,7 @@
                         fields: {
                             TipoDocumentoId: { type: "number" },
                             Nombre: { type: "string" },
+                            Obligatorio: { type: "boolean" }
                         }
                     }
                 },
@@ -241,10 +253,10 @@
                     columns: [
                         { field: "TipoDocumentoId", title: "ID" },
                         { field: "Nombre", title: "Nombre" },
+                        { field: "Obligatorio", title: "Obligatorio", hidden: true},
                         { template: t_edit }
                     ],
                     toolbar: t_new,
-            
                     pageable: ari_pageable_es_ES,
                     sortable: true,
                     groupable: ari_groupable_es_ES,
@@ -313,7 +325,6 @@
                         window.open("usuario.html?caller=tipodocumento", '_self');
                         break;
                 }
-
             }
             function gridRefresh() {
                 var ds = $("#tipodocumento-grid").data("kendoGrid").dataSource;
@@ -343,7 +354,8 @@
                 $("#Nombre").focus();
             }
             function formAccept() {
-                if (!formOk()) return;
+                if (!formOk())
+                    return;
                 saveData(type);
             }
             function formOk() {
@@ -370,6 +382,7 @@
                         // incluir aqui el tratamiento de los datos recibidos
                         viewModel.TipoDocumentoId(data.TipoDocumentoId);
                         viewModel.Nombre(data.Nombre);
+                        viewModel.Obligatorio(data.Obligatorio);
                     },
                 });
             }
@@ -377,6 +390,7 @@
             function clearData() {
                 viewModel.TipoDocumentoId("");
                 viewModel.Nombre("");
+                viewModel.Obligatorio(false);
             }
             // salvar los datos del form
             function saveData(arg) {
@@ -407,7 +421,8 @@
                             var totalPages = ds.totalPages();
                             ds.page(totalPages);
                             // por si el alta es en el marco de una búsqueda
-                            if (caller != "") gridSelect(data.TipoDocumentoId, data.Nombre)
+                            if (caller != "")
+                                gridSelect(data.TipoDocumentoId, data.Nombre)
                         }
                         else {
                             // en edición simplemnete mostramos el grid, se supone
@@ -419,7 +434,7 @@
                 });
             }
         </script>
-
+        
         <!-- Script en arranque -->
         <script type="text/javascript">
             (function ($) {
