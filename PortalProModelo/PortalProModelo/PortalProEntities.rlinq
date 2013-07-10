@@ -211,6 +211,9 @@
         <orm:field name="_descargaUrl" property="DescargaUrl" uniqueId="5ff156ce-7433-4d24-a8fe-ade99975522d" type="System.String">
           <orm:column name="DescargaUrl" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
         </orm:field>
+        <orm:field name="_comentario" property="Comentario" uniqueId="4a610fbf-2bd0-4cbb-ba4f-908a444f40d1" type="System.String">
+          <orm:column nullable="true" scale="0" length="255" sql-type="varchar" name="Comentario" ado-type="" />
+        </orm:field>
         <orm:field name="_tipoDocumento" property="TipoDocumento" behavior="readwrite" uniqueId="53a0c1dc-0104-4fca-81d6-f8b864a739ef" type="PortalProModelo.TipoDocumento">
           <orm:reference uniqueId="44abc319-65e6-47aa-843a-8981c06944ac" />
         </orm:field>
@@ -449,6 +452,7 @@
         <orm:column name="DescargaUrl" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
         <orm:column name="TipoDocumentoId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
         <orm:column name="ProveedorId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+        <orm:column nullable="true" scale="0" length="255" sql-type="varchar" name="Comentario" ado-type="" />
       </orm:table>
       <orm:table name="Plantilla">
         <orm:column name="PlantillaId" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
@@ -745,6 +749,7 @@
       <Property Id="5fb9a084-d295-4739-bc29-2871bbd81407" name="NomFichero" label="NomFichero : String" fieldName="_nomFichero" />
       <Property Id="0a7746bc-3991-40f1-bad9-a73e674aa204" name="Extension" label="Extension : String" fieldName="_extension" />
       <Property Id="5ff156ce-7433-4d24-a8fe-ade99975522d" name="DescargaUrl" label="DescargaUrl : String" fieldName="_descargaUrl" />
+      <Property Id="4a610fbf-2bd0-4cbb-ba4f-908a444f40d1" name="Comentario" label="Comentario : String" fieldName="_comentario" />
       <AssociationTargets>
         <Association Id="44abc319-65e6-47aa-843a-8981c06944ac" SourceMultiplicity="ZeroOne" name="DocumentoHasTipoDocumento">
           <DomainClassMoniker name="/PortalProContext/TipoDocumento" />

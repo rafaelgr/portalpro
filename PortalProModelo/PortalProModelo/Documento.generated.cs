@@ -76,6 +76,19 @@ namespace PortalProModelo
 			}
 		}
 		
+		private string _comentario;
+		public virtual string Comentario
+		{
+			get
+			{
+				return this._comentario;
+			}
+			set
+			{
+				this._comentario = value;
+			}
+		}
+		
 		private TipoDocumento _tipoDocumento;
 		public virtual TipoDocumento TipoDocumento
 		{
