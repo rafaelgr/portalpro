@@ -192,6 +192,9 @@
         <orm:field name="_documentos" property="Documentos" behavior="readwrite" uniqueId="0f1a945c-3975-4395-929f-2b2581c1e5ea" type="PortalProModelo.Documento">
           <orm:collection element-class="PortalProModelo.Documento" inverse-field="_proveedor" order-by="" uniqueId="9a7121ef-80bd-4a5d-bb91-69ca9f185752" />
         </orm:field>
+        <orm:field name="_cabFacturas" property="CabFacturas" behavior="readwrite" uniqueId="99fa2346-991d-498e-8fe2-cdb9f088682d" type="PortalProModelo.CabFactura">
+          <orm:collection element-class="PortalProModelo.CabFactura" inverse-field="_proveedor" order-by="" uniqueId="9750b7fa-84d1-4309-8275-c1b1677043e2" />
+        </orm:field>
       </orm:class>
       <orm:class name="Documento" uniqueId="170cdc07-d980-489a-8e5c-01d7f487cc30">
         <orm:table name="Documento" />
@@ -212,7 +215,7 @@
           <orm:column name="DescargaUrl" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
         </orm:field>
         <orm:field name="_comentario" property="Comentario" uniqueId="4a610fbf-2bd0-4cbb-ba4f-908a444f40d1" type="System.String">
-          <orm:column nullable="true" scale="0" length="255" sql-type="varchar" name="Comentario" ado-type="" />
+          <orm:column name="Comentario" sql-type="varchar" nullable="true" length="255" scale="0" ado-type="" />
         </orm:field>
         <orm:field name="_tipoDocumento" property="TipoDocumento" behavior="readwrite" uniqueId="53a0c1dc-0104-4fca-81d6-f8b864a739ef" type="PortalProModelo.TipoDocumento">
           <orm:reference uniqueId="44abc319-65e6-47aa-843a-8981c06944ac" />
@@ -398,6 +401,70 @@
           </orm:columnMapping>
         </orm:index>
       </orm:class>
+      <orm:class name="CabFactura" uniqueId="c6d0c499-fab6-4f24-97b9-6f4f933d7931">
+        <orm:table name="CabFactura" />
+        <orm:identity>
+          <orm:single-field field-name="_cabFacturaId" />
+        </orm:identity>
+        <orm:field name="_cabFacturaId" property="CabFacturaId" uniqueId="83603d41-cfc0-411b-ba31-6f6f3824b2e2" type="System.Int32">
+          <orm:column name="CabFacturaId" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+        </orm:field>
+        <orm:field name="_fechaAlta" property="FechaAlta" uniqueId="abc28fe9-6bd6-46a8-b0b7-158c7d066fbd" type="System.DateTime">
+          <orm:column name="FechaAlta" sql-type="datetime" nullable="false" length="0" scale="0" converter="OpenAccessRuntime.Data.Timestamp2DateTimeConverter" ado-type="DateTime" />
+        </orm:field>
+        <orm:field name="_fechaEmision" property="FechaEmision" uniqueId="1d45c8c9-ebae-4d64-9a91-65f853c1f441" type="System.DateTime">
+          <orm:column name="FechaEmision" sql-type="datetime" nullable="false" length="0" scale="0" converter="OpenAccessRuntime.Data.Timestamp2DateTimeConverter" ado-type="DateTime" />
+        </orm:field>
+        <orm:field name="_totalFactura" property="TotalFactura" uniqueId="f67b1736-31a6-45b0-8fd9-3bfb6ed38450" type="System.Decimal">
+          <orm:column name="TotalFactura" sql-type="decimal" nullable="false" length="10" scale="2" ado-type="Numeric" />
+        </orm:field>
+        <orm:field name="_proveedor" property="Proveedor" behavior="readwrite" uniqueId="a0e7d402-f8cd-4e92-9322-d8fc12ad4d93" type="PortalProModelo.Proveedor">
+          <orm:reference uniqueId="9750b7fa-84d1-4309-8275-c1b1677043e2" />
+        </orm:field>
+        <orm:field name="_documento" property="DocumentoPdf" behavior="readwrite" uniqueId="5f008862-41ca-4f8e-bd54-361c6d5cc2c6" type="PortalProModelo.Documento">
+          <orm:reference uniqueId="65acfdff-8576-4f23-859e-280a6e557001" />
+        </orm:field>
+        <orm:field name="_documento1" property="DocumentoXml" behavior="readwrite" uniqueId="e16c2a38-d715-4fad-8f00-da6102f3bb22" type="PortalProModelo.Documento">
+          <orm:reference uniqueId="4b96947a-19bb-42b7-8990-05c9813aed7d" />
+        </orm:field>
+        <orm:field name="_linFacturas" property="LinFacturas" behavior="readwrite" uniqueId="92a6a4d5-d147-4f2f-8a42-950f64a46158" type="PortalProModelo.LinFactura">
+          <orm:collection element-class="PortalProModelo.LinFactura" inverse-field="_cabFactura" order-by="" uniqueId="99479ba3-b941-4d39-94d2-f99068cc96b7" />
+        </orm:field>
+        <orm:index name="idx_CabFactura_ProveedorId">
+          <orm:columnMapping>
+            <orm:column name="ProveedorId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+          </orm:columnMapping>
+        </orm:index>
+      </orm:class>
+      <orm:class name="LinFactura" uniqueId="b9d4ad71-5781-4089-a34b-624001f3b6f9">
+        <orm:table name="LinFactura" />
+        <orm:identity>
+          <orm:single-field field-name="_linFacturaId" />
+        </orm:identity>
+        <orm:field name="_linFacturaId" property="LinFacturaId" uniqueId="d79c72e7-2907-4a10-9a4f-1a4860a16f93" type="System.Int32">
+          <orm:column name="LinFacturaId" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+        </orm:field>
+        <orm:field name="_numeroPedido" property="NumeroPedido" uniqueId="9ae9cddc-ebc4-41be-acee-43897402e4af" type="System.String">
+          <orm:column name="NumeroPedido" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        </orm:field>
+        <orm:field name="_descripcion" property="Descripcion" uniqueId="f26aa2ca-e7c0-46c9-83ee-fa73102b6c89" type="System.String">
+          <orm:column name="Descripcion" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        </orm:field>
+        <orm:field name="_importe" property="Importe" uniqueId="473579a4-5e89-4fed-a955-65fc948a8f77" type="System.Decimal">
+          <orm:column name="Importe" sql-type="decimal" nullable="false" length="10" scale="2" ado-type="Numeric" />
+        </orm:field>
+        <orm:field name="_porcentajeIva" property="PorcentajeIva" uniqueId="631761ea-e7c6-4ff8-9cac-a7e5acae937d" type="System.Decimal">
+          <orm:column name="PorcentajeIva" sql-type="decimal" nullable="false" length="5" scale="2" ado-type="Numeric" />
+        </orm:field>
+        <orm:field name="_cabFactura" property="CabFactura" behavior="readwrite" uniqueId="45a0f306-e10b-4a8f-b1b8-7042a7b8e87d" type="PortalProModelo.CabFactura">
+          <orm:reference uniqueId="99479ba3-b941-4d39-94d2-f99068cc96b7" />
+        </orm:field>
+        <orm:index name="idx_LinFactura_CabFacturaId">
+          <orm:columnMapping>
+            <orm:column name="CabFacturaId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+          </orm:columnMapping>
+        </orm:index>
+      </orm:class>
     </orm:namespace>
     <orm:schema schema="">
       <orm:table name="GrupoUsuario">
@@ -452,7 +519,7 @@
         <orm:column name="DescargaUrl" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
         <orm:column name="TipoDocumentoId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
         <orm:column name="ProveedorId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
-        <orm:column nullable="true" scale="0" length="255" sql-type="varchar" name="Comentario" ado-type="" />
+        <orm:column name="Comentario" sql-type="varchar" nullable="true" length="255" scale="0" ado-type="" />
       </orm:table>
       <orm:table name="Plantilla">
         <orm:column name="PlantillaId" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
@@ -519,6 +586,33 @@
         <orm:index name="idx_SolicitudProveedor_SolicitudStatusId">
           <orm:columnMapping>
             <orm:column name="SolicitudStatusId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+          </orm:columnMapping>
+        </orm:index>
+      </orm:table>
+      <orm:table name="CabFactura">
+        <orm:column name="CabFacturaId" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+        <orm:column name="FechaAlta" sql-type="datetime" nullable="false" length="0" scale="0" converter="OpenAccessRuntime.Data.Timestamp2DateTimeConverter" ado-type="DateTime" />
+        <orm:column name="FechaEmision" sql-type="datetime" nullable="false" length="0" scale="0" converter="OpenAccessRuntime.Data.Timestamp2DateTimeConverter" ado-type="DateTime" />
+        <orm:column name="TotalFactura" sql-type="decimal" nullable="false" length="10" scale="2" ado-type="Numeric" />
+        <orm:column name="ProveedorId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+        <orm:column name="DocumentoPdf_DocumentoId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+        <orm:column name="DocumentoXml_DocumentoId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+        <orm:index name="idx_CabFactura_ProveedorId">
+          <orm:columnMapping>
+            <orm:column name="ProveedorId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+          </orm:columnMapping>
+        </orm:index>
+      </orm:table>
+      <orm:table name="LinFactura">
+        <orm:column name="LinFacturaId" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+        <orm:column name="NumeroPedido" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        <orm:column name="Descripcion" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        <orm:column name="Importe" sql-type="decimal" nullable="false" length="10" scale="2" ado-type="Numeric" />
+        <orm:column name="PorcentajeIva" sql-type="decimal" nullable="false" length="5" scale="2" ado-type="Numeric" />
+        <orm:column name="CabFacturaId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+        <orm:index name="idx_LinFactura_CabFacturaId">
+          <orm:columnMapping>
+            <orm:column name="CabFacturaId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
           </orm:columnMapping>
         </orm:index>
       </orm:table>
@@ -742,6 +836,9 @@
         <classHasNavigationalProperties Id="5d93c530-9fb7-4c0a-847e-ce22e1828cb3">
           <NavigationalProperty Id="0f1a945c-3975-4395-929f-2b2581c1e5ea" name="Documentos" type="IList&lt;Documento&gt;" label="Documentos : IList&lt;Documento&gt;" nullable="true" kind="Persistent" fieldName="_documentos" isDependent="false" isManaged="false" />
         </classHasNavigationalProperties>
+        <classHasNavigationalProperties Id="02658b32-e5c5-444a-bf25-13a44abff37a">
+          <NavigationalProperty Id="99fa2346-991d-498e-8fe2-cdb9f088682d" name="CabFacturas" type="IList&lt;CabFactura&gt;" label="CabFacturas : IList&lt;CabFactura&gt;" nullable="true" kind="Persistent" fieldName="_cabFacturas" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
       </navigationalProperties>
     </DomainClass>
     <DomainClass Id="170cdc07-d980-489a-8e5c-01d7f487cc30" name="Documento" namespace="PortalProModelo" showPropertiesCompartment="true" identityMechanism="DatabaseServerCalculated" showNavigationCompartment="true" showImplementationCompartment="true">
@@ -962,6 +1059,84 @@
         </classHasNavigationalProperties>
       </navigationalProperties>
     </DomainClass>
+    <DomainClass Id="c6d0c499-fab6-4f24-97b9-6f4f933d7931" name="CabFactura" namespace="PortalProModelo" showPropertiesCompartment="true" showNavigationCompartment="true" showImplementationCompartment="true">
+      <Property Id="83603d41-cfc0-411b-ba31-6f6f3824b2e2" name="CabFacturaId" type="System.Int32" label="CabFacturaId : System.Int32" identity="true" fieldName="_cabFacturaId" />
+      <Property Id="abc28fe9-6bd6-46a8-b0b7-158c7d066fbd" name="FechaAlta" type="DateTime" label="FechaAlta : DateTime" fieldName="_fechaAlta" />
+      <Property Id="1d45c8c9-ebae-4d64-9a91-65f853c1f441" name="FechaEmision" type="DateTime" label="FechaEmision : DateTime" fieldName="_fechaEmision" />
+      <Property Id="f67b1736-31a6-45b0-8fd9-3bfb6ed38450" name="TotalFactura" type="Decimal" label="TotalFactura : Decimal" fieldName="_totalFactura" />
+      <AssociationTargets>
+        <Association Id="9750b7fa-84d1-4309-8275-c1b1677043e2" SourceMultiplicity="ZeroOne" name="CabFacturaHasProveedor">
+          <DomainClassMoniker name="/PortalProContext/Proveedor" />
+          <targetNavigationalProperty>
+            <associationDefinesTargetProperty Id="ffb1eceb-d085-4482-8ba7-77f036a16c02">
+              <NavigationalPropertyMoniker name="/PortalProContext/Proveedor/CabFacturas" />
+            </associationDefinesTargetProperty>
+          </targetNavigationalProperty>
+          <sourceNavigationalProperty>
+            <associationDefinesSourceProperty Id="db6da942-1a80-4f00-ba13-3b359a6eba8f">
+              <NavigationalPropertyMoniker name="/PortalProContext/CabFactura/Proveedor" />
+            </associationDefinesSourceProperty>
+          </sourceNavigationalProperty>
+        </Association>
+        <Association Id="65acfdff-8576-4f23-859e-280a6e557001" SourceMultiplicity="ZeroOne" name="CabFacturaHasDocumento">
+          <DomainClassMoniker name="/PortalProContext/Documento" />
+          <sourceNavigationalProperty>
+            <associationDefinesSourceProperty Id="76bc7aa5-2f01-4488-819a-52900de6007a">
+              <NavigationalPropertyMoniker name="/PortalProContext/CabFactura/DocumentoPdf" />
+            </associationDefinesSourceProperty>
+          </sourceNavigationalProperty>
+        </Association>
+        <Association Id="4b96947a-19bb-42b7-8990-05c9813aed7d" SourceMultiplicity="ZeroOne" name="CabFacturaHasDocumento1">
+          <DomainClassMoniker name="/PortalProContext/Documento" />
+          <sourceNavigationalProperty>
+            <associationDefinesSourceProperty Id="ab533baf-8750-4225-8543-dc57e00712f4">
+              <NavigationalPropertyMoniker name="/PortalProContext/CabFactura/DocumentoXml" />
+            </associationDefinesSourceProperty>
+          </sourceNavigationalProperty>
+        </Association>
+      </AssociationTargets>
+      <navigationalProperties>
+        <classHasNavigationalProperties Id="4d443491-9d57-48bc-96f7-5e81c787bcad">
+          <NavigationalProperty Id="a0e7d402-f8cd-4e92-9322-d8fc12ad4d93" name="Proveedor" type="Proveedor" label="Proveedor : Proveedor" nullable="true" kind="Persistent" fieldName="_proveedor" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
+        <classHasNavigationalProperties Id="91c4d232-bb5a-46bc-a852-87919d81c1bc">
+          <NavigationalProperty Id="5f008862-41ca-4f8e-bd54-361c6d5cc2c6" name="DocumentoPdf" type="Documento" label="DocumentoPdf : Documento" nullable="true" kind="Persistent" fieldName="_documento" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
+        <classHasNavigationalProperties Id="5423eece-5bc8-427d-bfbb-2a0b3436777f">
+          <NavigationalProperty Id="e16c2a38-d715-4fad-8f00-da6102f3bb22" name="DocumentoXml" type="Documento" label="DocumentoXml : Documento" nullable="true" kind="Persistent" fieldName="_documento1" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
+        <classHasNavigationalProperties Id="1386c523-3465-45da-9453-942affe75ff4">
+          <NavigationalProperty Id="92a6a4d5-d147-4f2f-8a42-950f64a46158" name="LinFacturas" type="IList&lt;LinFactura&gt;" label="LinFacturas : IList&lt;LinFactura&gt;" nullable="true" kind="Persistent" fieldName="_linFacturas" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
+      </navigationalProperties>
+    </DomainClass>
+    <DomainClass Id="b9d4ad71-5781-4089-a34b-624001f3b6f9" name="LinFactura" namespace="PortalProModelo" showPropertiesCompartment="true" showNavigationCompartment="true" showImplementationCompartment="true">
+      <Property Id="d79c72e7-2907-4a10-9a4f-1a4860a16f93" name="LinFacturaId" type="System.Int32" label="LinFacturaId : System.Int32" identity="true" fieldName="_linFacturaId" />
+      <Property Id="9ae9cddc-ebc4-41be-acee-43897402e4af" name="NumeroPedido" label="NumeroPedido : String" fieldName="_numeroPedido" />
+      <Property Id="f26aa2ca-e7c0-46c9-83ee-fa73102b6c89" name="Descripcion" label="Descripcion : String" fieldName="_descripcion" />
+      <Property Id="473579a4-5e89-4fed-a955-65fc948a8f77" name="Importe" type="Decimal" label="Importe : Decimal" fieldName="_importe" />
+      <Property Id="631761ea-e7c6-4ff8-9cac-a7e5acae937d" name="PorcentajeIva" type="Decimal" label="PorcentajeIva : Decimal" fieldName="_porcentajeIva" />
+      <AssociationTargets>
+        <Association Id="99479ba3-b941-4d39-94d2-f99068cc96b7" SourceMultiplicity="ZeroOne" name="LinFacturaHasCabFactura">
+          <DomainClassMoniker name="/PortalProContext/CabFactura" />
+          <targetNavigationalProperty>
+            <associationDefinesTargetProperty Id="92b05014-e3d0-492c-b9ed-b9c67ebc22c1">
+              <NavigationalPropertyMoniker name="/PortalProContext/CabFactura/LinFacturas" />
+            </associationDefinesTargetProperty>
+          </targetNavigationalProperty>
+          <sourceNavigationalProperty>
+            <associationDefinesSourceProperty Id="5fae7673-38c9-40b4-848f-fa11006f4113">
+              <NavigationalPropertyMoniker name="/PortalProContext/LinFactura/CabFactura" />
+            </associationDefinesSourceProperty>
+          </sourceNavigationalProperty>
+        </Association>
+      </AssociationTargets>
+      <navigationalProperties>
+        <classHasNavigationalProperties Id="a1333398-05cb-4c24-a49e-b78aaa7cf652">
+          <NavigationalProperty Id="45a0f306-e10b-4a8f-b1b8-7042a7b8e87d" name="CabFactura" type="CabFactura" label="CabFactura : CabFactura" nullable="true" kind="Persistent" fieldName="_cabFactura" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
+      </navigationalProperties>
+    </DomainClass>
   </Types>
   <domainContext>
     <domainModelHasDomainContext Id="b8a488e5-d05f-45aa-83ff-cddf4131e366">
@@ -978,6 +1153,8 @@
         <entitySetProperty name="Plantillas" namespace="PortalProModelo" type="Plantilla" label="Plantillas : IQueryable&lt;PortalProModelo.Plantilla&gt;" />
         <entitySetProperty name="SolicitudStatus" namespace="PortalProModelo" type="SolicitudStatus" label="SolicitudStatus : IQueryable&lt;PortalProModelo.SolicitudStatus&gt;" />
         <entitySetProperty name="SolicitudLogs" namespace="PortalProModelo" type="SolicitudLog" label="SolicitudLogs : IQueryable&lt;PortalProModelo.SolicitudLog&gt;" />
+        <entitySetProperty name="CabFacturas" namespace="PortalProModelo" type="CabFactura" label="CabFacturas : IQueryable&lt;PortalProModelo.CabFactura&gt;" />
+        <entitySetProperty name="LinFacturas" namespace="PortalProModelo" type="LinFactura" label="LinFacturas : IQueryable&lt;PortalProModelo.LinFactura&gt;" />
       </domainContainer>
     </domainModelHasDomainContext>
   </domainContext>

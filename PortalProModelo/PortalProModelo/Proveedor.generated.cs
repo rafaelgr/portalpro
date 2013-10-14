@@ -293,6 +293,15 @@ namespace PortalProModelo
 			}
 		}
 		
+		private IList<CabFactura> _cabFacturas = new List<CabFactura>();
+		public virtual IList<CabFactura> CabFacturas
+		{
+			get
+			{
+				return this._cabFacturas;
+			}
+		}
+		
 	}
 }
 #pragma warning restore 1591

@@ -146,6 +146,22 @@ namespace PortalProModelo
 			}
 		}
 		
+		public IQueryable<CabFactura> CabFacturas 
+		{
+			get
+			{
+				return this.GetAll<CabFactura>();
+			}
+		}
+		
+		public IQueryable<LinFactura> LinFacturas 
+		{
+			get
+			{
+				return this.GetAll<LinFactura>();
+			}
+		}
+		
 		public static BackendConfiguration GetBackendConfiguration()
 		{
 			BackendConfiguration backend = new BackendConfiguration();
@@ -203,6 +219,14 @@ namespace PortalProModelo
 			get;
 		}
 		IQueryable<SolicitudLog> SolicitudLogs
+		{
+			get;
+		}
+		IQueryable<CabFactura> CabFacturas
+		{
+			get;
+		}
+		IQueryable<LinFactura> LinFacturas
 		{
 			get;
 		}
