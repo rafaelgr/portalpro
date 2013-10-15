@@ -402,6 +402,46 @@
             </summary>
             <param name="documentPath">The physical path to XML document.</param>
         </member>
+        <member name="M:PortalProWebApi.Controllers.FacturaController.Get(System.String)">
+            <summary>
+            Obtiene todos las cabeceras de factura de la base de datos
+            </summary>
+            <param name="tk">Código del tique de autorización (Véase "Login")</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.FacturaController.Get(System.Int32,System.String)">
+            <summary>
+            Obtiene la cabecera de factura cuyo ID corresponde con el pasado
+            </summary>
+            <param name="id">Identificador único de la factura</param>
+            <param name="tk">Código del tique de autorización (Véase "Login")</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.FacturaController.Post(PortalProModelo.CabFactura,System.String)">
+            <summary>
+            Crear un nueva cabecera de factura
+            </summary>
+            <param name="CabFactura">Objeto a crear, el atributo CabFacturaId lo genera la aplicación y es devuelto en el objeto incluido en la respuesta.</param>
+            <param name="tk"> Tique de autorzación (se debe obtener con la accion Login)</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.FacturaController.Put(System.Int32,PortalProModelo.CabFactura,System.String)">
+            <summary>
+            Modificar una cabecera de factura. En el cuerpo del mensaje se envía en el formato adecuado el objeto con los datos modificados
+            </summary>
+            <param name="id"> Identificador único de la cabecera de factura </param>
+            <param name="factura">Cabecera de factura los valores que se desean en sus atributos</param>
+            <param name="tk"> Tique de autorización (Ver 'Login')</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.FacturaController.Delete(System.Int32,System.String)">
+            <summary>
+            Elimina la factura que coincide con el id pasado
+            </summary>
+            <param name="id">Identificador de la factura a eliminar</param>
+            <param name="tk">Tique de autorización (Ver 'Login')</param>
+            <returns></returns>
+        </member>
         <member name="M:PortalProWebApi.Controllers.IndicadoresController.Get(System.String)">
             <summary>
             Retorna un vector con parejas de nombre y valor
@@ -411,6 +451,47 @@
             n_solProR = Número de solicitudes rechazadas
             </summary>
             <param name="tk">Tique de autorización (ver Login)</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.LinFacturaController.GetLineas(System.Int32,System.String)">
+            <summary>
+            Devuelve las líneas que corresponden a una factura determinada
+            </summary>
+            <param name="idFac">Identificador de la factura a la que pertencen las líneas</param>
+            <param name="tk">Código del tique de autorización (Véase "Login")</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.LinFacturaController.Get(System.Int32,System.String)">
+            <summary>
+            Devuelve la línea de factura que coincide con el id proporcionado
+            </summary>
+            <param name="id">Identificador único de la línea</param>
+            <param name="tk">Código del tique de autorización (Véase "Login")</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.LinFacturaController.Post(PortalProModelo.LinFactura,System.String)">
+            <summary>
+            Crear una nueva línea de factura
+            </summary>
+            <param name="LinFactura">Objeto a crear, el atributo LinFacturaId lo genera la aplicación y es devuelto en el objeto incluido en la respuesta.</param>
+            <param name="tk"> Tique de autorzación (se debe obtener con la accion Login)</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.LinFacturaController.Put(System.Int32,PortalProModelo.LinFactura,System.String)">
+            <summary>
+            Modificar una linea de factura. En el cuerpo del mensaje se envía en el formato adecuado el objeto con los datos modificados
+            </summary>
+            <param name="id"> Identificador único de la linea de fcatura</param>
+            <param name="linea">Linea de fcatura con los valores que se desean en sus atributos</param>
+            <param name="tk"> Tique de autorización (Ver 'Login')</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.LinFacturaController.Delete(System.Int32,System.String)">
+            <summary>
+            Elimina la linea que coincide con el id pasado
+            </summary>
+            <param name="id">Identificador de la linea a eliminar</param>
+            <param name="tk">Tique de autorización (Ver 'Login')</param>
             <returns></returns>
         </member>
         <member name="M:PortalProWebApi.Controllers.SolicitudesLogController.Get(System.String)">
