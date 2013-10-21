@@ -76,6 +76,19 @@ namespace PortalProModelo
 			}
 		}
 		
+		private string _numFactura;
+		public virtual string NumFactura
+		{
+			get
+			{
+				return this._numFactura;
+			}
+			set
+			{
+				this._numFactura = value;
+			}
+		}
+		
 		private Proveedor _proveedor;
 		public virtual Proveedor Proveedor
 		{

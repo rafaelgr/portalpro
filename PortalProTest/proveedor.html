@@ -170,7 +170,7 @@
                             </div>
                             <div class="span3">
                                 <label>Correo electrónico (Facturas)</label>
-                                <input id="EmailFacturas" class="span12" type="url" data-bind="value: Email" 
+                                <input id="EmailFacturas" class="span12" type="email" data-bind="value: EmailFacturas" 
                                        name="EmailFacturas" required />
                             </div>
                         </div>
@@ -200,7 +200,7 @@
                                     </div>
                                     <div class="span5">
                                         <label>Cuenta corriente</label>
-                                        <input id="Cuenta corriente" class="span12" type="text" name="Cuenta corriente" />
+                                        <input id="Cuenta corriente" class="span12" type="text" name="CuentaCorriente" />
                                     </div>
                                 </div>
                             </div>
@@ -254,14 +254,14 @@
                     <button class="btn btn-small btn-primary" onclick="formEdit(#=ProveedorId#);" title="Editar registro">
                         <i class="icon-pencil icon-white"></i>
                     </button>
-                    <button class="btn btn-small btn-primary" onclick="gridDelete(#=ProveedorId#,'#=Nombre#');" title="Eliminar registro">
+                    <button class="btn btn-small btn-primary" onclick="gridDelete(#=ProveedorId#,'#=NombreComercial#');" title="Eliminar registro">
                         <i class="icon-trash icon-white"></i>
                     </button>
                 </div>
             </script>
             <script type="tex/x-kendo-template" id="tEditS">
                 <div class="pull-right">
-                    <button class="btn btn-small btn-primary" onclick="gridSelect(#=ProveedorId#,'#=Nombre#');" title="Seleccionar registro">
+                    <button class="btn btn-small btn-primary" onclick="gridSelect(#=ProveedorId#,'#=NombreComercial#');" title="Seleccionar registro">
                         <i class="icon-share icon-white"></i>
                     </button>
                 </div>
@@ -478,6 +478,26 @@
             }
             
             function gridSelect(id, nombre) {
+                console.log("SELECT");
+                // en funcion del llamante tomamos una cookie un otra.
+                var data;
+                switch (caller) {
+                    case "factura":
+                        data = getCookie("factura");
+                        break;
+                }
+                // actualizamos con los valores seleccionados
+                var x = JSON.parse(data);
+                x.Proveedor.ProveedorId = id;
+                x.Proveedor.NombreComercial = nombre;
+                var dataS = JSON.stringify(x);
+                // guardamos en la cookie y volvemos al llamante
+                switch (caller) {
+                    case "factura":
+                        setCookie("factura", dataS, 1);
+                        window.open("factura.html?caller=proveedor", '_self');
+                        break;
+                }
             }
             function gridRefresh() {
                 var ds = $("#proveedor-grid").data("kendoGrid").dataSource;
@@ -498,7 +518,7 @@
                 $("#form-title").text("Nuevo proveedor");
                 clearData();
                 loadCombos();
-                $("#Nombre").focus();
+                $("#RazonSocial").focus();
             }
             // botón editar (del grid)
             function formEdit(id) {

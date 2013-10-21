@@ -404,10 +404,11 @@
       <orm:class name="CabFactura" uniqueId="c6d0c499-fab6-4f24-97b9-6f4f933d7931">
         <orm:table name="CabFactura" />
         <orm:identity>
+          <orm:key-generator name="autoinc" />
           <orm:single-field field-name="_cabFacturaId" />
         </orm:identity>
         <orm:field name="_cabFacturaId" property="CabFacturaId" uniqueId="83603d41-cfc0-411b-ba31-6f6f3824b2e2" type="System.Int32">
-          <orm:column name="CabFacturaId" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+          <orm:column name="CabFacturaId" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" backend-calculated="true" ado-type="Int32" />
         </orm:field>
         <orm:field name="_fechaAlta" property="FechaAlta" uniqueId="abc28fe9-6bd6-46a8-b0b7-158c7d066fbd" type="System.DateTime">
           <orm:column name="FechaAlta" sql-type="datetime" nullable="false" length="0" scale="0" converter="OpenAccessRuntime.Data.Timestamp2DateTimeConverter" ado-type="DateTime" />
@@ -417,6 +418,9 @@
         </orm:field>
         <orm:field name="_totalFactura" property="TotalFactura" uniqueId="f67b1736-31a6-45b0-8fd9-3bfb6ed38450" type="System.Decimal">
           <orm:column name="TotalFactura" sql-type="decimal" nullable="false" length="10" scale="2" ado-type="Numeric" />
+        </orm:field>
+        <orm:field name="_numFactura" property="NumFactura" uniqueId="8e6deabf-9b02-4742-9d69-ad433275fd68" type="System.String">
+          <orm:column name="NumFactura" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
         </orm:field>
         <orm:field name="_proveedor" property="Proveedor" behavior="readwrite" uniqueId="a0e7d402-f8cd-4e92-9322-d8fc12ad4d93" type="PortalProModelo.Proveedor">
           <orm:reference uniqueId="9750b7fa-84d1-4309-8275-c1b1677043e2" />
@@ -439,10 +443,11 @@
       <orm:class name="LinFactura" uniqueId="b9d4ad71-5781-4089-a34b-624001f3b6f9">
         <orm:table name="LinFactura" />
         <orm:identity>
+          <orm:key-generator name="autoinc" />
           <orm:single-field field-name="_linFacturaId" />
         </orm:identity>
         <orm:field name="_linFacturaId" property="LinFacturaId" uniqueId="d79c72e7-2907-4a10-9a4f-1a4860a16f93" type="System.Int32">
-          <orm:column name="LinFacturaId" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+          <orm:column name="LinFacturaId" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" backend-calculated="true" ado-type="Int32" />
         </orm:field>
         <orm:field name="_numeroPedido" property="NumeroPedido" uniqueId="9ae9cddc-ebc4-41be-acee-43897402e4af" type="System.String">
           <orm:column name="NumeroPedido" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
@@ -589,22 +594,8 @@
           </orm:columnMapping>
         </orm:index>
       </orm:table>
-      <orm:table name="CabFactura">
-        <orm:column name="CabFacturaId" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
-        <orm:column name="FechaAlta" sql-type="datetime" nullable="false" length="0" scale="0" converter="OpenAccessRuntime.Data.Timestamp2DateTimeConverter" ado-type="DateTime" />
-        <orm:column name="FechaEmision" sql-type="datetime" nullable="false" length="0" scale="0" converter="OpenAccessRuntime.Data.Timestamp2DateTimeConverter" ado-type="DateTime" />
-        <orm:column name="TotalFactura" sql-type="decimal" nullable="false" length="10" scale="2" ado-type="Numeric" />
-        <orm:column name="ProveedorId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
-        <orm:column name="DocumentoPdf_DocumentoId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
-        <orm:column name="DocumentoXml_DocumentoId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
-        <orm:index name="idx_CabFactura_ProveedorId">
-          <orm:columnMapping>
-            <orm:column name="ProveedorId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
-          </orm:columnMapping>
-        </orm:index>
-      </orm:table>
       <orm:table name="LinFactura">
-        <orm:column name="LinFacturaId" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+        <orm:column name="LinFacturaId" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" backend-calculated="true" ado-type="Int32" />
         <orm:column name="NumeroPedido" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
         <orm:column name="Descripcion" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
         <orm:column name="Importe" sql-type="decimal" nullable="false" length="10" scale="2" ado-type="Numeric" />
@@ -613,6 +604,21 @@
         <orm:index name="idx_LinFactura_CabFacturaId">
           <orm:columnMapping>
             <orm:column name="CabFacturaId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+          </orm:columnMapping>
+        </orm:index>
+      </orm:table>
+      <orm:table name="CabFactura">
+        <orm:column name="CabFacturaId" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" backend-calculated="true" ado-type="Int32" />
+        <orm:column name="FechaAlta" sql-type="datetime" nullable="false" length="0" scale="0" converter="OpenAccessRuntime.Data.Timestamp2DateTimeConverter" ado-type="DateTime" />
+        <orm:column name="FechaEmision" sql-type="datetime" nullable="false" length="0" scale="0" converter="OpenAccessRuntime.Data.Timestamp2DateTimeConverter" ado-type="DateTime" />
+        <orm:column name="TotalFactura" sql-type="decimal" nullable="false" length="10" scale="2" ado-type="Numeric" />
+        <orm:column name="ProveedorId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+        <orm:column name="DocumentoPdf_DocumentoId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+        <orm:column name="DocumentoXml_DocumentoId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+        <orm:column name="NumFactura" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        <orm:index name="idx_CabFactura_ProveedorId">
+          <orm:columnMapping>
+            <orm:column name="ProveedorId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
           </orm:columnMapping>
         </orm:index>
       </orm:table>
@@ -1059,11 +1065,12 @@
         </classHasNavigationalProperties>
       </navigationalProperties>
     </DomainClass>
-    <DomainClass Id="c6d0c499-fab6-4f24-97b9-6f4f933d7931" name="CabFactura" namespace="PortalProModelo" showPropertiesCompartment="true" showNavigationCompartment="true" showImplementationCompartment="true">
+    <DomainClass Id="c6d0c499-fab6-4f24-97b9-6f4f933d7931" name="CabFactura" namespace="PortalProModelo" showPropertiesCompartment="true" identityMechanism="DatabaseServerCalculated" showNavigationCompartment="true" showImplementationCompartment="true">
       <Property Id="83603d41-cfc0-411b-ba31-6f6f3824b2e2" name="CabFacturaId" type="System.Int32" label="CabFacturaId : System.Int32" identity="true" fieldName="_cabFacturaId" />
       <Property Id="abc28fe9-6bd6-46a8-b0b7-158c7d066fbd" name="FechaAlta" type="DateTime" label="FechaAlta : DateTime" fieldName="_fechaAlta" />
       <Property Id="1d45c8c9-ebae-4d64-9a91-65f853c1f441" name="FechaEmision" type="DateTime" label="FechaEmision : DateTime" fieldName="_fechaEmision" />
       <Property Id="f67b1736-31a6-45b0-8fd9-3bfb6ed38450" name="TotalFactura" type="Decimal" label="TotalFactura : Decimal" fieldName="_totalFactura" />
+      <Property Id="8e6deabf-9b02-4742-9d69-ad433275fd68" name="NumFactura" label="NumFactura : String" fieldName="_numFactura" />
       <AssociationTargets>
         <Association Id="9750b7fa-84d1-4309-8275-c1b1677043e2" SourceMultiplicity="ZeroOne" name="CabFacturaHasProveedor">
           <DomainClassMoniker name="/PortalProContext/Proveedor" />
@@ -1110,7 +1117,7 @@
         </classHasNavigationalProperties>
       </navigationalProperties>
     </DomainClass>
-    <DomainClass Id="b9d4ad71-5781-4089-a34b-624001f3b6f9" name="LinFactura" namespace="PortalProModelo" showPropertiesCompartment="true" showNavigationCompartment="true" showImplementationCompartment="true">
+    <DomainClass Id="b9d4ad71-5781-4089-a34b-624001f3b6f9" name="LinFactura" namespace="PortalProModelo" showPropertiesCompartment="true" identityMechanism="DatabaseServerCalculated" showNavigationCompartment="true" showImplementationCompartment="true">
       <Property Id="d79c72e7-2907-4a10-9a4f-1a4860a16f93" name="LinFacturaId" type="System.Int32" label="LinFacturaId : System.Int32" identity="true" fieldName="_linFacturaId" />
       <Property Id="9ae9cddc-ebc4-41be-acee-43897402e4af" name="NumeroPedido" label="NumeroPedido : String" fieldName="_numeroPedido" />
       <Property Id="f26aa2ca-e7c0-46c9-83ee-fa73102b6c89" name="Descripcion" label="Descripcion : String" fieldName="_descripcion" />
