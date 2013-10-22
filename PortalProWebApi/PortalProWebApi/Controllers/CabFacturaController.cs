@@ -187,9 +187,9 @@ namespace PortalProWebApi.Controllers
                     factura.DocumentoXml = null;
                 }
                 // modificar el objeto
-                ctx.AttachCopy<CabFactura>(cfac);
+                ctx.AttachCopy<CabFactura>(factura);
                 // volvemos a leer el objecto para que lo maneje este contexto.
-                cfac = (from f in ctx.CabFacturas
+                factura = (from f in ctx.CabFacturas
                         where f.CabFacturaId == id
                         select f).FirstOrDefault<CabFactura>();
                 if (proveedorId != 0)

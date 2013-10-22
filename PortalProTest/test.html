@@ -61,35 +61,15 @@
                     </div>
                     <h3>TEST ZONE</h3>
                     <div class="row-fluid">
-                        <div id="CheckTest">
-                            <span>Before check</span>
-                            <input type="checkbox" checked="checked" value="Control check" />
-                            <span>After check</span>
-                        </div>
+                        <label>Nombre</label>
+                        <input id="Nombre" type="text" data-bind="value: myName" />
                     </div>
-<!--                    <div class="row-fluid">
-                        <div class="control-group">
-                            <label class="control-label">Checkbox</label>
-                            <div class="controls">
-                                <label>
-                                    <input name="form-field-checkbox" type="checkbox" /><span class="lbl"> Opcion 1</span>
-                                </label>
-                                <label>
-                                    <input name="form-field-checkbox" type="checkbox" /><span class="lbl"> choice 2</span>
-                                </label>
-                                <label>
-                                    <input name="form-field-checkbox" class="ace-checkbox-2" type="checkbox" /><span class="lbl"> choice 3</span>
-                                </label>
-                                <label>
-                                    <input name="form-field-checkbox" disabled type="checkbox" /><span class="lbl"> disabled</span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>-->
                     <div class="row-fluid">
-                        <label>
-                            <input type="checkbox" /><span class="lbl"> choice 1</span>
-                        </label>
+                        <label>Fecha</label>
+                        <input id="Fecha" data-bind="value: myDate" />
+                    </div>
+                    <div class="row-fluid" onclick="checkValues()">
+                        <button id="btnRun">Check</button>
                     </div>
                 </div><!--/#page-content-->
 
@@ -105,8 +85,9 @@
         <script src="js/jquery-1.9.1.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
         <script src="js/bootbox.min.js"></script>
-
+        <script src="js/knockout-2.2.1.js"></script>
         <script src="js/kendo.web.js"></script>
+        <script src="js/kendo.culture.es-ES.min.js"></script>
         <!-- page specific plugin scripts -->
 
         <!-- ace scripts -->
@@ -131,6 +112,23 @@
             function cambio() {
                 alert("CAMBIO");
             }
+            function loadKendoDates() {
+                $("#Fecha").kendoDatePicker({ culture: "es-Es" });
+            }
+            function checkValues() {
+                var m = vm.myName() + " - " + vm.myDate();
+                alert(m);
+            }
+        </script>
+        <!-- ViewModel -->
+        <script type="text/javascript">
+            function ModelView() {
+                var self = this;
+                self.myName = ko.observable("Pepe");
+                self.myDate = ko.observable("01/01/2013");
+            }
+            var vm = new ModelView();
+            ko.applyBindings(vm);
         </script>
         <script type="text/javascript">
         </script>
@@ -139,9 +137,12 @@
             (function ($) {
                 $(document).ready(function () {
                     // en cualquier página hay que verificarla autorización
-                    checkAutorization();
+                    //checkAutorization();
                     loadTopBar();
                     loadSideBar();
+                    // aplicar idioma
+                    kendo.culture("es-Es");
+                    loadKendoDates();
                 });
             })(jQuery);
         </script>
