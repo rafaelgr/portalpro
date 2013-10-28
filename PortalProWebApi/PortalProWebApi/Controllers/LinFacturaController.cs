@@ -121,6 +121,51 @@ namespace PortalProWebApi.Controllers
             }
         }
 
+        public virtual bool Put(int idFac, IEnumerable<LinFactura> lineas, string tk)
+        {
+            using (PortalProContext ctx = new PortalProContext())
+            {
+                // comprobar el tique
+                if (!CntWebApiSeguridad.CheckTicket(tk, ctx))
+                {
+                    throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.Unauthorized, "Se necesita tique de autorización (LinFactura)"));
+                }
+                // comprobamos que las lineas no son nulas
+                if (lineas == null)
+                {
+                    throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.BadRequest));
+                }
+                // comprobamos que la factura a la que se asociarán las líneas existe
+                CabFactura factura = (from f in ctx.CabFacturas
+                                      where f.CabFacturaId == idFac
+                                      select f).FirstOrDefault<CabFactura>();
+                if (factura == null)
+                {
+                    throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotFound, "No existe una factura con el id proporcionado (LinFactura)"));
+                }
+                // eliminamos las líneas de fcatura anteriores para solo dar de alta estas
+                ctx.Delete(factura.LinFacturas);
+                // ahora damos de alta las nuevas lineas 
+                decimal totalFactura = 0;
+                foreach (LinFactura linea in lineas)
+                {
+                    LinFactura l = new LinFactura()
+                    {
+                        NumeroPedido = linea.NumeroPedido,
+                        Descripcion = linea.Descripcion,
+                        Importe = linea.Importe,
+                        PorcentajeIva = linea.PorcentajeIva,
+                        CabFactura = factura
+                    };
+                    totalFactura += linea.Importe;
+                    ctx.Add(l);
+                }
+                factura.TotalFactura = totalFactura;
+                ctx.SaveChanges();
+            }
+            return true;
+        }
+
         /// <summary>
         /// Modificar una linea de factura. En el cuerpo del mensaje se envía en el formato adecuado el objeto con los datos modificados
         /// </summary>

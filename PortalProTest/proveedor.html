@@ -275,7 +275,6 @@
         <script src="js/knockout.mapping-latest.debug.js"></script>
         <!-- kendo scripts -->
         <script src="js/kendo.web.js"></script>
-
         <!-- page specific plugin scripts -->
 
         <!-- ace scripts -->
@@ -757,7 +756,7 @@
                     saveUrl: ari_hosts.webapi + "/api/uploads?tk=" + getCookie("ari_tique"),
                     removeUrl: ari_hosts.webapi + "/api/uploads?tk=" + getCookie("ari_tique"),
                     removeVerb: "DELETE",
-                    autoUpload: true
+                    autoUpload: false
                 },
                 select: uploadSelect,
                 remove: uploadRemove,
@@ -836,7 +835,7 @@
                 upload.options.async.saveUrl = ari_hosts.webapi + "/api/uploads?tk=" + getCookie("ari_tique") + "&tipo=" + tipo;
                 upload.options.async.removeUrl = ari_hosts.webapi + "/api/uploads?tk=" + getCookie("ari_tique") + "&tipo=" + tipo;
                 upload.options.async.removeVerb = "DELETE";
-                upload.options.async.autoUpload = true;
+                upload.options.async.autoUpload = false;
                 upload.options.localization.tipo = tipo;
                 var numFich = new Object();
                 numFich.id = tipo;

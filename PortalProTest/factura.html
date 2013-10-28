@@ -73,6 +73,18 @@
                                 </h4>
                             </div>
                         </div>
+                        <div class="row-fluid" style="padding-bottom:10px;">
+                            <div class="span12">
+                                <label>
+                                    Proveedor
+                                    <a onclick="formSearch('Proveedor');">
+                                        <i class="icon-search"></i>
+                                    </a>
+                                </label>
+                                <input id="Proveedor" data-bind="value: Proveedor.NombreComercial" style="width:100%;" />
+                                <input id="ProveedorId" data-bind="value: Proveedor.ProveedorId" type="hidden" />
+                            </div>
+                        </div>
                         <div class="row-fluid">
                             <div class="span6">
                                 <label>Numero de factura</label>
@@ -96,58 +108,62 @@
                             </div>
                         </div>
                         <div class="row-fluid">
-                            <div class="span12">
-                                <label>
-                                    Proveedor
-                                    <a onclick="formSearch('Proveedor');">
-                                        <i class="icon-search"></i>
-                                    </a>
-                                </label>
-                                <input id="Proveedor" data-bind="value: Proveedor.NombreComercial" style="width:100%;" />
-                                <input id="ProveedorId" data-bind="value: Proveedor.ProveedorId" type="hidden" />
+                            <div id="UPDF" style="margin-bottom:10px;"  >
+                                <label>Fichero PDF que contiene su factura</label>
+                                <button onclick="sendPdf()">Enviar</button>
+                            </div>
+                        </div>
+                        <div class="row-fluid">
+                            <div id="UXML" style="margin-bottom:10px;"  >
+                                <label>Fichero XML en formato FACTURAE (opcional)</label>
+                                <button onclick="sendXml()">Enviar</button>
                             </div>
                         </div>
                         <div class="row-fluid" style="padding-top:10px;">
-                            LINEAS DE FACTURA
-                            <button class="btn btn-small btn-primary" title="Añadir registro" onclick="nuevaLinea()">
-                                <i class="icon-plus icon-white"></i>
-                            </button>
+                            <div class="span12">
+                                <span class="blue">LINEAS DE FACTURA</span>
+                                <button data-bind="click: addLineaFactura" class="btn btn-small btn-primary" title="Añadir registro">
+                                    <i class="icon-plus icon-white"></i>
+                                </button>
+                            </div>
                         </div>
-                        <div class="row-fluid">
-                            <table id="lineas-factura" class="table table-striped table-bordered table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Numero Pedido</th>
-                                        <th>Descripción</th>
-                                        <th>Importe</th>
-                                        <th>% IVA</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody data-bind="foreach: LineasFactura">
-                                    <tr>
-                                        <td data-bind="text: LinFacturaId"></td>
-                                        <td>
-                                            <input data-bind="value: NumeroPedido" type="text"/>
-                                        </td>
-                                        <td>
-                                            <input data-bind="value: Descripcion" type="text" />
-                                        </td>
-                                        <td>
-                                            <input data-bind="value: Importe" type="number" />
-                                        </td>
-                                        <td>
-                                            <input data-bind="value: PorcentajeIva" type="number" />
-                                        </td>
-                                        <td>
-                                            <button class="btn btn-small btn-primary" title="Eliminar registro">
-                                                <i class="icon-trash icon-white"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                        <div class="row-fluid" style="padding-top:10px;">
+                            <div class="span12">
+                                <table id="lineas-factura" class="table table-striped table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th class="hidden-480">ID</th>
+                                            <th class="hidden-480">Numero Pedido</th>
+                                            <th>Descripción</th>
+                                            <th style="text-align:right">Importe</th>
+                                            <th class="hidden-480" style="text-align:right">% IVA</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody data-bind="foreach: LineasFactura">
+                                        <tr>
+                                            <td data-bind="text: LinFacturaId" class="hidden-480"></td>
+                                            <td class="hidden-480">
+                                                <input class="span12" data-bind="value: NumeroPedido" type="text" name="NumeroPedido" required/>
+                                            </td>
+                                            <td>
+                                                <input class="span12" data-bind="value: Descripcion" type="text" name="Descripcion" required />
+                                            </td>
+                                            <td >
+                                                <input class="span12" style="text-align:right" data-bind="value: Importe" type="number" min="1" name="Importe" required validationMessage="Importe incorrecto"/>
+                                            </td>
+                                            <td class="hidden-480">
+                                                <input class="span12"  style="text-align:right" data-bind="value: PorcentajeIva" type="number" min="1" name="PorcentajeIva" required validationMessage="Porcentaje incorrecto"/>
+                                            </td>
+                                            <td>
+                                                <button data-bind="click: $root.removeLineaFactura" class="btn btn-small btn-primary" title="Eliminar registro">
+                                                    <i class="icon-trash icon-white"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                         <div class="row-fluid" style="padding-top:10px;">
                             <div class="pull-right">
@@ -240,7 +256,8 @@
                 messages: {
                     required: "Este campo es requerido",
                     email: "Introduzca un correo válido",
-                    url: "Introduzca una dirección válida"
+                    url: "Introduzca una dirección válida",
+                    number: "Cantidad o importe incorrecto"
                 }
             }).data("kendoValidator");
             
@@ -252,24 +269,51 @@
                 this.Importe = importe;
                 this.PorcentajeIva = poriva;
             }
-            
-            var viewModel = {
-                CabFacturaId: ko.observable(),
-                NumFactura: ko.observable(),
-                FechaAlta: ko.observable(new Date()),
-                FechaEmision: ko.observable(new Date()),
-                TotalFactura: ko.observable(),
-                Proveedor: {
+
+            function viewModel() {
+                var self = this;
+                self.CabFacturaId = ko.observable();
+                self.NumFactura = ko.observable();
+                self.FechaAlta = ko.observable();
+                self.FechaEmision = ko.observable();
+                self.TotalFactura = ko.observable();
+                self.Proveedor = {
                     ProveedorId: ko.observable(),
                     NombreComercial: ko.observable()
-                },
-                LineasFactura: ko.observableArray([])
+                }
+                self.LineasFactura = ko.observableArray([
+                    ko.observable(
+                        {
+                        LinFacturaId: ko.observable(),
+                        NumeroPedido: ko.observable(),
+                        Descripcion: ko.observable(),
+                        Importe: ko.observable(),
+                        PorcentajeIva: ko.observable()
+                    })
+                ]);
+                self.dspTotalFactura = ko.computed(function () {
+                    var total = 0;
+                    ko.utils.arrayForEach(self.LineasFactura(), function (linea) {
+                        total += parseFloat(ko.utils.unwrapObservable(linea.Importe));
+                    });
+                    return total;
+                });
+                // funciones CRUD
+                self.addLineaFactura = function () {
+                    var l = new Linea(0, "", "", 0, 0);
+                    self.LineasFactura.push(l);
+                }
+                self.removeLineaFactura = function(linea) {
+                    self.LineasFactura.remove(linea);
+                }
             }
             
-            ko.applyBindings(viewModel);
+            var vm = new viewModel();
+        
+            ko.applyBindings(vm);
         
         </script>
-        
+
         <!-- manejo de los templates que usará el grid -->
         <script type="text/javascript">
             var t_new;
@@ -287,7 +331,7 @@
             }
         
         </script>
-        
+
         <!-- manejo del grid  -->
         <script type="text/javascript">
             
@@ -396,7 +440,7 @@
             }
         
         </script>
-        
+
         <!-- manejo del form -->
         <script type="text/javascript">
             // botón nuevo (del grid)
@@ -436,9 +480,8 @@
                 }
                 // validaciones específicas
                 // controlamos si queremos no asignar grupo
-                if (viewModel.Proveedor.NombreComercial() == "")
-                    viewModel.Proveedor.ProveedorId("");
-            
+                if (vm.Proveedor.NombreComercial() == "")
+                    vm.Proveedor.ProveedorId("");
                 return true;
             }
             // salir del formulario sin guardar
@@ -473,31 +516,31 @@
             }
             // limpiar los datos del modelo
             function clearData() {
-                viewModel.CabFacturaId("");
-                viewModel.NumFactura("");
-                viewModel.FechaEmision("");
-                viewModel.TotalFactura("");
-                viewModel.FechaAlta("");
-                viewModel.Proveedor.ProveedorId("");
-                viewModel.Proveedor.NombreComercial("");
+                vm.CabFacturaId("");
+                vm.NumFactura("");
+                vm.FechaEmision("");
+                vm.TotalFactura("");
+                vm.FechaAlta("");
+                vm.Proveedor.ProveedorId("");
+                vm.Proveedor.NombreComercial("");
             }
             // cargar el modelo
             function loadModel(data) {
-                viewModel.CabFacturaId(data.CabFacturaId);
-                viewModel.NumFactura(data.NumFactura);
-                viewModel.FechaEmision(moment(data.FechaEmision).format("DD/MM/YYYY"));
-                viewModel.FechaAlta(moment(data.FechaAlta).format("DD/MM/YYYY"));
-                viewModel.TotalFactura(data.TotalFactura);
+                vm.CabFacturaId(data.CabFacturaId);
+                vm.NumFactura(data.NumFactura);
+                vm.FechaEmision(moment(data.FechaEmision).format("DD/MM/YYYY"));
+                vm.FechaAlta(moment(data.FechaAlta).format("DD/MM/YYYY"));
+                vm.TotalFactura(data.TotalFactura);
                 // el grupo al que pertenece
                 // ya que se admiten nulos hay que controlarlo
                 if (data.Proveedor != null) {
-                    viewModel.Proveedor.ProveedorId(data.Proveedor.ProveedorId);
-                    viewModel.Proveedor.NombreComercial(data.Proveedor.NombreComercial);
+                    vm.Proveedor.ProveedorId(data.Proveedor.ProveedorId);
+                    vm.Proveedor.NombreComercial(data.Proveedor.NombreComercial);
                 }
-                loadLineas(viewModel.CabFacturaId());
+                loadLineas(vm.CabFacturaId());
             }
             function loadModelLines(data) {
-                viewModel.LineasFactura(data);
+                vm.LineasFactura(data);
             }
             // cargar las opciones del desplegable
             function loadCombos(id, nombre) {
@@ -535,16 +578,14 @@
                     select: function (e) {
                         var dataItem = this.dataItem(e.item.index());
                         // cargar id seleccionado
-                        viewModel.Proveedor.ProveedorId(dataItem.ProveedorId);
+                        vm.Proveedor.ProveedorId(dataItem.ProveedorId);
                     }
                 });
             }
             // Carga los controles de campo para los que son fechas.
             function loadDateFields() {
                 $("#FechaAlta").kendoDatePicker({ culture: "es-Es" });
-                //$("#FechaAlta").val(viewModel.FechaAlta());
                 $("#FechaEmision").kendoDatePicker({ culture: "es-Es" });
-                //$("#FechaEmision").val(viewModel.FechaEmision());
             }
             // salvar los datos del form
             function saveData(arg) {
@@ -552,24 +593,41 @@
                 var url = "";
                 // si el modelo tiene fechas que se han cargado en formato español
                 // hay que volver a pasarlas al inglés
-                var fAlta = moment(viewModel.FechaAlta(), "DD/MM/YYYY");
-                var fEmision = moment(viewModel.FechaEmision(), "DD/MM/YYYY");
-                viewModel.FechaAlta(moment(fAlta).format("MM/DD/YYYY"));
-                viewModel.FechaEmision(moment(fEmision).format("MM/DD/YYYY"));
+                var fAlta = moment(vm.FechaAlta(), "DD/MM/YYYY");
+                var fEmision = moment(vm.FechaEmision(), "DD/MM/YYYY");
+                vm.FechaAlta(moment(fAlta).format("MM/DD/YYYY"));
+                vm.FechaEmision(moment(fEmision).format("MM/DD/YYYY"));
                 if (arg == "new") {
                     verb = "POST";
                     url = ari_hosts.webapi + "/api/factura/?tk=" + getCookie("ari_tique");
                 }
                 else {
                     verb = "PUT";
-                    url = ari_hosts.webapi + "/api/factura/" + viewModel.CabFacturaId() + "/?tk=" + getCookie("ari_tique");
+                    url = ari_hosts.webapi + "/api/factura/" + vm.CabFacturaId() + "/?tk=" + getCookie("ari_tique");
                 }
                 $.ajax({
                     type: verb,
                     url: url,
                     dataType: "json",
                     contentType: "application/json",
-                    data: ko.toJSON(viewModel),
+                    data: ko.toJSON(vm),
+                    success: function (data, textStatus) {
+                        saveLineas(arg);
+                    },
+                });
+            }
+            // salvar las líneas de la factura
+            function saveLineas(arg) {
+                var verb = "";
+                var url = "";
+                verb = "PUT";
+                url = ari_hosts.webapi + "/api/linfactura/?idFac=" + vm.CabFacturaId() + "&tk=" + getCookie("ari_tique");
+                $.ajax({
+                    type: verb,
+                    url: url,
+                    dataType: "json",
+                    contentType: "application/json",
+                    data: ko.toJSON(vm.LineasFactura()),
                     success: function (data, textStatus) {
                         // incluir aqui el tratamiento de los datos recibidos
                         // refrescamos el grid con los nuevos datos
@@ -592,7 +650,7 @@
             }
             // salvar el modelo actual en una cookie
             function saveDataCookie() {
-                var data = ko.toJSON(viewModel);
+                var data = ko.toJSON(vm);
                 setCookie("factura", data, 1);
             }
             // recuperar el modelo desde la cookie
@@ -609,6 +667,20 @@
                         window.open("proveedor.html?mode=S&caller=factura", '_self');
                         break;
                 }
+            }
+            // construir los controles de upload
+            function sendPdf() {
+                var ownURL = document.URL;
+                var usuario = getCookie("ari_usuario");
+                var targetURL = ari_hosts.webloader + "?ReturnUrl=" + ownURL
+                    + "&Application=PortalPro"
+                    + "&UserId=" + usuario.Login
+                    + "&FormId=Factura"
+                    + "&FieldId=PDF"
+                    + "&Extension=.pdf";
+                window.open(targetURL, null, "width=500, height=500");
+            }
+            function sendXml() {
             }
         </script>
 

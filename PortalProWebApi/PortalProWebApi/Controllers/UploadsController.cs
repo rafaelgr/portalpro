@@ -94,5 +94,33 @@ namespace PortalProWebApi.Controllers
             HttpContext.Current.Response.AddHeader("Access-Control-Allow-Credentials", "true");
             return true;
         }
+        public void PostFile()
+        {
+            HttpRequestMessage request = this.Request;
+            if (!request.Content.IsMimeMultipartContent())
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.UnsupportedMediaType));
+            }
+
+            string root = System.Web.HttpContext.Current.Server.MapPath("~/uploads");
+            var provider = new MultipartFormDataStreamProvider(root);
+
+            var task = request.Content.ReadAsMultipartAsync(provider).
+            ContinueWith<HttpResponseMessage>(o =>
+            {
+                FileInfo finfo = new FileInfo(provider.FileData.First().LocalFileName);
+                string fichero = provider.FileData.First().Headers.ContentDisposition.FileName.Replace("\"", "");
+                fichero = String.Format("PRUEBAS#{0}",fichero);
+                string destino = Path.Combine(root, fichero);
+                //File.Copy(finfo.FullName, destino, true);
+                //File.Delete(finfo.FullName);
+                File.Move(finfo.FullName, destino);
+                return new HttpResponseMessage()
+                {
+                    Content = new StringContent("")
+                };
+            });
+            HttpContext.Current.Response.AddHeader("Access-Control-Allow-Credentials", "true");
+        }
     }
 }
