@@ -132,6 +132,7 @@ namespace PortalProWebApi.Controllers
                                             where d.DocumentoId == documentoXmlId
                                             select d).FirstOrDefault<Documento>();
                 }
+                factura.FechaAlta = DateTime.Now;
                 ctx.SaveChanges();
                 return ctx.CreateDetachedCopy<CabFactura>(factura, x => x.Proveedor, x => x.DocumentoPdf, x => x.DocumentoXml);
             }

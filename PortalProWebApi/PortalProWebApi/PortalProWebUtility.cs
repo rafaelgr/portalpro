@@ -11,7 +11,7 @@ namespace PortalProWebApi
     public static partial class PortalProWebUtility
     {
         /// <summary>
-        /// Comprueba que los ficheros necesarios para rellenar al solicitud están.
+        /// Comprueba que los ficheros necesarios para rellenar a la solicitud están.
         /// Asocia esos ficheros como documentos a la solicitud de que se trate.
         /// </summary>
         /// <param name="webRoot">Directorio de subida de ficheros</param>

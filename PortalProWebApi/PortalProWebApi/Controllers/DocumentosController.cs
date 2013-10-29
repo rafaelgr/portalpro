@@ -43,7 +43,7 @@ namespace PortalProWebApi.Controllers
         }
 
         /// <summary>
-        /// Se obtienen todos los documentos pertenecientes a un poveedor.
+        /// Se obtienen todos los documentos pertenecientes a un proveedor.
         /// Los documentos se copian al directorio de descarga y se proporciona su enlace en la propiedad "DescargaUrl"
         /// </summary>
         /// <param name="tk">Tique de autorización</param>

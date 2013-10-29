@@ -87,36 +87,36 @@
                         </div>
                         <div class="row-fluid">
                             <div class="span6">
+                                <label>Fecha de emisión</label>
+                                <input id="FechaEmision" data-bind="value: FechaEmision"/>
+                            </div>
+                            <div class="span6">
                                 <label>Numero de factura</label>
                                 <input id="NumFactura" class="span12" type="text" data-bind="value: NumFactura" 
                                        name="NumFactura" required />
-                            </div>
-                            <div class="span6">
-                                <label>Fecha de emisión</label>
-                                <input id="FechaEmision" data-bind="value: FechaEmision"/>
                             </div>
                         </div>
                         <div class="row-fluid">
                             <div class="span6">
                                 <label>Fecha de alta</label>
-                                <input id="FechaAlta" data-bind="value: FechaAlta" />
+                                <input id="FechaAlta" data-bind="value: FechaAlta" type="text" disabled/>
                             </div>
                             <div class="span6">
                                 <label>Total factura</label>
-                                <input id="TotalFactura" class="span12" type="number" data-bind="value: TotalFactura" 
-                                       name="TotalFactura" required />
+                                <input id="TotalFactura" type="number" data-bind="value: TotalFactura" 
+                                       name="TotalFactura" disabled/>
                             </div>
                         </div>
                         <div class="row-fluid">
                             <div id="UPDF" style="margin-bottom:10px;"  >
-                                <label>Fichero PDF que contiene su factura</label>
-                                <button onclick="sendPdf()">Enviar</button>
+                                Fichero PDF que contiene su factura
+                                <button class="btn btn-small btn-primary" onclick="sendPdf()">Cargar</button>
                             </div>
                         </div>
                         <div class="row-fluid">
                             <div id="UXML" style="margin-bottom:10px;"  >
-                                <label>Fichero XML en formato FACTURAE (opcional)</label>
-                                <button onclick="sendXml()">Enviar</button>
+                                Fichero XML en formato FACTURAE (opcional) 
+                                <button class="btn btn-small btn-primary" onclick="sendXml()">Cargar</button>
                             </div>
                         </div>
                         <div class="row-fluid" style="padding-top:10px;">
@@ -281,6 +281,21 @@
                     ProveedorId: ko.observable(),
                     NombreComercial: ko.observable()
                 }
+                self.DocumentoPdf = {
+                    DocumentoId: ko.observable(),
+                    NomFichero: ko.observable(),
+                    Extension: ko.observable(),
+                    DescargaUrl: ko.observable(),
+                    Comentario: ko.observable()
+                }
+                self.DocumentoXml = {
+                    DocumentoId: ko.observable(),
+                    NomFichero: ko.observable(),
+                    Extension: ko.observable(),
+                    DescargaUrl: ko.observable(),
+                    Comentario: ko.observable()
+                }
+
                 self.LineasFactura = ko.observableArray([
                     ko.observable(
                         {
@@ -291,6 +306,14 @@
                         PorcentajeIva: ko.observable()
                     })
                 ]);
+                self.FacturaPdf = {
+                    Url: ko.observable(),
+                    Path: ko.observable()
+                }
+                self.FacturaXml = {
+                    Url: ko.observable(),
+                    Path: ko.observable()
+                }
                 self.dspTotalFactura = ko.computed(function () {
                     var total = 0;
                     ko.utils.arrayForEach(self.LineasFactura(), function (linea) {
@@ -453,7 +476,7 @@
                 clearData();
                 loadCombos();
                 loadDateFields();
-                $("#NumFactura").focus();
+                $("#Proveedor").focus();
             }
             // botón editar (del grid)
             function formEdit(id) {
@@ -464,7 +487,7 @@
                 loadData(id);
                 loadCombos();
                 loadDateFields();
-                $("#NumFactura").focus();
+                $("#Proveedor").focus();
             }
             // botón aceptar / salvar
             function formAccept() {
@@ -523,20 +546,31 @@
                 vm.FechaAlta("");
                 vm.Proveedor.ProveedorId("");
                 vm.Proveedor.NombreComercial("");
+                vm.LineasFactura([]);
             }
             // cargar el modelo
             function loadModel(data) {
                 vm.CabFacturaId(data.CabFacturaId);
                 vm.NumFactura(data.NumFactura);
-                vm.FechaEmision(moment(data.FechaEmision).format("DD/MM/YYYY"));
-                vm.FechaAlta(moment(data.FechaAlta).format("DD/MM/YYYY"));
+                if (vm.FechaEmision() != "")
+                    vm.FechaEmision(moment(data.FechaEmision).format("DD/MM/YYYY"));
+                if (vm.FechaAlta() != "")
+                    vm.FechaAlta(moment(data.FechaAlta).format("DD/MM/YYYY"));
                 vm.TotalFactura(data.TotalFactura);
+                if (data.DocumentoPdf != null) {
+                    vm.DocumentoPdf.DocumentoId(data.DocumentoPdf.DocumentoId);
+                    vm.DocumentoPdf.DescargaUrl(data.DocumentoPdf.DescargaUrl);
+                }
+                if (data.DocumentoXml != null) {
+                    vm.DocumentoXml.DocumentoId(data.DocumentoXml.DocumentoId);
+                }
                 // el grupo al que pertenece
                 // ya que se admiten nulos hay que controlarlo
                 if (data.Proveedor != null) {
                     vm.Proveedor.ProveedorId(data.Proveedor.ProveedorId);
                     vm.Proveedor.NombreComercial(data.Proveedor.NombreComercial);
                 }
+                // aqui cargamos los documentos asociados
                 loadLineas(vm.CabFacturaId());
             }
             function loadModelLines(data) {
@@ -584,7 +618,6 @@
             }
             // Carga los controles de campo para los que son fechas.
             function loadDateFields() {
-                $("#FechaAlta").kendoDatePicker({ culture: "es-Es" });
                 $("#FechaEmision").kendoDatePicker({ culture: "es-Es" });
             }
             // salvar los datos del form
@@ -595,7 +628,8 @@
                 // hay que volver a pasarlas al inglés
                 var fAlta = moment(vm.FechaAlta(), "DD/MM/YYYY");
                 var fEmision = moment(vm.FechaEmision(), "DD/MM/YYYY");
-                vm.FechaAlta(moment(fAlta).format("MM/DD/YYYY"));
+                if (fAlta != null)
+                    vm.FechaAlta(moment(fAlta).format("MM/DD/YYYY"));
                 vm.FechaEmision(moment(fEmision).format("MM/DD/YYYY"));
                 if (arg == "new") {
                     verb = "POST";
@@ -612,6 +646,7 @@
                     contentType: "application/json",
                     data: ko.toJSON(vm),
                     success: function (data, textStatus) {
+                        vm.CabFacturaId(data.CabFacturaId);
                         saveLineas(arg);
                     },
                 });
@@ -657,6 +692,7 @@
             function loadDataCookie() {
                 var dataS = getCookie("factura");
                 var data = JSON.parse(dataS);
+                
                 loadModel(data);
             }
             // llamada externa para búsquedas
@@ -670,17 +706,22 @@
             }
             // construir los controles de upload
             function sendPdf() {
+                saveDataCookie();
                 var ownURL = document.URL;
-                var usuario = getCookie("ari_usuario");
+                var userId = getCookie("ari_userId");
                 var targetURL = ari_hosts.webloader + "?ReturnUrl=" + ownURL
                     + "&Application=PortalPro"
-                    + "&UserId=" + usuario.Login
+                    + "&UserId=" + userId
                     + "&FormId=Factura"
                     + "&FieldId=PDF"
                     + "&Extension=.pdf";
                 window.open(targetURL, null, "width=500, height=500");
             }
             function sendXml() {
+                alert("No disponible de momento");
+            }
+            function senPdfReturn() {
+                alert("Send PDF Return");
             }
         </script>
 

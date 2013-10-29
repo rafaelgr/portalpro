@@ -653,7 +653,7 @@
         </member>
         <member name="M:PortalProWebApi.Controllers.DocumentosController.GetFromProveedor(System.String,System.String)">
             <summary>
-            Se obtienen todos los documentos pertenecientes a un poveedor.
+            Se obtienen todos los documentos pertenecientes a un proveedor.
             Los documentos se copian al directorio de descarga y se proporciona su enlace en la propiedad "DescargaUrl"
             </summary>
             <param name="tk">Tique de autorización</param>
@@ -989,7 +989,7 @@
         </member>
         <member name="M:PortalProWebApi.PortalProWebUtility.ComprobarCargarFicherosProveedor(System.String,System.String,PortalProModelo.SolicitudProveedor,PortalProModelo.PortalProContext)">
             <summary>
-            Comprueba que los ficheros necesarios para rellenar al solicitud están.
+            Comprueba que los ficheros necesarios para rellenar a la solicitud están.
             Asocia esos ficheros como documentos a la solicitud de que se trate.
             </summary>
             <param name="webRoot">Directorio de subida de ficheros</param>

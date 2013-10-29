@@ -1,0 +1,545 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <title> Solicitudes Log </title>
+        <meta name="description" content="" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <!-- basic styles -->
+        <link href="css/bootstrap.min.css" rel="stylesheet" />
+        <link href="css/bootstrap-responsive.min.css" rel="stylesheet" />
+        <link href="css/kendo.common.min.css" rel="stylesheet" />
+        <link href="css/kendo.metro.css" rel="stylesheet" />
+
+        <link rel="stylesheet" href="css/font-awesome.min.css" />
+        <!--[if IE 7]>
+        <link rel="stylesheet" href="css/font-awesome-ie7.min.css" />
+        <![endif]-->
+
+        <!-- page specific plugin styles -->
+
+        <!-- ace styles -->
+        <link rel="stylesheet" href="css/ace.min.css" />
+        <link rel="stylesheet" href="css/ace-responsive.min.css" />
+        <link rel="stylesheet" href="css/ace-skins.min.css" />
+        <!--[if lt IE 9]>
+        <link rel="stylesheet" href="css/ace-ie.css" />
+        <![endif]-->
+
+    </head>
+
+    <body>
+        <div id="topbar" class="navbar navbar-inverse">
+
+        </div><!--/navbar -->
+
+        <div class="container-fluid" id="main-container">
+            <a href="#" id="menu-toggler">
+                <span></span>
+            </a><!-- menu toggler -->
+            <div id="sidebar" class="row-fluid">
+            </div><!--/#sidebar-->
+            <div id="main-content" class="clearfix">
+                <div id="breadcrumbs">
+                    <ul class="breadcrumb">
+                        <li>
+                            <i class="icon-home"></i>
+                            <a href="main.html">Inicio</a>
+                            <span class="divider"><i class="icon-angle-right"></i></span>
+                            <a href="registros.html">Registros</a>
+                            <span class="divider"><i class="icon-angle-right"></i></span>
+                            <a href="solicitudlog.html">Solicitudes de proveedor</a>
+                        </li>
+                    </ul><!--.breadcrumb-->
+                </div><!--#breadcrumbs-->
+                <div id="page-content" class="clearfix">
+                    <div class="page-header position-relative">
+                        <h1>
+                            Registro de solicitudes proveedor <i id="isearch" class="icon-search" style="display:none;"></i>
+                        </h1>
+                    </div>
+                    <div id="solicitudlog-grid" class="row-fluid">
+                    </div><!--/#solicitudlog-grid-->
+                    <div id="solicitudlog-form" class="row-fluid" style="display:none;">
+                        <div class="row-fluid">
+                            <div class="span6">
+                                <h4>
+                                    <span class="blue" id="form-title">Consultar registro</span>
+                                </h4>
+                            </div>
+                            <div class="span6">
+                                <h4 class="blue pull-right">
+                                    ID:<span data-bind="text: SolicitudLogId"></span>
+                                </h4>
+                            </div>
+                        </div>
+                        <div class="row-fluid">
+                            <div class="span2">
+                                <span class="blue">ID Solicitud: </span>
+                                <span data-bind="text: SolicitudProveedor.SolicitudProveedorId"></span>
+
+                            </div>
+                            <div class="span10">
+                                <span class="blue">Proveedor: </span>
+                                <span data-bind="text: SolicitudProveedor.Nombre"></span>
+                            </div>
+                        </div>
+                        <div class="row-fluid">
+                            <div class="span4">
+                                <span class="blue">Sello: </span>
+                                <span data-bind="text: miSello"></span>
+                            </div>
+                            <div class="span4">
+                                <span class="blue">Estado inicial: </span>
+                                <span data-bind="text: SolicitudStatusInicial.Nombre"></span>
+                            </div>
+                            <div class="span4">
+                                <span class="blue">Estado final: </span>
+                                <span data-bind="text: SolicitudStatusFinal.Nombre"></span>
+                            </div>
+                        </div>
+                        <div class="row-fluid">
+                            <div class="span4">
+                                <span class="blue">Usuario: </span>
+                                <span data-bind="text: Usuario.Nombre"></span>
+                            </div>
+                            <div class="span8">
+                                <span class="blue">Comentarios: </span>
+                                <span data-bind="text: Comentarios"></span>
+                            </div>
+                        </div>
+                        <div class="row-fluid">
+                            <div class="pull-right">
+                                <button class="btn btn-small btn-primary" onclick ="formAccept()" style="display:none;">
+                                    <i class="icon-ok icon-white"></i>
+                                </button>
+                                <button class="btn btn-small btn-primary" onclick="formExit()">
+                                    <i class="icon-signout icon-white"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div><!-- #solicitudlog-form -->
+                </div><!--/#page-content-->
+            </div><!-- #main-content -->
+
+        </div><!--/.fluid-container#main-container-->
+
+        <a href="#" id="btn-scroll-up" class="btn btn-small btn-inverse">
+            <i class="icon-double-angle-up icon-only"></i>
+        </a>
+
+        <!-- Zona de templates -->
+        <div>
+            <script type="text/x-kendo-template" id="tNew">
+
+            </script>
+            <script type="text/x-kendo-template" id="tNewS">
+            </script>
+            <script type="tex/x-kendo-template" id="tEdit">
+                <div class="pull-right">
+                    <button class="btn btn-small btn-primary" onclick="formEdit(#=SolicitudLogId#);" title="Consultar registro">
+                        <i class="icon-pencil icon-white"></i>
+                    </button>
+                    <button class="btn btn-small btn-primary" onclick="gridDelete(#=SolicitudLogId#,'------');" title="Eliminar registro">
+                        <i class="icon-trash icon-white"></i>
+                    </button>
+                </div>
+            </script>
+            <script type="tex/x-kendo-template" id="tEditS">
+                <div class="pull-right">
+                </div>
+            </script>
+        </div> <!-- /Zona de templates -->
+        <!-- basic scripts -->
+        <script src="js/jquery-1.9.1.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/bootbox.min.js"></script>
+        <script src="js/knockout-2.2.1.js"></script>
+        <script src="js/knockout.mapping-latest.debug.js"></script>
+        <script src="js/moment.js"></script>
+        <!-- kendo scripts -->
+        <script src="js/kendo.web.js"></script>
+
+        <!-- page specific plugin scripts -->
+
+        <!-- ace scripts -->
+        <script src="js/ace-elements.js"></script>
+        <script src="js/ace.js"></script>
+
+        <!-- inline scripts related to this page -->
+        <script src="js/ari-general.js"></script>
+        <script src="js/ari-localization.es-ES.js"></script>
+
+        <!-- parámetros -->
+        <script src="js/config.js"></script>
+        <!-- Scripts personalizados -->
+        <!-- variables generales de la página -->
+        <script type="text/javascript">
+            var mode; // indica si la página es llamada para búsqueda (=S)
+            var type; // para el form indica si estamos creando o editando
+            var regId; // para cargar identificadores de registro;
+            var caller; // establece quién, si alguien nos ha llamado.
+            // modelo de datos knockout
+            function viewModel(data) {
+                if (data == null) {
+                    this.SolicitudLogId = ko.observable("");
+                    this.Sello = ko.observable("");
+                    this.Comentarios = ko.observable("");
+                    this.Usuario = {
+                        UsuarioId: ko.observable(""),
+                        Nombre: ko.observable("")
+                    };
+                    this.SolicitudProveedor = {
+                        SolicitudProveedorId: ko.observable(""),
+                        Nombre: ko.observable("")
+                    };
+                    this.SolicitudStatusInicial = {
+                        SolicitudStatusInicialId: ko.observable(""),
+                        Nombre: ko.observable("")
+                    };
+                    this.SolicitudStatusFinal = {
+                        SolicitudStatusFinalId: ko.observable(""),
+                        Nombre: ko.observable("")
+                    };
+                } else {
+                    this.SolicitudLogId = ko.observable(data.SolicitudLogId);
+                    this.Sello = ko.observable(data.Sello);
+                    this.Comentarios = ko.observable(data.Comentarios);
+                    this.Usuario = {
+                        UsuarioId: ko.observable(data.Usuario.UsuarioId),
+                        Nombre: ko.observable(data.Usuario.Nombre)
+                    };
+                    if (!!data.SolicitudProveedor) {
+                        this.SolicitudProveedor = {
+                            SolicitudProveedorId: ko.observable(data.SolicitudProveedor.SolicitudProveedorId),
+                            Nombre: ko.observable(data.SolicitudProveedor.Nombre)
+                        };
+                    } else {
+                        this.SolicitudProveedor = {
+                            SolicitudProveedorId: ko.observable(""),
+                            Nombre: ko.observable("")
+                        };
+                    }
+                    this.SolicitudStatusInicial = {
+                        SolicitudStatusInicialId: ko.observable(data.SolicitudStatusInicial.SolicitudStatusInicialId),
+                        Nombre: ko.observable(data.SolicitudStatusInicial.Nombre)
+                    };
+                    this.SolicitudStatusFinal = {
+                        SolicitudStatusFinalId: ko.observable(data.SolicitudStatusFinal.SolicitudStatusFinalId),
+                        Nombre: ko.observable(data.SolicitudStatusFinal.Nombre)
+                    }
+                }
+                this.miSello = ko.computed(function () {
+                    var v1 = moment(this.Sello());
+                    var v2 = "";
+                    if (!!v1) v2 = v1.format("DD/MM/YYYY HH:mm");
+                    return v2;
+                }, this);
+            };
+            ko.applyBindings(new viewModel(null));
+
+        </script>
+        
+        <!-- manejo de los templates que usará el grid -->
+        <script type="text/javascript">
+            var t_new;
+            var t_edit;
+            
+            function loadTemplates() {
+                t_new = kendo.template($("#tNew").html());
+                t_edit = kendo.template($("#tEdit").html());
+                if (mode == "S") {
+                    t_new = kendo.template($("#tNewS").html());
+                    t_edit = kendo.template($("#tEditS").html());
+                    // valorar si se necesita icono de búsqueda en el título
+                    $("#isearch").show();
+                }
+            }
+        
+        </script>
+
+        <!-- manejo del grid  -->
+        <script type="text/javascript">
+            
+            // este la fuente de datos que usará el grid
+            var gridDataSource = new kendo.data.DataSource({
+                transport: {
+                    read: {
+                        url: ari_hosts.webapi + "/api/solicitudeslog?tk=" + getCookie("ari_tique"),
+                        dataType: "json",
+                        type: "GET",
+                        contentType: "application/json"
+                    },
+                    parameterMap: function (data, type) {
+                        if (type != "GET")
+                            return kendo.stringify(data);
+                    }
+                },
+                schema: {
+                    model: {
+                        id: "SolicitudLogId",
+                        fields: {
+                            SolicitudLogId: { type: "number" },
+                            Sello: { type: "date" },
+                            Comentarios: { type: "string" },
+                            SolicitudProveedor: {},
+                            Usuario: {},
+                            SolicitudStatusInicial: {},
+                            SolicitudStatusFinal: {}
+                        }
+                    }
+                },
+                pageSize: 5
+            });
+            
+            // montamos una función que maneje los errores de la fuente de datos
+            function gridErrorHandler(e) {
+                var message = ari_formatErrorMessage(JSON.parse(e.xhr.responseText));
+                bootbox.alert(message, "Aceptar");
+            }
+            
+            // enlazamos la función al evento del grid
+            gridDataSource.bind("error", gridErrorHandler);
+            
+            // por último la función que lo integra todo y que monta el grid en el espacio
+            // para ello
+            function gridBuild() {
+                console.log("Grid Build usuarios");
+                $("#solicitudlog-grid").kendoGrid({
+                    dataSource: gridDataSource,
+                    columns: [
+                        { field: "SolicitudLogId", title: "ID (Registro)" },
+                        { field: "SolicitudProveedor", title: "ID (Solicitud)", template: "#=SolicitudProveedor?SolicitudProveedor.SolicitudProveedorId:''#" },
+                        { field: "SolicitudProveedor", title: "Proveedor", template: "#=SolicitudProveedor?SolicitudProveedor.Nombre:''#" },
+                        { field: "Sello", title: "Sello", format: "{0:dd/MM/yyyy HH:mm}" },
+                        { field: "Usuario", title: "Usuario", template: "#=Usuario?Usuario.Nombre:''#" },
+                        { field: "SolicitudStatusInicial", title: "Estado inicial", template: "#=SolicitudStatusInicial?SolicitudStatusFinal.Nombre:''#", hidden: true},
+                        { field: "SolicitudStatusFinal", title: "Estado final", template: "#=SolicitudStatusFinal?SolicitudStatusFinal.Nombre:''#" },
+                        { template: t_edit }
+                    ],
+                    toolbar: t_new,
+                    pageable: ari_pageable_es_ES,
+                    sortable: true,
+                    groupable: ari_groupable_es_ES,
+                    filterable: ari_filterable_es_ES,
+                    columnMenu: ari_columnMenu_es_ES
+                });
+            }
+            
+            // otras funciones de manejo
+            function gridExit() {
+            }
+            function gridDelete(id, nombre) {
+                regId = id;
+                var message = "<h4>¿Desea eliminar este registro?</h4><p>Si lo elimina, la solicitud a la que pertenece pasará a pendiente</p>";
+                bootbox.dialog(message, [
+                    {
+                        "label": "Cancelar",
+                        "class": "btn-small btn-success",
+                        "callback": function () {
+                        }
+                    },{
+                        "label": "Aceptar",
+                        "class": "btn-small btn-error",
+                        "callback": function () {
+                            var url = ari_hosts.webapi + "/api/solicitudeslog/" + regId + "?tk=" + getCookie("ari_tique");
+                            var options = {
+                                type: 'DELETE',
+                                url: url,
+                                dataType: 'json',
+                                contentType: "application/json",
+                                success: function (data, textStatus) {
+                                    gridRefresh();
+                                }
+                            };
+                            $.ajax(options);
+                        }
+                    }
+                ]);
+            }
+            
+            function gridSelect(id, nombre) {
+            }
+            function gridRefresh() {
+                var ds = $("#solicitudlog-grid").data("kendoGrid").dataSource;
+                ds.read();
+                return ds;
+            }
+        
+        </script>
+            
+        <!-- manejo del form -->
+        <script type="text/javascript">
+            // botón nuevo (del grid)
+            function formNew() {
+                type = "new";
+                // ocultar grid - mostrar form
+                $("#solicitudlog-grid").hide();
+                $("#solicitudlog-form").show();
+                $("#form-title").text("Nuevo registro");
+                clearData();
+                loadCombos();
+                $("#Nombre").focus();
+            }
+            // botón editar (del grid)
+            function formEdit(id) {
+                type = "edit";
+                $("#solicitudlog-grid").hide();
+                $("#solicitudlog-form").show();
+                $("#form-title").text("Consultar registro");
+                loadData(id);
+                $("#Nombre").focus();
+            }
+            // botón aceptar / salvar
+            function formAccept() {
+                if (!formOk())
+                    return;
+                saveData(type);
+            }
+            // comprobar la correción de datos
+            function formOk() {
+           
+                return true;
+            }
+            // salir del formulario sin guardar
+            function formExit() {
+                // ocultar posibles mensajes de validación 
+                $("#solicitudlog-grid").show();
+                $("#solicitudlog-form").hide()
+            }
+            // carga los datos en el grid
+            function loadData(id) {
+                $.ajax({
+                    type: "GET",
+                    url: ari_hosts.webapi + "/api/solicitudeslog/" + id + "/?tk=" + getCookie("ari_tique"),
+                    dataType: "json",
+                    contentType: "application/json",
+                    success: function (data, textStatus) {
+                        //loadModel(data);
+                        ko.applyBindings(new viewModel(data));
+                        // el campo de repitición de contraseña
+                        $("#Password2").val(data.Password);
+                    },
+                });
+            }
+            // limpiar los datos del modelo
+            function clearData() {
+                viewModel.SolicitudLogId("");
+                viewModel.Sello("");
+                viewModel.Comentarios("");
+                viewModel.Usuario.UsuarioId("");
+                viewModel.Usuario.Nombre("");
+                viewModel.SolicitudProveedor.SolicitudProveedorId("");
+                viewModel.SolicitudProveedor.Nombre("");
+                viewModel.SolicitudStatusInicial.SolicitudStatusInicialId("");
+                viewModel.SolicitudStatusInicial.Nombre("");
+                viewModel.SolicitudStatusFinal.SolicitudStatusFinalId("");
+                viewModel.SolicitudStatusFinal.Nombre("");
+            }
+            // cargar el modelo
+            function loadModel(data) {
+                viewModel.SolicitudLogId(data.SolicitudLogId);
+                viewModel.Sello(data.Sello);
+                viewModel.Comentarios(data.Comentarios);
+                if (data.Usuario != null) {
+                    viewModel.Usuario.UsuarioId(data.Usuario.UsuarioId);
+                    viewModel.Usuario.Nombre(data.Usuario.Nombre);
+                }
+                if (data.SolicitudProveedor != null) {
+                    viewModel.SolicitudProveedor.SolicitudProveedorId(data.SolicitudProveedor.SolicitudProveedorId);
+                    viewModel.SolicitudProveedor.Nombre(data.SolicitudProveedor.Nombre);
+                }
+                if (data.SolicitudStatusInicial != null) {
+                    viewModel.SolicitudStatusInicial.SolicitudStatusInicialId(data.SolicitudStatusInicial.SolicitudStatusInicialId);
+                    viewModel.SolicitudStatusInicial.Nombre(data.SolicitudStatusInicial.Nombre);
+                }
+                if (data.SolicitudStatusFinal != null) {
+                    viewModel.SolicitudStatusFinal.SolicitudStatusFinalId(data.SolicitudStatusFinal.SolicitudStatusFinalId);
+                    viewModel.SolicitudStatusFinal.Nombre(data.SolicitudStatusFinal.Nombre);
+                }
+            }
+            // salvar los datos del form
+            function saveData(arg) {
+                var verb = "";
+                var url = "";
+                if (arg == "new") {
+                    verb = "POST";
+                    url = ari_hosts.webapi + "/api/solicitudeslog/?tk=" + getCookie("ari_tique");
+                }
+                else {
+                    verb = "PUT";
+                    url = ari_hosts.webapi + "/api/solicitudeslog/" + viewModel.SolicitudLogId() + "/?tk=" + getCookie("ari_tique");
+                }
+                $.ajax({
+                    type: verb,
+                    url: url,
+                    dataType: "json",
+                    contentType: "application/json",
+                    data: ko.toJSON(viewModel),
+                    success: function (data, textStatus) {
+                        // incluir aqui el tratamiento de los datos recibidos
+                        // refrescamos el grid con los nuevos datos
+                        var ds = gridRefresh();
+                        // el tratamiento es diferente si se trata de altas o ediciones
+                        if (arg == "new") {
+                            // debemos posicionarnos en el teórico último registro del 
+                            // grid que es donde está el registro que acabamos de dar de alta.
+                            var totalPages = ds.totalPages();
+                            ds.page(totalPages);
+                        }
+                        else {
+                            // en edición simplemnete mostramos el grid, se supone
+                            // que ya está donde debía estar.
+                        }
+                        $("#solicitudlog-form").hide();
+                        $("#solicitudlog-grid").show();
+                    },
+                });
+            }
+            // salvar el modelo actual en una cookie
+            function saveDataCookie() {
+                var data = ko.toJSON(viewModel);
+                setCookie("solicitudlog", data, 1);
+            }
+            // recuperar el modelo desde la cookie
+            function loadDataCookie() {
+                var dataS = getCookie("solicitudlog");
+                var data = JSON.parse(dataS);
+                loadModel(data);
+            }
+            // llamada externa para búsquedas
+            function formSearch(option) {
+                saveDataCookie();
+                switch (option) {
+                }
+            }
+        </script>
+            
+        <!-- Script en arranque -->
+        <script type="text/javascript">
+            (function ($) {
+                $(document).ready(function () {
+                    // tratamiento general de errores Ajax
+                    generalAjaxErrorTreatment();
+                    // en cualquier página hay que verificar la autorización
+                    checkAutorization();
+                    // cargar el menú superior
+                    loadTopBar();
+                    // cargar el menú lateral
+                    loadSideBar();
+                    // quién y como nos ha llamado.
+                    mode = gup("mode");
+                    caller = gup("caller");
+                    // cargar los templates que se usarán en el grid
+                    loadTemplates();
+                    // cargar el grid
+                    gridBuild();
+                    // comprobar como hemos sido llamados 
+                    switch (caller) {
+                    }
+                });
+            })(jQuery);
+        </script>
+    </body>
+</html>
+    
