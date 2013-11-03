@@ -92,7 +92,6 @@ namespace PortalProWebApi.Controllers
                 {
                     throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.BadRequest));
                 }
-
                 // Controlamos las propiedades que son en realidad objetos.
                 int proveedorId = 0;
                 if (factura.Proveedor != null)
@@ -133,6 +132,165 @@ namespace PortalProWebApi.Controllers
                                             select d).FirstOrDefault<Documento>();
                 }
                 factura.FechaAlta = DateTime.Now;
+                ctx.SaveChanges();
+                return ctx.CreateDetachedCopy<CabFactura>(factura, x => x.Proveedor, x => x.DocumentoPdf, x => x.DocumentoXml);
+            }
+        }
+
+        public virtual CabFactura Post(CabFactura factura,string userId, string tk)
+        {
+            using (PortalProContext ctx = new PortalProContext())
+            {
+                // comprobar el tique
+                if (!CntWebApiSeguridad.CheckTicket(tk, ctx))
+                {
+                    throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.Unauthorized, "Se necesita tique de autorización (CabFactura)"));
+                }
+                // comprobar las precondiciones
+                if (factura == null)
+                {
+                    throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.BadRequest));
+                }
+                // comprobamos si existen los ficheros que necesitamos
+                string fPdf = PortalProWebUtility.BuscarArchivoCargado("PortalPro", userId, "Factura", "PDF");
+                if (fPdf == "")
+                {
+                    throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotFound, "Se necesita un fichero PDF asociado a la factura (CabFactura)"));
+                }
+                // el archivo Xml no es obligatorio, pero si lo han subido cargamos el fichero
+                string fXml = PortalProWebUtility.BuscarArchivoCargado("PortalPro", userId, "Factura", "XML");
+                // Controlamos las propiedades que son en realidad objetos.
+                int proveedorId = 0;
+                if (factura.Proveedor != null)
+                {
+                    proveedorId = factura.Proveedor.ProveedorId;
+                    factura.Proveedor = null;
+                }
+                int documentoPdfId = 0;
+                if (factura.DocumentoPdf != null)
+                {
+                    documentoPdfId = factura.DocumentoPdf.DocumentoId;
+                    factura.DocumentoPdf = null;
+                }
+                int documentoXmlId = 0;
+                if (factura.DocumentoXml != null)
+                {
+                    documentoXmlId = factura.DocumentoXml.DocumentoId;
+                    factura.DocumentoXml = null;
+                }
+                // dar de alta el objeto en la base de datos y devolverlo en el mensaje
+                ctx.Add(factura);
+                if (proveedorId != 0)
+                {
+                    factura.Proveedor = (from p in ctx.Proveedors
+                                         where p.ProveedorId == proveedorId
+                                         select p).FirstOrDefault<Proveedor>();
+                }
+                if (documentoPdfId != 0)
+                {
+                    factura.DocumentoPdf = (from d in ctx.Documentos
+                                            where d.DocumentoId == documentoPdfId
+                                            select d).FirstOrDefault<Documento>();
+                }
+                if (documentoXmlId != 0)
+                {
+                    factura.DocumentoXml = (from d in ctx.Documentos
+                                            where d.DocumentoId == documentoXmlId
+                                            select d).FirstOrDefault<Documento>();
+                }
+                if (fPdf != "")
+                {
+                    factura.DocumentoPdf = PortalProWebUtility.CrearDocumentoDesdeArchivoCargado(factura.DocumentoPdf, fPdf, ctx);
+                }
+                if (fXml != "")
+                {
+                    factura.DocumentoXml = PortalProWebUtility.CrearDocumentoDesdeArchivoCargado(factura.DocumentoXml, fXml, ctx);
+                }
+                factura.FechaAlta = DateTime.Now;
+                ctx.SaveChanges();
+                return ctx.CreateDetachedCopy<CabFactura>(factura, x => x.Proveedor, x => x.DocumentoPdf, x => x.DocumentoXml);
+            }
+        }
+
+        public virtual CabFactura Put(int id, CabFactura factura, string userId, string tk)
+        {
+            using (PortalProContext ctx = new PortalProContext())
+            {
+                // comprobar el tique
+                if (!CntWebApiSeguridad.CheckTicket(tk, ctx))
+                {
+                    throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.Unauthorized, "Se necesita tique de autorización (CabFactura)"));
+                }
+                // comprobar los formatos
+                if (factura == null || id != factura.CabFacturaId)
+                {
+                    throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.BadRequest));
+                }
+                // primero buscamos si un factura con ese id existe
+                CabFactura cfac = (from f in ctx.CabFacturas
+                                   where f.CabFacturaId == id
+                                   select f).FirstOrDefault<CabFactura>();
+                // existe?
+                if (cfac == null)
+                {
+                    throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotFound, "No hay una factura con el id proporcionado (CabFactura)"));
+                }
+                // En la actualización a lo mejor no han cargado ningún archivo
+                string fPdf = PortalProWebUtility.BuscarArchivoCargado("PortalPro", userId, "Factura", "PDF");
+                 // el archivo Xml no es obligatorio, pero si lo han subido cargamos el fichero
+                string fXml = PortalProWebUtility.BuscarArchivoCargado("PortalPro", userId, "Factura", "XML");
+                // Controlamos las propiedades que son en realidad objetos.
+                int proveedorId = 0;
+                if (factura.Proveedor != null)
+                {
+                    proveedorId = factura.Proveedor.ProveedorId;
+                    factura.Proveedor = null;
+                }
+                int documentoPdfId = 0;
+                if (factura.DocumentoPdf != null)
+                {
+                    documentoPdfId = factura.DocumentoPdf.DocumentoId;
+                    factura.DocumentoPdf = null;
+                }
+                int documentoXmlId = 0;
+                if (factura.DocumentoXml != null)
+                {
+                    documentoXmlId = factura.DocumentoXml.DocumentoId;
+                    factura.DocumentoXml = null;
+                }
+                // modificar el objeto
+                ctx.AttachCopy<CabFactura>(factura);
+                // volvemos a leer el objecto para que lo maneje este contexto.
+                factura = (from f in ctx.CabFacturas
+                           where f.CabFacturaId == id
+                           select f).FirstOrDefault<CabFactura>();
+                if (proveedorId != 0)
+                {
+                    factura.Proveedor = (from p in ctx.Proveedors
+                                         where p.ProveedorId == proveedorId
+                                         select p).FirstOrDefault<Proveedor>();
+                }
+                if (documentoPdfId != 0)
+                {
+                    factura.DocumentoPdf = (from d in ctx.Documentos
+                                            where d.DocumentoId == documentoPdfId
+                                            select d).FirstOrDefault<Documento>();
+                }
+                if (documentoXmlId != 0)
+                {
+                    factura.DocumentoXml = (from d in ctx.Documentos
+                                            where d.DocumentoId == documentoXmlId
+                                            select d).FirstOrDefault<Documento>();
+                }
+                // si se cumplen estas condiciones es que han cambiado el archivo asociado.
+                if (fPdf != "")
+                {
+                    factura.DocumentoPdf = PortalProWebUtility.CrearDocumentoDesdeArchivoCargado(factura.DocumentoPdf, fPdf, ctx);
+                }
+                if (fXml != "")
+                {
+                    factura.DocumentoXml = PortalProWebUtility.CrearDocumentoDesdeArchivoCargado(factura.DocumentoXml, fXml, ctx);
+                }
                 ctx.SaveChanges();
                 return ctx.CreateDetachedCopy<CabFactura>(factura, x => x.Proveedor, x => x.DocumentoPdf, x => x.DocumentoXml);
             }

@@ -246,5 +246,52 @@ namespace PortalProWebApi
             doc.DescargaUrl = "/downloads/" + String.Format("{0}_{1}", tk, doc.NomFichero);
             return mens;
         }
+
+        public static string BuscarArchivoCargado(string application, string userId, string formId, string fieldId)
+        {
+            string archivo = "";
+            string pathFileName = ""; // aqui se montará el camino de búsqueda
+            string searchFileName = ""; // nombre con wildcards para búsqueda
+            // leemos el directorio en el que se encuentran las cargas
+            string directorio = ConfigurationManager.AppSettings["UploadRepository"];
+            pathFileName = directorio;
+            searchFileName = String.Format("{0}-{1}-{2}-{3}-*",application,userId, formId, fieldId);
+            string[] archivos = Directory.GetFiles(pathFileName, searchFileName);
+            // si encontramos algún coincidente devolvemos el primero.
+            if (archivos.Length > 0) archivo = archivos[0];
+            return archivo;
+        }
+
+        public static Documento CrearDocumentoDesdeArchivoCargado(Documento dOriginal, string fichero, PortalProContext ctx)
+        {
+            Documento d = null;
+            // siempre creamos un nuevo documento
+            string portalProRepo = ConfigurationManager.AppSettings["PorlaProRepository"];
+            string uploadRepo = ConfigurationManager.AppSettings["UploadRepository"];
+            d = new Documento();
+            int pos = fichero.LastIndexOf(".");
+            if (pos > -1) d.Extension = fichero.Substring(pos);
+            pos = fichero.LastIndexOf("#");
+            if (pos > -1) d.NomFichero = fichero.Substring(pos);
+            ctx.Add(d);
+            ctx.SaveChanges();
+            string nFichero = String.Format("{0:000000}-{1}", d.DocumentoId, d.NomFichero);
+            string origen = Path.Combine(uploadRepo, fichero);
+            string destino = Path.Combine(portalProRepo, nFichero);
+            File.Move(origen, destino);
+            ctx.SaveChanges();
+            if (dOriginal != null)
+            {
+                // hay un documento original al que hemos sustituido
+                // primero eliminamos el fichero
+                string antFichero = String.Format("{0:000000}-{1}", dOriginal.DocumentoId, dOriginal.NomFichero);
+                string antFicheroCompleto = Path.Combine(portalProRepo, antFichero);
+                File.Delete(antFicheroCompleto);
+                ctx.Delete(dOriginal);
+                ctx.SaveChanges();
+            }
+            return d;
+        }
+
     }
 }

@@ -128,7 +128,7 @@ public partial class Uploader : System.Web.UI.Page
         UploadedFile f = rdUploader.UploadedFiles[0];
         string name = f.GetName();
         string myDirectory = Path.Combine(repository, application, userId);
-        string startFileName = String.Format("{0}#{1}#", formId, fieldId);
+        string startFileName = String.Format("{0}-{1}-", formId, fieldId);
         // delete previous files for the same field
         foreach (FileInfo fl in new DirectoryInfo(myDirectory).GetFiles(String.Format("{0}*",startFileName)))
         {

@@ -112,9 +112,10 @@
                                 Fichero PDF que contiene su factura
                                 <button class="btn btn-small btn-primary" onclick="sendPdf()">Cargar</button>
                                 <br />
-                                <span data-bind="text: FacturaPdf.Url"></span>
+                                <a data-bind="attr: { href: FacturaPdf.Url }" target="_blank">Ver fichero cargado</a>
                                 <br />
-                                <span data-bind="text: FacturaPdf.Path"></span>
+                                <span data-bind="text: FacturaPdf.Url"></span>
+                                
                             </div>
                         </div>
                         <div class="row-fluid">
