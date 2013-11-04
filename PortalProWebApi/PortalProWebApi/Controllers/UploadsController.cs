@@ -94,6 +94,26 @@ namespace PortalProWebApi.Controllers
             HttpContext.Current.Response.AddHeader("Access-Control-Allow-Credentials", "true");
             return true;
         }
+        /// <summary>
+        /// Borra todos los ficheros del directorio de descargas que se han 
+        /// cargado con el tique pasado
+        /// </summary>
+        /// <param name="tk">Tique usado</param>
+        /// <returns></returns>
+        public bool DeleteFiles(string tk)
+        {
+            using (PortalProContext ctx = new PortalProContext())
+            {
+                if (!CntWebApiSeguridad.CheckTicket(tk, ctx) && tk != "solicitud")
+                {
+                    throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.Unauthorized, "Se necesita tique de autorización (Carga de ficheros)"));
+                }
+            }
+            // This access control necessary for Autoupload (kendo UI)
+            HttpContext.Current.Response.AddHeader("Access-Control-Allow-Credentials", "true");
+            PortalProWebUtility.BorrarDocumentos(tk);
+            return true;
+        }
         public void PostFile()
         {
             HttpRequestMessage request = this.Request;

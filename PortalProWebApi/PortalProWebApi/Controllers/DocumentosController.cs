@@ -205,7 +205,7 @@ namespace PortalProWebApi.Controllers
                     throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotFound, "No hay un documento con el id proporcionado (Documentos)"));
                 }
                 // eliminamos el fichero del repositorio.
-                string repo = ConfigurationManager.AppSettings["PortalProRepositorio"];
+                string repo = ConfigurationManager.AppSettings["PortalProRepository"];
                 if (repo != null && repo != "")
                 {
                     string fichero = Path.Combine(repo, "\\", doc.NomFichero);
@@ -239,7 +239,7 @@ namespace PortalProWebApi.Controllers
                           where f.Contains(tk) ||
                                 f.Contains("BodyPart")
                           select f);
-                string repo = ConfigurationManager.AppSettings["PortalProRepositorio"];
+                string repo = ConfigurationManager.AppSettings["PortalProRepository"];
                 foreach (string fichero in rs)
                 {
                     File.Delete(fichero);

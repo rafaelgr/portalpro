@@ -63,22 +63,22 @@ namespace PortalProWebApi
                 d.SolicitudProveedor = solProveedor;
                 int posFich = fichero.LastIndexOf("#");
                 int posExten = fichero.LastIndexOf(".");
-                d.NomFichero = String.Format("{0}_{1}_{2}",solProveedor.Nif,td.TipoDocumentoId, fichero.Substring(posFich+1));
+                d.NomFichero = String.Format("{0}_{1}_{2}", solProveedor.Nif, td.TipoDocumentoId, fichero.Substring(posFich + 1));
                 d.Extension = fichero.Substring(posExten + 1);
                 // copiamos al repositorio
-                File.Copy(fichero, Path.Combine(repo,d.NomFichero));
+                File.Copy(fichero, Path.Combine(repo, d.NomFichero));
                 ctx.Add(d);
             }
             // si llegamos aquí podemos borrar los ficheros del directorio de carga
             var rs = (from f in listaFicheros
-                      where f.Contains(String.Format("{0}#",tk))
+                      where f.Contains(String.Format("{0}#", tk))
                       select f);
-            foreach( string f in rs){
+            foreach (string f in rs)
+            {
                 File.Delete(f);
             }
             return mens;
         }
-
 
         /// <summary>
         /// Comprueba que los ficheros necesarios para asociar a un proveedor están peresentes
@@ -159,7 +159,7 @@ namespace PortalProWebApi
         /// <param name="solProveedor">Proveedor al que asociarán los ficheros</param>
         /// <param name="ctx">Contexto de OpenAccess usado por el proceso.</param>
         /// <returns>Una cadena vacía en el caso de que todo haya sido correcto y si no el mensaje explicativo</returns>
-        public static string ComprobarCargarFicherosSolicitudProveedor(string webRoot,  SolicitudProveedor solProveedor, PortalProContext ctx)
+        public static string ComprobarCargarFicherosSolicitudProveedor(string webRoot, SolicitudProveedor solProveedor, PortalProContext ctx)
         {
             string mens = ""; // mensaje que devoveremos, si vacío todo OK
             string tk = "solicitud"; 
@@ -255,24 +255,31 @@ namespace PortalProWebApi
             // leemos el directorio en el que se encuentran las cargas
             string directorio = ConfigurationManager.AppSettings["UploadRepository"];
             pathFileName = directorio;
-            searchFileName = String.Format("{0}-{1}-{2}-{3}-*",application,userId, formId, fieldId);
+            searchFileName = String.Format("{0}-{1}-{2}-{3}-*", application, userId, formId, fieldId);
             string[] archivos = Directory.GetFiles(pathFileName, searchFileName);
             // si encontramos algún coincidente devolvemos el primero.
-            if (archivos.Length > 0) archivo = archivos[0];
+            if (archivos.Length > 0)
+                archivo = archivos[0];
+            // si contiene un path lo eliminamos (solo el nombre final de fcihero)
+            int pos = archivo.LastIndexOf("\\");
+            if (pos > -1)
+                archivo = archivo.Substring(pos + 1);
             return archivo;
         }
 
-        public static Documento CrearDocumentoDesdeArchivoCargado(Documento dOriginal, string fichero, PortalProContext ctx)
+        public static Documento CrearDocumentoDesdeArchivoCargado(string fichero, PortalProContext ctx)
         {
             Documento d = null;
             // siempre creamos un nuevo documento
-            string portalProRepo = ConfigurationManager.AppSettings["PorlaProRepository"];
+            string portalProRepo = ConfigurationManager.AppSettings["PortalProRepository"];
             string uploadRepo = ConfigurationManager.AppSettings["UploadRepository"];
             d = new Documento();
             int pos = fichero.LastIndexOf(".");
-            if (pos > -1) d.Extension = fichero.Substring(pos);
-            pos = fichero.LastIndexOf("#");
-            if (pos > -1) d.NomFichero = fichero.Substring(pos);
+            if (pos > -1)
+                d.Extension = fichero.Substring(pos + 1);
+            pos = fichero.LastIndexOf("-");
+            if (pos > 0)
+                d.NomFichero = fichero.Substring(pos + 1);
             ctx.Add(d);
             ctx.SaveChanges();
             string nFichero = String.Format("{0:000000}-{1}", d.DocumentoId, d.NomFichero);
@@ -280,18 +287,43 @@ namespace PortalProWebApi
             string destino = Path.Combine(portalProRepo, nFichero);
             File.Move(origen, destino);
             ctx.SaveChanges();
-            if (dOriginal != null)
-            {
-                // hay un documento original al que hemos sustituido
-                // primero eliminamos el fichero
-                string antFichero = String.Format("{0:000000}-{1}", dOriginal.DocumentoId, dOriginal.NomFichero);
-                string antFicheroCompleto = Path.Combine(portalProRepo, antFichero);
-                File.Delete(antFicheroCompleto);
-                ctx.Delete(dOriginal);
-                ctx.SaveChanges();
-            }
             return d;
         }
 
+        public static void EliminarDocumento(Documento d, PortalProContext ctx)
+        {
+            if (d == null)
+                return;
+            // eliminamos el fichero físico asociado
+            string portalProRepo = ConfigurationManager.AppSettings["PortalProRepository"];
+            string fichero = String.Format("{0:000000}-{1}", d.DocumentoId, d.NomFichero);
+            string ficheroCompleto = Path.Combine(portalProRepo, fichero);
+            ctx.Delete(d);
+            File.Delete(ficheroCompleto);
+            ctx.SaveChanges();
+        }
+
+        public static string CargarUrlDocumento(Documento d, string tk)
+        {
+            if (d == null) return "";
+            string url = "";
+            // copiamos el fichero del repositiorio al directorio de descargas
+            string portalProRepo = ConfigurationManager.AppSettings["PortalProRepository"];
+            string downloadRepository = ConfigurationManager.AppSettings["DownloadRepository"];
+            string fichero = String.Format("{0:000000}-{1}",d.DocumentoId, d.NomFichero);
+            string origen = Path.Combine(portalProRepo, fichero);
+            string destino = Path.Combine(downloadRepository,String.Format("{0}-{1}",tk,fichero));
+            url = String.Format("{0}-{1}", tk, fichero);
+            File.Copy(origen, destino,true);
+            return url;
+        }
+        public static void BorrarDocumentos(string tk) 
+        {
+            string downloadRepository = ConfigurationManager.AppSettings["DownloadRepository"];
+            foreach(FileInfo f in new DirectoryInfo(downloadRepository).GetFiles(String.Format("{0}*", tk)))
+            {
+                f.Delete();
+            }
+        }
     }
 }

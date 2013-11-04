@@ -25,6 +25,12 @@ namespace PortalProWebApi.Controllers
                     IEnumerable<CabFactura> facturas = (from f in ctx.CabFacturas
                                                         select f).ToList<CabFactura>();
 
+                    // Copiar y montar las url de los documentos asociados.
+                    foreach (CabFactura cf in facturas)
+                    {
+                        if (cf.DocumentoPdf != null) cf.DocumentoPdf.DescargaUrl = PortalProWebUtility.CargarUrlDocumento(cf.DocumentoPdf, tk);
+                        if (cf.DocumentoXml != null) cf.DocumentoXml.DescargaUrl = PortalProWebUtility.CargarUrlDocumento(cf.DocumentoXml, tk);
+                    }
                     // fetch estrategy, necesaria para poder devolver el grupo junto con cada usuariuo
                     FetchStrategy fs = new FetchStrategy();
                     fs.LoadWith<CabFactura>(x => x.Proveedor);
@@ -57,6 +63,9 @@ namespace PortalProWebApi.Controllers
                                           select f).FirstOrDefault<CabFactura>();
                     if (factura != null)
                     {
+                        //
+                        if (factura.DocumentoPdf != null) factura.DocumentoPdf.DescargaUrl = PortalProWebUtility.CargarUrlDocumento(factura.DocumentoPdf, tk);
+                        if (factura.DocumentoXml != null) factura.DocumentoXml.DescargaUrl = PortalProWebUtility.CargarUrlDocumento(factura.DocumentoXml, tk);
                         factura = ctx.CreateDetachedCopy<CabFactura>(factura, x => x.Proveedor, x => x.DocumentoXml, x => x.DocumentoPdf);
                         return factura;
                     }
@@ -200,11 +209,11 @@ namespace PortalProWebApi.Controllers
                 }
                 if (fPdf != "")
                 {
-                    factura.DocumentoPdf = PortalProWebUtility.CrearDocumentoDesdeArchivoCargado(factura.DocumentoPdf, fPdf, ctx);
+                    factura.DocumentoPdf = PortalProWebUtility.CrearDocumentoDesdeArchivoCargado(fPdf, ctx);
                 }
                 if (fXml != "")
                 {
-                    factura.DocumentoXml = PortalProWebUtility.CrearDocumentoDesdeArchivoCargado(factura.DocumentoXml, fXml, ctx);
+                    factura.DocumentoXml = PortalProWebUtility.CrearDocumentoDesdeArchivoCargado(fXml, ctx);
                 }
                 factura.FechaAlta = DateTime.Now;
                 ctx.SaveChanges();
@@ -282,14 +291,19 @@ namespace PortalProWebApi.Controllers
                                             where d.DocumentoId == documentoXmlId
                                             select d).FirstOrDefault<Documento>();
                 }
+                Documento doc = null; // para cargar temporalmente documentos
                 // si se cumplen estas condiciones es que han cambiado el archivo asociado.
                 if (fPdf != "")
                 {
-                    factura.DocumentoPdf = PortalProWebUtility.CrearDocumentoDesdeArchivoCargado(factura.DocumentoPdf, fPdf, ctx);
+                    doc = factura.DocumentoPdf;
+                    factura.DocumentoPdf = PortalProWebUtility.CrearDocumentoDesdeArchivoCargado(fPdf, ctx);
+                    PortalProWebUtility.EliminarDocumento(doc, ctx);
                 }
                 if (fXml != "")
                 {
-                    factura.DocumentoXml = PortalProWebUtility.CrearDocumentoDesdeArchivoCargado(factura.DocumentoXml, fXml, ctx);
+                    doc = factura.DocumentoXml;
+                    factura.DocumentoXml = PortalProWebUtility.CrearDocumentoDesdeArchivoCargado(fXml, ctx);
+                    PortalProWebUtility.EliminarDocumento(doc, ctx);
                 }
                 ctx.SaveChanges();
                 return ctx.CreateDetachedCopy<CabFactura>(factura, x => x.Proveedor, x => x.DocumentoPdf, x => x.DocumentoXml);

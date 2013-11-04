@@ -855,6 +855,14 @@
             <param name="tipo">Tipo del fichero a borra</param>
             <returns></returns>
         </member>
+        <member name="M:PortalProWebApi.Controllers.UploadsController.DeleteFiles(System.String)">
+            <summary>
+            Borra todos los ficheros del directorio de descargas que se han 
+            cargado con el tique pasado
+            </summary>
+            <param name="tk">Tique usado</param>
+            <returns></returns>
+        </member>
         <member name="M:PortalProWebApi.Controllers.UsuariosController.Get(System.String)">
             <summary>
             Obtiene todos los usuarios de la base de datos
