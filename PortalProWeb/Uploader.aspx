@@ -81,11 +81,22 @@
                                     data.FacturaPdf.path = path;
                                     break;
                             }
+                            setCookie("factura", JSON.stringify(data), 1);
+                            returnUrl = "factura.html?caller=loader";
+                            break;
+                        case "Pedido":
+                            data = JSON.parse(getCookie("pedido"));
+                            switch (fieldId) {
+                                case "PDF":
+                                    data.PedidoPdf.url = url;
+                                    data.PedidoPdf.path = path;
+                                    break;
+                            }
+                            setCookie("pedido", JSON.stringify(data), 1);
+                            returnUrl = "pedido.html?caller=loader";
                             break;
                     }
                     if (data != null) {
-                        setCookie("factura", JSON.stringify(data), 1);
-                        returnUrl="factura.html?caller=loader";
                         window.opener.location.replace(returnUrl);
                         window.close();
                     } else {

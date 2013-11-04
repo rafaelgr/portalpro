@@ -56,7 +56,7 @@ function generalAjaxErrorTreatment() {
     // tratamiento común de AJAX
     $.ajaxSetup({
         error: function (xhr, textStatus, errorThrwon) {
-            console.log("Error AJAX\n" + xhr);
+            console.log("Error AJAX\n" + xhr.responseText);
             // tratar el error producido
             var message = "[" + xhr.status + "] " + xhr.statusText;
             // controlar si está devolviendo una página web, un objeto JSON o XML

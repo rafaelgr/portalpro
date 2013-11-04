@@ -484,6 +484,9 @@
                     case "factura":
                         data = getCookie("factura");
                         break;
+                    case "usuarioproveedor":
+                        data = getCookie("usuarioproveedor");
+                        break;
                 }
                 // actualizamos con los valores seleccionados
                 var x = JSON.parse(data);
@@ -495,6 +498,10 @@
                     case "factura":
                         setCookie("factura", dataS, 1);
                         window.open("factura.html?caller=proveedor", '_self');
+                        break;
+                    case "usuarioproveedor":
+                        setCookie("usuarioproveedor", dataS, 1);
+                        window.open("usuarioproveedor.html?caller=proveedor", '_self');
                         break;
                 }
             }

@@ -314,6 +314,8 @@
     <Content Include="avatars\avatar3.png" />
     <Content Include="avatars\avatar4.png" />
     <Content Include="avatars\user.jpg" />
+    <Content Include="pedido.html" />
+    <Content Include="usuarioproveedor.html" />
     <Content Include="css\ace-ie.min.css" />
     <Content Include="css\ace-responsive.min.css" />
     <Content Include="css\ace.min.css" />
@@ -497,7 +499,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties UseAjaxifiedTemplates="True" UseJQuerySupport="True" />
+      <UserProperties UseJQuerySupport="True" UseAjaxifiedTemplates="True" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

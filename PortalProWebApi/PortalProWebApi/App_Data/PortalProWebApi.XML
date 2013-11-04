@@ -442,6 +442,145 @@
             <param name="tk">Tique de autorización (Ver 'Login')</param>
             <returns></returns>
         </member>
+        <member name="M:PortalProWebApi.Controllers.PedidoController.Get(System.String)">
+            <summary>
+            Obtiene todos los pedidos de la base de datos
+            </summary>
+            <param name="tk">Código del tique de autorización (Véase "Login")</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.PedidoController.Get(System.Int32,System.String)">
+            <summary>
+            Obtiene la cabecera de pedido cuyo ID corresponde con el pasado
+            </summary>
+            <param name="id">Identificador único del pedido</param>
+            <param name="tk">Código del tique de autorización (Véase "Login")</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.PedidoController.Post(PortalProModelo.Pedido,System.String)">
+            <summary>
+            Crear un nueva cabecera de pedido
+            </summary>
+            <param name="Pedido">Objeto a crear, el atributo PedidoId lo genera la aplicación y es devuelto en el objeto incluido en la respuesta.</param>
+            <param name="tk"> Tique de autorización (se debe obtener con la accion Login)</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.PedidoController.Put(System.Int32,PortalProModelo.Pedido,System.String)">
+            <summary>
+            Modificar una cabecera de pedido. En el cuerpo del mensaje se envía en el formato adecuado el objeto con los datos modificados
+            </summary>
+            <param name="id"> Identificador único de la cabecera de factura </param>
+            <param name="pedido">Cabecera de pedido los valores que se desean en sus atributos</param>
+            <param name="tk"> Tique de autorización (Ver 'Login')</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.PedidoController.Delete(System.Int32,System.String)">
+            <summary>
+            Elimina el pedido que coincide con el id pasado
+            </summary>
+            <param name="id">Identificador de la factura a eliminar</param>
+            <param name="tk">Tique de autorización (Ver 'Login')</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.LoginProveedorController.GetLoginProveedor(System.String,System.String)">
+            <summary>
+            (usuarios de proveedor)
+            Tras comprobar que un usuario con el login y password dados 
+            existe, crea un tique que devuelve en el cuerpo del mensaje
+            </summary>
+            <param name="login">Login del usuario</param>
+            <param name="password">Contraseña del usuario</param>
+            <returns>Un objeto que representa un tique</returns>
+            <remarks>Este es un comentario adicional</remarks>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.LoginProveedorController.PutLoginProveedor(System.String)">
+            <summary>
+            Renueva el tique por 30 minutos adicionales
+            </summary>
+            <param name="tk">Tique que se desea renovar</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.LinPedidoController.GetLineas(System.Int32,System.String)">
+            <summary>
+            Devuelve las líneas que corresponden a un pedido determinado
+            </summary>
+            <param name="idFac">Identificador del pedido al que pertencen las líneas</param>
+            <param name="tk">Código del tique de autorización (Véase "Login")</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.LinPedidoController.Get(System.Int32,System.String)">
+            <summary>
+            Devuelve la línea de pedido que coincide con el id proporcionado
+            </summary>
+            <param name="id">Identificador único de la línea</param>
+            <param name="tk">Código del tique de autorización (Véase "Login")</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.LinPedidoController.Post(PortalProModelo.LinPedido,System.String)">
+            <summary>
+            Crear una nueva línea de pedido
+            </summary>
+            <param name="LinPedido">Objeto a crear, el atributo LinPedidoId lo genera la aplicación y es devuelto en el objeto incluido en la respuesta.</param>
+            <param name="tk"> Tique de autorización (se debe obtener con la accion Login)</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.LinPedidoController.Put(System.Int32,PortalProModelo.LinPedido,System.String)">
+            <summary>
+            Modificar una linea de pedido. En el cuerpo del mensaje se envía en el formato adecuado el objeto con los datos modificados
+            </summary>
+            <param name="id"> Identificador único de la linea de pedido</param>
+            <param name="linea">Linea de pedido con los valores que se desean en sus atributos</param>
+            <param name="tk"> Tique de autorización (Ver 'Login')</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.LinPedidoController.Delete(System.Int32,System.String)">
+            <summary>
+            Elimina la linea que coincide con el id pasado
+            </summary>
+            <param name="id">Identificador de la linea a eliminar</param>
+            <param name="tk">Tique de autorización (Ver 'Login')</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.UsuarioProveedorController.Get(System.String)">
+            <summary>
+            Obtiene todos los usuarios ligados a proveedores de la base de  datos
+            </summary>
+            <param name="tk">Código del tique de autorización (Véase "Login")</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.UsuarioProveedorController.Get(System.Int32,System.String)">
+            <summary>
+            Obtiene el usuario de proveedor cuyo ID corresponde con el pasado
+            </summary>
+            <param name="id">Identificador único del grupo</param>
+            <param name="tk">Código del tique de autorización (Véase "Login")</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.UsuarioProveedorController.Post(PortalProModelo.UsuarioProveedor,System.String)">
+            <summary>
+            Crear un nuevo usuario de proveedor
+            </summary>
+            <param name="Usuario">Objeto a crear, el atributo UsuarioPorveedorId lo genera la aplicación y es devuelto en el objeto incluido en la respuesta.</param>
+            <param name="tk"> Tique de autorización (se debe obtener con la accion Login)</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.UsuarioProveedorController.Put(System.Int32,PortalProModelo.UsuarioProveedor,System.String)">
+            <summary>
+            Modificar un usuario ligado a un proveedor. En el cuerpo del mensaje se envía en el formato adecuado el objeto con los datos modificados
+            </summary>
+            <param name="id"> Identificador único del usuario </param>
+            <param name="usuarioProveedor">Datos del usario ligado a proveedor</param>
+            <param name="tk"> Tique de autorización (Ver 'Login')</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.UsuarioProveedorController.Delete(System.Int32,System.String)">
+            <summary>
+            Elimina el usuario que coincide con el id pasado
+            </summary>
+            <param name="id">Identificador del usuario a eliminar</param>
+            <param name="tk">Tique de autorización (Ver 'Login')</param>
+            <returns></returns>
+        </member>
         <member name="M:PortalProWebApi.Controllers.IndicadoresController.Get(System.String)">
             <summary>
             Retorna un vector con parejas de nombre y valor
