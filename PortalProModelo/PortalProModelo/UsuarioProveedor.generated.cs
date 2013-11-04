@@ -102,6 +102,15 @@ namespace PortalProModelo
 			}
 		}
 		
+		private IList<WebApiTicket> _webApiTickets = new List<WebApiTicket>();
+		public virtual IList<WebApiTicket> WebApiTickets
+		{
+			get
+			{
+				return this._webApiTickets;
+			}
+		}
+		
 	}
 }
 #pragma warning restore 1591

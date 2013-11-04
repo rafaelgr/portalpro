@@ -89,6 +89,19 @@ namespace PortalProModelo
 			}
 		}
 		
+		private UsuarioProveedor _usuarioProveedor;
+		public virtual UsuarioProveedor UsuarioProveedor
+		{
+			get
+			{
+				return this._usuarioProveedor;
+			}
+			set
+			{
+				this._usuarioProveedor = value;
+			}
+		}
+		
 	}
 }
 #pragma warning restore 1591

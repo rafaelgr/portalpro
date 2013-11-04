@@ -70,6 +70,9 @@
         <orm:field name="_usuario" property="Usuario" behavior="readwrite" uniqueId="59864e4b-4f43-4156-822e-13e5dbdad586" type="PortalProModelo.Usuario">
           <orm:reference uniqueId="c3e169ad-5eef-432a-a48b-da821be8ba0b" />
         </orm:field>
+        <orm:field name="_usuarioProveedor" property="UsuarioProveedor" behavior="readwrite" uniqueId="5b176d94-c775-40c7-81a8-90d1206432ee" type="PortalProModelo.UsuarioProveedor">
+          <orm:reference uniqueId="d48da059-f4d4-4a43-9210-f6c1fc72ff46" />
+        </orm:field>
       </orm:class>
       <orm:class name="TipoDocumento" use-default-mapping="true" uniqueId="f6d1679c-9fa5-4d7e-8de5-26fe83d743c3">
         <orm:identity>
@@ -492,6 +495,9 @@
         <orm:field name="_proveedor" property="Proveedor" behavior="readwrite" uniqueId="55415f27-2c75-40cf-88a0-e04fd10da585" type="PortalProModelo.Proveedor">
           <orm:reference uniqueId="d6e888b2-d340-4988-aa66-9b7bfae0fbf9" />
         </orm:field>
+        <orm:field name="_webApiTickets" property="WebApiTickets" behavior="readwrite" uniqueId="5bc6f5a1-d588-4787-8acc-89f0ebd7c2af" type="PortalProModelo.WebApiTicket">
+          <orm:collection element-class="PortalProModelo.WebApiTicket" inverse-field="_usuarioProveedor" order-by="" uniqueId="d48da059-f4d4-4a43-9210-f6c1fc72ff46" />
+        </orm:field>
       </orm:class>
       <orm:class name="Pedido" uniqueId="444918ea-54df-42d5-a478-a1ab8d85d0b8">
         <orm:table name="Pedido" />
@@ -514,14 +520,14 @@
         <orm:field name="_totalFacturado" property="TotalFacturado" uniqueId="64a2b5e8-2825-48d6-8792-1af7f8ae8547" type="System.Decimal">
           <orm:column name="TotalFacturado" sql-type="decimal" nullable="false" length="10" scale="2" ado-type="Numeric" />
         </orm:field>
-        <orm:field name="_linPedidos" property="LinPedidos" behavior="readwrite" uniqueId="aa2d3426-6723-4a19-8203-7ae728255acd" type="PortalProModelo.LinPedido">
-          <orm:collection element-class="PortalProModelo.LinPedido" inverse-field="_pedido" order-by="" uniqueId="2ef9c0aa-d285-45b6-98ff-c8b852d61572" />
-        </orm:field>
         <orm:field name="_proveedor" property="Proveedor" behavior="readwrite" uniqueId="be5b168f-c016-4e54-97f9-75cd7a2dba5f" type="PortalProModelo.Proveedor">
           <orm:reference uniqueId="eade228d-17d6-4ca7-a17f-2f5f674a5e44" />
         </orm:field>
         <orm:field name="_documento" property="DocumentoPdf" behavior="readwrite" uniqueId="a24e4085-402a-4960-922b-1af8fff25fb5" type="PortalProModelo.Documento">
           <orm:reference uniqueId="ce7ef598-0cdd-42a6-a384-133861d81017" />
+        </orm:field>
+        <orm:field name="_linPedidos" property="LinPedidos" behavior="readwrite" uniqueId="aa2d3426-6723-4a19-8203-7ae728255acd" type="PortalProModelo.LinPedido">
+          <orm:collection element-class="PortalProModelo.LinPedido" inverse-field="_pedido" order-by="" uniqueId="2ef9c0aa-d285-45b6-98ff-c8b852d61572" />
         </orm:field>
         <orm:index name="idx_Pedido_DocumentoId">
           <orm:columnMapping>
@@ -848,10 +854,26 @@
             </associationDefinesSourceProperty>
           </sourceNavigationalProperty>
         </Association>
+        <Association Id="d48da059-f4d4-4a43-9210-f6c1fc72ff46" SourceMultiplicity="ZeroOne" name="WebApiTicketHasUsuarioProveedor">
+          <DomainClassMoniker name="/PortalProContext/UsuarioProveedor" />
+          <targetNavigationalProperty>
+            <associationDefinesTargetProperty Id="585abaca-e1b9-4d42-b783-83a14daa77f0">
+              <NavigationalPropertyMoniker name="/PortalProContext/UsuarioProveedor/WebApiTickets" />
+            </associationDefinesTargetProperty>
+          </targetNavigationalProperty>
+          <sourceNavigationalProperty>
+            <associationDefinesSourceProperty Id="503a5a32-b5a7-40f6-80dd-5a89f1094035">
+              <NavigationalPropertyMoniker name="/PortalProContext/WebApiTicket/UsuarioProveedor" />
+            </associationDefinesSourceProperty>
+          </sourceNavigationalProperty>
+        </Association>
       </AssociationTargets>
       <navigationalProperties>
         <classHasNavigationalProperties Id="7b9f1ab3-7cbe-4274-a2cd-199424e1ceb7">
           <NavigationalProperty Id="59864e4b-4f43-4156-822e-13e5dbdad586" name="Usuario" type="Usuario" label="Usuario : Usuario" nullable="true" kind="Persistent" fieldName="_usuario" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
+        <classHasNavigationalProperties Id="d5429d1a-53cd-481c-8006-4a40777bcd40">
+          <NavigationalProperty Id="5b176d94-c775-40c7-81a8-90d1206432ee" name="UsuarioProveedor" type="UsuarioProveedor" label="UsuarioProveedor : UsuarioProveedor" nullable="true" kind="Persistent" fieldName="_usuarioProveedor" isDependent="false" isManaged="false" />
         </classHasNavigationalProperties>
       </navigationalProperties>
     </DomainClass>
@@ -1299,6 +1321,9 @@
       <navigationalProperties>
         <classHasNavigationalProperties Id="ac17377a-ffad-4bbd-b195-951de40d0fa5">
           <NavigationalProperty Id="55415f27-2c75-40cf-88a0-e04fd10da585" name="Proveedor" type="Proveedor" label="Proveedor : Proveedor" nullable="true" kind="Persistent" fieldName="_proveedor" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
+        <classHasNavigationalProperties Id="659929cc-935c-48dc-b7a2-32a1d1d89fc7">
+          <NavigationalProperty Id="5bc6f5a1-d588-4787-8acc-89f0ebd7c2af" name="WebApiTickets" type="IList&lt;WebApiTicket&gt;" label="WebApiTickets : IList&lt;WebApiTicket&gt;" nullable="true" kind="Persistent" fieldName="_webApiTickets" isDependent="false" isManaged="false" />
         </classHasNavigationalProperties>
       </navigationalProperties>
     </DomainClass>

@@ -56,6 +56,35 @@ namespace PortalProModelo
             }
             return tk;
         }
+
+        public static WebApiTicket LoginProveedor(string login, string password, int minutes, PortalProContext ctx)
+        {
+            WebApiTicket tk = null;
+            // Primero comprobar si exite un usuario con ese login y contraseña
+            UsuarioProveedor usuario = (from u in ctx.UsuarioProveedors
+                               where u.Login == login
+                               select u).FirstOrDefault<UsuarioProveedor>();
+            if (usuario != null)
+            {
+                // User exists. Does the password match?
+                if (usuario.Password == GetHashCode(password))
+                {
+                    // Go to get the ticket
+                    string code = GenerateTicket();
+                    tk = new WebApiTicket()
+                    {
+                        Codigo = code,
+                        Inicio = DateTime.Now,
+                        UsuarioProveedor = usuario
+                    };
+                    tk.Fin = tk.Inicio.AddMinutes(minutes);
+                }
+            }
+            return tk;
+        }
+
+        
+        
         /// <summary>
         /// Comprueba si hay un tique activo con un código
         /// </summary>
