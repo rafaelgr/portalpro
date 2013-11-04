@@ -22,83 +22,70 @@ using PortalProModelo;
 
 namespace PortalProModelo	
 {
-	public partial class Documento
+	public partial class Pedido
 	{
-		private int _documentoId;
-		public virtual int DocumentoId
+		private int _pedidoId;
+		public virtual int PedidoId
 		{
 			get
 			{
-				return this._documentoId;
+				return this._pedidoId;
 			}
 			set
 			{
-				this._documentoId = value;
+				this._pedidoId = value;
 			}
 		}
 		
-		private string _nomFichero;
-		public virtual string NomFichero
+		private DateTime _fechaAlta;
+		public virtual DateTime FechaAlta
 		{
 			get
 			{
-				return this._nomFichero;
+				return this._fechaAlta;
 			}
 			set
 			{
-				this._nomFichero = value;
+				this._fechaAlta = value;
 			}
 		}
 		
-		private string _extension;
-		public virtual string Extension
+		private string _numPedido;
+		public virtual string NumPedido
 		{
 			get
 			{
-				return this._extension;
+				return this._numPedido;
 			}
 			set
 			{
-				this._extension = value;
+				this._numPedido = value;
 			}
 		}
 		
-		private string _descargaUrl;
-		public virtual string DescargaUrl
+		private decimal _totalPedido;
+		public virtual decimal TotalPedido
 		{
 			get
 			{
-				return this._descargaUrl;
+				return this._totalPedido;
 			}
 			set
 			{
-				this._descargaUrl = value;
+				this._totalPedido = value;
 			}
 		}
 		
-		private string _comentario;
-		public virtual string Comentario
+		private decimal _totalFacturado;
+		public virtual decimal TotalFacturado
 		{
 			get
 			{
-				return this._comentario;
+				return this._totalFacturado;
 			}
 			set
 			{
-				this._comentario = value;
-			}
-		}
-		
-		private TipoDocumento _tipoDocumento;
-		public virtual TipoDocumento TipoDocumento
-		{
-			get
-			{
-				return this._tipoDocumento;
-			}
-			set
-			{
-				this._tipoDocumento = value;
+				this._totalFacturado = value;
 			}
 		}
 		
@@ -115,25 +102,25 @@ namespace PortalProModelo
 			}
 		}
 		
-		private SolicitudProveedor _solicitudProveedor;
-		public virtual SolicitudProveedor SolicitudProveedor
+		private Documento _documento;
+		public virtual Documento DocumentoPdf
 		{
 			get
 			{
-				return this._solicitudProveedor;
+				return this._documento;
 			}
 			set
 			{
-				this._solicitudProveedor = value;
+				this._documento = value;
 			}
 		}
 		
-		private IList<Pedido> _pedidos = new List<Pedido>();
-		public virtual IList<Pedido> Pedidos
+		private IList<LinPedido> _linPedidos = new List<LinPedido>();
+		public virtual IList<LinPedido> LinPedidos
 		{
 			get
 			{
-				return this._pedidos;
+				return this._linPedidos;
 			}
 		}
 		

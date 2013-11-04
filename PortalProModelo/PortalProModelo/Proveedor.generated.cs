@@ -302,6 +302,24 @@ namespace PortalProModelo
 			}
 		}
 		
+		private IList<UsuarioProveedor> _usuarioProveedors = new List<UsuarioProveedor>();
+		public virtual IList<UsuarioProveedor> UsuarioProveedors
+		{
+			get
+			{
+				return this._usuarioProveedors;
+			}
+		}
+		
+		private IList<Pedido> _pedidos = new List<Pedido>();
+		public virtual IList<Pedido> Pedidos
+		{
+			get
+			{
+				return this._pedidos;
+			}
+		}
+		
 	}
 }
 #pragma warning restore 1591

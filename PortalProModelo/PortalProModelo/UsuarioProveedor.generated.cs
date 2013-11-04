@@ -22,83 +22,70 @@ using PortalProModelo;
 
 namespace PortalProModelo	
 {
-	public partial class Documento
+	public partial class UsuarioProveedor
 	{
-		private int _documentoId;
-		public virtual int DocumentoId
+		private int _usuarioProveedorId;
+		public virtual int UsuarioProveedorId
 		{
 			get
 			{
-				return this._documentoId;
+				return this._usuarioProveedorId;
 			}
 			set
 			{
-				this._documentoId = value;
+				this._usuarioProveedorId = value;
 			}
 		}
 		
-		private string _nomFichero;
-		public virtual string NomFichero
+		private string _nombre;
+		public virtual string Nombre
 		{
 			get
 			{
-				return this._nomFichero;
+				return this._nombre;
 			}
 			set
 			{
-				this._nomFichero = value;
+				this._nombre = value;
 			}
 		}
 		
-		private string _extension;
-		public virtual string Extension
+		private string _email;
+		public virtual string Email
 		{
 			get
 			{
-				return this._extension;
+				return this._email;
 			}
 			set
 			{
-				this._extension = value;
+				this._email = value;
 			}
 		}
 		
-		private string _descargaUrl;
-		public virtual string DescargaUrl
+		private string _login;
+		public virtual string Login
 		{
 			get
 			{
-				return this._descargaUrl;
+				return this._login;
 			}
 			set
 			{
-				this._descargaUrl = value;
+				this._login = value;
 			}
 		}
 		
-		private string _comentario;
-		public virtual string Comentario
+		private string _password;
+		public virtual string Password
 		{
 			get
 			{
-				return this._comentario;
+				return this._password;
 			}
 			set
 			{
-				this._comentario = value;
-			}
-		}
-		
-		private TipoDocumento _tipoDocumento;
-		public virtual TipoDocumento TipoDocumento
-		{
-			get
-			{
-				return this._tipoDocumento;
-			}
-			set
-			{
-				this._tipoDocumento = value;
+				this._password = value;
 			}
 		}
 		
@@ -112,28 +99,6 @@ namespace PortalProModelo
 			set
 			{
 				this._proveedor = value;
-			}
-		}
-		
-		private SolicitudProveedor _solicitudProveedor;
-		public virtual SolicitudProveedor SolicitudProveedor
-		{
-			get
-			{
-				return this._solicitudProveedor;
-			}
-			set
-			{
-				this._solicitudProveedor = value;
-			}
-		}
-		
-		private IList<Pedido> _pedidos = new List<Pedido>();
-		public virtual IList<Pedido> Pedidos
-		{
-			get
-			{
-				return this._pedidos;
 			}
 		}
 		

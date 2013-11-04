@@ -162,6 +162,30 @@ namespace PortalProModelo
 			}
 		}
 		
+		public IQueryable<UsuarioProveedor> UsuarioProveedors 
+		{
+			get
+			{
+				return this.GetAll<UsuarioProveedor>();
+			}
+		}
+		
+		public IQueryable<Pedido> Pedidos 
+		{
+			get
+			{
+				return this.GetAll<Pedido>();
+			}
+		}
+		
+		public IQueryable<LinPedido> LinPedidos 
+		{
+			get
+			{
+				return this.GetAll<LinPedido>();
+			}
+		}
+		
 		public static BackendConfiguration GetBackendConfiguration()
 		{
 			BackendConfiguration backend = new BackendConfiguration();
@@ -227,6 +251,18 @@ namespace PortalProModelo
 			get;
 		}
 		IQueryable<LinFactura> LinFacturas
+		{
+			get;
+		}
+		IQueryable<UsuarioProveedor> UsuarioProveedors
+		{
+			get;
+		}
+		IQueryable<Pedido> Pedidos
+		{
+			get;
+		}
+		IQueryable<LinPedido> LinPedidos
 		{
 			get;
 		}
