@@ -325,5 +325,127 @@ namespace PortalProWebApi
                 f.Delete();
             }
         }
+
+
+        public static CabFactura GenerarFacturaDesdePedido(Pedido p, PortalProContext ctx)
+        {
+            CabFactura f = new CabFactura()
+            {
+                CabFacturaId = 0,
+                Proveedor = p.Proveedor,
+                FechaAlta = DateTime.Now,
+                FechaEmision = DateTime.Now
+            };
+            ctx.Add(f);
+            ctx.SaveChanges();
+            if (p.TotalFacturado == 0)
+            {
+                // caso (1) es el más sencillo, una factura con tantas líneas como tenga el pedido
+                foreach (LinPedido lp in p.LinPedidos)
+                {
+                    ctx.Add(new LinFactura()
+                    {
+                        LinFacturaId = 0,
+                        NumeroPedido = p.NumPedido,
+                        Importe = lp.Importe,
+                        Descripcion = lp.Descripcion,
+                        PorcentajeIva = lp.PorcentajeIva,
+                        CabFactura = f
+                    });
+                    ctx.SaveChanges();
+                }
+            }
+            else
+            {
+                // caso (2) generaremos una única linea con el resto del pedido
+                ctx.Add(new LinFactura()
+                {
+                    LinFacturaId = 0,
+                    NumeroPedido = p.NumPedido,
+                    Importe = p.TotalPedido - p.TotalFacturado,
+                    Descripcion = "Resto de pedido",
+                    PorcentajeIva = p.LinPedidos[0].PorcentajeIva,
+                    CabFactura = f
+                });
+                ctx.SaveChanges();
+            }
+            return f;
+        }
+
+        public static IList<LinFactura> GenerarLineasFacturaDesdePedido(Pedido p, PortalProContext ctx)
+        {
+            IList<LinFactura> llfac = new List<LinFactura>();
+            // hay dos casos
+            // (1) el pedido no ha sido facturado en absoluto p.TotalFacturado = 0
+            // (2) el pedido ya ha sido facturado en parte p.TotalFacturado > 0
+            if (p.TotalFacturado == 0)
+            {
+                // caso (1) es el más sencillo, una factura con tantas líneas como tenga el pedido
+                foreach (LinPedido lp in p.LinPedidos)
+                {
+                    llfac.Add( new LinFactura()
+                    {
+                        LinFacturaId = 0,
+                        NumeroPedido = p.NumPedido,
+                        Importe = lp.Importe,
+                        Descripcion = lp.Descripcion,
+                        PorcentajeIva = lp.PorcentajeIva
+                    });
+                }
+            }
+            else
+            {
+                // caso (2) generaremos una única linea con el resto del pedido
+                llfac.Add(new LinFactura()
+                {
+                    LinFacturaId = 0,
+                    NumeroPedido = p.NumPedido,
+                    Importe = p.TotalPedido - p.TotalFacturado,
+                    Descripcion = "Resto de pedido",
+                    PorcentajeIva = p.LinPedidos[0].PorcentajeIva
+                });
+            }
+            return llfac;
+        }
+
+
+        public static string ComprobarLineaFacturaContraPedido(LinFactura l, PortalProContext ctx)
+        {
+            string m = "";
+            // (1) comprobar que el pedido existe
+            Pedido p = (from ped in ctx.Pedidos
+                        where ped.NumPedido == l.NumeroPedido
+                        select ped).FirstOrDefault<Pedido>();
+            if (p == null)
+            {
+                m = String.Format("El pedido {0} no existe.", l.NumeroPedido);
+                return m;
+            }
+            // (2) comprobar que el importe que se va a facturar es menor o igual que el del pedido
+            if (l.Importe > (p.TotalPedido - p.TotalFacturado))
+            {
+                m = String.Format("El importe {0:##,###,##0.00} supera el resto por facturar del pedido {1}.", l.Importe, l.NumeroPedido);
+                return m;
+            }
+            return m;
+        }
+
+        public static void EliminarLineasFactura(IList<LinFactura> lineas, PortalProContext ctx)
+        {
+            foreach (LinFactura l in lineas)
+            {
+                // antes de eliminar la línea hay que actualizar el total facturado del pedido
+                Pedido ped = (from p in ctx.Pedidos
+                              where p.NumPedido == l.NumeroPedido
+                              select p).FirstOrDefault<Pedido>();
+                if (ped != null)
+                {
+                    ped.TotalFacturado = ped.TotalFacturado - l.Importe;
+                    if (ped.TotalFacturado < 0) ped.TotalFacturado = 0;
+                    ctx.Delete(l);
+                }
+            }
+            ctx.SaveChanges();
+        }
     }
 }

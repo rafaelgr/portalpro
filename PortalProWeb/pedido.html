@@ -48,7 +48,7 @@
                             <span class="divider"><i class="icon-angle-right"></i></span>
                             <a href="administracion.html">Administración</a>
                             <span class="divider"><i class="icon-angle-right"></i></span>
-                            <a href="pedido.html">Facturas</a>
+                            <a href="pedido.html">Pedidos</a>
                         </li>
                     </ul><!--.breadcrumb-->
                 </div><!--#breadcrumbs-->
@@ -199,6 +199,9 @@
                 <div class="pull-right">
                     <button class="btn btn-small btn-primary" onclick="formEdit(#=PedidoId#);" title="Editar registro">
                         <i class="icon-pencil icon-white"></i>
+                    </button>
+                    <button class="btn btn-small btn-primary" onclick="gridNewFactura(#=PedidoId#,'#=NumPedido#');" title="Generar factura desde pedido">
+                        <i class="icon-cog icon-white"></i>
                     </button>
                     <button class="btn btn-small btn-primary" onclick="gridDelete(#=PedidoId#,'#=NumPedido#');" title="Eliminar registro">
                         <i class="icon-trash icon-white"></i>
@@ -387,7 +390,7 @@
                     columns: [
                         { field: "PedidoId", title: "ID" },
                         { field: "Proveedor", title: "Proveedor", template: "#=Proveedor?Proveedor.NombreComercial:''#", filterable:false },
-                        { field: "NumPedido", title: "N. Factura"},
+                        { field: "NumPedido", title: "N. Pedido"},
                         { field: "FechaAlta", title: "F.Alta", format: "{0:dd/MM/yyyy}" },
                         { field: "TotalPedido", title: "Total Pedido", format: "{0:##,###,##0.00}", attributes: { "style": "text-align:right" } },
                         { field: "TotalFacturado", title: "Total Facturado", format: "{0:##,###,##0.00}", attributes: { "style": "text-align:right" } },
@@ -405,7 +408,41 @@
             // otras funciones de manejo
             function gridExit() {
             }
-            
+
+            function gridNewFactura(id, numped) {
+                // generar una factura a partir de un pedido
+                var message = "<h4>¿Desea generar una factura desde el pedido? (Pedido:" + numped + ")</h4>";
+                bootbox.dialog(message, [
+                    {
+                        "label": "Cancelar",
+                        "class": "btn-small btn-success",
+                        "callback": function () {
+                        }
+                    }, {
+                        "label": "Aceptar",
+                        "class": "btn-small btn-error",
+                        "callback": function () {
+                            var url = ari_hosts.webapi + "/api/factura/?numPed=" + numped + "&tk=" + getCookie("ari_tique");
+                            var options = {
+                                type: 'POST',
+                                url: url,
+                                dataType: 'json',
+                                contentType: "application/json",
+                                success: function (data, textStatus) {
+                                    // llamamos a la creación de líneas
+                                    window.open("factura.html?caller=pedido&CabFacturaId=" + data.CabFacturaId, '_self');
+                                }
+                            };
+                            $.ajax(options);
+                        }
+                    }
+                ]);
+
+                // lamamos al form de facturas con los datos que corresponden.
+               ///window.open("factura.html?caller=pedido'_self');
+            }
+
+
             function gridDelete(id, nombre) {
                 regId = id;
                 var message = "<h4>¿Desea eliminar este registro? (" + nombre + ")</h4>";

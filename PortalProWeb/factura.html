@@ -258,6 +258,7 @@
             var type; // para el form indica si estamos creando o editando
             var regId; // para cargar identificadores de registro;
             var caller; // establece quién, si alguien nos ha llamado.
+            var enGeneracion = false; // establece si la factura viene generada de un pedido
             // validador de los campos de formulario
             var validator = $("#factura-form").kendoValidator({
                 validateOnBlur: false,
@@ -431,6 +432,11 @@
             
             // otras funciones de manejo
             function gridExit() {
+                // si estamos en generación hay que eliminar la factura
+                if (enGeneracion) {
+
+                    enGeneracion = false;
+                }
             }
             
             function gridDelete(id, nombre) {
@@ -460,6 +466,18 @@
                         }
                     }
                 ]);
+            }
+
+            function gridDelete2(id) {
+                regId = id;
+                $.ajax({
+                    type: "DELETE",
+                    url: ari_hosts.webapi + "/api/factura/" + regId + "?tk=" + getCookie("ari_tique"),
+                    dataType: "json",
+                    contentType: "application/json",
+                    success: function (data, textStatus) {
+                    },
+                });
             }
             
             function gridSelect(id, nombre) {
@@ -517,6 +535,10 @@
             }
             // salir del formulario sin guardar
             function formExit() {
+                if (enGeneracion) {
+                    gridDelete2(vm.CabFacturaId());
+                    enGeneracion = false;
+                }
                 // ocultar posibles mensajes de validación 
                 validator.hideMessages();
                 $("#factura-grid").show();
@@ -565,6 +587,26 @@
                 vm.FacturaXml.Url("");
             }
             // cargar el modelo
+            function loadModel2(data) {
+                vm.CabFacturaId(data.CabFacturaId);
+                if (data.FechaAlta != "")
+                    vm.FechaAlta(moment(data.FechaAlta).format("DD/MM/YYYY"));
+                vm.TotalFactura(data.TotalFactura);
+                // el grupo al que pertenece
+                // ya que se admiten nulos hay que controlarlo
+                if (data.Proveedor != null) {
+                    vm.Proveedor.ProveedorId(data.Proveedor.ProveedorId);
+                    vm.Proveedor.NombreComercial(data.Proveedor.NombreComercial);
+                }
+                //
+                for (i = 0; i < data.LineasFactura.length; i++) {
+                    var v = data.LineasFactura[i];
+                    if (v.LinFacturaId != undefined) {
+                        var l = new Linea(v.LinFacturaId, v.NumeroPedido, v.Descripcion, v.Importe, v.PorcentajeIva)
+                        wm.LineasFactura.push(l);
+                    }
+                }
+            }
             function loadModel(data) {
                 vm.CabFacturaId(data.CabFacturaId);
                 vm.NumFactura(data.NumFactura);
@@ -660,7 +702,8 @@
                 }
                 else {
                     verb = "PUT";
-                    url = ari_hosts.webapi + "/api/factura/" + vm.CabFacturaId() + "/?userId=" + userId +"&tk=" + getCookie("ari_tique");
+                    url = ari_hosts.webapi + "/api/factura/" + vm.CabFacturaId() + "/?userId=" + userId + "&tk=" + getCookie("ari_tique");
+                    if (enGeneracion) url = url + "&gen=true";
                 }
                 $.ajax({
                     type: verb,
@@ -783,6 +826,11 @@
                             $("#factura-grid").hide();
                             $("#factura-form").show();
                             break;
+                        case "pedido":
+                            enGeneracion = true;
+                            formEdit(gup("CabFacturaId"));
+                            break;
+
                     }
                     // establecer el idioma
                     kendo.culture("es-ES");

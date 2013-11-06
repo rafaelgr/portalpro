@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Web.Http;
 using PortalProModelo;
 using Telerik.OpenAccess.FetchOptimization;
+using System.Linq;
 
 namespace PortalProWebApi.Controllers
 {
@@ -49,6 +50,7 @@ namespace PortalProWebApi.Controllers
         }
 
 
+
         /// <summary>
         /// Devuelve la línea de factura que coincide con el id proporcionado
         /// </summary>
@@ -80,6 +82,8 @@ namespace PortalProWebApi.Controllers
                 }
             }
         }
+
+        
 
         /// <summary>
         /// Crear una nueva línea de factura
@@ -143,8 +147,19 @@ namespace PortalProWebApi.Controllers
                 {
                     throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotFound, "No existe una factura con el id proporcionado (LinFactura)"));
                 }
+                // comprobamos que todas las líneas cumplen con los mismos
+                string ms = "";
+                foreach (LinFactura linea in lineas)
+                {
+                    string m = PortalProWebUtility.ComprobarLineaFacturaContraPedido(linea, ctx);
+                    if (m != "") ms = ms + m + "<br/>";
+                }
+                if (ms != "")
+                {
+                    throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotFound, ms));
+                }
                 // eliminamos las líneas de fcatura anteriores para solo dar de alta estas
-                ctx.Delete(factura.LinFacturas);
+                PortalProWebUtility.EliminarLineasFactura(factura.LinFacturas, ctx);
                 // ahora damos de alta las nuevas lineas 
                 decimal totalFactura = 0;
                 foreach (LinFactura linea in lineas)
@@ -158,6 +173,11 @@ namespace PortalProWebApi.Controllers
                         CabFactura = factura
                     };
                     totalFactura += linea.Importe;
+                    // actualizamos lo facturado en pedidos
+                    Pedido ped = (from p in ctx.Pedidos
+                                  where p.NumPedido == l.NumeroPedido
+                                  select p).FirstOrDefault<Pedido>();
+                    ped.TotalFacturado = ped.TotalFacturado + l.Importe;
                     ctx.Add(l);
                 }
                 factura.TotalFactura = totalFactura;

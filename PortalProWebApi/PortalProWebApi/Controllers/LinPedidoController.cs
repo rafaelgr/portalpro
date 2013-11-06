@@ -14,10 +14,10 @@ namespace PortalProWebApi.Controllers
         /// <summary>
         /// Devuelve las líneas que corresponden a un pedido determinado
         /// </summary>
-        /// <param name="idFac">Identificador del pedido al que pertencen las líneas</param>
+        /// <param name="idPed">Identificador del pedido al que pertencen las líneas</param>
         /// <param name="tk">Código del tique de autorización (Véase "Login")</param>
         /// <returns></returns>
-        public virtual IEnumerable<LinPedido> GetLineas(int idFac, string tk)
+        public virtual IEnumerable<LinPedido> GetLineas(int idPed, string tk)
         {
             using (PortalProContext ctx = new PortalProContext())
             {
@@ -25,7 +25,7 @@ namespace PortalProWebApi.Controllers
                 {
                     // comprobamos si existe la fcatura de referencia.
                     Pedido pedido = (from f in ctx.Pedidos
-                                     where f.PedidoId == idFac
+                                     where f.PedidoId == idPed
                                      select f).FirstOrDefault<Pedido>();
                     if (pedido != null)
                     {

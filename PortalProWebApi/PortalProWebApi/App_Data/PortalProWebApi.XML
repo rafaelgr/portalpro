@@ -504,7 +504,7 @@
             <summary>
             Devuelve las líneas que corresponden a un pedido determinado
             </summary>
-            <param name="idFac">Identificador del pedido al que pertencen las líneas</param>
+            <param name="idPed">Identificador del pedido al que pertencen las líneas</param>
             <param name="tk">Código del tique de autorización (Véase "Login")</param>
             <returns></returns>
         </member>
