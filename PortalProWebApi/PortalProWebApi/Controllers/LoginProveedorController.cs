@@ -33,7 +33,7 @@ namespace PortalProWebApi.Controllers
                     // agregamos el tique recién creado
                     ctx.Add(tk);
                     ctx.SaveChanges();
-                    tk = ctx.CreateDetachedCopy<WebApiTicket>(tk, x => x.Usuario);
+                    tk = ctx.CreateDetachedCopy<WebApiTicket>(tk, x => x.UsuarioProveedor, x => x.UsuarioProveedor.Proveedor);
                     return tk;
                 }
             }
@@ -62,7 +62,7 @@ namespace PortalProWebApi.Controllers
                 // debería existir.
                 wtck.Fin = DateTime.Now.AddMinutes(30);
                 ctx.SaveChanges();
-                return ctx.CreateDetachedCopy<WebApiTicket>(wtck, x => x.Usuario);
+                return ctx.CreateDetachedCopy<WebApiTicket>(wtck, x => x.UsuarioProveedor);
             }
         }
     }

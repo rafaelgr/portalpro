@@ -401,7 +401,13 @@
                     sortable: true,
                     groupable: ari_groupable_es_ES,
                     filterable: ari_filterable_es_ES,
-                    columnMenu: ari_columnMenu_es_ES
+                    columnMenu: ari_columnMenu_es_ES,
+                    dataBound: function (e) {
+                        console.log("dataBound");
+                    },
+                    dataBinding: function (e) {
+                        console.log("dataBinding");
+                    }
                 });
             }
             

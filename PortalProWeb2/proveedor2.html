@@ -1,0 +1,920 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <title> Portal Proveedores </title>
+        <meta name="description" content="" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <!-- basic styles -->
+        <link href="css/bootstrap.min.css" rel="stylesheet" />
+        <link href="css/bootstrap-responsive.min.css" rel="stylesheet" />
+        <link href="css/kendo.common.min.css" rel="stylesheet" />
+        <link href="css/kendo.metro.css" rel="stylesheet" />
+
+        <link rel="stylesheet" href="css/font-awesome.min.css" />
+        <!--[if IE 7]>
+        <link rel="stylesheet" href="css/font-awesome-ie7.min.css" />
+        <![endif]-->
+
+        <!-- page specific plugin styles -->
+
+        <!-- ace styles -->
+        <link rel="stylesheet" href="css/ace.min.css" />
+        <link rel="stylesheet" href="css/ace-responsive.min.css" />
+        <link rel="stylesheet" href="css/ace-skins.min.css" />
+        <!--[if lt IE 9]>
+        <link rel="stylesheet" href="css/ace-ie.css" />
+        <![endif]-->
+
+    </head>
+
+    <body>
+        <div id="topbar" class="navbar navbar-inverse">
+
+        </div><!--/navbar -->
+
+        <div class="container-fluid" id="main-container">
+            <a href="#" id="menu-toggler">
+                <span></span>
+            </a><!-- menu toggler -->
+            <div id="sidebar" class="row-fluid">
+            </div><!--/#sidebar-->
+            <div id="main-content" class="clearfix">
+                <div id="breadcrumbs">
+                    <ul class="breadcrumb">
+                        <li>
+                            <i class="icon-home"></i>
+                            <a href="main.html">Inicio</a>
+                            <span class="divider"><i class="icon-angle-right"></i></span>
+                            <a href="administracion.html">Administración</a>
+                            <span class="divider"><i class="icon-angle-right"></i></span>
+                            <a href="proveedor.html">Proveedores</a>
+                        </li>
+                    </ul><!--.breadcrumb-->
+                </div><!--#breadcrumbs-->
+                <div id="page-content" class="clearfix">
+                    <div class="page-header position-relative">
+                        <h1>
+                            Proveedores <i id="isearch" class="icon-search" style="display:none;"></i>
+                        </h1>
+                    </div>
+                    <div id="proveedor-grid" class="row-fluid">
+                    </div><!--/#proveedor-grid-->
+                    <div id="proveedor-form" class="row-fluid" style="display:none;">
+                        <div id="window"></div>
+                        <div class="row-fluid">
+                            <div class="span6">
+                                <h4>
+                                    <span class="blue" id="form-title">Nuevo proveedor</span>
+                                </h4>
+                            </div>
+                            <div class="span6">
+                                <h4 class="blue pull-right">
+                                    ID:<span data-bind="text: ProveedorId"></span>
+                                </h4>
+                            </div>
+                        </div>
+                        <div class="row-fluid">
+                            <div class="span10">
+                                <label>Razón social</label>
+                                <input id="RazonSocial" class="span12" type="text" data-bind="value: RazonSocial" 
+                                       name="RazonSocial" required />
+                            </div>
+                            <div class="span2">
+                                <label>Nif</label>
+                                <input id="Nif" class="span12" type="text" data-bind="value: Nif"
+                                       name="Nif" required />
+                            </div>
+                        </div>
+                        <div class="row-fluid">
+                            <div class="span6">
+                                <label>Nombre comercial</label>
+                                <input id="NombreComercial" class="span12" type="text" data-bind="value: NombreComercial"
+                                       name="NombreComercial" required />
+                            </div>
+                            <div class="span6">
+                                <label>
+                                    Grupo de proveedores
+                                    <a onclick="formSearch('GrupoProveedor');">
+                                        <i class="icon-search"></i>
+                                    </a>
+                                </label>
+                                <input id="GrupoProveedor" data-bind="value: GrupoProveedor.Nombre" style="width:100%;" onblur="onBlurGrupoProveedor()" />
+                                <input id="GrupoProveedorId" data-bind="value: GrupoProveedor.GrupoProveedorId" type="hidden" />
+                            </div>
+                        </div>
+                        <div class="row-fluid">
+                            <div class="span12">
+                                <label>Actividad principal</label>
+                                <input id="ActividadPrincipal" class="span12" type="text" data-bind="value: ActividadPrincipal"
+                                       name="ActividadPrincipal" />
+                            </div>
+                        </div>
+                        <!-- Calle, código postal y ciudad -->
+                        <div class="row-fluid">
+                            <div class="span6">
+                                <label>Direccion</label>
+                                <input id="Direccion" class="span12" type="text" data-bind="value: Direccion" 
+                                       name="Direccion" required/>
+                            </div>
+                            <div class="span3">
+                                <label>Código postal</label>
+                                <input id="CodPostal" class="span12" type="text" data-bind="value: CodPostal" 
+                                       name="CodPostal" required/>
+                            </div>
+                            <div class="span3">
+                                <label>Localidad</label>
+                                <input id="Localidad" class="span12" type="text" data-bind="value: Localidad" 
+                                       name="Localidad" required/>
+                            </div>
+                        </div>
+                        <!-- Provincia, comunidad y pais -->
+                        <div class="row-fluid">
+                            <div class="span6">
+                                <label>Provincia</label>
+                                <input id="Provincia" class="span12" type="text" data-bind="value: Provincia" 
+                                       name="Provincia" required />
+                            </div>
+                            <div class="span3">
+                                <label>Comunidad / Estado</label>
+                                <input id="Comunidad" class="span12" type="text" data-bind="value:Comunidad"
+                                       name="Comunidad" required/>
+                            </div>
+                            <div class="span3">
+                                <label>Pais</label>
+                                <input id="Pais" class="span12" type="text" data-bind="value: Pais"
+                                       name="Pais" required/>
+                            </div>
+                        </div>
+                        <!-- teléfono, fax, movil, correo, url -->
+                        <div class="row-fluid">
+                            <div class="span2">
+                                <label>Telefono</label>
+                                <input id="Telefono" class="span12" type="text" data-bind="value: Telefono" 
+                                       name="Telefono" required />
+                            </div>
+                            <div class="span2">
+                                <label>Fax</label>
+                                <input id="Fax" class="span12" type="text" data-bind="value: Fax" 
+                                       name="Fax" required />
+                            </div>
+                            <div class="span2">
+                                <label>Móvil</label>
+                                <input id="Movil" class="span12" type="text" data-bind="value: Movil" 
+                                       name="Movil" required />
+                            </div>
+                            <div class="span3">
+                                <label>Correo electrónico (General)</label>
+                                <input id="Email" class="span12" type="email" data-bind="value: Email" 
+                                       name="Email" required />
+                            </div>
+                            <div class="span3">
+                                <label>Correo electrónico (Facturas)</label>
+                                <input id="EmailFacturas" class="span12" type="email" data-bind="value: EmailFacturas" 
+                                       name="EmailFacturas" required />
+                            </div>
+                        </div>
+                        <div class="row-fluid">
+                            <div class="span6">
+                                <label>Persona de contacto</label>
+                                <input id="PersonaContacto" class="span12" type="text" data-bind="value: PersonaContacto" 
+                                       name="PersonaContacto" />
+                            </div>
+                            <div class="span6">
+                                <div class="row-fluid">
+                                    <div class="span2">
+                                        <label>IBAN1</label>
+                                        <input id="IBAN1" class="span12" type="text" name="IBAN1" />
+                                    </div>
+                                    <div class="span2">
+                                        <label>Entidad</label>
+                                        <input id="Entidad" class="span12" type="text" name="Entidad" />
+                                    </div>
+                                    <div class="span2">
+                                        <label>Sucursal</label>
+                                        <input id="Sucursal" class="span12" type="text" name="Sucursal" />
+                                    </div>
+                                    <div class="span1">
+                                        <label>Control</label>
+                                        <input id="Control" class="span12" type="text" name="Control" />
+                                    </div>
+                                    <div class="span5">
+                                        <label>Cuenta corriente</label>
+                                        <input id="Cuenta corriente" class="span12" type="text" name="CuentaCorriente" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <h5>
+                                <span class="blue">Ficheros asociados</span>
+                            </h5>
+                        </div>
+                        <hr class="dotted" />
+                        <div class="row-fluid" id="ficheros">
+                        </div>
+
+                        <div class="row-fluid">
+                            <div class="pull-right">
+                                <button class="btn btn-small btn-primary" onclick ="formAccept()">
+                                    <i class="icon-ok icon-white"></i>
+                                </button>
+                                <button class="btn btn-small btn-primary" onclick="formExit()">
+                                    <i class="icon-signout icon-white"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div><!-- #proveedor-form -->
+                </div><!--/#page-content-->
+            </div><!-- #main-content -->
+
+        </div><!--/.fluid-container#main-container-->
+
+        <a href="#" id="btn-scroll-up" class="btn btn-small btn-inverse">
+            <i class="icon-double-angle-up icon-only"></i>
+        </a>
+
+        <!-- Zona de templates -->
+        <div>
+            <script type="text/x-kendo-template" id="tNew">
+                <button class="btn btn-small btn-primary" onclick="formNew();" title="Nuevo registro">
+                    <i class="icon-plus icon-white"></i>
+                </button>
+            </script>
+            <script type="text/x-kendo-template" id="tNewS">
+                <button class="btn btn-small btn-primary" onclick="formNew();" title="Nuevo registro">
+                    <i class="icon-plus icon-white"></i>
+                </button>
+                <button class="btn btn-small btn-primary" onclick="gridExit();" title="Volver al formulario">
+                    <i class="icon-arrow-left icon-white"></i>
+                </button>
+            </script>
+            <script type="tex/x-kendo-template" id="tEdit">
+                <div class="pull-right">
+                    <button class="btn btn-small btn-primary" onclick="formEdit(#=ProveedorId#);" title="Editar registro">
+                        <i class="icon-pencil icon-white"></i>
+                    </button>
+                    <button class="btn btn-small btn-primary" onclick="gridDelete(#=ProveedorId#,'#=NombreComercial#');" title="Eliminar registro">
+                        <i class="icon-trash icon-white"></i>
+                    </button>
+                </div>
+            </script>
+            <script type="tex/x-kendo-template" id="tEditS">
+                <div class="pull-right">
+                    <button class="btn btn-small btn-primary" onclick="gridSelect(#=ProveedorId#,'#=NombreComercial#');" title="Seleccionar registro">
+                        <i class="icon-share icon-white"></i>
+                    </button>
+                </div>
+            </script>
+        </div> <!-- /Zona de templates -->
+        <!-- basic scripts -->
+        <script src="js/jquery-1.9.1.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/bootbox.min.js"></script>
+        <script src="js/knockout-2.2.1.js"></script>
+        <script src="js/knockout.mapping-latest.debug.js"></script>
+        <!-- kendo scripts -->
+        <script src="js/kendo.web.js"></script>
+        <!-- page specific plugin scripts -->
+
+        <!-- ace scripts -->
+        <script src="js/ace-elements.js"></script>
+        <script src="js/ace.js"></script>
+
+        <!-- inline scripts related to this page -->
+        <script src="js/ari-general.js"></script>
+        <script src="js/ari-localization.es-ES.js"></script>
+
+        <!-- parámetros -->
+        <script src="js/config.js"></script>
+        <!-- Scripts personalizados -->
+        <!-- variables generales de la página -->
+        <script type="text/javascript">
+            var mode; // indica si la página es llamada para búsqueda (=S)
+            var type; // para el form indica si estamos creando o editando
+            var regId; // para cargar identificadores de registro;
+            var caller; // establece quién, si alguien nos ha llamado.
+            var numFicheros = []; // usado para controlar el número de ficheros en upload
+            // validador de los campos de formulario
+            var validator = $("#proveedor-form").kendoValidator({
+                validateOnBlur: false,
+                messages: {
+                    required: "Este campo es requerido",
+                    email: "Introduzca un correo válido",
+                    url: "Introduzca una dirección válida"
+                }
+            }).data("kendoValidator");
+            // modelo de datos knockout
+            var viewModel = {
+                ProveedorId: ko.observable(),
+                RazonSocial: ko.observable(),
+                NombreComercial: ko.observable(),
+                ActividadPrincipal: ko.observable(),
+                Direccion: ko.observable(),
+                CodPostal: ko.observable(),
+                Localidad: ko.observable(),
+                Provincia: ko.observable(),
+                Comunidad: ko.observable(),
+                Pais: ko.observable(),
+                Telefono: ko.observable(),
+                Fax: ko.observable(),
+                Movil: ko.observable(),
+                Email: ko.observable(),
+                Url: ko.observable(),
+                Nif: ko.observable(),
+                EmailFacturas: ko.observable(),
+                PersonaContacto: ko.observable(),
+                IBAN: ko.observable(),
+                GrupoProveedor: {
+                    GrupoProveedorId: ko.observable(),
+                    Nombre: ko.observable()
+                }
+            }
+            
+            ko.applyBindings(viewModel);
+        
+        </script>
+
+        <!-- manejo de los templates que usará el grid -->
+        <script type="text/javascript">
+            var t_new;
+            var t_edit;
+            
+            function loadTemplates() {
+                t_new = kendo.template($("#tNew").html());
+                t_edit = kendo.template($("#tEdit").html());
+                if (mode == "S") {
+                    t_new = kendo.template($("#tNewS").html());
+                    t_edit = kendo.template($("#tEditS").html());
+                    // valorar si se necesita icono de búsqueda en el título
+                    $("#isearch").show();
+                }
+            }
+        
+        </script>
+
+        <!-- manejo del grid  -->
+        <script type="text/javascript">
+            
+            // este la fuente de datos que usará el grid
+            var gridDataSource = new kendo.data.DataSource({
+                transport: {
+                    read: {
+                        url: ari_hosts.webapi + "/api/proveedores?tk=" + getCookie("ari_tique"),
+                        dataType: "json",
+                        type: "GET",
+                        contentType: "application/json"
+                    },
+                    parameterMap: function (data, type) {
+                        if (type != "GET")
+                            return kendo.stringify(data);
+                    }
+                },
+                schema: {
+                    model: {
+                        id: "ProveedorId",
+                        fields: {
+                            ProveedorId: { type: "number" },
+                            RazonSocial: {type: "string"},
+                            NombreComercial: { type: "string" },
+                            ActividadPrincipal: { type: "string" },
+                            PersonaContacto: {type:"string"},
+                            Direccion: { type: "string" },
+                            CodPostal: { type: "string" },
+                            Localidad: { type: "string" },
+                            Provincia: { type: "string" },
+                            Comunidad: { type: "string" },
+                            Pais: { type: "string" },
+                            Telefono: { type: "string" },
+                            Movil: { type: "string" },
+                            Fax: { type: "string" },
+                            Url: { type: "string" },
+                            Email: { type: "string" },
+                            EmailFacturas: {type: "string"},
+                            Nif: { type: "string" },
+                            IBAN: {type:"string"},
+                            GrupoProveedor: {}
+                        }
+                    }
+                },
+                pageSize: 5
+            });
+            
+            // montamos una función que maneje los errores de la fuente de datos
+            function gridErrorHandler(e) {
+                var message = ari_formatErrorMessage(JSON.parse(e.xhr.responseText));
+                bootbox.alert(message, "Aceptar");
+            }
+            
+            // enlazamos la función al evento del grid
+            gridDataSource.bind("error", gridErrorHandler);
+            
+            // por último la función que lo integra todo y que monta el grid en el espacio
+            // para ello
+            function gridBuild() {
+                $("#proveedor-grid").kendoGrid({
+                    dataSource: gridDataSource,
+                    columns: [
+                        { field: "ProveedorId", title: "ID" },
+                        { field: "RazonSocial", title: "Razon social" },
+                        { field: "NombreComercial", title: "Nombre comercial", hidden:true },
+                        { field: "Nif", title: "NIF"},
+                        { field: "GrupoProveedor", title: "Grupo", template: "#=GrupoProveedor?GrupoProveedor.Nombre:''#", filterable:false },
+                        { field: "Direccion", title: "Direccion" },
+                        { field: "CodPostal", title: "Código postal" },
+                        { field: "Localidad", title: "Localidad" },
+                        { field: "Provincia", title: "Provincia" },
+                        { field: "Comunidad", title: "Comunidad / Estado", hidden: true },
+                        { field: "Pais", title: "Pais", hidden: true },
+                        { field: "Telefono", title: "Teléfono", hidden: true },
+                        { field: "Fax", title: "Fax", hidden: true },
+                        { field: "Email", title: "Correo electrónico", hidden: true },
+                        { field: "EmailFacturas", title: "Correo electrónico (facturas)", hidden: true },
+                        { field: "ActividadPrincipal", title: "Act. principal", hidden: true },
+                        { field: "PersonaContacto", title: "Persona de contacto", hidden: true },
+                        { field: "Url", title: "Web", hidden: true },
+                        { template: t_edit }
+                    ],
+                    toolbar: t_new,
+                    pageable: ari_pageable_es_ES,
+                    sortable: true,
+                    groupable: ari_groupable_es_ES,
+                    filterable: ari_filterable_es_ES,
+                    columnMenu: ari_columnMenu_es_ES
+                });
+            }
+            
+            // otras funciones de manejo
+            function gridExit() {
+            }
+            function gridDelete(id, nombre) {
+                regId = id;
+                var message = "<h4>¿Desea eliminar este registro? (" + nombre + ")</h4>";
+                bootbox.dialog(message, [
+                    {
+                        "label": "Cancelar",
+                        "class": "btn-small btn-success",
+                        "callback": function () {
+                        }
+                    },{
+                        "label": "Aceptar",
+                        "class": "btn-small btn-error",
+                        "callback": function () {
+                            var url = ari_hosts.webapi + "/api/proveedores/" + regId + "?tk=" + getCookie("ari_tique");
+                            var options = {
+                                type: 'DELETE',
+                                url: url,
+                                dataType: 'json',
+                                contentType: "application/json",
+                                success: function (data, textStatus) {
+                                    gridRefresh();
+                                }
+                            };
+                            $.ajax(options);
+                        }
+                    }
+                ]);
+            }
+            
+            function gridSelect(id, nombre) {
+                console.log("SELECT");
+                // en funcion del llamante tomamos una cookie un otra.
+                var data;
+                switch (caller) {
+                    case "factura":
+                        data = getCookie("factura");
+                        break;
+                    case "usuarioproveedor":
+                        data = getCookie("usuarioproveedor");
+                        break;
+                }
+                // actualizamos con los valores seleccionados
+                var x = JSON.parse(data);
+                x.Proveedor.ProveedorId = id;
+                x.Proveedor.NombreComercial = nombre;
+                var dataS = JSON.stringify(x);
+                // guardamos en la cookie y volvemos al llamante
+                switch (caller) {
+                    case "factura":
+                        setCookie("factura", dataS, 1);
+                        window.open("factura.html?caller=proveedor", '_self');
+                        break;
+                    case "usuarioproveedor":
+                        setCookie("usuarioproveedor", dataS, 1);
+                        window.open("usuarioproveedor.html?caller=proveedor", '_self');
+                        break;
+                }
+            }
+            function gridRefresh() {
+                var ds = $("#proveedor-grid").data("kendoGrid").dataSource;
+                ds.read();
+                return ds;
+            }
+        
+        </script>
+
+        <!-- manejo del form -->
+        <script type="text/javascript">
+            // botón nuevo (del grid)
+            function formNew() {
+                type = "new";
+                // ocultar grid - mostrar form
+                $("#proveedor-grid").hide();
+                $("#proveedor-form").show();
+                $("#form-title").text("Nuevo proveedor");
+                clearData();
+                loadCombos();
+                $("#RazonSocial").focus();
+            }
+            // botón editar (del grid)
+            function formEdit(id) {
+                type = "edit";
+                $("#proveedor-grid").hide();
+                $("#proveedor-form").show();
+                $("#form-title").text("Editar proveedor");
+                loadData(id);
+                loadCombos();
+                $("#RazonSocial").focus();
+            }
+            // botón aceptar / salvar
+            function formAccept() {
+                if (!formOk())
+                    return;
+                saveData(type);
+            }
+            // comprobar la correción de datos
+            function formOk() {
+                // validación general
+                if (!validator.validate()) {
+                    return false;
+                }
+                // controlamos si queremos no asignar grupo
+                if (viewModel.GrupoProveedor.Nombre() == "")
+                    viewModel.GrupoProveedor.GrupoProveedorId("");
+            
+                return true;
+            }
+            // salir del formulario sin guardar
+            function formExit() {
+                // ocultar posibles mensajes de validación 
+                validator.hideMessages();
+                clearDownloads();
+                $("#proveedor-grid").show();
+                $("#proveedor-form").hide()
+            }
+            // carga los datos en el grid
+            function loadData(id) {
+                $.ajax({
+                    type: "GET",
+                    url: ari_hosts.webapi + "/api/proveedores/" + id + "/?tk=" + getCookie("ari_tique"),
+                    dataType: "json",
+                    contentType: "application/json",
+                    success: function (data, textStatus) {
+                        loadModel(data);
+                        createFileLinks(id);
+                    },
+                });
+            }
+            // limpiar los datos del modelo
+            function clearData() {
+                viewModel.ProveedorId("");
+                viewModel.RazonSocial("");
+                viewModel.NombreComercial("");
+                viewModel.Direccion("");
+                viewModel.CodPostal("");
+                viewModel.Localidad("");
+                viewModel.Provincia("");
+                viewModel.Comunidad("");
+                viewModel.Pais("");
+                viewModel.Telefono("");
+                viewModel.Fax("");
+                viewModel.Movil("");
+                viewModel.Url("");
+                viewModel.Email("");
+                viewModel.EmailFacturas("");
+                viewModel.ActividadPrincipal("");
+                viewModel.PersonaContacto("");
+                viewModel.IBAN("");
+                viewModel.Nif("");
+                viewModel.GrupoProveedor.GrupoProveedorId("");
+                viewModel.GrupoProveedor.Nombre("");
+                numFicheros = [];
+                // limpiamos la zona de ficheros;
+                $("#ficheros").html("");
+            }
+            // cargar el modelo
+            function loadModel(data) {
+                viewModel.ProveedorId(data.ProveedorId);
+                viewModel.RazonSocial(data.RazonSocial);
+                viewModel.NombreComercial(data.NombreComercial);
+                viewModel.Direccion(data.Direccion);
+                viewModel.CodPostal(data.CodPostal);
+                viewModel.Localidad(data.Localidad);
+                viewModel.Provincia(data.Provincia);
+                viewModel.Comunidad(data.Comunidad);
+                viewModel.Pais(data.Pais);
+                viewModel.Telefono(data.Telefono);
+                viewModel.Fax(data.Fax);
+                viewModel.Movil(data.Movil);
+                viewModel.Url(data.Url);
+                viewModel.Email(data.Email);
+                viewModel.EmailFacturas(data.EmailFacturas);
+                viewModel.ActividadPrincipal(data.ActividadPrincipal);
+                viewModel.PersonaContacto(data.PersonaContacto);
+                viewModel.IBAN(data.IBAN);
+                viewModel.Nif(data.Nif);
+                // el grupo al que pertenece
+                // ya que se admiten nulos hay que controlarlo
+                if (data.GrupoProveedor != null) {
+                    viewModel.GrupoProveedor.GrupoProveedorId(data.GrupoProveedor.GrupoProveedorId);
+                    viewModel.GrupoProveedor.Nombre(data.GrupoProveedor.Nombre);
+                }
+            }
+            // cargar las opciones del desplegable
+            function loadCombos(id, nombre) {
+                // datasource para el desplegable de grupos
+                var dsGrupoProveedor = new kendo.data.DataSource({
+                    transport: {
+                        read: {
+                            url: ari_hosts.webapi + "/api/GruposProveedores?tk=" + getCookie("ari_tique"),
+                            dataType: "json",
+                            type: "GET",
+                            contentType: "application/json",
+                            serverFiltering: true,
+                            serverPaging: true
+                        },
+                        parameterMap: function (data, type) {
+                            if (type != "GET")
+                                return kendo.stringify(data);
+                        }
+                    },
+                    schema: {
+                        model: {
+                            id: "GrupoProveedorId",
+                            fields: {
+                                GrupoProveedorId: { type: "number" },
+                                Nombre: { type: "string" }
+                            }
+                        }
+                    },
+                    pageSize: 5
+                });
+                $("#GrupoProveedor").kendoAutoComplete({
+                    dataSource: dsGrupoProveedor,
+                    filter: "contains",
+                    dataTextField: "Nombre",
+                    select: function (e) {
+                        var dataItem = this.dataItem(e.item.index());
+                        // cargar id seleccionado
+                        viewModel.GrupoProveedor.GrupoProveedorId(dataItem.GrupoProveedorId);
+                    }
+                });
+            }
+            // salvar los datos del form
+            function saveData(arg) {
+                var verb = "";
+                var url = "";
+                if (arg == "new") {
+                    verb = "POST";
+                    url = ari_hosts.webapi + "/api/proveedores/?tk=" + getCookie("ari_tique");
+                }
+                else {
+                    verb = "PUT";
+                    url = ari_hosts.webapi + "/api/proveedores/" + viewModel.ProveedorId() + "/?tk=" + getCookie("ari_tique");
+                }
+                $.ajax({
+                    type: verb,
+                    url: url,
+                    dataType: "json",
+                    contentType: "application/json",
+                    data: ko.toJSON(viewModel),
+                    success: function (data, textStatus) {
+                        // incluir aqui el tratamiento de los datos recibidos
+                        // refrescamos el grid con los nuevos datos
+                        var ds = gridRefresh();
+                        // el tratamiento es diferente si se trata de altas o ediciones
+                        if (arg == "new") {
+                            // debemos posicionarnos en el teórico último registro del 
+                            // grid que es donde está el registro que acabamos de dar de alta.
+                            var totalPages = ds.totalPages();
+                            ds.page(totalPages);
+                        }
+                        else {
+                            // en edición simplemnete mostramos el grid, se supone
+                            // que ya está donde debía estar.
+                        }
+                        $("#proveedor-form").hide();
+                        $("#proveedor-grid").show();
+                    },
+                });
+            }
+            // salvar el modelo actual en una cookie
+            function saveDataCookie() {
+                var data = ko.toJSON(viewModel);
+                setCookie("proveedor", data, 1);
+            }
+            // recuperar el modelo desde la cookie
+            function loadDataCookie() {
+                var dataS = getCookie("proveedor");
+                var data = JSON.parse(dataS);
+                loadModel(data);
+            }
+            // llamada externa para búsquedas
+            function formSearch(option) {
+                saveDataCookie();
+                switch (option) {
+                    case "GrupoProveedor":
+                        window.open("grupoproveedor.html?mode=S&caller=proveedor", '_self');
+                        break;
+                }
+            }
+            // abrir una window Kendo UI y mostrar la url pasada
+            function formLoadWindow(url, title) {
+                var window = $("#window");
+                if (!window.data("kendoWindow")) {
+                    window.kendoWindow({
+                        actions: ["Refresh", "Maximize", "Minimize", "Close"],
+                        width:"800px",
+                        height:"600px"
+                    });
+                }
+                window.data("kendoWindow").title(title);
+                window.data("kendoWindow").refresh(url);
+                window.data("kendoWindow").open();
+            }
+            
+        </script>
+        
+        <!-- Montaje de los controles para carga de documentos  y funciones auxiliares-->
+        <script type="text/javascript">
+            var uploadOptions = {
+                localization: {
+                    cancel: "Cancelar",
+                    dropsFileHere: "Arrastre ficheros aqui",
+                    remove: "Eliminar",
+                    retry: "Reintentar",
+                    select: "Seleccionar...      ",
+                    statusFailed: "Erróneo",
+                    statusUpLoaded: "Subido",
+                    statusUpLoading: "Subiendo...",
+                    uploadSelectFiles: "Subir los ficheros seleccionados"
+                },
+                async: {
+                    saveUrl: ari_hosts.webapi + "/api/uploads?tk=" + getCookie("ari_tique"),
+                    removeUrl: ari_hosts.webapi + "/api/uploads?tk=" + getCookie("ari_tique"),
+                    removeVerb: "DELETE",
+                    autoUpload: false
+                },
+                select: uploadSelect,
+                remove: uploadRemove,
+            };
+            
+            function onBlurGrupoProveedor() {
+                var id = viewModel.GrupoProveedor.GrupoProveedorId();
+                if (id != "")
+                    createFileControls(id);
+            }
+            function createFileLinks(id) {
+                // obtenenmos los documentos de este proveedor
+                $.ajax({
+                    type: "GET",
+                    url: ari_hosts.webapi + "/api/documentos/?tk=" + getCookie("ari_tique") + "&codigoProveedor=" + id,
+                    dataType: "json",
+                    contentType: "application/json",
+                    success: function (data, textStatus) {
+                        var fileStr = "";
+                        // recorremos secuencialmente los tipos
+                        for (var i = 0; i < data.length; i++) {
+                            if (type = "edit") {
+                                // Mostrando los docmentos de un proveedor
+                                fileStr += "<div id=\"TP" + data[i].DocumentoId + "\" style=\"margin-bottom:10px;\"  >";
+                                fileStr += "<label>" + data[i].TipoDocumento.Nombre 
+                                fileStr += " <i class=\"icon-folder-open blue\"";
+                                fileStr += "onclick=\"formLoadWindow('" + ari_hosts.webapi + data[i].DescargaUrl + "','" + data[i].TipoDocumento.Nombre + "');\">";
+                                fileStr += "</i></label> </div>";
+                                console.log("LINK: " + ari_hosts.webapi + data[i].DescargaUrl);
+                            } 
+                        }
+                        $("#ficheros").html(fileStr);
+                    },
+                });
+            }
+            function createFileControls(grupoProveedorId) {
+                numFicheros = [];
+                // obtenemos los tipos de documento asociados al grupo
+                // al que pertene este proveedor
+                $.ajax({
+                    type: "GET",
+                    url: ari_hosts.webapi + "/api/tiposdocumentos/?tk=" + getCookie("ari_tique") + "&grupoCode=" + grupoProveedorId,
+                    dataType: "json",
+                    contentType: "application/json",
+                    success: function (data, textStatus) {
+                        var fileStr = "";
+                        // recorremos secuencialmente los tipos
+                        for (var i = 0; i < data.length; i++) {
+                            if (type = "new") {
+                                // estamos creando uno nuevo.
+                                fileStr += "<div id=\"TP" + data[i].TipoDocumentoId + "\" style=\"margin-bottom:10px;\"  >";
+                                fileStr += "<label>" + data[i].Nombre + "</label>"
+                                fileStr += "<input name=\"TPN" + data[i].TipoDocumentoId + "\" id=\"TPU" + data[i].TipoDocumentoId + "\" type=\"file\" />";
+                                fileStr += "</div>";
+                            }
+                            else {
+                                // editando uno que ya existe
+                                fileStr = " ";
+                            }
+                        }
+                        if (fileStr != "") {
+                            $("#ficheros").html(fileStr);
+                        }
+                        if (type = "new") {
+                            for (var i = 0; i < data.length; i++) {
+                                createUploadControl(data[i].TipoDocumentoId);
+                            }
+                        }
+                    },
+                });
+            }
+            function createUploadControl(tipo) {
+                //buscamos el control a cargar
+                $("#TPU" + tipo).kendoUpload(uploadOptions);
+                var upload = $("#TPU" + tipo).data("kendoUpload");
+                upload.options.async.saveUrl = ari_hosts.webapi + "/api/uploads?tk=" + getCookie("ari_tique") + "&tipo=" + tipo;
+                upload.options.async.removeUrl = ari_hosts.webapi + "/api/uploads?tk=" + getCookie("ari_tique") + "&tipo=" + tipo;
+                upload.options.async.removeVerb = "DELETE";
+                upload.options.async.autoUpload = false;
+                upload.options.localization.tipo = tipo;
+                var numFich = new Object();
+                numFich.id = tipo;
+                numFich.contador = 0;
+                numFicheros.push(numFich);
+            }
+            // 
+            function uploadSelect(e) {
+                var tipo = e.sender.localization.tipo;
+                var resultado = searchInArray(numFicheros, tipo);
+                if (resultado.length > 0) {
+                    resultado[0].contador++;
+                    if (resultado[0].contador > 1) {
+                        bootbox.alert("Solo se puede elegir un fichero", "Aceptar");
+                        e.preventDefault();
+                    }
+                }
+            }
+            function uploadRemove(e) {
+                var tipo = e.sender.localization.tipo;
+                var resultado = searchInArray(numFicheros, tipo);
+                if (resultado.length > 0) {
+                    resultado[0].contador = 0;
+                }
+            }
+            // 
+            function clearDownloads() {
+                $.ajax({
+                    type: "DELETE",
+                    url: ari_hosts.webapi + "/api/documentos/?tk=" + getCookie("ari_tique"),
+                    dataType: "json",
+                    contentType: "application/json",
+                    success: function (data, textStatus) {
+                        // nada que decir
+                    }
+                });
+            }
+        </script>
+        
+        <!-- Script en arranque -->
+        <script type="text/javascript">
+            (function ($) {
+                $(document).ready(function () {
+                    // tratamiento general de errores Ajax
+                    generalAjaxErrorTreatment();
+                    // en cualquier página hay que verificar la autorización
+                    checkAutorization();
+                    // cargar el menú superior
+                    loadTopBar();
+                    // cargar el menú lateral
+                    loadSideBar();
+                    // quién y como nos ha llamado.
+                    mode = gup("mode");
+                    caller = gup("caller");
+                    // cargar los templates que se usarán en el grid
+                    loadTemplates();
+                    // cargar el grid
+                    gridBuild();
+                    // comprobar como hemos sido llamados 
+                    switch (caller) {
+                        case "grupoproveedor":
+                            // regresamos de la búsqueda de grupo para
+                            // el proveedor;
+                            loadDataCookie();
+                            loadCombos();
+                            $("#proveedor-grid").hide();
+                            $("#proveedor-form").show();
+                            break;
+                    }
+                    //
+                });
+            })(jQuery);
+        </script>
+    </body>
+</html>

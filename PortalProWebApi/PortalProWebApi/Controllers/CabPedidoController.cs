@@ -45,6 +45,39 @@ namespace PortalProWebApi.Controllers
             }
         }
 
+        public virtual IEnumerable<Pedido> Get(string proveedorId, string tk)
+        {
+            using (PortalProContext ctx = new PortalProContext())
+            {
+                if (CntWebApiSeguridad.CheckTicket(tk, ctx))
+                {
+                    // Comprobamos que hay un proveedor que coincide
+                    int pId = int.Parse(proveedorId);
+                    IEnumerable<Pedido> pedidos = (from f in ctx.Pedidos
+                                                   where f.Proveedor.ProveedorId == pId
+                                                   select f).ToList<Pedido>();
+
+                    // Copiar y montar las url de los documentos asociados.
+                    foreach (Pedido ped in pedidos)
+                    {
+                        if (ped.DocumentoPdf != null)
+                            ped.DocumentoPdf.DescargaUrl = PortalProWebUtility.CargarUrlDocumento(ped.DocumentoPdf, tk);
+                    }
+                    // fetch estrategy, necesaria para poder devolver el grupo junto con cada usuariuo
+                    FetchStrategy fs = new FetchStrategy();
+                    fs.LoadWith<Pedido>(x => x.Proveedor);
+                    fs.LoadWith<Pedido>(x => x.DocumentoPdf);
+                    pedidos = ctx.CreateDetachedCopy<IEnumerable<Pedido>>(pedidos, fs);
+                    return pedidos;
+                }
+                else
+                {
+                    throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.Unauthorized, "Se necesita tique de autorización (Pedido)"));
+                }
+            }
+        }
+
+
         /// <summary>
         /// Obtiene la cabecera de pedido cuyo ID corresponde con el pasado
         /// </summary>

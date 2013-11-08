@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortalProWebApi", "..\Porta
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortalProWeb", "..\PortalProWeb\PortalProWeb.csproj", "{EB0FF27E-530A-4B98-9DB9-095D0F84D48D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortalProWeb2", "..\PortalProWeb2\PortalProWeb2.csproj", "{E3C11084-19EC-4DB4-A340-82C11EB1DA1E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +27,10 @@ Global
 		{EB0FF27E-530A-4B98-9DB9-095D0F84D48D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EB0FF27E-530A-4B98-9DB9-095D0F84D48D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EB0FF27E-530A-4B98-9DB9-095D0F84D48D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E3C11084-19EC-4DB4-A340-82C11EB1DA1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3C11084-19EC-4DB4-A340-82C11EB1DA1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E3C11084-19EC-4DB4-A340-82C11EB1DA1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E3C11084-19EC-4DB4-A340-82C11EB1DA1E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

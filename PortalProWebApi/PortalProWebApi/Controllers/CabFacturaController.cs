@@ -46,6 +46,38 @@ namespace PortalProWebApi.Controllers
             }
         }
 
+        public virtual IEnumerable<CabFactura> Get(string proveedorId,string tk)
+        {
+            using (PortalProContext ctx = new PortalProContext())
+            {
+                if (CntWebApiSeguridad.CheckTicket(tk, ctx))
+                {
+                    int pId = int.Parse(proveedorId);
+                    IEnumerable<CabFactura> facturas = (from f in ctx.CabFacturas
+                                                        where f.Proveedor.ProveedorId == pId
+                                                        select f).ToList<CabFactura>();
+
+                    // Copiar y montar las url de los documentos asociados.
+                    foreach (CabFactura cf in facturas)
+                    {
+                        if (cf.DocumentoPdf != null) cf.DocumentoPdf.DescargaUrl = PortalProWebUtility.CargarUrlDocumento(cf.DocumentoPdf, tk);
+                        if (cf.DocumentoXml != null) cf.DocumentoXml.DescargaUrl = PortalProWebUtility.CargarUrlDocumento(cf.DocumentoXml, tk);
+                    }
+                    // fetch estrategy, necesaria para poder devolver el grupo junto con cada usuariuo
+                    FetchStrategy fs = new FetchStrategy();
+                    fs.LoadWith<CabFactura>(x => x.Proveedor);
+                    fs.LoadWith<CabFactura>(x => x.DocumentoPdf);
+                    fs.LoadWith<CabFactura>(x => x.DocumentoXml);
+                    facturas = ctx.CreateDetachedCopy<IEnumerable<CabFactura>>(facturas, fs);
+                    return facturas;
+                }
+                else
+                {
+                    throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.Unauthorized, "Se necesita tique de autorización (CabFactura)"));
+                }
+            }
+        }
+
         /// <summary>
         /// Obtiene la cabecera de factura cuyo ID corresponde con el pasado
         /// </summary>

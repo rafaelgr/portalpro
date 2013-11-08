@@ -67,13 +67,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Default.aspx.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Default.aspx.designer.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Uploader.aspx.cs">
       <DependentUpon>Uploader.aspx</DependentUpon>
@@ -362,7 +355,6 @@
     <Content Include="css\Uniform\slider-v.gif" />
     <Content Include="css\Uniform\sprite%402x.png" />
     <Content Include="css\Uniform\sprite.png" />
-    <Content Include="Default.aspx" />
     <Content Include="factura.html" />
     <Content Include="font\fontawesome-webfont.svg" />
     <Content Include="grupoproveedor.html" />
@@ -499,7 +491,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties UseJQuerySupport="True" UseAjaxifiedTemplates="True" />
+      <UserProperties UseAjaxifiedTemplates="True" UseJQuerySupport="True" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
