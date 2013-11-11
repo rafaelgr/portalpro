@@ -83,7 +83,16 @@
                             <div class="span2">
                                 <label>Nif</label>
                                 <input id="Nif" class="span12" type="text" data-bind="value: Nif"
-                                       name="Nif" required />
+                                       name="Nif" />
+                            </div>
+                        </div>
+                        <div class="row-fluid">
+                            <div class="span6">
+                                <label>Código AXAPTA</label>
+                                <input id="CodAx" type="text" data-bind="value: CodAx" name="CodAx" required />
+                            </div>
+                            <div class="span6">
+
                             </div>
                         </div>
                         <div class="row-fluid">
@@ -115,17 +124,17 @@
                             <div class="span6">
                                 <label>Direccion</label>
                                 <input id="Direccion" class="span12" type="text" data-bind="value: Direccion" 
-                                       name="Direccion" required/>
+                                       name="Direccion" />
                             </div>
                             <div class="span3">
                                 <label>Código postal</label>
                                 <input id="CodPostal" class="span12" type="text" data-bind="value: CodPostal" 
-                                       name="CodPostal" required/>
+                                       name="CodPostal" />
                             </div>
                             <div class="span3">
                                 <label>Localidad</label>
                                 <input id="Localidad" class="span12" type="text" data-bind="value: Localidad" 
-                                       name="Localidad" required/>
+                                       name="Localidad" />
                             </div>
                         </div>
                         <!-- Provincia, comunidad y pais -->
@@ -133,17 +142,17 @@
                             <div class="span6">
                                 <label>Provincia</label>
                                 <input id="Provincia" class="span12" type="text" data-bind="value: Provincia" 
-                                       name="Provincia" required />
+                                       name="Provincia"  />
                             </div>
                             <div class="span3">
                                 <label>Comunidad / Estado</label>
                                 <input id="Comunidad" class="span12" type="text" data-bind="value:Comunidad"
-                                       name="Comunidad" required/>
+                                       name="Comunidad" />
                             </div>
                             <div class="span3">
                                 <label>Pais</label>
                                 <input id="Pais" class="span12" type="text" data-bind="value: Pais"
-                                       name="Pais" required/>
+                                       name="Pais" />
                             </div>
                         </div>
                         <!-- teléfono, fax, movil, correo, url -->
@@ -151,27 +160,27 @@
                             <div class="span2">
                                 <label>Telefono</label>
                                 <input id="Telefono" class="span12" type="text" data-bind="value: Telefono" 
-                                       name="Telefono" required />
+                                       name="Telefono"  />
                             </div>
                             <div class="span2">
                                 <label>Fax</label>
                                 <input id="Fax" class="span12" type="text" data-bind="value: Fax" 
-                                       name="Fax" required />
+                                       name="Fax"  />
                             </div>
                             <div class="span2">
                                 <label>Móvil</label>
                                 <input id="Movil" class="span12" type="text" data-bind="value: Movil" 
-                                       name="Movil" required />
+                                       name="Movil"  />
                             </div>
                             <div class="span3">
                                 <label>Correo electrónico (General)</label>
                                 <input id="Email" class="span12" type="email" data-bind="value: Email" 
-                                       name="Email" required />
+                                       name="Email"  />
                             </div>
                             <div class="span3">
                                 <label>Correo electrónico (Facturas)</label>
                                 <input id="EmailFacturas" class="span12" type="email" data-bind="value: EmailFacturas" 
-                                       name="EmailFacturas" required />
+                                       name="EmailFacturas"  />
                             </div>
                         </div>
                         <div class="row-fluid">
@@ -328,7 +337,9 @@
                 GrupoProveedor: {
                     GrupoProveedorId: ko.observable(),
                     Nombre: ko.observable()
-                }
+                },
+                CodAx: ko.observable(),
+                FacAbierto: ko.observable()
             }
             
             ko.applyBindings(viewModel);
@@ -598,6 +609,8 @@
                 viewModel.Nif("");
                 viewModel.GrupoProveedor.GrupoProveedorId("");
                 viewModel.GrupoProveedor.Nombre("");
+                viewModel.CodAx("");
+                viewModel.FacAbierto(false);
                 numFicheros = [];
                 // limpiamos la zona de ficheros;
                 $("#ficheros").html("");
@@ -623,6 +636,8 @@
                 viewModel.PersonaContacto(data.PersonaContacto);
                 viewModel.IBAN(data.IBAN);
                 viewModel.Nif(data.Nif);
+                viewModel.CodAx(data.CodAx);
+                viewModel.FacAbierto(data.FacAbierto);
                 // el grupo al que pertenece
                 // ya que se admiten nulos hay que controlarlo
                 if (data.GrupoProveedor != null) {

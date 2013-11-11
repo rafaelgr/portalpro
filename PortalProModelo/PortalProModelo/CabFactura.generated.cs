@@ -89,6 +89,19 @@ namespace PortalProModelo
 			}
 		}
 		
+		private string _estado;
+		public virtual string Estado
+		{
+			get
+			{
+				return this._estado;
+			}
+			set
+			{
+				this._estado = value;
+			}
+		}
+		
 		private Proveedor _proveedor;
 		public virtual Proveedor Proveedor
 		{

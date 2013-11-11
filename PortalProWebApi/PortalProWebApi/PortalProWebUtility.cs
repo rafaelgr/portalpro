@@ -334,7 +334,8 @@ namespace PortalProWebApi
                 CabFacturaId = 0,
                 Proveedor = p.Proveedor,
                 FechaAlta = DateTime.Now,
-                FechaEmision = DateTime.Now
+                FechaEmision = DateTime.Now,
+                Estado = "RECIBIDA"
             };
             ctx.Add(f);
             ctx.SaveChanges();
@@ -409,7 +410,7 @@ namespace PortalProWebApi
         }
 
 
-        public static string ComprobarLineaFacturaContraPedido(LinFactura l, PortalProContext ctx)
+        public static string ComprobarLineaFacturaContraPedido(CabFactura factura, LinFactura l, PortalProContext ctx)
         {
             string m = "";
             // (1) comprobar que el pedido existe
@@ -419,6 +420,11 @@ namespace PortalProWebApi
             if (p == null)
             {
                 m = String.Format("El pedido {0} no existe.", l.NumeroPedido);
+                return m;
+            }
+            if (p.Proveedor.ProveedorId != factura.Proveedor.ProveedorId)
+            {
+                m = String.Format("El pedido {0} no corresponde al proveedor {1}", l.NumeroPedido, factura.Proveedor.NombreComercial);
                 return m;
             }
             // (2) comprobar que el importe que se va a facturar es menor o igual que el del pedido

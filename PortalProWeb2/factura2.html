@@ -44,11 +44,11 @@
                     <ul class="breadcrumb">
                         <li>
                             <i class="icon-home"></i>
-                            <a href="main.html">Inicio</a>
+                            <a href="main2.html">Inicio</a>
                             <span class="divider"><i class="icon-angle-right"></i></span>
-                            <a href="administracion.html">Administración</a>
+                            <a href="administracion2.html">Administración</a>
                             <span class="divider"><i class="icon-angle-right"></i></span>
-                            <a href="factura.html">Facturas</a>
+                            <a href="factura2.html">Facturas</a>
                         </li>
                     </ul><!--.breadcrumb-->
                 </div><!--#breadcrumbs-->
@@ -69,7 +69,7 @@
                             </div>
                             <div class="span6">
                                 <h4 class="blue pull-right">
-                                    ID:<span data-bind="text: CabFacturaId"></span>
+                                    ESTADO:<span data-bind="text: Estado"></span> ID:<span data-bind="    text: CabFacturaId"></span>
                                 </h4>
                             </div>
                         </div>
@@ -286,6 +286,7 @@
                 self.FechaAlta = ko.observable();
                 self.FechaEmision = ko.observable();
                 self.TotalFactura = ko.observable();
+                self.Estado = ko.observable();
                 self.Proveedor = {
                     ProveedorId: ko.observable(),
                     NombreComercial: ko.observable()
@@ -387,6 +388,7 @@
                         fields: {
                             CabFacturaId: { type: "number" },
                             NumFactura: { type: "string" },
+                            Estado: { type: "string" },
                             FechaEmision: { type: "date" },
                             FechaAlta: { type: "date" },
                             TotalFactura: { type: "number" },
@@ -415,7 +417,8 @@
                     columns: [
                         { field: "CabFacturaId", title: "ID" },
                         { field: "Proveedor", title: "Proveedor", template: "#=Proveedor?Proveedor.NombreComercial:''#", filterable:false },
-                        { field: "NumFactura", title: "N. Factura"},
+                        { field: "NumFactura", title: "N. Factura" },
+                        { field: "Estado", title: "Estado" },
                         { field: "FechaEmision", title: "F.Emision", format: "{0:dd/MM/yyyy}"},
                         { field: "TotalFactura", title: "Total", format: "{0:##,###,##0.00}", attributes: { "style": "text-align:right" } },
                         { field: "FechaAlta", title: "F.Alta", format: "{0:dd/MM/yyyy}"},
@@ -538,6 +541,10 @@
                 if (enGeneracion) {
                     gridDelete2(vm.CabFacturaId());
                     enGeneracion = false;
+                }
+                // controlar que no se den de alta facturas a 0
+                if (vm.TotalFactura() == "" && vm.CabFacturaId() != "") {
+                    gridDelete2(vm.CabFacturaId());
                 }
                 // ocultar posibles mensajes de validación 
                 validator.hideMessages();
@@ -766,7 +773,7 @@
                 saveDataCookie();
                 switch (option) {
                     case "Proveedor":
-                        window.open("proveedor.html?mode=S&caller=factura", '_self');
+                        window.open("proveedor2.html?mode=S&caller=factura", '_self');
                         break;
                 }
             }
@@ -834,6 +841,9 @@
                     }
                     // establecer el idioma
                     kendo.culture("es-ES");
+                    // controlar la salida de la página al cierre como si fuera
+                    // el botón exit
+                    window.onbeforeunload = formExit;
                 });
             })(jQuery);
         </script>

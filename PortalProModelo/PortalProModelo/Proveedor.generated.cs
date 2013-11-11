@@ -245,19 +245,6 @@ namespace PortalProModelo
 			}
 		}
 		
-		private string _nif;
-		public virtual string Nif
-		{
-			get
-			{
-				return this._nif;
-			}
-			set
-			{
-				this._nif = value;
-			}
-		}
-		
 		private string _actividadPrincipal;
 		public virtual string ActividadPrincipal
 		{
@@ -268,6 +255,45 @@ namespace PortalProModelo
 			set
 			{
 				this._actividadPrincipal = value;
+			}
+		}
+		
+		private string _codAx;
+		public virtual string CodAx
+		{
+			get
+			{
+				return this._codAx;
+			}
+			set
+			{
+				this._codAx = value;
+			}
+		}
+		
+		private bool _facAbierto;
+		public virtual bool FacAbierto
+		{
+			get
+			{
+				return this._facAbierto;
+			}
+			set
+			{
+				this._facAbierto = value;
+			}
+		}
+		
+		private string _nif;
+		public virtual string Nif
+		{
+			get
+			{
+				return this._nif;
+			}
+			set
+			{
+				this._nif = value;
 			}
 		}
 		

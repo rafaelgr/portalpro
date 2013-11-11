@@ -151,7 +151,7 @@ namespace PortalProWebApi.Controllers
                 string ms = "";
                 foreach (LinFactura linea in lineas)
                 {
-                    string m = PortalProWebUtility.ComprobarLineaFacturaContraPedido(linea, ctx);
+                    string m = PortalProWebUtility.ComprobarLineaFacturaContraPedido(factura, linea, ctx);
                     if (m != "") ms = ms + m + "<br/>";
                 }
                 if (ms != "")

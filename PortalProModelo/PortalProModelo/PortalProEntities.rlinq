@@ -188,7 +188,15 @@
           <orm:column name="IBAN" sql-type="varchar" nullable="false" length="255" scale="0" ado-type="" />
         </orm:field>
         <orm:field name="_nif" property="Nif" uniqueId="f5142d9d-9def-4ed7-9f7c-b8c083655907" type="System.String" />
-        <orm:field name="_actividadPrincipal" property="ActividadPrincipal" uniqueId="dd2b4782-b024-4f59-8707-98e9e5a31409" type="System.String" />
+        <orm:field name="_actividadPrincipal" property="ActividadPrincipal" uniqueId="dd2b4782-b024-4f59-8707-98e9e5a31409" type="System.String">
+          <orm:column name="ActividadPrincipal" sql-type="varchar" nullable="true" length="255" scale="0" ado-type="" />
+        </orm:field>
+        <orm:field name="_codAx" property="CodAx" uniqueId="44ec3302-0f77-4475-9c4a-72c4c1355f9d" type="System.String">
+          <orm:column nullable="true" scale="0" length="10" sql-type="varchar" name="CodAx" ado-type="" />
+        </orm:field>
+        <orm:field name="_facAbierto" property="FacAbierto" uniqueId="ccc2361a-b5bc-4b01-ab15-15dbd05083b1" type="System.Boolean">
+          <orm:column nullable="false" scale="0" length="1" sql-type="bit" name="FacAbierto" ado-type="" />
+        </orm:field>
         <orm:field name="_grupoProveedor" property="GrupoProveedor" behavior="readwrite" uniqueId="770bad8d-fa9f-4718-81ce-4d10a60b42b8" type="PortalProModelo.GrupoProveedor">
           <orm:reference uniqueId="b14ef8f6-9864-4a68-b3e8-b658ea48dedb" />
         </orm:field>
@@ -434,6 +442,9 @@
         <orm:field name="_numFactura" property="NumFactura" uniqueId="8e6deabf-9b02-4742-9d69-ad433275fd68" type="System.String">
           <orm:column name="NumFactura" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
         </orm:field>
+        <orm:field name="_estado" property="Estado" uniqueId="44dd7e34-66b3-495b-9ed8-3605848703ed" type="System.String">
+          <orm:column name="Estado" sql-type="varchar" nullable="false" length="50" scale="0" ado-type="" />
+        </orm:field>
         <orm:field name="_proveedor" property="Proveedor" behavior="readwrite" uniqueId="a0e7d402-f8cd-4e92-9322-d8fc12ad4d93" type="PortalProModelo.Proveedor">
           <orm:reference uniqueId="9750b7fa-84d1-4309-8275-c1b1677043e2" />
         </orm:field>
@@ -520,6 +531,10 @@
         <orm:field name="_totalFacturado" property="TotalFacturado" uniqueId="64a2b5e8-2825-48d6-8792-1af7f8ae8547" type="System.Decimal">
           <orm:column name="TotalFacturado" sql-type="decimal" nullable="false" length="10" scale="2" ado-type="Numeric" />
         </orm:field>
+        <orm:field name="_estado" property="Estado" uniqueId="80c05708-7a88-4733-9199-42c00e3cce29" type="System.String">
+          <orm:column name="Estado" sql-type="varchar" nullable="false" length="50" scale="0" ado-type="" />
+        </orm:field>
+        <orm:field name="_responsable" property="Responsable" uniqueId="4a1282e7-1a84-47d8-bf48-47b9aae06635" type="System.String" />
         <orm:field name="_proveedor" property="Proveedor" behavior="readwrite" uniqueId="be5b168f-c016-4e54-97f9-75cd7a2dba5f" type="PortalProModelo.Proveedor">
           <orm:reference uniqueId="eade228d-17d6-4ca7-a17f-2f5f674a5e44" />
         </orm:field>
@@ -613,6 +628,8 @@
         <orm:column name="EmailFacturas" sql-type="varchar" nullable="false" length="255" scale="0" ado-type="" />
         <orm:column name="IBAN" sql-type="varchar" nullable="false" length="255" scale="0" ado-type="" />
         <orm:column name="ActividadPrincipal" sql-type="varchar" nullable="true" length="255" scale="0" ado-type="" />
+        <orm:column nullable="true" scale="0" length="10" sql-type="varchar" name="CodAx" ado-type="" />
+        <orm:column nullable="false" scale="0" length="1" sql-type="bit" name="FacAbierto" ado-type="" />
       </orm:table>
       <orm:table name="Documento">
         <orm:column name="DocumentoId" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" backend-calculated="true" ado-type="Int32" />
@@ -713,6 +730,7 @@
         <orm:column name="DocumentoPdf_DocumentoId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
         <orm:column name="DocumentoXml_DocumentoId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
         <orm:column name="NumFactura" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        <orm:column name="Estado" sql-type="varchar" nullable="false" length="50" scale="0" ado-type="" />
         <orm:index name="idx_CabFactura_ProveedorId">
           <orm:columnMapping>
             <orm:column name="ProveedorId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
@@ -727,6 +745,8 @@
         <orm:column name="TotalFacturado" sql-type="decimal" nullable="false" length="10" scale="2" ado-type="Numeric" />
         <orm:column name="ProveedorId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
         <orm:column name="DocumentoId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+        <orm:column name="Estado" sql-type="varchar" nullable="false" length="50" scale="0" ado-type="" />
+        <orm:column name="Responsable" sql-type="varchar" nullable="false" length="255" scale="0" ado-type="" />
         <orm:index name="idx_Pedido_DocumentoId">
           <orm:columnMapping>
             <orm:column name="DocumentoId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
@@ -964,6 +984,8 @@
       <Property Id="0958dafc-8c22-4941-a6ad-4371c12a3b4a" name="EmailFacturas" label="EmailFacturas : String" fieldName="_emailFacturas" />
       <Property Id="82ca5e94-af3f-41b2-8b5d-113b1ff33e8b" name="IBAN" label="IBAN : String" fieldName="_iBAN" />
       <Property Id="dd2b4782-b024-4f59-8707-98e9e5a31409" name="ActividadPrincipal" label="ActividadPrincipal : String" fieldName="_actividadPrincipal" />
+      <Property Id="44ec3302-0f77-4475-9c4a-72c4c1355f9d" name="CodAx" label="CodAx : String" fieldName="_codAx" />
+      <Property Id="ccc2361a-b5bc-4b01-ab15-15dbd05083b1" name="FacAbierto" type="Boolean" label="FacAbierto : Boolean" fieldName="_facAbierto" />
       <AssociationTargets>
         <Association Id="b14ef8f6-9864-4a68-b3e8-b658ea48dedb" SourceMultiplicity="ZeroOne" name="ProveedorHasGrupoProveedor">
           <DomainClassMoniker name="/PortalProContext/GrupoProveedor" />
@@ -1224,6 +1246,7 @@
       <Property Id="1d45c8c9-ebae-4d64-9a91-65f853c1f441" name="FechaEmision" type="DateTime" label="FechaEmision : DateTime" fieldName="_fechaEmision" />
       <Property Id="f67b1736-31a6-45b0-8fd9-3bfb6ed38450" name="TotalFactura" type="Decimal" label="TotalFactura : Decimal" fieldName="_totalFactura" />
       <Property Id="8e6deabf-9b02-4742-9d69-ad433275fd68" name="NumFactura" label="NumFactura : String" fieldName="_numFactura" />
+      <Property Id="44dd7e34-66b3-495b-9ed8-3605848703ed" name="Estado" label="Estado : String" fieldName="_estado" />
       <AssociationTargets>
         <Association Id="9750b7fa-84d1-4309-8275-c1b1677043e2" SourceMultiplicity="ZeroOne" name="CabFacturaHasProveedor">
           <DomainClassMoniker name="/PortalProContext/Proveedor" />
@@ -1333,6 +1356,8 @@
       <Property Id="c484afc0-a2f0-44c0-932c-35b1a8d47a56" name="NumPedido" label="NumPedido : String" fieldName="_numPedido" />
       <Property Id="062dc353-4850-4aa6-8c56-9dd5fa2f49ff" name="TotalPedido" type="Decimal" label="TotalPedido : Decimal" fieldName="_totalPedido" />
       <Property Id="64a2b5e8-2825-48d6-8792-1af7f8ae8547" name="TotalFacturado" type="Decimal" label="TotalFacturado : Decimal" fieldName="_totalFacturado" />
+      <Property Id="80c05708-7a88-4733-9199-42c00e3cce29" name="Estado" label="Estado : String" fieldName="_estado" />
+      <Property Id="4a1282e7-1a84-47d8-bf48-47b9aae06635" name="Responsable" label="Responsable : String" fieldName="_responsable" />
       <AssociationTargets>
         <Association Id="eade228d-17d6-4ca7-a17f-2f5f674a5e44" SourceMultiplicity="ZeroOne" name="PedidoHasProveedor">
           <DomainClassMoniker name="/PortalProContext/Proveedor" />

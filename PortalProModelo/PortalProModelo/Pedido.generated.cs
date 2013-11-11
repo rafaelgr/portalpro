@@ -89,6 +89,32 @@ namespace PortalProModelo
 			}
 		}
 		
+		private string _estado;
+		public virtual string Estado
+		{
+			get
+			{
+				return this._estado;
+			}
+			set
+			{
+				this._estado = value;
+			}
+		}
+		
+		private string _responsable;
+		public virtual string Responsable
+		{
+			get
+			{
+				return this._responsable;
+			}
+			set
+			{
+				this._responsable = value;
+			}
+		}
+		
 		private Proveedor _proveedor;
 		public virtual Proveedor Proveedor
 		{

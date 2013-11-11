@@ -153,6 +153,8 @@ namespace PortalProWebApi.Controllers
                     documentoXmlId = factura.DocumentoXml.DocumentoId;
                     factura.DocumentoXml = null;
                 }
+                // las facturas por defecto tienen el estado recibida
+                factura.Estado = "RECIBIDA";
                 // dar de alta el objeto en la base de datos y devolverlo en el mensaje
                 ctx.Add(factura);
                 if (proveedorId != 0)
@@ -221,6 +223,7 @@ namespace PortalProWebApi.Controllers
                     factura.DocumentoXml = null;
                 }
                 // dar de alta el objeto en la base de datos y devolverlo en el mensaje
+                factura.Estado = "RECIBIDA";
                 ctx.Add(factura);
                 if (proveedorId != 0)
                 {
@@ -273,6 +276,7 @@ namespace PortalProWebApi.Controllers
                     throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotFound, "No hay pedido con el identificador pasado (generar factura) (CabFactura)"));
                 }
                 CabFactura factura = PortalProWebUtility.GenerarFacturaDesdePedido(ped, ctx);
+
                 return ctx.CreateDetachedCopy<CabFactura>(factura, x => x.Proveedor, x => x.DocumentoPdf, x => x.DocumentoXml);
             }
         }
@@ -323,6 +327,7 @@ namespace PortalProWebApi.Controllers
                     documentoXmlId = factura.DocumentoXml.DocumentoId;
                     factura.DocumentoXml = null;
                 }
+                if (factura.Estado == null) factura.Estado = "RECIBIDA";
                 // modificar el objeto
                 ctx.AttachCopy<CabFactura>(factura);
                 // volvemos a leer el objecto para que lo maneje este contexto.
@@ -416,6 +421,7 @@ namespace PortalProWebApi.Controllers
                     documentoXmlId = factura.DocumentoXml.DocumentoId;
                     factura.DocumentoXml = null;
                 }
+                if (factura.Estado == null) factura.Estado = "RECIBIDA";
                 // modificar el objeto
                 ctx.AttachCopy<CabFactura>(factura);
                 // volvemos a leer el objecto para que lo maneje este contexto.
@@ -509,6 +515,7 @@ namespace PortalProWebApi.Controllers
                     factura.DocumentoXml = null;
                 }
                 // modificar el objeto
+                if (factura.Estado == null) factura.Estado = "RECIBIDA";
                 ctx.AttachCopy<CabFactura>(factura);
                 // volvemos a leer el objecto para que lo maneje este contexto.
                 factura = (from f in ctx.CabFacturas
