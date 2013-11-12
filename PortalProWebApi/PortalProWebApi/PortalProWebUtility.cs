@@ -339,6 +339,7 @@ namespace PortalProWebApi
             };
             ctx.Add(f);
             ctx.SaveChanges();
+            decimal totalF = 0;
             if (p.TotalFacturado == 0)
             {
                 // caso (1) es el más sencillo, una factura con tantas líneas como tenga el pedido
@@ -353,6 +354,7 @@ namespace PortalProWebApi
                         PorcentajeIva = lp.PorcentajeIva,
                         CabFactura = f
                     });
+                    f.TotalFactura += lp.Importe;
                     ctx.SaveChanges();
                 }
             }
@@ -368,6 +370,7 @@ namespace PortalProWebApi
                     PorcentajeIva = p.LinPedidos[0].PorcentajeIva,
                     CabFactura = f
                 });
+                f.TotalFactura = p.TotalPedido - p.TotalFacturado;
                 ctx.SaveChanges();
             }
             return f;

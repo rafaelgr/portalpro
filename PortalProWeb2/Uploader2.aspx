@@ -82,7 +82,7 @@
                                     break;
                             }
                             setCookie("factura", JSON.stringify(data), 1);
-                            returnUrl = "factura.html?caller=loader";
+                            returnUrl = "factura2.html?caller=loader";
                             break;
                         case "Pedido":
                             data = JSON.parse(getCookie("pedido"));

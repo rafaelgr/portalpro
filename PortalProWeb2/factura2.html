@@ -16,7 +16,7 @@
         <link rel="stylesheet" href="css/font-awesome-ie7.min.css" />
         <![endif]-->
 
-        <!-- page specific plugin styles -->º   + 
+        <!-- page specific plugin styles -->
 
         <!-- ace styles -->
         <link rel="stylesheet" href="css/ace.min.css" />
@@ -77,11 +77,8 @@
                             <div class="span12">
                                 <label>
                                     Proveedor
-                                    <a onclick="formSearch('Proveedor');">
-                                        <i class="icon-search"></i>
-                                    </a>
                                 </label>
-                                <input id="Proveedor" data-bind="value: Proveedor.NombreComercial" name="Proveedor" required style="width:100%;" />
+                                <input id="Proveedor" data-bind="value: Proveedor.NombreComercial" name="Proveedor" disabled style="width:100%;" />
                                 <input id="ProveedorId" data-bind="value: Proveedor.ProveedorId" type="hidden" />
                             </div>
                         </div>
@@ -372,7 +369,7 @@
             var gridDataSource = new kendo.data.DataSource({
                 transport: {
                     read: {
-                        url: ari_hosts.webapi + "/api/factura?proveedorId=" + getCookie("ari_proveedorId") + "&tk=" + getCookie("ari_tique"),
+                        url: ari_hosts.webapi + "/api/factura?proveedorGId=" + getCookie("ari_proveedorId") + "&tk=" + getCookie("ari_tique"),
                         dataType: "json",
                         type: "GET",
                         contentType: "application/json"
@@ -543,9 +540,9 @@
                     enGeneracion = false;
                 }
                 // controlar que no se den de alta facturas a 0
-                if (vm.TotalFactura() == "" && vm.CabFacturaId() != "") {
-                    gridDelete2(vm.CabFacturaId());
-                }
+                //if (vm.TotalFactura() == "" && vm.CabFacturaId() != "") {
+                //    gridDelete2(vm.CabFacturaId());
+                //}
                 // ocultar posibles mensajes de validación 
                 validator.hideMessages();
                 $("#factura-grid").show();
@@ -587,8 +584,8 @@
                 vm.FechaEmision("");
                 vm.TotalFactura("");
                 vm.FechaAlta("");
-                vm.Proveedor.ProveedorId("");
-                vm.Proveedor.NombreComercial("");
+                vm.Proveedor.ProveedorId(getCookie("ari_proveedorId"));
+                vm.Proveedor.NombreComercial(getCookie("ari_proveedorNombre"));
                 vm.LineasFactura([]);
                 vm.FacturaPdf.Url("");
                 vm.FacturaXml.Url("");
@@ -782,7 +779,7 @@
                 saveDataCookie();
                 var ownURL = document.URL;
                 var userId = getCookie("ari_userId");
-                var targetURL = "Uploader.aspx?ReturnUrl=" + ownURL
+                var targetURL = "Uploader2.aspx?ReturnUrl=" + ownURL
                     + "&Application=PortalPro"
                     + "&UserId=" + userId
                     + "&FormId=Factura"
@@ -843,7 +840,7 @@
                     kendo.culture("es-ES");
                     // controlar la salida de la página al cierre como si fuera
                     // el botón exit
-                    window.onbeforeunload = formExit;
+                    // window.onbeforeunload = formExit;
                 });
             })(jQuery);
         </script>

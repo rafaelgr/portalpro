@@ -49,8 +49,6 @@ namespace PortalProWebApi.Controllers
             }
         }
 
-
-
         /// <summary>
         /// Devuelve la línea de factura que coincide con el id proporcionado
         /// </summary>

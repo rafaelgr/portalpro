@@ -2,7 +2,7 @@
 <html lang="es">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-        <title> Pedidos en gestión </title>
+        <title> Histórico de pedidos </title>
         <meta name="description" content="" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <!-- basic styles -->
@@ -48,14 +48,14 @@
                             <span class="divider"><i class="icon-angle-right"></i></span>
                             <a href="administracion2.html">Administración</a>
                             <span class="divider"><i class="icon-angle-right"></i></span>
-                            <a href="pedido2.html">Pedidos</a>
+                            <a href="pedidoH.html">Histórico de pedidos</a>
                         </li>
                     </ul><!--.breadcrumb-->
                 </div><!--#breadcrumbs-->
                 <div id="page-content" class="clearfix">
                     <div class="page-header position-relative">
                         <h1>
-                            Pedidos en gestión <i id="isearch" class="icon-search" style="display:none;"></i>
+                            Histórico de pedidos <i id="isearch" class="icon-search" style="display:none;"></i>
                         </h1>
                     </div>
                     <div id="pedido-grid" class="row-fluid">
@@ -114,7 +114,7 @@
                         <div class="row-fluid">
                             <div id="UPDF" style="margin-bottom:10px;"  >
                                 Fichero PDF que contiene el pedido
-                                <a data-bind="attr: { href: PedidoPdf.Url }" target="_blank">Ver fichero asociado</a>
+                                <a data-bind="attr: { href: PedidoPdf.Url }" target="_blank">Ver fichero cargado</a>
                                 <br />
                                 <span data-bind="text: PedidoPdf.Url"></span>
                             </div>
@@ -132,6 +132,7 @@
                                             <th class="hidden-480">ID</th>
                                             <th>Descripción</th>
                                             <th style="text-align:right">Importe</th>
+                                            <th class="hidden-480" style="text-align:right">% IVA</th>
                                         </tr>
                                     </thead>
                                     <tbody data-bind="foreach: LineasPedido">
@@ -142,6 +143,9 @@
                                             </td>
                                             <td >
                                                 <input class="span12" style="text-align:right" data-bind="value: Importe" type="number" min="1" name="Importe" disabled/>
+                                            </td>
+                                            <td class="hidden-480">
+                                                <input class="span12"  style="text-align:right" data-bind="value: PorcentajeIva" type="number" min="1" name="PorcentajeIva" disabled/>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -179,9 +183,6 @@
                 <div class="pull-right">
                     <button class="btn btn-small btn-primary" onclick="formEdit(#=PedidoId#);" title="Ver registro">
                         <i class="icon-pencil icon-white"></i>
-                    </button>
-                    <button class="btn btn-small btn-primary" onclick="gridNewFactura(#=PedidoId#,'#=NumPedido#');" title="Generar factura desde pedido">
-                        <i class="icon-cog icon-white"></i>
                     </button>
                 </div>
             </script>
@@ -325,7 +326,7 @@
             var gridDataSource = new kendo.data.DataSource({
                 transport: {
                     read: {
-                        url: ari_hosts.webapi + "/api/pedido?proveedorGId=" + getCookie("ari_proveedorId") + "&tk=" + getCookie("ari_tique"),
+                        url: ari_hosts.webapi + "/api/pedido?proveedorHId=" + getCookie("ari_proveedorId") + "&tk=" + getCookie("ari_tique"),
                         dataType: "json",
                         type: "GET",
                         contentType: "application/json"
@@ -716,7 +717,7 @@
                 saveDataCookie();
                 switch (option) {
                     case "Proveedor":
-                        window.open("proveedor2.html?mode=S&caller=pedido", '_self');
+                        window.open("proveedor.html?mode=S&caller=pedido", '_self');
                         break;
                 }
             }
@@ -725,7 +726,7 @@
                 saveDataCookie();
                 var ownURL = document.URL;
                 var userId = getCookie("ari_userId");
-                var targetURL = "Uploader2.aspx?ReturnUrl=" + ownURL
+                var targetURL = "Uploader.aspx?ReturnUrl=" + ownURL
                     + "&Application=PortalPro"
                     + "&UserId=" + userId
                     + "&FormId=Pedido"
