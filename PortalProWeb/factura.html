@@ -183,6 +183,15 @@
                                 </button>
                             </div>
                         </div>
+                        <div class="row-fluid" style="padding-top:10px;">
+                            <div class="span2">
+                                <span class="blue">Historial</span>
+                            </div>
+                            <div class="span10">
+                                <div id="Historial"></div>
+                            </div>
+                        </div>
+
                     </div><!-- #usuario-form -->
                 </div><!--/#page-content-->
             </div><!-- #main-content -->
@@ -287,6 +296,7 @@
                 self.FechaEmision = ko.observable();
                 self.TotalFactura = ko.observable();
                 self.Estado = ko.observable();
+                self.Historial = ko.observable();
                 self.Proveedor = {
                     ProveedorId: ko.observable(),
                     NombreComercial: ko.observable()
@@ -617,6 +627,8 @@
                 vm.CabFacturaId(data.CabFacturaId);
                 vm.NumFactura(data.NumFactura);
                 vm.Estado(data.Estado);
+                vm.Historial(data.Historial);
+                $("#Historial").html(vm.Historial());
                 if (data.FechaEmision != "")
                     vm.FechaEmision(moment(data.FechaEmision).format("DD/MM/YYYY"));
                 if (data.FechaAlta != "")
@@ -844,9 +856,6 @@
                     }
                     // establecer el idioma
                     kendo.culture("es-ES");
-                    // controlar la salida de la página al cierre como si fuera
-                    // el botón exit
-                    window.onbeforeunload = formExit;
                 });
             })(jQuery);
         </script>

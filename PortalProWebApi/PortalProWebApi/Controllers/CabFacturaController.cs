@@ -39,6 +39,30 @@ namespace PortalProWebApi.Controllers
             }
         }
 
+        public virtual IEnumerable<CabFactura> GetPorEstado(string estado, string tk)
+        {
+            using (PortalProContext ctx = new PortalProContext())
+            {
+                if (CntWebApiSeguridad.CheckTicket(tk, ctx))
+                {
+                    IEnumerable<CabFactura> facturas = (from f in ctx.CabFacturas
+                                                        where f.Estado == estado
+                                                        select f).ToList<CabFactura>();
+                    // fetch estrategy, necesaria para poder devolver el grupo junto con cada usuariuo
+                    FetchStrategy fs = new FetchStrategy();
+                    fs.LoadWith<CabFactura>(x => x.Proveedor);
+                    fs.LoadWith<CabFactura>(x => x.DocumentoPdf);
+                    fs.LoadWith<CabFactura>(x => x.DocumentoXml);
+                    facturas = ctx.CreateDetachedCopy<IEnumerable<CabFactura>>(facturas, fs);
+                    return facturas;
+                }
+                else
+                {
+                    throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.Unauthorized, "Se necesita tique de autorización (CabFactura)"));
+                }
+            }
+        }
+
         public virtual IEnumerable<CabFactura> Get(string proveedorId, string tk)
         {
             using (PortalProContext ctx = new PortalProContext())
@@ -546,6 +570,79 @@ namespace PortalProWebApi.Controllers
                 }
                 factura.Historial += String.Format("{0:dd/MM/yyyy hh:mm:ss} La factura {1} con Total {2:0.0} € has sido modificada con estado {3} <br/>",
                     DateTime.Now, factura.NumFactura, factura.TotalFactura, factura.Estado);
+                ctx.SaveChanges();
+                return ctx.CreateDetachedCopy<CabFactura>(factura, x => x.Proveedor, x => x.DocumentoPdf, x => x.DocumentoXml);
+            }
+        }
+
+        public virtual CabFactura PutCambioEstado(int id, CabFactura factura,string estado, string motivo, string userId, string tk)
+        {
+            using (PortalProContext ctx = new PortalProContext())
+            {
+                // comprobar el tique
+                if (!CntWebApiSeguridad.CheckTicket(tk, ctx))
+                {
+                    throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.Unauthorized, "Se necesita tique de autorización (CabFactura)"));
+                }
+                // comprobar los formatos
+                if (factura == null || id != factura.CabFacturaId)
+                {
+                    throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.BadRequest));
+                }
+                // primero buscamos si un factura con ese id existe
+                CabFactura cfac = (from f in ctx.CabFacturas
+                                   where f.CabFacturaId == id
+                                   select f).FirstOrDefault<CabFactura>();
+                // existe?
+                if (cfac == null)
+                {
+                    throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotFound, "No hay una factura con el id proporcionado (CabFactura)"));
+                }
+                // Controlamos las propiedades que son en realidad objetos.
+                int proveedorId = 0;
+                if (factura.Proveedor != null)
+                {
+                    proveedorId = factura.Proveedor.ProveedorId;
+                    factura.Proveedor = null;
+                }
+                int documentoPdfId = 0;
+                if (factura.DocumentoPdf != null)
+                {
+                    documentoPdfId = factura.DocumentoPdf.DocumentoId;
+                    factura.DocumentoPdf = null;
+                }
+                int documentoXmlId = 0;
+                if (factura.DocumentoXml != null)
+                {
+                    documentoXmlId = factura.DocumentoXml.DocumentoId;
+                    factura.DocumentoXml = null;
+                }
+                ctx.AttachCopy<CabFactura>(factura);
+                // volvemos a leer el objecto para que lo maneje este contexto.
+                factura = (from f in ctx.CabFacturas
+                           where f.CabFacturaId == id
+                           select f).FirstOrDefault<CabFactura>();
+                if (proveedorId != 0)
+                {
+                    factura.Proveedor = (from p in ctx.Proveedors
+                                         where p.ProveedorId == proveedorId
+                                         select p).FirstOrDefault<Proveedor>();
+                }
+                if (documentoPdfId != 0)
+                {
+                    factura.DocumentoPdf = (from d in ctx.Documentos
+                                            where d.DocumentoId == documentoPdfId
+                                            select d).FirstOrDefault<Documento>();
+                }
+                if (documentoXmlId != 0)
+                {
+                    factura.DocumentoXml = (from d in ctx.Documentos
+                                            where d.DocumentoId == documentoXmlId
+                                            select d).FirstOrDefault<Documento>();
+                }
+                factura.Estado = estado;
+                factura.Historial += String.Format("{0:dd/MM/yyyy hh:mm:ss} La factura {1} con Total {2:0.0} € ha pasado al estado {3} por el usuario {4} con el motivo '{5}' <br/>",
+                    DateTime.Now, factura.NumFactura, factura.TotalFactura, factura.Estado, userId, motivo);
                 ctx.SaveChanges();
                 return ctx.CreateDetachedCopy<CabFactura>(factura, x => x.Proveedor, x => x.DocumentoPdf, x => x.DocumentoXml);
             }
