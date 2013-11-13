@@ -526,7 +526,7 @@
             function loadData(id) {
                 $.ajax({
                     type: "GET",
-                    url: ari_hosts.webapi + "/api/pedido/" + id + "/?tk=" + getCookie("ari_tique"),
+                    url: ari_hosts.webapi + "/api/pedido/" + id + "/?application=PortalPro2&tk=" + getCookie("ari_tique"),
                     dataType: "json",
                     contentType: "application/json",
                     success: function (data, textStatus) {

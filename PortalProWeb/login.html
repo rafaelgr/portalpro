@@ -37,7 +37,7 @@
                                     <i class="icon-briefcase"></i>Portal de proveedores
                                 </h1>
                                 <h4>
-                                    &copy; Ariadna Software  VRS 2013.2.0.2
+                                    &copy; Ariadna Software  VRS 2013.2.0.3
                                 </h4>
                             </div>
                         </div> <!--title container-->
@@ -100,7 +100,7 @@
                         var tique = data;
                         // guardar en la cookie correspondiente
                         setCookie("ari_tique", tique.Codigo, 1);
-                        setCookie("ari_userId", tique.Usuario.UsuarioId, 1);
+                        setCookie("ari_userId", "G" + tique.Usuario.UsuarioId, 1);
                         // ir a la página principal
                         window.open("main.html", '_self');
                     },

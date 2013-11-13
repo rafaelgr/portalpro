@@ -39,7 +39,7 @@
                                     <i class="icon-bar-chart"></i>Portal de proveedores
                                 </h1>
                                 <h4>
-                                    VRS 2013.2.0.2
+                                    VRS 2013.2.0.3
                                 </h4>
                             </div>
                         </div> <!--title container-->
@@ -102,7 +102,7 @@
                         var tique = data;
                         // guardar en la cookie correspondiente
                         setCookie("ari_tique", tique.Codigo, 1);
-                        setCookie("ari_userId", tique.UsuarioProveedor.UsuarioProveedorId, 1);
+                        setCookie("ari_userId", "U" + tique.UsuarioProveedor.UsuarioProveedorId, 1);
                         setCookie("ari_proveedorId", tique.UsuarioProveedor.Proveedor.ProveedorId, 1);
                         setCookie("ari_proveedorNombre", tique.UsuarioProveedor.Proveedor.NombreComercial, 1);
                         // ir a la página principal

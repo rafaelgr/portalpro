@@ -409,7 +409,7 @@
             <param name="tk">Código del tique de autorización (Véase "Login")</param>
             <returns></returns>
         </member>
-        <member name="M:PortalProWebApi.Controllers.FacturaController.Get(System.Int32,System.String)">
+        <member name="M:PortalProWebApi.Controllers.FacturaController.Get(System.Int32,System.String,System.String)">
             <summary>
             Obtiene la cabecera de factura cuyo ID corresponde con el pasado
             </summary>
@@ -449,7 +449,7 @@
             <param name="tk">Código del tique de autorización (Véase "Login")</param>
             <returns></returns>
         </member>
-        <member name="M:PortalProWebApi.Controllers.PedidoController.Get(System.Int32,System.String)">
+        <member name="M:PortalProWebApi.Controllers.PedidoController.Get(System.Int32,System.String,System.String)">
             <summary>
             Obtiene la cabecera de pedido cuyo ID corresponde con el pasado
             </summary>

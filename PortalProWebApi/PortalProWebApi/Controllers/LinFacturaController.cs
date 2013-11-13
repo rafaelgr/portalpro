@@ -145,7 +145,10 @@ namespace PortalProWebApi.Controllers
                 {
                     throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotFound, "No existe una factura con el id proporcionado (LinFactura)"));
                 }
+                // eliminamos las líneas de fcatura anteriores para solo dar de alta estas
+                PortalProWebUtility.EliminarLineasFactura(factura.LinFacturas, ctx);
                 // comprobamos que todas las líneas cumplen con los mismos
+                // la línea que lo cumpla será dada de alta y los totales del pedido y la factura actualizados.
                 string ms = "";
                 foreach (LinFactura linea in lineas)
                 {
@@ -156,30 +159,6 @@ namespace PortalProWebApi.Controllers
                 {
                     throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotFound, ms));
                 }
-                // eliminamos las líneas de fcatura anteriores para solo dar de alta estas
-                PortalProWebUtility.EliminarLineasFactura(factura.LinFacturas, ctx);
-                // ahora damos de alta las nuevas lineas 
-                decimal totalFactura = 0;
-                foreach (LinFactura linea in lineas)
-                {
-                    LinFactura l = new LinFactura()
-                    {
-                        NumeroPedido = linea.NumeroPedido,
-                        Descripcion = linea.Descripcion,
-                        Importe = linea.Importe,
-                        PorcentajeIva = linea.PorcentajeIva,
-                        CabFactura = factura
-                    };
-                    totalFactura += linea.Importe;
-                    // actualizamos lo facturado en pedidos
-                    Pedido ped = (from p in ctx.Pedidos
-                                  where p.NumPedido == l.NumeroPedido
-                                  select p).FirstOrDefault<Pedido>();
-                    ped.TotalFacturado = ped.TotalFacturado + l.Importe;
-                    ctx.Add(l);
-                }
-                factura.TotalFactura = totalFactura;
-                ctx.SaveChanges();
             }
             return true;
         }

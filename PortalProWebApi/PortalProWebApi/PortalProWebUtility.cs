@@ -254,6 +254,16 @@ namespace PortalProWebApi
             string searchFileName = ""; // nombre con wildcards para búsqueda
             // leemos el directorio en el que se encuentran las cargas
             string directorio = ConfigurationManager.AppSettings["UploadRepository"];
+            switch (application)
+            {
+                case "PortalPro":
+                    directorio = ConfigurationManager.AppSettings["UploadRepository"];
+                    break;
+                case "PortalPro2":
+                    directorio = ConfigurationManager.AppSettings["UploadRepository2"];
+                    break;
+            }
+
             pathFileName = directorio;
             searchFileName = String.Format("{0}-{1}-{2}-{3}-*", application, userId, formId, fieldId);
             string[] archivos = Directory.GetFiles(pathFileName, searchFileName);
@@ -267,12 +277,21 @@ namespace PortalProWebApi
             return archivo;
         }
 
-        public static Documento CrearDocumentoDesdeArchivoCargado(string fichero, PortalProContext ctx)
+        public static Documento CrearDocumentoDesdeArchivoCargado(string application, string fichero, PortalProContext ctx)
         {
             Documento d = null;
             // siempre creamos un nuevo documento
             string portalProRepo = ConfigurationManager.AppSettings["PortalProRepository"];
             string uploadRepo = ConfigurationManager.AppSettings["UploadRepository"];
+            switch (application)
+            {
+                case "PortalPro":
+                    uploadRepo = ConfigurationManager.AppSettings["UploadRepository"];
+                    break;
+                case "PortalPro2":
+                    uploadRepo = ConfigurationManager.AppSettings["UploadRepository2"];
+                    break;
+            }
             d = new Documento();
             int pos = fichero.LastIndexOf(".");
             if (pos > -1)
@@ -303,29 +322,39 @@ namespace PortalProWebApi
             ctx.SaveChanges();
         }
 
-        public static string CargarUrlDocumento(Documento d, string tk)
+        public static string CargarUrlDocumento(string application, Documento d, string tk)
         {
-            if (d == null) return "";
+            if (d == null)
+                return "";
             string url = "";
             // copiamos el fichero del repositiorio al directorio de descargas
             string portalProRepo = ConfigurationManager.AppSettings["PortalProRepository"];
             string downloadRepository = ConfigurationManager.AppSettings["DownloadRepository"];
-            string fichero = String.Format("{0:000000}-{1}",d.DocumentoId, d.NomFichero);
+            switch (application)
+            {
+                case "PortalPro":
+                    downloadRepository = ConfigurationManager.AppSettings["DownloadRepository"];
+                    break;
+                case "PortalPro2":
+                    downloadRepository = ConfigurationManager.AppSettings["DownloadRepository2"];
+                    break;
+            }
+            string fichero = String.Format("{0:000000}-{1}", d.DocumentoId, d.NomFichero);
             string origen = Path.Combine(portalProRepo, fichero);
-            string destino = Path.Combine(downloadRepository,String.Format("{0}-{1}",tk,fichero));
+            string destino = Path.Combine(downloadRepository, String.Format("{0}-{1}", tk, fichero));
             url = String.Format("{0}-{1}", tk, fichero);
-            File.Copy(origen, destino,true);
+            File.Copy(origen, destino, true);
             return url;
         }
+
         public static void BorrarDocumentos(string tk) 
         {
             string downloadRepository = ConfigurationManager.AppSettings["DownloadRepository"];
-            foreach(FileInfo f in new DirectoryInfo(downloadRepository).GetFiles(String.Format("{0}*", tk)))
+            foreach (FileInfo f in new DirectoryInfo(downloadRepository).GetFiles(String.Format("{0}*", tk)))
             {
                 f.Delete();
             }
         }
-
 
         public static CabFactura GenerarFacturaDesdePedido(Pedido p, PortalProContext ctx)
         {
@@ -335,7 +364,7 @@ namespace PortalProWebApi
                 Proveedor = p.Proveedor,
                 FechaAlta = DateTime.Now,
                 FechaEmision = DateTime.Now,
-                Estado = "RECIBIDA"
+                Estado = "ACEPTADA"
             };
             ctx.Add(f);
             ctx.SaveChanges();
@@ -351,10 +380,11 @@ namespace PortalProWebApi
                         NumeroPedido = p.NumPedido,
                         Importe = lp.Importe,
                         Descripcion = lp.Descripcion,
-                        PorcentajeIva = lp.PorcentajeIva,
+                        PorcentajeIva = 0,
                         CabFactura = f
                     });
                     f.TotalFactura += lp.Importe;
+                    p.TotalFacturado += lp.Importe;
                     ctx.SaveChanges();
                 }
             }
@@ -367,12 +397,14 @@ namespace PortalProWebApi
                     NumeroPedido = p.NumPedido,
                     Importe = p.TotalPedido - p.TotalFacturado,
                     Descripcion = "Resto de pedido",
-                    PorcentajeIva = p.LinPedidos[0].PorcentajeIva,
+                    PorcentajeIva = 0,
                     CabFactura = f
                 });
                 f.TotalFactura = p.TotalPedido - p.TotalFacturado;
+                p.TotalFacturado = p.TotalPedido;
                 ctx.SaveChanges();
             }
+
             return f;
         }
 
@@ -387,7 +419,7 @@ namespace PortalProWebApi
                 // caso (1) es el más sencillo, una factura con tantas líneas como tenga el pedido
                 foreach (LinPedido lp in p.LinPedidos)
                 {
-                    llfac.Add( new LinFactura()
+                    llfac.Add(new LinFactura()
                     {
                         LinFacturaId = 0,
                         NumeroPedido = p.NumPedido,
@@ -412,7 +444,6 @@ namespace PortalProWebApi
             return llfac;
         }
 
-
         public static string ComprobarLineaFacturaContraPedido(CabFactura factura, LinFactura l, PortalProContext ctx)
         {
             string m = "";
@@ -423,6 +454,11 @@ namespace PortalProWebApi
             if (p == null)
             {
                 m = String.Format("El pedido {0} no existe.", l.NumeroPedido);
+                return m;
+            }
+            if (p.Estado == "FACTURADO" || p.Estado == "CANCELADO")
+            {
+                m = String.Format("El pedido {0} ya ha sido facturado o está cancelado.", l.NumeroPedido);
                 return m;
             }
             if (p.Proveedor.ProveedorId != factura.Proveedor.ProveedorId)
@@ -436,6 +472,19 @@ namespace PortalProWebApi
                 m = String.Format("El importe {0:##,###,##0.00} supera el resto por facturar del pedido {1}.", l.Importe, l.NumeroPedido);
                 return m;
             }
+            // el estado por defecto de una factura es ACEPTADA, pero si es de un pedido ABIERTO  deberá ser RECIBIDA
+            if (p.Estado == "ABIERTO")
+            {
+                factura.Estado = "RECIBIDA";
+                factura.Historial += String.Format("{0:dd/MM/yyyy hh:mm:ss} La factura {1} pasa a estado {3} debido a que el pedido {4} no está recibido, se espera a su aceptación manual <br/>",
+    DateTime.Now, factura.NumFactura, factura.TotalFactura, factura.Estado, p.NumPedido);
+            }
+            // si llega aquí es una linea a dar de alta.
+            factura.TotalFactura += l.Importe;
+            p.TotalFacturado += l.Importe;
+            l.CabFactura = factura;
+            ctx.Add(l);
+            ctx.SaveChanges();
             return m;
         }
 
@@ -450,9 +499,11 @@ namespace PortalProWebApi
                 if (ped != null)
                 {
                     ped.TotalFacturado = ped.TotalFacturado - l.Importe;
-                    if (ped.TotalFacturado < 0) ped.TotalFacturado = 0;
-                    ctx.Delete(l);
+                    if (ped.TotalFacturado < 0)
+                        ped.TotalFacturado = 0;
                 }
+                l.CabFactura.TotalFactura = l.CabFactura.TotalFactura - l.Importe;
+                ctx.Delete(l);
             }
             ctx.SaveChanges();
         }

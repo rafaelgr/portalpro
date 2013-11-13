@@ -24,13 +24,6 @@ namespace PortalProWebApi.Controllers
                 {
                     IEnumerable<Pedido> pedidos = (from f in ctx.Pedidos
                                                    select f).ToList<Pedido>();
-
-                    // Copiar y montar las url de los documentos asociados.
-                    foreach (Pedido ped in pedidos)
-                    {
-                        if (ped.DocumentoPdf != null)
-                            ped.DocumentoPdf.DescargaUrl = PortalProWebUtility.CargarUrlDocumento(ped.DocumentoPdf, tk);
-                    }
                     // fetch estrategy, necesaria para poder devolver el grupo junto con cada usuariuo
                     FetchStrategy fs = new FetchStrategy();
                     fs.LoadWith<Pedido>(x => x.Proveedor);
@@ -56,13 +49,6 @@ namespace PortalProWebApi.Controllers
                     IEnumerable<Pedido> pedidos = (from f in ctx.Pedidos
                                                    where f.Proveedor.ProveedorId == pId
                                                    select f).ToList<Pedido>();
-
-                    // Copiar y montar las url de los documentos asociados.
-                    foreach (Pedido ped in pedidos)
-                    {
-                        if (ped.DocumentoPdf != null)
-                            ped.DocumentoPdf.DescargaUrl = PortalProWebUtility.CargarUrlDocumento(ped.DocumentoPdf, tk);
-                    }
                     // fetch estrategy, necesaria para poder devolver el grupo junto con cada usuariuo
                     FetchStrategy fs = new FetchStrategy();
                     fs.LoadWith<Pedido>(x => x.Proveedor);
@@ -89,13 +75,6 @@ namespace PortalProWebApi.Controllers
                                                    where f.Proveedor.ProveedorId == pId
                                                    && (f.Estado == "ABIERTO" || f.Estado == "RECIBIDO")
                                                    select f).ToList<Pedido>();
-
-                    // Copiar y montar las url de los documentos asociados.
-                    foreach (Pedido ped in pedidos)
-                    {
-                        if (ped.DocumentoPdf != null)
-                            ped.DocumentoPdf.DescargaUrl = PortalProWebUtility.CargarUrlDocumento(ped.DocumentoPdf, tk);
-                    }
                     // fetch estrategy, necesaria para poder devolver el grupo junto con cada usuariuo
                     FetchStrategy fs = new FetchStrategy();
                     fs.LoadWith<Pedido>(x => x.Proveedor);
@@ -122,13 +101,6 @@ namespace PortalProWebApi.Controllers
                                                    where f.Proveedor.ProveedorId == pId
                                                    && (f.Estado == "FACTURADO" || f.Estado == "CANCELADO")
                                                    select f).ToList<Pedido>();
-
-                    // Copiar y montar las url de los documentos asociados.
-                    foreach (Pedido ped in pedidos)
-                    {
-                        if (ped.DocumentoPdf != null)
-                            ped.DocumentoPdf.DescargaUrl = PortalProWebUtility.CargarUrlDocumento(ped.DocumentoPdf, tk);
-                    }
                     // fetch estrategy, necesaria para poder devolver el grupo junto con cada usuariuo
                     FetchStrategy fs = new FetchStrategy();
                     fs.LoadWith<Pedido>(x => x.Proveedor);
@@ -150,7 +122,7 @@ namespace PortalProWebApi.Controllers
         /// <param name="id">Identificador único del pedido</param>
         /// <param name="tk">Código del tique de autorización (Véase "Login")</param>
         /// <returns></returns>
-        public virtual Pedido Get(int id, string tk)
+        public virtual Pedido Get(int id, string application, string tk)
         {
             using (PortalProContext ctx = new PortalProContext())
             {
@@ -163,7 +135,7 @@ namespace PortalProWebApi.Controllers
                     {
                         //
                         if (pedido.DocumentoPdf != null)
-                            pedido.DocumentoPdf.DescargaUrl = PortalProWebUtility.CargarUrlDocumento(pedido.DocumentoPdf, tk);
+                            pedido.DocumentoPdf.DescargaUrl = PortalProWebUtility.CargarUrlDocumento(application, pedido.DocumentoPdf, tk);
                         pedido = ctx.CreateDetachedCopy<Pedido>(pedido, x => x.Proveedor, x => x.DocumentoPdf);
                         return pedido;
                     }
@@ -246,8 +218,19 @@ namespace PortalProWebApi.Controllers
                 {
                     throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.BadRequest));
                 }
+                // La aplicación ahora depende del comienzo del usuario
+                string application = "PortalPro";
+                switch (userId.Substring(0, 1))
+                {
+                    case "U":
+                        application = "PortalPro2";
+                        break;
+                    case "G":
+                        application = "PortalPro";
+                        break;
+                }
                 // comprobamos si existen los ficheros que necesitamos
-                string fPdf = PortalProWebUtility.BuscarArchivoCargado("PortalPro", userId, "Pedido", "PDF");
+                string fPdf = PortalProWebUtility.BuscarArchivoCargado(application, userId, "Pedido", "PDF");
                 if (fPdf == "")
                 {
                     throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotFound, "Se necesita un fichero PDF asociado a la pedido (Pedido)"));
@@ -281,7 +264,7 @@ namespace PortalProWebApi.Controllers
                 }
                 if (fPdf != "")
                 {
-                    pedido.DocumentoPdf = PortalProWebUtility.CrearDocumentoDesdeArchivoCargado(fPdf, ctx);
+                    pedido.DocumentoPdf = PortalProWebUtility.CrearDocumentoDesdeArchivoCargado(application,fPdf, ctx);
                 }
                 pedido.FechaAlta = DateTime.Now;
                 ctx.SaveChanges();
@@ -312,8 +295,19 @@ namespace PortalProWebApi.Controllers
                 {
                     throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotFound, "No hay una factura con el id proporcionado (Pedido)"));
                 }
+                // La aplicación ahora depende del comienzo del usuario
+                string application = "PortalPro";
+                switch (userId.Substring(0, 1))
+                {
+                    case "U":
+                        application = "PortalPro2";
+                        break;
+                    case "G":
+                        application = "PortalPro";
+                        break;
+                }
                 // En la actualización a lo mejor no han cargado ningún archivo
-                string fPdf = PortalProWebUtility.BuscarArchivoCargado("PortalPro", userId, "Factura", "PDF");
+                string fPdf = PortalProWebUtility.BuscarArchivoCargado(application, userId, "Factura", "PDF");
                 // Controlamos las propiedades que son en realidad objetos.
                 int proveedorId = 0;
                 if (pedido.Proveedor != null)
@@ -351,7 +345,7 @@ namespace PortalProWebApi.Controllers
                 if (fPdf != "")
                 {
                     doc = pedido.DocumentoPdf;
-                    pedido.DocumentoPdf = PortalProWebUtility.CrearDocumentoDesdeArchivoCargado(fPdf, ctx);
+                    pedido.DocumentoPdf = PortalProWebUtility.CrearDocumentoDesdeArchivoCargado(application,fPdf, ctx);
                     PortalProWebUtility.EliminarDocumento(doc, ctx);
                 }
                 ctx.SaveChanges();

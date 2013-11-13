@@ -187,16 +187,16 @@
         <orm:field name="_iBAN" property="IBAN" uniqueId="82ca5e94-af3f-41b2-8b5d-113b1ff33e8b" type="System.String">
           <orm:column name="IBAN" sql-type="varchar" nullable="false" length="255" scale="0" ado-type="" />
         </orm:field>
-        <orm:field name="_nif" property="Nif" uniqueId="f5142d9d-9def-4ed7-9f7c-b8c083655907" type="System.String" />
         <orm:field name="_actividadPrincipal" property="ActividadPrincipal" uniqueId="dd2b4782-b024-4f59-8707-98e9e5a31409" type="System.String">
           <orm:column name="ActividadPrincipal" sql-type="varchar" nullable="true" length="255" scale="0" ado-type="" />
         </orm:field>
         <orm:field name="_codAx" property="CodAx" uniqueId="44ec3302-0f77-4475-9c4a-72c4c1355f9d" type="System.String">
-          <orm:column nullable="true" scale="0" length="10" sql-type="varchar" name="CodAx" ado-type="" />
+          <orm:column name="CodAx" sql-type="varchar" nullable="true" length="10" scale="0" ado-type="" />
         </orm:field>
         <orm:field name="_facAbierto" property="FacAbierto" uniqueId="ccc2361a-b5bc-4b01-ab15-15dbd05083b1" type="System.Boolean">
-          <orm:column nullable="false" scale="0" length="1" sql-type="bit" name="FacAbierto" ado-type="" />
+          <orm:column name="FacAbierto" sql-type="bit" nullable="false" length="1" scale="0" ado-type="" />
         </orm:field>
+        <orm:field name="_nif" property="Nif" uniqueId="f5142d9d-9def-4ed7-9f7c-b8c083655907" type="System.String" />
         <orm:field name="_grupoProveedor" property="GrupoProveedor" behavior="readwrite" uniqueId="770bad8d-fa9f-4718-81ce-4d10a60b42b8" type="PortalProModelo.GrupoProveedor">
           <orm:reference uniqueId="b14ef8f6-9864-4a68-b3e8-b658ea48dedb" />
         </orm:field>
@@ -445,6 +445,9 @@
         <orm:field name="_estado" property="Estado" uniqueId="44dd7e34-66b3-495b-9ed8-3605848703ed" type="System.String">
           <orm:column name="Estado" sql-type="varchar" nullable="false" length="50" scale="0" ado-type="" />
         </orm:field>
+        <orm:field name="_historial" property="Historial" uniqueId="8a253d04-15e4-4453-bd0a-483156beafb0" type="System.String">
+          <orm:column nullable="true" scale="0" length="0" sql-type="text" name="Historial" ado-type="" />
+        </orm:field>
         <orm:field name="_proveedor" property="Proveedor" behavior="readwrite" uniqueId="a0e7d402-f8cd-4e92-9322-d8fc12ad4d93" type="PortalProModelo.Proveedor">
           <orm:reference uniqueId="9750b7fa-84d1-4309-8275-c1b1677043e2" />
         </orm:field>
@@ -628,8 +631,8 @@
         <orm:column name="EmailFacturas" sql-type="varchar" nullable="false" length="255" scale="0" ado-type="" />
         <orm:column name="IBAN" sql-type="varchar" nullable="false" length="255" scale="0" ado-type="" />
         <orm:column name="ActividadPrincipal" sql-type="varchar" nullable="true" length="255" scale="0" ado-type="" />
-        <orm:column nullable="true" scale="0" length="10" sql-type="varchar" name="CodAx" ado-type="" />
-        <orm:column nullable="false" scale="0" length="1" sql-type="bit" name="FacAbierto" ado-type="" />
+        <orm:column name="CodAx" sql-type="varchar" nullable="true" length="10" scale="0" ado-type="" />
+        <orm:column name="FacAbierto" sql-type="bit" nullable="false" length="1" scale="0" ado-type="" />
       </orm:table>
       <orm:table name="Documento">
         <orm:column name="DocumentoId" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" backend-calculated="true" ado-type="Int32" />
@@ -731,6 +734,7 @@
         <orm:column name="DocumentoXml_DocumentoId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
         <orm:column name="NumFactura" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
         <orm:column name="Estado" sql-type="varchar" nullable="false" length="50" scale="0" ado-type="" />
+        <orm:column nullable="true" scale="0" length="0" sql-type="text" name="Historial" ado-type="" />
         <orm:index name="idx_CabFactura_ProveedorId">
           <orm:columnMapping>
             <orm:column name="ProveedorId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
@@ -1247,6 +1251,7 @@
       <Property Id="f67b1736-31a6-45b0-8fd9-3bfb6ed38450" name="TotalFactura" type="Decimal" label="TotalFactura : Decimal" fieldName="_totalFactura" />
       <Property Id="8e6deabf-9b02-4742-9d69-ad433275fd68" name="NumFactura" label="NumFactura : String" fieldName="_numFactura" />
       <Property Id="44dd7e34-66b3-495b-9ed8-3605848703ed" name="Estado" label="Estado : String" fieldName="_estado" />
+      <Property Id="8a253d04-15e4-4453-bd0a-483156beafb0" name="Historial" label="Historial : String" fieldName="_historial" />
       <AssociationTargets>
         <Association Id="9750b7fa-84d1-4309-8275-c1b1677043e2" SourceMultiplicity="ZeroOne" name="CabFacturaHasProveedor">
           <DomainClassMoniker name="/PortalProContext/Proveedor" />

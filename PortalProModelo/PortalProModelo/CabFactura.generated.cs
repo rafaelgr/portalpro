@@ -102,6 +102,19 @@ namespace PortalProModelo
 			}
 		}
 		
+		private string _historial;
+		public virtual string Historial
+		{
+			get
+			{
+				return this._historial;
+			}
+			set
+			{
+				this._historial = value;
+			}
+		}
+		
 		private Proveedor _proveedor;
 		public virtual Proveedor Proveedor
 		{

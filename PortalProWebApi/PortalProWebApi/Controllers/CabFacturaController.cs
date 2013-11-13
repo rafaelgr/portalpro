@@ -24,13 +24,6 @@ namespace PortalProWebApi.Controllers
                 {
                     IEnumerable<CabFactura> facturas = (from f in ctx.CabFacturas
                                                         select f).ToList<CabFactura>();
-
-                    // Copiar y montar las url de los documentos asociados.
-                    foreach (CabFactura cf in facturas)
-                    {
-                        if (cf.DocumentoPdf != null) cf.DocumentoPdf.DescargaUrl = PortalProWebUtility.CargarUrlDocumento(cf.DocumentoPdf, tk);
-                        if (cf.DocumentoXml != null) cf.DocumentoXml.DescargaUrl = PortalProWebUtility.CargarUrlDocumento(cf.DocumentoXml, tk);
-                    }
                     // fetch estrategy, necesaria para poder devolver el grupo junto con cada usuariuo
                     FetchStrategy fs = new FetchStrategy();
                     fs.LoadWith<CabFactura>(x => x.Proveedor);
@@ -46,7 +39,7 @@ namespace PortalProWebApi.Controllers
             }
         }
 
-        public virtual IEnumerable<CabFactura> Get(string proveedorId,string tk)
+        public virtual IEnumerable<CabFactura> Get(string proveedorId, string tk)
         {
             using (PortalProContext ctx = new PortalProContext())
             {
@@ -57,12 +50,6 @@ namespace PortalProWebApi.Controllers
                                                         where f.Proveedor.ProveedorId == pId
                                                         select f).ToList<CabFactura>();
 
-                    // Copiar y montar las url de los documentos asociados.
-                    foreach (CabFactura cf in facturas)
-                    {
-                        if (cf.DocumentoPdf != null) cf.DocumentoPdf.DescargaUrl = PortalProWebUtility.CargarUrlDocumento(cf.DocumentoPdf, tk);
-                        if (cf.DocumentoXml != null) cf.DocumentoXml.DescargaUrl = PortalProWebUtility.CargarUrlDocumento(cf.DocumentoXml, tk);
-                    }
                     // fetch estrategy, necesaria para poder devolver el grupo junto con cada usuariuo
                     FetchStrategy fs = new FetchStrategy();
                     fs.LoadWith<CabFactura>(x => x.Proveedor);
@@ -86,16 +73,10 @@ namespace PortalProWebApi.Controllers
                 {
                     int pId = int.Parse(proveedorHId);
                     IEnumerable<CabFactura> facturas = (from f in ctx.CabFacturas
-                                                        where f.Proveedor.ProveedorId == pId
-                                                        && (f.Estado == "PAGADA")
+                                                        where f.Proveedor.ProveedorId == pId &&
+                                                              (f.Estado == "PAGADA")
                                                         select f).ToList<CabFactura>();
 
-                    // Copiar y montar las url de los documentos asociados.
-                    foreach (CabFactura cf in facturas)
-                    {
-                        if (cf.DocumentoPdf != null) cf.DocumentoPdf.DescargaUrl = PortalProWebUtility.CargarUrlDocumento(cf.DocumentoPdf, tk);
-                        if (cf.DocumentoXml != null) cf.DocumentoXml.DescargaUrl = PortalProWebUtility.CargarUrlDocumento(cf.DocumentoXml, tk);
-                    }
                     // fetch estrategy, necesaria para poder devolver el grupo junto con cada usuariuo
                     FetchStrategy fs = new FetchStrategy();
                     fs.LoadWith<CabFactura>(x => x.Proveedor);
@@ -119,16 +100,10 @@ namespace PortalProWebApi.Controllers
                 {
                     int pId = int.Parse(proveedorGId);
                     IEnumerable<CabFactura> facturas = (from f in ctx.CabFacturas
-                                                        where f.Proveedor.ProveedorId == pId
-                                                        && (f.Estado != "PAGADA")
+                                                        where f.Proveedor.ProveedorId == pId &&
+                                                              (f.Estado != "PAGADA")
                                                         select f).ToList<CabFactura>();
 
-                    // Copiar y montar las url de los documentos asociados.
-                    foreach (CabFactura cf in facturas)
-                    {
-                        if (cf.DocumentoPdf != null) cf.DocumentoPdf.DescargaUrl = PortalProWebUtility.CargarUrlDocumento(cf.DocumentoPdf, tk);
-                        if (cf.DocumentoXml != null) cf.DocumentoXml.DescargaUrl = PortalProWebUtility.CargarUrlDocumento(cf.DocumentoXml, tk);
-                    }
                     // fetch estrategy, necesaria para poder devolver el grupo junto con cada usuariuo
                     FetchStrategy fs = new FetchStrategy();
                     fs.LoadWith<CabFactura>(x => x.Proveedor);
@@ -150,7 +125,7 @@ namespace PortalProWebApi.Controllers
         /// <param name="id">Identificador único de la factura</param>
         /// <param name="tk">Código del tique de autorización (Véase "Login")</param>
         /// <returns></returns>
-        public virtual CabFactura Get(int id, string tk)
+        public virtual CabFactura Get(int id, string application, string tk)
         {
             using (PortalProContext ctx = new PortalProContext())
             {
@@ -162,8 +137,10 @@ namespace PortalProWebApi.Controllers
                     if (factura != null)
                     {
                         //
-                        if (factura.DocumentoPdf != null) factura.DocumentoPdf.DescargaUrl = PortalProWebUtility.CargarUrlDocumento(factura.DocumentoPdf, tk);
-                        if (factura.DocumentoXml != null) factura.DocumentoXml.DescargaUrl = PortalProWebUtility.CargarUrlDocumento(factura.DocumentoXml, tk);
+                        if (factura.DocumentoPdf != null)
+                            factura.DocumentoPdf.DescargaUrl = PortalProWebUtility.CargarUrlDocumento(application, factura.DocumentoPdf, tk);
+                        if (factura.DocumentoXml != null)
+                            factura.DocumentoXml.DescargaUrl = PortalProWebUtility.CargarUrlDocumento(application, factura.DocumentoXml, tk);
                         factura = ctx.CreateDetachedCopy<CabFactura>(factura, x => x.Proveedor, x => x.DocumentoXml, x => x.DocumentoPdf);
                         return factura;
                     }
@@ -178,7 +155,6 @@ namespace PortalProWebApi.Controllers
                 }
             }
         }
-
 
         /// <summary>
         /// Crear un nueva cabecera de factura
@@ -220,7 +196,7 @@ namespace PortalProWebApi.Controllers
                     factura.DocumentoXml = null;
                 }
                 // las facturas por defecto tienen el estado recibida
-                factura.Estado = "RECIBIDA";
+                factura.Estado = "ACEPTADA";
                 // dar de alta el objeto en la base de datos y devolverlo en el mensaje
                 ctx.Add(factura);
                 if (proveedorId != 0)
@@ -242,12 +218,14 @@ namespace PortalProWebApi.Controllers
                                             select d).FirstOrDefault<Documento>();
                 }
                 factura.FechaAlta = DateTime.Now;
+                factura.Historial += String.Format("{0:dd/MM/yyyy hh:mm:ss} La factura {1} con Total {2:0.0} € has sido creada con estado {3} <br/>",
+                    DateTime.Now, factura.NumFactura, factura.TotalFactura, factura.Estado);
                 ctx.SaveChanges();
                 return ctx.CreateDetachedCopy<CabFactura>(factura, x => x.Proveedor, x => x.DocumentoPdf, x => x.DocumentoXml);
             }
         }
 
-        public virtual CabFactura Post(CabFactura factura,string userId, string tk)
+        public virtual CabFactura Post(CabFactura factura, string userId, string tk)
         {
             using (PortalProContext ctx = new PortalProContext())
             {
@@ -261,14 +239,25 @@ namespace PortalProWebApi.Controllers
                 {
                     throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.BadRequest));
                 }
+                // La aplicación ahora depende del comienzo del usuario
+                string application = "PortalPro";
+                switch (userId.Substring(0, 1))
+                {
+                    case "U":
+                        application = "PortalPro2";
+                        break;
+                    case "G":
+                        application = "PortalPro";
+                        break;
+                }
                 // comprobamos si existen los ficheros que necesitamos
-                string fPdf = PortalProWebUtility.BuscarArchivoCargado("PortalPro", userId, "Factura", "PDF");
+                string fPdf = PortalProWebUtility.BuscarArchivoCargado(application, userId, "Factura", "PDF");
                 if (fPdf == "")
                 {
                     throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotFound, "Se necesita un fichero PDF asociado a la factura (CabFactura)"));
                 }
                 // el archivo Xml no es obligatorio, pero si lo han subido cargamos el fichero
-                string fXml = PortalProWebUtility.BuscarArchivoCargado("PortalPro", userId, "Factura", "XML");
+                string fXml = PortalProWebUtility.BuscarArchivoCargado(application, userId, "Factura", "XML");
                 // Controlamos las propiedades que son en realidad objetos.
                 int proveedorId = 0;
                 if (factura.Proveedor != null)
@@ -289,7 +278,7 @@ namespace PortalProWebApi.Controllers
                     factura.DocumentoXml = null;
                 }
                 // dar de alta el objeto en la base de datos y devolverlo en el mensaje
-                factura.Estado = "RECIBIDA";
+                factura.Estado = "ACEPTADA";
                 ctx.Add(factura);
                 if (proveedorId != 0)
                 {
@@ -311,18 +300,19 @@ namespace PortalProWebApi.Controllers
                 }
                 if (fPdf != "")
                 {
-                    factura.DocumentoPdf = PortalProWebUtility.CrearDocumentoDesdeArchivoCargado(fPdf, ctx);
+                    factura.DocumentoPdf = PortalProWebUtility.CrearDocumentoDesdeArchivoCargado(application, fPdf, ctx);
                 }
                 if (fXml != "")
                 {
-                    factura.DocumentoXml = PortalProWebUtility.CrearDocumentoDesdeArchivoCargado(fXml, ctx);
+                    factura.DocumentoXml = PortalProWebUtility.CrearDocumentoDesdeArchivoCargado(application, fXml, ctx);
                 }
                 factura.FechaAlta = DateTime.Now;
+                factura.Historial += String.Format("{0:dd/MM/yyyy hh:mm:ss} La factura {1} con Total {2:0.0} € has sido creada con estado {3} <br/>",
+                    DateTime.Now, factura.NumFactura, factura.TotalFactura, factura.Estado);
                 ctx.SaveChanges();
                 return ctx.CreateDetachedCopy<CabFactura>(factura, x => x.Proveedor, x => x.DocumentoPdf, x => x.DocumentoXml);
             }
         }
-
 
         public virtual CabFactura Post(string numPed, string tk)
         {
@@ -342,6 +332,9 @@ namespace PortalProWebApi.Controllers
                     throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotFound, "No hay pedido con el identificador pasado (generar factura) (CabFactura)"));
                 }
                 CabFactura factura = PortalProWebUtility.GenerarFacturaDesdePedido(ped, ctx);
+                factura.Historial += String.Format("{0:dd/MM/yyyy hh:mm:ss} La factura {1} con Total {2:0.0} € has sido generada con estado {3} a partir del pedido {4} <br/>",
+                    DateTime.Now, factura.NumFactura, factura.TotalFactura, factura.Estado, numPed);
+                ctx.SaveChanges();
 
                 return ctx.CreateDetachedCopy<CabFactura>(factura, x => x.Proveedor, x => x.DocumentoPdf, x => x.DocumentoXml);
             }
@@ -370,10 +363,21 @@ namespace PortalProWebApi.Controllers
                 {
                     throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotFound, "No hay una factura con el id proporcionado (CabFactura)"));
                 }
+                // La aplicación ahora depende del comienzo del usuario
+                string application = "PortalPro";
+                switch(userId.Substring(0, 1))
+                {
+                    case "U":
+                        application = "PortalPro2";
+                        break;
+                    case "G":
+                        application = "PortalPro";
+                        break;
+                }
                 // En la actualización a lo mejor no han cargado ningún archivo
-                string fPdf = PortalProWebUtility.BuscarArchivoCargado("PortalPro", userId, "Factura", "PDF");
-                 // el archivo Xml no es obligatorio, pero si lo han subido cargamos el fichero
-                string fXml = PortalProWebUtility.BuscarArchivoCargado("PortalPro", userId, "Factura", "XML");
+                string fPdf = PortalProWebUtility.BuscarArchivoCargado(application, userId, "Factura", "PDF");
+                // el archivo Xml no es obligatorio, pero si lo han subido cargamos el fichero
+                string fXml = PortalProWebUtility.BuscarArchivoCargado(application, userId, "Factura", "XML");
                 // Controlamos las propiedades que son en realidad objetos.
                 int proveedorId = 0;
                 if (factura.Proveedor != null)
@@ -393,7 +397,8 @@ namespace PortalProWebApi.Controllers
                     documentoXmlId = factura.DocumentoXml.DocumentoId;
                     factura.DocumentoXml = null;
                 }
-                if (factura.Estado == null) factura.Estado = "RECIBIDA";
+                if (factura.Estado == null)
+                    factura.Estado = "ACEPTADA";
                 // modificar el objeto
                 ctx.AttachCopy<CabFactura>(factura);
                 // volvemos a leer el objecto para que lo maneje este contexto.
@@ -423,15 +428,17 @@ namespace PortalProWebApi.Controllers
                 if (fPdf != "")
                 {
                     doc = factura.DocumentoPdf;
-                    factura.DocumentoPdf = PortalProWebUtility.CrearDocumentoDesdeArchivoCargado(fPdf, ctx);
+                    factura.DocumentoPdf = PortalProWebUtility.CrearDocumentoDesdeArchivoCargado(application, fPdf, ctx);
                     PortalProWebUtility.EliminarDocumento(doc, ctx);
                 }
                 if (fXml != "")
                 {
                     doc = factura.DocumentoXml;
-                    factura.DocumentoXml = PortalProWebUtility.CrearDocumentoDesdeArchivoCargado(fXml, ctx);
+                    factura.DocumentoXml = PortalProWebUtility.CrearDocumentoDesdeArchivoCargado(application, fXml, ctx);
                     PortalProWebUtility.EliminarDocumento(doc, ctx);
                 }
+                factura.Historial += String.Format("{0:dd/MM/yyyy hh:mm:ss} La factura {1} con Total {2:0.0} € has sido modificada con estado {3} <br/>",
+                    DateTime.Now, factura.NumFactura, factura.TotalFactura, factura.Estado);
                 ctx.SaveChanges();
                 return ctx.CreateDetachedCopy<CabFactura>(factura, x => x.Proveedor, x => x.DocumentoPdf, x => x.DocumentoXml);
             }
@@ -460,14 +467,24 @@ namespace PortalProWebApi.Controllers
                 {
                     throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotFound, "No hay una factura con el id proporcionado (CabFactura)"));
                 }
+                string application = "PortalPro";
+                switch (userId.Substring(0, 1))
+                {
+                    case "U":
+                        application = "PortalPro2";
+                        break;
+                    case "G":
+                        application = "PortalPro";
+                        break;
+                }
                 // En la actualización a lo mejor no han cargado ningún archivo
-                string fPdf = PortalProWebUtility.BuscarArchivoCargado("PortalPro", userId, "Factura", "PDF");
+                string fPdf = PortalProWebUtility.BuscarArchivoCargado(application, userId, "Factura", "PDF");
                 if (fPdf == "")
                 {
                     throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotFound, "Se necesita un fichero PDF asociado a la factura (CabFactura)"));
                 }
                 // el archivo Xml no es obligatorio, pero si lo han subido cargamos el fichero
-                string fXml = PortalProWebUtility.BuscarArchivoCargado("PortalPro", userId, "Factura", "XML");
+                string fXml = PortalProWebUtility.BuscarArchivoCargado(application, userId, "Factura", "XML");
                 // Controlamos las propiedades que son en realidad objetos.
                 int proveedorId = 0;
                 if (factura.Proveedor != null)
@@ -487,7 +504,8 @@ namespace PortalProWebApi.Controllers
                     documentoXmlId = factura.DocumentoXml.DocumentoId;
                     factura.DocumentoXml = null;
                 }
-                if (factura.Estado == null) factura.Estado = "RECIBIDA";
+                if (factura.Estado == null)
+                    factura.Estado = "ACEPTADA";
                 // modificar el objeto
                 ctx.AttachCopy<CabFactura>(factura);
                 // volvemos a leer el objecto para que lo maneje este contexto.
@@ -517,15 +535,17 @@ namespace PortalProWebApi.Controllers
                 if (fPdf != "")
                 {
                     doc = factura.DocumentoPdf;
-                    factura.DocumentoPdf = PortalProWebUtility.CrearDocumentoDesdeArchivoCargado(fPdf, ctx);
+                    factura.DocumentoPdf = PortalProWebUtility.CrearDocumentoDesdeArchivoCargado(application, fPdf, ctx);
                     PortalProWebUtility.EliminarDocumento(doc, ctx);
                 }
                 if (fXml != "")
                 {
                     doc = factura.DocumentoXml;
-                    factura.DocumentoXml = PortalProWebUtility.CrearDocumentoDesdeArchivoCargado(fXml, ctx);
+                    factura.DocumentoXml = PortalProWebUtility.CrearDocumentoDesdeArchivoCargado(application, fXml, ctx);
                     PortalProWebUtility.EliminarDocumento(doc, ctx);
                 }
+                factura.Historial += String.Format("{0:dd/MM/yyyy hh:mm:ss} La factura {1} con Total {2:0.0} € has sido modificada con estado {3} <br/>",
+                    DateTime.Now, factura.NumFactura, factura.TotalFactura, factura.Estado);
                 ctx.SaveChanges();
                 return ctx.CreateDetachedCopy<CabFactura>(factura, x => x.Proveedor, x => x.DocumentoPdf, x => x.DocumentoXml);
             }
@@ -581,12 +601,13 @@ namespace PortalProWebApi.Controllers
                     factura.DocumentoXml = null;
                 }
                 // modificar el objeto
-                if (factura.Estado == null) factura.Estado = "RECIBIDA";
+                if (factura.Estado == null)
+                    factura.Estado = "ACEPTADA";
                 ctx.AttachCopy<CabFactura>(factura);
                 // volvemos a leer el objecto para que lo maneje este contexto.
                 factura = (from f in ctx.CabFacturas
-                        where f.CabFacturaId == id
-                        select f).FirstOrDefault<CabFactura>();
+                           where f.CabFacturaId == id
+                           select f).FirstOrDefault<CabFactura>();
                 if (proveedorId != 0)
                 {
                     factura.Proveedor = (from p in ctx.Proveedors
@@ -605,6 +626,8 @@ namespace PortalProWebApi.Controllers
                                             where d.DocumentoId == documentoXmlId
                                             select d).FirstOrDefault<Documento>();
                 }
+                factura.Historial += String.Format("{0:dd/MM/yyyy hh:mm:ss} La factura {1} con Total {2:0.0} € has sido modificada con estado {3} <br/>",
+                    DateTime.Now, factura.NumFactura, factura.TotalFactura, factura.Estado);
                 ctx.SaveChanges();
                 return ctx.CreateDetachedCopy<CabFactura>(factura, x => x.Proveedor, x => x.DocumentoPdf, x => x.DocumentoXml);
             }
@@ -636,7 +659,11 @@ namespace PortalProWebApi.Controllers
                 }
                 // primero borarremos todas las líneas (con lo que se actualizan los pedidos asociados)
                 PortalProWebUtility.EliminarLineasFactura(cfac.LinFacturas, ctx);
+                Documento df = cfac.DocumentoPdf;
+                Documento dx = cfac.DocumentoXml;
                 ctx.Delete(cfac);
+                PortalProWebUtility.EliminarDocumento(df, ctx);
+                PortalProWebUtility.EliminarDocumento(dx, ctx);
                 ctx.SaveChanges();
                 return true;
             }
