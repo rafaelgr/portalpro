@@ -58,6 +58,20 @@
                             Facturas <i id="isearch" class="icon-search" style="display:none;"></i>
                         </h1>
                     </div>
+                    <div id="factura-gridS">
+                        <div class="row-fluid" style="padding-bottom:10px;">
+                            <div class="span12">
+                                <label class="blue">
+                                    Seleccione el proveedor del que quiere ver las facturas
+                                    <button class="btn btn-small btn-primary" onclick="gridFilter();" title="Buscar pedidos">
+                                        <i class="icon-search icon-white"></i>
+                                    </button>
+                                </label>
+                                <input id="ProveedorS" name="Proveedor" required style="width:100%;"/>
+                                <input id="ProveedorIdS" type="hidden" />
+                            </div>
+                        </div>
+                    </div>
                     <div id="factura-grid" class="row-fluid">
                     </div><!--/#usuario-grid-->
                     <div id="factura-form" class="row-fluid" style="display:none;">
@@ -382,7 +396,7 @@
             var gridDataSource = new kendo.data.DataSource({
                 transport: {
                     read: {
-                        url: ari_hosts.webapi + "/api/factura?tk=" + getCookie("ari_tique"),
+                        url: ari_hosts.webapi + "/api/factura?proveedorId=0&tk=" + getCookie("ari_tique"),
                         dataType: "json",
                         type: "GET",
                         contentType: "application/json"
@@ -499,7 +513,13 @@
                 ds.read();
                 return ds;
             }
-            
+            function gridFilter() {
+                var ds = $("#factura-grid").data("kendoGrid").dataSource;
+                var proveedorIdS = $("#ProveedorIdS").val();
+                var url = ari_hosts.webapi + "/api/factura/?proveedorId=" + proveedorIdS + "&tk=" + getCookie("ari_tique")
+                ds.transport.options.read.url = url;
+                ds.read();
+            }
         </script>
         
         <!-- manejo del form -->
@@ -509,6 +529,7 @@
                 type = "new";
                 // ocultar grid - mostrar form
                 $("#factura-grid").hide();
+                $("#factura-gridS").hide();
                 $("#factura-form").show();
                 $("#form-title").text("Nueva factura");
                 clearData();
@@ -520,6 +541,7 @@
             function formEdit(id) {
                 type = "edit";
                 $("#factura-grid").hide();
+                $("#factura-gridS").hide();
                 $("#factura-form").show();
                 $("#form-title").text("Editar factura");
                 loadData(id);
@@ -558,6 +580,7 @@
                 // ocultar posibles mensajes de validación 
                 validator.hideMessages();
                 $("#factura-grid").show();
+                $("#factura-gridS").show();
                 $("#factura-form").hide()
             }
             // carga los datos en el grid
@@ -699,6 +722,17 @@
                         vm.Proveedor.ProveedorId(dataItem.ProveedorId);
                     }
                 });
+                $("#ProveedorS").kendoAutoComplete({
+                    dataSource: dsProveedor,
+                    filter: "contains",
+                    dataTextField: "NombreComercial",
+                    select: function (e) {
+                        var dataItem = this.dataItem(e.item.index());
+                        $("#ProveedorIdS").val(dataItem.ProveedorId);
+                        // cargar id seleccionado
+                        // vm.Proveedor.ProveedorId(dataItem.ProveedorId);
+                    }
+                });
             }
             // Carga los controles de campo para los que son fechas.
             function loadDateFields() {
@@ -769,6 +803,7 @@
                         }
                         $("#factura-form").hide();
                         $("#factura-grid").show();
+                        $("#factura-gridS").show();
                     },
                 });
             }
@@ -831,6 +866,8 @@
                     caller = gup("caller");
                     // cargar los templates que se usarán en el grid
                     loadTemplates();
+                    // cargarmos para búsquedas
+                    loadCombos();
                     // cargar el grid
                     gridBuild();
                     // comprobar como hemos sido llamados 
@@ -841,12 +878,14 @@
                             loadDataCookie();
                             loadCombos();
                             $("#factura-grid").hide();
+                            $("#factura-gridS").hide();
                             $("#factura-form").show();
                             break;
                         case "loader":
                             loadDataCookie();
                             loadCombos();
                             $("#factura-grid").hide();
+                            $("#factura-gridS").hide();
                             $("#factura-form").show();
                             break;
                         case "pedido":
