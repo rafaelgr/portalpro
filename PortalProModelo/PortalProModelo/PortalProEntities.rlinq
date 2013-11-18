@@ -446,7 +446,7 @@
           <orm:column name="Estado" sql-type="varchar" nullable="false" length="50" scale="0" ado-type="" />
         </orm:field>
         <orm:field name="_historial" property="Historial" uniqueId="8a253d04-15e4-4453-bd0a-483156beafb0" type="System.String">
-          <orm:column nullable="true" scale="0" length="0" sql-type="text" name="Historial" ado-type="" />
+          <orm:column name="Historial" sql-type="text" nullable="true" length="0" scale="0" ado-type="" />
         </orm:field>
         <orm:field name="_proveedor" property="Proveedor" behavior="readwrite" uniqueId="a0e7d402-f8cd-4e92-9322-d8fc12ad4d93" type="PortalProModelo.Proveedor">
           <orm:reference uniqueId="9750b7fa-84d1-4309-8275-c1b1677043e2" />
@@ -734,7 +734,7 @@
         <orm:column name="DocumentoXml_DocumentoId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
         <orm:column name="NumFactura" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
         <orm:column name="Estado" sql-type="varchar" nullable="false" length="50" scale="0" ado-type="" />
-        <orm:column nullable="true" scale="0" length="0" sql-type="text" name="Historial" ado-type="" />
+        <orm:column name="Historial" sql-type="text" nullable="true" length="0" scale="0" ado-type="" />
         <orm:index name="idx_CabFactura_ProveedorId">
           <orm:columnMapping>
             <orm:column name="ProveedorId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />

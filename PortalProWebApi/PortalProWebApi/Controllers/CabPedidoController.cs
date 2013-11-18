@@ -23,6 +23,7 @@ namespace PortalProWebApi.Controllers
                 if (CntWebApiSeguridad.CheckTicket(tk, ctx))
                 {
                     IEnumerable<Pedido> pedidos = (from f in ctx.Pedidos
+                                                   orderby f.FechaAlta descending
                                                    select f).ToList<Pedido>();
                     // fetch estrategy, necesaria para poder devolver el grupo junto con cada usuariuo
                     FetchStrategy fs = new FetchStrategy();
@@ -48,6 +49,7 @@ namespace PortalProWebApi.Controllers
                     int pId = int.Parse(proveedorId);
                     IEnumerable<Pedido> pedidos = (from f in ctx.Pedidos
                                                    where f.Proveedor.ProveedorId == pId
+                                                   orderby f.FechaAlta descending
                                                    select f).ToList<Pedido>();
                     // fetch estrategy, necesaria para poder devolver el grupo junto con cada usuariuo
                     FetchStrategy fs = new FetchStrategy();
@@ -74,6 +76,7 @@ namespace PortalProWebApi.Controllers
                     IEnumerable<Pedido> pedidos = (from f in ctx.Pedidos
                                                    where f.Proveedor.ProveedorId == pId
                                                    && (f.Estado == "ABIERTO" || f.Estado == "RECIBIDO")
+                                                   orderby f.FechaAlta descending
                                                    select f).ToList<Pedido>();
                     // fetch estrategy, necesaria para poder devolver el grupo junto con cada usuariuo
                     FetchStrategy fs = new FetchStrategy();
@@ -100,6 +103,7 @@ namespace PortalProWebApi.Controllers
                     IEnumerable<Pedido> pedidos = (from f in ctx.Pedidos
                                                    where f.Proveedor.ProveedorId == pId
                                                    && (f.Estado == "FACTURADO" || f.Estado == "CANCELADO")
+                                                   orderby f.FechaAlta descending
                                                    select f).ToList<Pedido>();
                     // fetch estrategy, necesaria para poder devolver el grupo junto con cada usuariuo
                     FetchStrategy fs = new FetchStrategy();
@@ -130,6 +134,7 @@ namespace PortalProWebApi.Controllers
                 {
                     Pedido pedido = (from f in ctx.Pedidos
                                      where f.PedidoId == id
+                                     orderby f.FechaAlta descending
                                      select f).FirstOrDefault<Pedido>();
                     if (pedido != null)
                     {

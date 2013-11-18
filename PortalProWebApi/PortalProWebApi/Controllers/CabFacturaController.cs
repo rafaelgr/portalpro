@@ -23,6 +23,7 @@ namespace PortalProWebApi.Controllers
                 if (CntWebApiSeguridad.CheckTicket(tk, ctx))
                 {
                     IEnumerable<CabFactura> facturas = (from f in ctx.CabFacturas
+                                                        orderby f.FechaEmision descending
                                                         select f).ToList<CabFactura>();
                     // fetch estrategy, necesaria para poder devolver el grupo junto con cada usuariuo
                     FetchStrategy fs = new FetchStrategy();
@@ -47,6 +48,7 @@ namespace PortalProWebApi.Controllers
                 {
                     IEnumerable<CabFactura> facturas = (from f in ctx.CabFacturas
                                                         where f.Estado == estado
+                                                        orderby f.FechaEmision descending
                                                         select f).ToList<CabFactura>();
                     // fetch estrategy, necesaria para poder devolver el grupo junto con cada usuariuo
                     FetchStrategy fs = new FetchStrategy();
@@ -72,6 +74,7 @@ namespace PortalProWebApi.Controllers
                     int pId = int.Parse(proveedorId);
                     IEnumerable<CabFactura> facturas = (from f in ctx.CabFacturas
                                                         where f.Proveedor.ProveedorId == pId
+                                                        orderby f.FechaEmision descending
                                                         select f).ToList<CabFactura>();
 
                     // fetch estrategy, necesaria para poder devolver el grupo junto con cada usuariuo
@@ -99,6 +102,7 @@ namespace PortalProWebApi.Controllers
                     IEnumerable<CabFactura> facturas = (from f in ctx.CabFacturas
                                                         where f.Proveedor.ProveedorId == pId &&
                                                               (f.Estado == "PAGADA")
+                                                        orderby f.FechaEmision descending
                                                         select f).ToList<CabFactura>();
 
                     // fetch estrategy, necesaria para poder devolver el grupo junto con cada usuariuo
@@ -126,6 +130,7 @@ namespace PortalProWebApi.Controllers
                     IEnumerable<CabFactura> facturas = (from f in ctx.CabFacturas
                                                         where f.Proveedor.ProveedorId == pId &&
                                                               (f.Estado != "PAGADA")
+                                                        orderby f.FechaEmision descending
                                                         select f).ToList<CabFactura>();
 
                     // fetch estrategy, necesaria para poder devolver el grupo junto con cada usuariuo
@@ -157,6 +162,7 @@ namespace PortalProWebApi.Controllers
                 {
                     CabFactura factura = (from f in ctx.CabFacturas
                                           where f.CabFacturaId == id
+                                          orderby f.FechaEmision descending
                                           select f).FirstOrDefault<CabFactura>();
                     if (factura != null)
                     {
