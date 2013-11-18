@@ -102,6 +102,52 @@ namespace PortalProWebApi.Controllers
             }
         }
 
+        public virtual IEnumerable<Documento> GetDocumentos(int idSolPro, string userId, string tk)
+        {
+            using (PortalProContext ctx = new PortalProContext())
+            {
+                if (CntWebApiSeguridad.CheckTicket(tk, ctx))
+                {
+                    SolicitudProveedor solPro = (from s in ctx.SolicitudProveedors
+                                           where s.SolicitudProveedorId == idSolPro
+                                           select s).FirstOrDefault<SolicitudProveedor>();
+                    if (solPro != null)
+                    {
+                        IEnumerable<Documento> docs = (from d in ctx.Documentos
+                                                       where d.SolicitudProveedor.SolicitudProveedorId == idSolPro
+                                                       select d).ToList<Documento>();
+                        // La aplicación ahora depende del comienzo del usuario
+                        string application = "PortalPro";
+                        switch (userId.Substring(0, 1))
+                        {
+                            case "U":
+                                application = "PortalPro2";
+                                break;
+                            case "G":
+                                application = "PortalPro";
+                                break;
+                        }
+                        foreach (Documento d in docs)
+                        {
+                            d.DescargaUrl = PortalProWebUtility.CargarUrlDocumento(application, d, tk);
+                        }
+                        FetchStrategy fs = new FetchStrategy();
+                        fs.LoadWith<Documento>(x => x.TipoDocumento);
+                        IEnumerable<Documento> documentos = ctx.CreateDetachedCopy<IEnumerable<Documento>>(docs, fs);
+                        return documentos;
+                    }
+                    else
+                    {
+                        throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotFound, "No hay una solicitud con el id proporcionado (Solicitud Proveedores)"));
+                    }
+                }
+                else
+                {
+                    throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.Unauthorized, "Se necesita tique de autorización (Solicitud Proveedores)"));
+                }
+            }
+        }
+
         /// <summary>
         /// Crear un nueva solicitud
         /// </summary>
@@ -244,6 +290,73 @@ namespace PortalProWebApi.Controllers
                 return ctx.CreateDetachedCopy<SolicitudProveedor>(solProveedor, x => x.GrupoProveedor, x=>x.SolicitudStatus);
             }
         }
+
+
+        public virtual bool Put(int idSolPro, IEnumerable<Documento> documentos, string userId, string tk)
+        {
+            using (PortalProContext ctx = new PortalProContext())
+            {
+                // comprobar el tique
+                if (!CntWebApiSeguridad.CheckTicket(tk, ctx) && tk != "solicitud")
+                {
+                    throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.Unauthorized, "Se necesita tique de autorización (Solicitud proveedor)"));
+                }
+                // comprobamos que los documentos no son nulos
+                if (documentos == null)
+                {
+                    throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.BadRequest));
+                }
+                // primero buscamos si un proveedor con ese id existe
+                SolicitudProveedor solPro = (from s in ctx.SolicitudProveedors
+                                 where s.SolicitudProveedorId == idSolPro
+                                 select s).FirstOrDefault<SolicitudProveedor>();
+                if (solPro == null)
+                {
+                    throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotFound, "No hay una solicitud con el id proporcionado (Solicitd roveedores)"));
+                }
+                // primero eliminamos los posibles documentos anteriores
+                foreach (Documento d in solPro.Documentos)
+                {
+                    PortalProWebUtility.EliminarDocumento(d, ctx);
+                }
+                // La aplicación ahora depende del comienzo del usuario
+                string application = "PortalPro";
+                switch (userId.Substring(0, 1))
+                {
+                    case "U":
+                        application = "PortalPro2";
+                        break;
+                    case "G":
+                        application = "PortalPro";
+                        break;
+                }
+                // Ahora cargamos las lineas nuevas
+                foreach (Documento doc in documentos)
+                {
+                    if (doc.TipoDocumento != null)
+                    {
+                        TipoDocumento tp = (from t in ctx.TipoDocumentos
+                                            where t.TipoDocumentoId == doc.TipoDocumento.TipoDocumentoId
+                                            select t).FirstOrDefault<TipoDocumento>();
+                        if (tp != null)
+                        {
+                            string fieldId = String.Format("PDFT{0}", doc.TipoDocumento.TipoDocumentoId);
+                            string fpdf = PortalProWebUtility.BuscarArchivoCargado(application, userId, "Proveedor", fieldId);
+                            if (fpdf != "")
+                            {
+                                Documento vDoc = PortalProWebUtility.CrearDocumentoDesdeArchivoCargado(application, fpdf, ctx);
+                                vDoc.TipoDocumento = tp;
+                                vDoc.SolicitudProveedor = solPro;
+                                ctx.Add(vDoc);
+                                ctx.SaveChanges();
+                            }
+                        }
+                    }
+                }
+            }
+            return true;
+        }
+
 
         /// <summary>
         /// Cambia el estado de una solicitud y realiza la grabación 

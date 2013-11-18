@@ -70,6 +70,55 @@ namespace PortalProWebApi.Controllers
             }
         }
 
+        public virtual IEnumerable<Documento> GetDocumentos(int idPro, string userId, string tk)
+        {
+            using (PortalProContext ctx = new PortalProContext())
+            {
+                if (CntWebApiSeguridad.CheckTicket(tk, ctx))
+                {
+                    Proveedor proveedor = (from p in ctx.Proveedors
+                                           where p.ProveedorId == idPro
+                                           select p).FirstOrDefault<Proveedor>();
+                    if (proveedor != null)
+                    {
+                        IEnumerable<Documento> docs = (from d in ctx.Documentos
+                                                       where d.Proveedor.ProveedorId == idPro
+                                                       select d).ToList<Documento>();
+                        // La aplicación ahora depende del comienzo del usuario
+                        string application = "PortalPro";
+                        switch (userId.Substring(0, 1))
+                        {
+                            case "U":
+                                application = "PortalPro2";
+                                break;
+                            case "G":
+                                application = "PortalPro";
+                                break;
+                        }
+                        foreach (Documento d in docs)
+                        {
+                            d.DescargaUrl = PortalProWebUtility.CargarUrlDocumento(application, d, tk);
+                        }
+                        FetchStrategy fs = new FetchStrategy();
+                        fs.LoadWith<Documento>(x => x.TipoDocumento);
+                        IEnumerable<Documento> documentos = ctx.CreateDetachedCopy<IEnumerable<Documento>>(docs, fs);
+                        return documentos;
+                    }
+                    else
+                    {
+                        throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotFound, "No hay un proveedor con el id proporcionado (Proveedores)"));
+                    }
+                }
+                else
+                {
+                    throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.Unauthorized, "Se necesita tique de autorización (Proveedores)"));
+                }
+            }
+        }
+
+
+
+
         /// <summary>
         /// Crear un nuevo proveedor
         /// </summary>
@@ -105,17 +154,8 @@ namespace PortalProWebApi.Controllers
                                             where gp.GrupoProveedorId == grupoProveedorId
                                             select gp).FirstOrDefault<GrupoProveedor>();
                 }
-                var webRoot = System.Web.HttpContext.Current.Server.MapPath("~/uploads");
-                var res = PortalProWebUtility.ComprobarCargarFicherosProveedor(webRoot,tk,proveedor,ctx);
-                if (res != "")
-                {
-                    throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.InternalServerError, res));
-                }
-                else
-                {
-                    ctx.SaveChanges();
-                    return ctx.CreateDetachedCopy<Proveedor>(proveedor, x => x.GrupoProveedor);
-                }
+                ctx.SaveChanges();
+                return ctx.CreateDetachedCopy<Proveedor>(proveedor, x => x.GrupoProveedor);
             }
         }
 
@@ -173,6 +213,71 @@ namespace PortalProWebApi.Controllers
             }
         }
 
+        public virtual bool Put(int idPro, IEnumerable<Documento> documentos, string userId, string tk)
+        {
+            using (PortalProContext ctx = new PortalProContext())
+            {
+                // comprobar el tique
+                if (!CntWebApiSeguridad.CheckTicket(tk, ctx))
+                {
+                    throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.Unauthorized, "Se necesita tique de autorización (LinFactura)"));
+                }
+                // comprobamos que los documentos no son nulos
+                if (documentos == null)
+                {
+                    throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.BadRequest));
+                }
+                // primero buscamos si un proveedor con ese id existe
+                Proveedor pro = (from p in ctx.Proveedors
+                                 where p.ProveedorId == idPro
+                                 select p).FirstOrDefault<Proveedor>();
+                if (pro == null)
+                {
+                    throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotFound, "No hay un proveedor con el id proporcionado (Proveedores)"));
+                }
+                // primero eliminamos los posibles documentos anteriores
+                foreach (Documento d in pro.Documentos)
+                {
+                    PortalProWebUtility.EliminarDocumento(d, ctx);
+                }
+                // La aplicación ahora depende del comienzo del usuario
+                string application = "PortalPro";
+                switch (userId.Substring(0, 1))
+                {
+                    case "U":
+                        application = "PortalPro2";
+                        break;
+                    case "G":
+                        application = "PortalPro";
+                        break;
+                }
+                // Ahora cargamos las lineas nuevas
+                foreach (Documento doc in documentos)
+                {
+                    if (doc.TipoDocumento != null)
+                    {
+                        TipoDocumento tp = (from t in ctx.TipoDocumentos
+                                            where t.TipoDocumentoId == doc.TipoDocumento.TipoDocumentoId
+                                            select t).FirstOrDefault<TipoDocumento>();
+                        if (tp != null)
+                        {
+                            string fieldId = String.Format("PDFT{0}", doc.TipoDocumento.TipoDocumentoId);
+                            string fpdf = PortalProWebUtility.BuscarArchivoCargado(application, userId, "Proveedor", fieldId);
+                            if (fpdf != "")
+                            {
+                                Documento vDoc = PortalProWebUtility.CrearDocumentoDesdeArchivoCargado(application, fpdf, ctx);
+                                vDoc.TipoDocumento = tp;
+                                vDoc.Proveedor = pro;
+                                ctx.Add(vDoc);
+                                ctx.SaveChanges();
+                            }
+                        }
+                    }
+                }
+            }
+            return true;
+        }
+
         /// <summary>
         /// Elimina el proveedor que coincide con el id pasado
         /// </summary>
@@ -196,6 +301,11 @@ namespace PortalProWebApi.Controllers
                 if (pro == null)
                 {
                      throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotFound, "No hay un grupo con el id proporcionado (Proveedores)"));
+                }
+                // hay que eliminar los ficheros asociados.
+                foreach (Documento d in pro.Documentos)
+                {
+                    PortalProWebUtility.EliminarDocumento(d, ctx);
                 }
                 ctx.Delete(pro);
                 ctx.SaveChanges();

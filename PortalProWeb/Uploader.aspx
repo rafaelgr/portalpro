@@ -95,6 +95,38 @@
                             setCookie("pedido", JSON.stringify(data), 1);
                             returnUrl = "pedido.html?caller=loader";
                             break;
+                        case "Proveedor":
+                            data = JSON.parse(getCookie("proveedor"));
+                            // la carga se realiza en fucnión del tipo, que hay que obtener
+                            var tipoId = fieldId.substring(4);
+                            for (i = 0; i < data.Documentos.length; i++) {
+                                var d = data.Documentos[i];
+                                if (d != null) {
+                                    if (d.TipoDocumento.TipoDocumentoId == tipoId) {
+                                        d.DescargaUrl = url;
+                                        d.NomFichero = path;
+                                    }
+                                }
+                            }
+                            setCookie("proveedor", JSON.stringify(data), 1);
+                            returnUrl = "proveedor.html?caller=loader";
+                            break;
+                        case "SolicitudProveedor":
+                            data = JSON.parse(getCookie("SolicitudProveedor"));
+                            // la carga se realiza en fucnión del tipo, que hay que obtener
+                            var tipoId = fieldId.substring(4);
+                            for (i = 0; i < data.Documentos.length; i++) {
+                                var d = data.Documentos[i];
+                                if (d != null) {
+                                    if (d.TipoDocumento.TipoDocumentoId == tipoId) {
+                                        d.DescargaUrl = url;
+                                        d.NomFichero = path;
+                                    }
+                                }
+                            }
+                            setCookie("SolicitudProveedor", JSON.stringify(data), 1);
+                            returnUrl = "solicitudproveedorfrm.html?caller=loader";
+                            break;
                     }
                     if (data != null) {
                         window.opener.location.replace(returnUrl);
