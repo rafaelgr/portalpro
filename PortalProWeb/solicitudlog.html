@@ -205,14 +205,21 @@
                     this.SolicitudLogId = ko.observable(data.SolicitudLogId);
                     this.Sello = ko.observable(data.Sello);
                     this.Comentarios = ko.observable(data.Comentarios);
-                    this.Usuario = {
-                        UsuarioId: ko.observable(data.Usuario.UsuarioId),
-                        Nombre: ko.observable(data.Usuario.Nombre)
-                    };
+                    if (!!data.Usuario) {
+                        this.Usuario = {
+                            UsuarioId: ko.observable(data.Usuario.UsuarioId),
+                            Nombre: ko.observable(data.Usuario.Nombre)
+                        };
+                    } else {
+                        this.Usuario = {
+                            UsuarioId: ko.observable(""),
+                            Nombre: ko.observable("")
+                        }
+                    }
                     if (!!data.SolicitudProveedor) {
                         this.SolicitudProveedor = {
                             SolicitudProveedorId: ko.observable(data.SolicitudProveedor.SolicitudProveedorId),
-                            Nombre: ko.observable(data.SolicitudProveedor.Nombre)
+                            Nombre: ko.observable(data.SolicitudProveedor.NombreComercial)
                         };
                     } else {
                         this.SolicitudProveedor = {
@@ -310,7 +317,7 @@
                     columns: [
                         { field: "SolicitudLogId", title: "ID (Registro)" },
                         { field: "SolicitudProveedor", title: "ID (Solicitud)", template: "#=SolicitudProveedor?SolicitudProveedor.SolicitudProveedorId:''#" },
-                        { field: "SolicitudProveedor", title: "Proveedor", template: "#=SolicitudProveedor?SolicitudProveedor.Nombre:''#" },
+                        { field: "SolicitudProveedor", title: "Proveedor", template: "#=SolicitudProveedor?SolicitudProveedor.NombreComercial:''#" },
                         { field: "Sello", title: "Sello", format: "{0:dd/MM/yyyy HH:mm}" },
                         { field: "Usuario", title: "Usuario", template: "#=Usuario?Usuario.Nombre:''#" },
                         { field: "SolicitudStatusInicial", title: "Estado inicial", template: "#=SolicitudStatusInicial?SolicitudStatusFinal.Nombre:''#", hidden: true},

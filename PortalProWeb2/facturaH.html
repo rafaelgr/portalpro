@@ -94,9 +94,17 @@
                             </div>
                         </div>
                         <div class="row-fluid">
-                            <div class="span6">
+                           <div class="span2">
                                 <label>Fecha de alta</label>
                                 <input id="FechaAlta" data-bind="value: FechaAlta" type="text" disabled/>
+                            </div>
+                            <div class="span2">
+                                <label>F. Prevista Cobro</label>
+                                <input id="FechaPrevistaCobro" data-bind="value: FechaPrevistaCobro" type="text" disabled/>
+                            </div>
+                            <div class="span2">
+                                <label>F. Cobro</label>
+                                <input id="FechaCobro" data-bind="value: FechaCobro" type="text" disabled/>
                             </div>
                             <div class="span6">
                                 <label>Total factura</label>
@@ -267,6 +275,8 @@
                 self.NumFactura = ko.observable();
                 self.FechaAlta = ko.observable();
                 self.FechaEmision = ko.observable();
+                self.FechaPrevistaCobro = ko.observable();
+                self.FechaCobro = ko.observable();
                 self.TotalFactura = ko.observable();
                 self.Estado = ko.observable();
                 self.Historial = ko.observable();
@@ -374,6 +384,8 @@
                             Estado: { type: "string" },
                             FechaEmision: { type: "date" },
                             FechaAlta: { type: "date" },
+                            FechaPrevistaCobro: { type: "date" },
+                            FechaCobro: { type: "date" },
                             TotalFactura: { type: "number" },
                             Proveedor: {}
                         }
@@ -402,7 +414,9 @@
                         { field: "Proveedor", title: "Proveedor", template: "#=Proveedor?Proveedor.NombreComercial:''#", filterable:false },
                         { field: "NumFactura", title: "N. Factura" },
                         { field: "Estado", title: "Estado" },
-                        { field: "FechaEmision", title: "F.Emision", format: "{0:dd/MM/yyyy}"},
+                        { field: "FechaEmision", title: "F.Emision", format: "{0:dd/MM/yyyy}" },
+                        { field: "FechaPrevistaCobro", title: "F.Cobro", format: "{0:dd/MM/yyyy}" },
+                        { field: "FechaCobro", title: "F.Emision", format: "{0:dd/MM/yyyy}" },
                         { field: "TotalFactura", title: "Total", format: "{0:##,###,##0.00}", attributes: { "style": "text-align:right" } },
                         { field: "FechaAlta", title: "F.Alta", format: "{0:dd/MM/yyyy}"},
                         { template: t_edit }
@@ -567,6 +581,8 @@
                 vm.CabFacturaId("");
                 vm.NumFactura("");
                 vm.FechaEmision("");
+                vm.FechaPrevistaCobro("");
+                vm.FechaCobro("");
                 vm.TotalFactura("");
                 vm.FechaAlta("");
                 vm.Proveedor.ProveedorId(getCookie("ari_proveedorId"));
@@ -606,6 +622,10 @@
                     vm.FechaEmision(moment(data.FechaEmision).format("DD/MM/YYYY"));
                 if (data.FechaAlta != "")
                     vm.FechaAlta(moment(data.FechaAlta).format("DD/MM/YYYY"));
+                if (data.FechaPrevistaCobro != "")
+                    vm.FechaPrevistaCobro(moment(data.FechaPrevistaCobro).format("DD/MM/YYYY"));
+                if (data.FechaCobro != "")
+                    vm.FechaCobro(moment(data.FechaCobro).format("DD/MM/YYYY"));
                 vm.TotalFactura(data.TotalFactura);
                 if (data.DocumentoPdf != null && data.DocumentoPdf.DocumentoId != undefined) {
                     vm.DocumentoPdf.DocumentoId(data.DocumentoPdf.DocumentoId);
@@ -685,9 +705,15 @@
                 // hay que volver a pasarlas al inglés
                 var fAlta = moment(vm.FechaAlta(), "DD/MM/YYYY");
                 var fEmision = moment(vm.FechaEmision(), "DD/MM/YYYY");
+                var fPrevistaCobro = moment(vm.FechaPrevistaCobro(), "DD/MM/YYYY");
+                var fCobro = moment(vm.FechaCobro(), "DD/MM/YYYY");
                 var userId = getCookie("ari_userId");
                 if (fAlta != null)
                     vm.FechaAlta(moment(fAlta).format("MM/DD/YYYY"));
+                if (fPrevistaCobro != null)
+                    vm.FechaPrevistaCobro(moment(fPrevistaCobro).format("MM/DD/YYYY"));
+                if (fCobro != null)
+                    vm.FechaCobro(moment(fCobro).format("MM/DD/YYYY"));
                 vm.FechaEmision(moment(fEmision).format("MM/DD/YYYY"));
                 if (arg == undefined && vm.CabFacturaId() == "")
                     arg = "new";

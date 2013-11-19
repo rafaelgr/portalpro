@@ -115,6 +115,32 @@ namespace PortalProModelo
 			}
 		}
 		
+		private DateTime _fechaPrevistaCobro;
+		public virtual DateTime FechaPrevistaCobro
+		{
+			get
+			{
+				return this._fechaPrevistaCobro;
+			}
+			set
+			{
+				this._fechaPrevistaCobro = value;
+			}
+		}
+		
+		private DateTime _fechaCobro;
+		public virtual DateTime FechaCobro
+		{
+			get
+			{
+				return this._fechaCobro;
+			}
+			set
+			{
+				this._fechaCobro = value;
+			}
+		}
+		
 		private Proveedor _proveedor;
 		public virtual Proveedor Proveedor
 		{

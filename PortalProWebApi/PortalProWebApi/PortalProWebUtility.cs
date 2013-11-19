@@ -364,7 +364,7 @@ namespace PortalProWebApi
                 Proveedor = p.Proveedor,
                 FechaAlta = DateTime.Now,
                 FechaEmision = DateTime.Now,
-                Estado = "ACEPTADA"
+                Estado = "RECIBIDA"
             };
             ctx.Add(f);
             ctx.SaveChanges();
@@ -475,7 +475,7 @@ namespace PortalProWebApi
             // el estado por defecto de una factura es ACEPTADA, pero si es de un pedido ABIERTO  deberá ser RECIBIDA
             if (p.Estado == "ABIERTO")
             {
-                factura.Estado = "RECIBIDA";
+                factura.Estado = "RECIBIDA2";
                 factura.Historial += String.Format("{0:dd/MM/yyyy hh:mm:ss} La factura {1} pasa a estado {3} debido a que el pedido {4} no está recibido, se espera a su aceptación manual <br/>",
     DateTime.Now, factura.NumFactura, factura.TotalFactura, factura.Estado, p.NumPedido);
             }

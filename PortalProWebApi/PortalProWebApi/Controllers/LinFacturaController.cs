@@ -33,14 +33,13 @@ namespace PortalProWebApi.Controllers
                         IEnumerable<LinFactura> lineas = factura.LinFacturas;
                         FetchStrategy fs = new FetchStrategy();
                         fs.LoadWith<LinFactura>(x => x.CabFactura);
-                        lineas = ctx.CreateDetachedCopy<IEnumerable<LinFactura>>(lineas,fs);
+                        lineas = ctx.CreateDetachedCopy<IEnumerable<LinFactura>>(lineas, fs);
                         return lineas;
                     }
                     else
                     {
                         throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotFound, "No hay un factura con el id proporcionado (LinFactura)"));
                     }
-
                 }
                 else
                 {
@@ -62,8 +61,8 @@ namespace PortalProWebApi.Controllers
                 if (CntWebApiSeguridad.CheckTicket(tk, ctx))
                 {
                     LinFactura linea = (from l in ctx.LinFacturas
-                                          where l.LinFacturaId == id
-                                          select l).FirstOrDefault<LinFactura>();
+                                        where l.LinFacturaId == id
+                                        select l).FirstOrDefault<LinFactura>();
                     if (linea != null)
                     {
                         linea = ctx.CreateDetachedCopy<LinFactura>(linea, x => x.CabFactura);
@@ -80,8 +79,6 @@ namespace PortalProWebApi.Controllers
                 }
             }
         }
-
-        
 
         /// <summary>
         /// Crear una nueva línea de factura
@@ -115,8 +112,8 @@ namespace PortalProWebApi.Controllers
                 if (cabFacturaId != 0)
                 {
                     linea.CabFactura = (from f in ctx.CabFacturas
-                                            where f.CabFacturaId == cabFacturaId
-                                            select f).FirstOrDefault<CabFactura>();
+                                        where f.CabFacturaId == cabFacturaId
+                                        select f).FirstOrDefault<CabFactura>();
                 }
                 ctx.SaveChanges();
                 return ctx.CreateDetachedCopy<LinFactura>(linea, x => x.CabFactura);
@@ -153,11 +150,26 @@ namespace PortalProWebApi.Controllers
                 foreach (LinFactura linea in lineas)
                 {
                     string m = PortalProWebUtility.ComprobarLineaFacturaContraPedido(factura, linea, ctx);
-                    if (m != "") ms = ms + m + "<br/>";
+                    if (m != "")
+                        ms = ms + m + "<br/>";
                 }
                 if (ms != "")
                 {
                     throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotFound, ms));
+                }
+                else
+                {
+                    if (factura.Estado == "RECIBIDA2")
+                    {
+                        factura.Estado = "RECIBIDA";
+                    }
+                    else
+                    {
+                        factura.Estado = "ACEPTADA";
+                        factura.Historial += String.Format("{0:dd/MM/yyyy hh:mm:ss} La factura {1} pasa a estado {3} tras comprobar sus líneas <br/>",
+                            DateTime.Now, factura.NumFactura, factura.TotalFactura, factura.Estado);
+                    }
+                    ctx.SaveChanges();
                 }
             }
             return true;
@@ -186,8 +198,8 @@ namespace PortalProWebApi.Controllers
                 }
                 // primero buscamos si uan linea con ese id existe
                 LinFactura lin = (from l in ctx.LinFacturas
-                               where l.LinFacturaId == id
-                               select l).FirstOrDefault<LinFactura>();
+                                  where l.LinFacturaId == id
+                                  select l).FirstOrDefault<LinFactura>();
                 // existe?
                 if (lin == null)
                 {
@@ -204,13 +216,13 @@ namespace PortalProWebApi.Controllers
                 ctx.AttachCopy<LinFactura>(linea);
                 // volvemos a leer el objecto para que lo maneje este contexto.
                 linea = (from l in ctx.LinFacturas
-                           where l.LinFacturaId == id
-                           select l).FirstOrDefault<LinFactura>();
+                         where l.LinFacturaId == id
+                         select l).FirstOrDefault<LinFactura>();
                 if (cabFacturaId != 0)
                 {
                     linea.CabFactura = (from f in ctx.CabFacturas
-                                            where f.CabFacturaId == cabFacturaId
-                                            select f).FirstOrDefault<CabFactura>();
+                                        where f.CabFacturaId == cabFacturaId
+                                        select f).FirstOrDefault<CabFactura>();
                 }
                 ctx.SaveChanges();
                 return ctx.CreateDetachedCopy<LinFactura>(linea, x => x.CabFactura);
@@ -234,8 +246,8 @@ namespace PortalProWebApi.Controllers
                 }
                 // primero buscamos si un grupo con ese id existe
                 LinFactura lin = (from l in ctx.LinFacturas
-                               where l.LinFacturaId == id
-                               select l).FirstOrDefault<LinFactura>();
+                                  where l.LinFacturaId == id
+                                  select l).FirstOrDefault<LinFactura>();
                 // existe?
                 if (lin == null)
                 {
@@ -246,6 +258,5 @@ namespace PortalProWebApi.Controllers
                 return true;
             }
         }
-
     }
 }

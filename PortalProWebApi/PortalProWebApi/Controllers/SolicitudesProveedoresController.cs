@@ -69,7 +69,6 @@ namespace PortalProWebApi.Controllers
             }
         }
 
-
         /// <summary>
         /// Obtiene la solicitud cuyo ID corresponde con el pasado
         /// </summary>
@@ -87,7 +86,7 @@ namespace PortalProWebApi.Controllers
                                                        select sp).FirstOrDefault<SolicitudProveedor>();
                     if (solProveedor != null)
                     {
-                        solProveedor = ctx.CreateDetachedCopy<SolicitudProveedor>(solProveedor, x => x.GrupoProveedor, x=>x.SolicitudStatus);
+                        solProveedor = ctx.CreateDetachedCopy<SolicitudProveedor>(solProveedor, x => x.GrupoProveedor, x => x.SolicitudStatus);
                         return solProveedor;
                     }
                     else
@@ -109,8 +108,8 @@ namespace PortalProWebApi.Controllers
                 if (CntWebApiSeguridad.CheckTicket(tk, ctx))
                 {
                     SolicitudProveedor solPro = (from s in ctx.SolicitudProveedors
-                                           where s.SolicitudProveedorId == idSolPro
-                                           select s).FirstOrDefault<SolicitudProveedor>();
+                                                 where s.SolicitudProveedorId == idSolPro
+                                                 select s).FirstOrDefault<SolicitudProveedor>();
                     if (solPro != null)
                     {
                         IEnumerable<Documento> docs = (from d in ctx.Documentos
@@ -129,7 +128,7 @@ namespace PortalProWebApi.Controllers
                         }
                         foreach (Documento d in docs)
                         {
-                            d.DescargaUrl = PortalProWebUtility.CargarUrlDocumento(application, d, tk);
+                            d.DescargaUrl = "/downloads/" + PortalProWebUtility.CargarUrlDocumento(application, d, tk);
                         }
                         FetchStrategy fs = new FetchStrategy();
                         fs.LoadWith<Documento>(x => x.TipoDocumento);
@@ -170,22 +169,24 @@ namespace PortalProWebApi.Controllers
                     throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.BadRequest));
                 }
                 int grupoProveedorId = 0;
-                int solicitudStatusId = 0;
+                int solicitudStatusId = 1; // cuando se crean las solicitudes su estado es pendiente.
                 // Controlamos las propiedades que son en realidad objetos.
                 if (solProveedor.GrupoProveedor != null)
                 {
                     grupoProveedorId = solProveedor.GrupoProveedor.GrupoProveedorId;
                     solProveedor.GrupoProveedor = null;
                 }
-                if (solProveedor.SolicitudStatus != null)
-                {
-                    solicitudStatusId = solProveedor.SolicitudStatus.SolicitudStatusId;
-                    solProveedor.SolicitudStatus = null;
-                }
+                
                 // justo antes de darlo de alta le ponemos el sello
                 solProveedor.Sello = DateTime.Now;
                 // dar de alta el objeto en la base de datos y devolverlo en el mensaje
                 ctx.Add(solProveedor);
+                // eliminamos los documentos asociados si los hay
+                // los dará de alta otro proceso.
+                foreach (Documento d in solProveedor.Documentos)
+                {
+                    PortalProWebUtility.EliminarDocumento(d, ctx);
+                }
                 if (grupoProveedorId != 0)
                 {
                     solProveedor.GrupoProveedor = (from gp in ctx.GrupoProveedors
@@ -198,34 +199,25 @@ namespace PortalProWebApi.Controllers
                                                     where ss.SolicitudStatusId == solicitudStatusId
                                                     select ss).FirstOrDefault<SolicitudStatus>();
                 }
-                var webRoot = System.Web.HttpContext.Current.Server.MapPath("~/uploads");
-                var res = PortalProWebUtility.ComprobarCargarFicherosProveedor(webRoot, tk, solProveedor, ctx);
-                if (res != "")
+                ctx.SaveChanges();
+                // preparamos y enviamos el correo de confirmación por defecto (por si falla la plantilla).
+                string asunto = "[PortalPro] Recibida solicitud";
+                string cuerpo = String.Format("Su solicitud con ID:{0} ha sido recibida. No responda este mensaje", solProveedor.SolicitudProveedorId);
+                // El primer paso es obtener la plantilla ID=1
+                Plantilla plantilla = (from pl in ctx.Plantillas
+                                       where pl.PlantillaId == 1
+                                       select pl).FirstOrDefault<Plantilla>();
+                if (plantilla != null)
                 {
-                    throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.InternalServerError, res));
+                    asunto = String.Format(plantilla.Asunto, solProveedor.SolicitudProveedorId, solProveedor.RazonSocial, solProveedor.Direccion, solProveedor.Localidad,
+                        solProveedor.CodPostal, solProveedor.Provincia, solProveedor.Comunidad, solProveedor.Pais, solProveedor.Telefono, solProveedor.Fax,
+                        solProveedor.Movil, solProveedor.Email, solProveedor.Url, solProveedor.Nif);
+                    cuerpo = String.Format(plantilla.Cuerpo, solProveedor.SolicitudProveedorId, solProveedor.RazonSocial, solProveedor.Direccion, solProveedor.Localidad,
+                        solProveedor.CodPostal, solProveedor.Provincia, solProveedor.Comunidad, solProveedor.Pais, solProveedor.Telefono, solProveedor.Fax,
+                        solProveedor.Movil, solProveedor.Email, solProveedor.Url, solProveedor.Nif);
                 }
-                else
-                {
-                    ctx.SaveChanges();
-                    // preparamos y enviamos el correo de confirmación por defecto (por si falla la plantilla).
-                    string asunto = "[PortalPro] Recibida solicitud";
-                    string cuerpo = String.Format("Su solicitud con ID:{0} ha sido recibida. No responda este mensaje", solProveedor.SolicitudProveedorId);
-                    // El primer paso es obtener la plantilla ID=1
-                    Plantilla plantilla = (from pl in ctx.Plantillas
-                                           where pl.PlantillaId == 1
-                                           select pl).FirstOrDefault<Plantilla>();
-                    if (plantilla != null)
-                    {
-                        asunto = String.Format(plantilla.Asunto, solProveedor.SolicitudProveedorId, solProveedor.RazonSocial, solProveedor.Direccion, solProveedor.Localidad,
-                            solProveedor.CodPostal, solProveedor.Provincia, solProveedor.Comunidad, solProveedor.Pais, solProveedor.Telefono, solProveedor.Fax,
-                            solProveedor.Movil, solProveedor.Email, solProveedor.Url, solProveedor.Nif);
-                        cuerpo = String.Format(plantilla.Cuerpo, solProveedor.SolicitudProveedorId, solProveedor.RazonSocial, solProveedor.Direccion, solProveedor.Localidad,
-                            solProveedor.CodPostal, solProveedor.Provincia, solProveedor.Comunidad, solProveedor.Pais, solProveedor.Telefono, solProveedor.Fax,
-                            solProveedor.Movil, solProveedor.Email, solProveedor.Url, solProveedor.Nif);
-                    }
-                    PortalProMailController.SendEmail(solProveedor.Email, asunto, cuerpo);
-                    return ctx.CreateDetachedCopy<SolicitudProveedor>(solProveedor, x => x.GrupoProveedor);
-                }
+                PortalProMailController.SendEmail(solProveedor.Email, asunto, cuerpo);
+                return ctx.CreateDetachedCopy<SolicitudProveedor>(solProveedor, x => x.GrupoProveedor);
             }
         }
 
@@ -287,10 +279,9 @@ namespace PortalProWebApi.Controllers
                                                     select ss).FirstOrDefault<SolicitudStatus>();
                 }
                 ctx.SaveChanges();
-                return ctx.CreateDetachedCopy<SolicitudProveedor>(solProveedor, x => x.GrupoProveedor, x=>x.SolicitudStatus);
+                return ctx.CreateDetachedCopy<SolicitudProveedor>(solProveedor, x => x.GrupoProveedor, x => x.SolicitudStatus);
             }
         }
-
 
         public virtual bool Put(int idSolPro, IEnumerable<Documento> documentos, string userId, string tk)
         {
@@ -308,8 +299,8 @@ namespace PortalProWebApi.Controllers
                 }
                 // primero buscamos si un proveedor con ese id existe
                 SolicitudProveedor solPro = (from s in ctx.SolicitudProveedors
-                                 where s.SolicitudProveedorId == idSolPro
-                                 select s).FirstOrDefault<SolicitudProveedor>();
+                                             where s.SolicitudProveedorId == idSolPro
+                                             select s).FirstOrDefault<SolicitudProveedor>();
                 if (solPro == null)
                 {
                     throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotFound, "No hay una solicitud con el id proporcionado (Solicitd roveedores)"));
@@ -341,13 +332,12 @@ namespace PortalProWebApi.Controllers
                         if (tp != null)
                         {
                             string fieldId = String.Format("PDFT{0}", doc.TipoDocumento.TipoDocumentoId);
-                            string fpdf = PortalProWebUtility.BuscarArchivoCargado(application, userId, "Proveedor", fieldId);
+                            string fpdf = PortalProWebUtility.BuscarArchivoCargado(application, userId, "SolicitudProveedor", fieldId);
                             if (fpdf != "")
                             {
                                 Documento vDoc = PortalProWebUtility.CrearDocumentoDesdeArchivoCargado(application, fpdf, ctx);
                                 vDoc.TipoDocumento = tp;
                                 vDoc.SolicitudProveedor = solPro;
-                                ctx.Add(vDoc);
                                 ctx.SaveChanges();
                             }
                         }
@@ -356,7 +346,6 @@ namespace PortalProWebApi.Controllers
             }
             return true;
         }
-
 
         /// <summary>
         /// Cambia el estado de una solicitud y realiza la grabación 
@@ -375,8 +364,8 @@ namespace PortalProWebApi.Controllers
             {
                 // Comprobamos la solicitud
                 SolicitudProveedor solProveedor = (from sp in ctx.SolicitudProveedors
-                                                         where sp.SolicitudProveedorId == id
-                                                         select sp).FirstOrDefault<SolicitudProveedor>();
+                                                   where sp.SolicitudProveedorId == id
+                                                   select sp).FirstOrDefault<SolicitudProveedor>();
                 if (solProveedor == null)
                 {
                     throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotFound, "No hay una solicitud con el id proporcionado (Solicitudes proveedores)"));
@@ -435,8 +424,6 @@ namespace PortalProWebApi.Controllers
             }
             return res;
         }
-
-
 
         /// <summary>
         /// Elimina la solicitud que coincide con el id pasado

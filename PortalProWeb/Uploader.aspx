@@ -120,7 +120,7 @@
                                 if (d != null) {
                                     if (d.TipoDocumento.TipoDocumentoId == tipoId) {
                                         d.DescargaUrl = url;
-                                        d.NomFichero = path;
+                                        d.NomFichero = fileName;
                                     }
                                 }
                             }
