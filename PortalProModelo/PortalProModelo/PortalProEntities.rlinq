@@ -449,10 +449,10 @@
           <orm:column name="Historial" sql-type="text" nullable="true" length="0" scale="0" ado-type="" />
         </orm:field>
         <orm:field name="_fechaPrevistaCobro" property="FechaPrevistaCobro" uniqueId="be508709-6b5f-4000-bec8-ba794ff0c94b" type="System.DateTime">
-          <orm:column nullable="false" scale="0" length="0" sql-type="datetime" name="FechaPrevistaCobro" ado-type="" />
+          <orm:column name="FechaPrevistaCobro" sql-type="datetime" nullable="false" length="0" scale="0" ado-type="" />
         </orm:field>
         <orm:field name="_fechaCobro" property="FechaCobro" uniqueId="5d33bb1e-9680-4a1d-b998-051940701df7" type="System.DateTime">
-          <orm:column nullable="false" scale="0" length="0" sql-type="datetime" name="FechaCobro" ado-type="" />
+          <orm:column name="FechaCobro" sql-type="datetime" nullable="false" length="0" scale="0" ado-type="" />
         </orm:field>
         <orm:field name="_proveedor" property="Proveedor" behavior="readwrite" uniqueId="a0e7d402-f8cd-4e92-9322-d8fc12ad4d93" type="PortalProModelo.Proveedor">
           <orm:reference uniqueId="9750b7fa-84d1-4309-8275-c1b1677043e2" />
@@ -590,6 +590,23 @@
             <orm:column name="PedidoId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
           </orm:columnMapping>
         </orm:index>
+      </orm:class>
+      <orm:class name="Parametro" use-default-mapping="true" uniqueId="198f86b2-057a-4565-961b-7d5be50cf6ca">
+        <orm:identity>
+          <orm:single-field field-name="_parametroId" />
+        </orm:identity>
+        <orm:field name="_parametroId" property="ParametroId" uniqueId="d94875ed-8974-4774-8d22-7bf8b9ccb583" type="System.Int32">
+          <orm:column name="ParametroId" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+        </orm:field>
+        <orm:field name="_facturaAbierto" property="FacturaAbierto" uniqueId="4ce6a683-6248-44b5-b5aa-0bee2c49fb76" type="System.Boolean">
+          <orm:column name="FacturaAbierto" sql-type="bit" nullable="false" length="0" scale="0" converter="OpenAccessRuntime.Data.Bit2BooleanConverter" ado-type="Bit" />
+        </orm:field>
+        <orm:field name="_maxFichero" property="MaxFichero" uniqueId="b9bfd556-4bcc-4d77-82aa-8fd578e4c487" type="System.Int32">
+          <orm:column name="MaxFichero" sql-type="integer" nullable="false" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+        </orm:field>
+        <orm:field name="_margenFactura" property="MargenFactura" uniqueId="19a2eb0c-cc58-45de-8205-5898c67b92e0" type="System.Int32">
+          <orm:column name="MargenFactura" sql-type="integer" nullable="false" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+        </orm:field>
       </orm:class>
     </orm:namespace>
     <orm:schema schema="">
@@ -741,8 +758,8 @@
         <orm:column name="NumFactura" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
         <orm:column name="Estado" sql-type="varchar" nullable="false" length="50" scale="0" ado-type="" />
         <orm:column name="Historial" sql-type="text" nullable="true" length="0" scale="0" ado-type="" />
-        <orm:column nullable="false" scale="0" length="0" sql-type="datetime" name="FechaPrevistaCobro" ado-type="" />
-        <orm:column nullable="false" scale="0" length="0" sql-type="datetime" name="FechaCobro" ado-type="" />
+        <orm:column name="FechaPrevistaCobro" sql-type="datetime" nullable="false" length="0" scale="0" ado-type="" />
+        <orm:column name="FechaCobro" sql-type="datetime" nullable="false" length="0" scale="0" ado-type="" />
         <orm:index name="idx_CabFactura_ProveedorId">
           <orm:columnMapping>
             <orm:column name="ProveedorId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
@@ -1439,6 +1456,12 @@
         </classHasNavigationalProperties>
       </navigationalProperties>
     </DomainClass>
+    <DomainClass Id="198f86b2-057a-4565-961b-7d5be50cf6ca" name="Parametro" namespace="PortalProModelo" showPropertiesCompartment="true" showNavigationCompartment="true" showImplementationCompartment="true">
+      <Property Id="d94875ed-8974-4774-8d22-7bf8b9ccb583" name="ParametroId" type="System.Int32" label="ParametroId : System.Int32" identity="true" fieldName="_parametroId" />
+      <Property Id="4ce6a683-6248-44b5-b5aa-0bee2c49fb76" name="FacturaAbierto" type="Boolean" label="FacturaAbierto : Boolean" fieldName="_facturaAbierto" />
+      <Property Id="b9bfd556-4bcc-4d77-82aa-8fd578e4c487" name="MaxFichero" type="Int32" label="MaxFichero : Int32" fieldName="_maxFichero" />
+      <Property Id="19a2eb0c-cc58-45de-8205-5898c67b92e0" name="MargenFactura" type="Int32" label="MargenFactura : Int32" fieldName="_margenFactura" />
+    </DomainClass>
   </Types>
   <domainContext>
     <domainModelHasDomainContext Id="b8a488e5-d05f-45aa-83ff-cddf4131e366">
@@ -1460,6 +1483,7 @@
         <entitySetProperty name="UsuarioProveedors" namespace="PortalProModelo" type="UsuarioProveedor" label="UsuarioProveedors : IQueryable&lt;PortalProModelo.UsuarioProveedor&gt;" />
         <entitySetProperty name="Pedidos" namespace="PortalProModelo" type="Pedido" label="Pedidos : IQueryable&lt;PortalProModelo.Pedido&gt;" />
         <entitySetProperty name="LinPedidos" namespace="PortalProModelo" type="LinPedido" label="LinPedidos : IQueryable&lt;PortalProModelo.LinPedido&gt;" />
+        <entitySetProperty name="Parametros1" namespace="PortalProModelo" type="Parametro" label="Parametros1 : IQueryable&lt;PortalProModelo.Parametro&gt;" />
       </domainContainer>
     </domainModelHasDomainContext>
   </domainContext>

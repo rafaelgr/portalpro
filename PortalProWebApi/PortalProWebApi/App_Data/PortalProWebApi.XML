@@ -482,6 +482,54 @@
             <param name="tk">Tique de autorización (Ver 'Login')</param>
             <returns></returns>
         </member>
+        <member name="M:PortalProWebApi.Controllers.ParametrosController.Get(System.String)">
+            <summary>
+            Obtiene todos las Parametros de la base de datos
+            </summary>
+            <param name="tk">Código del tique de autorización (Véase "Login")</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.ParametrosController.Get(System.Int32,System.String)">
+            <summary>
+            Obtiene una Parametro cuyo ID corresponde con el pasado
+            </summary>
+            <param name="id">Identificador único de la Parametro</param>
+            <param name="tk">Código del tique de autorización (Véase "Login")</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.ParametrosController.Get(System.Int32)">
+            <summary>
+            Obtiene una Parametro cuyo ID corresponde con el pasado
+            en este caso no necesita tique porque es para solicitudes.
+            </summary>
+            <param name="id">Identificador único de la Parametro</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.ParametrosController.Post(PortalProModelo.Parametro,System.String)">
+            <summary>
+            Crear un nuevo Parametro de proveedores
+            </summary>
+            <param name="parametro">Objeto a crear, el atributo ParametroId lo genera la aplicación y es devuelto en el objeto incluido en la respuesta.</param>
+            <param name="tk"> Tique de autorzación (se debe obtener con la accion Login)</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.ParametrosController.Put(System.Int32,PortalProModelo.Parametro,System.String)">
+            <summary>
+            Modificar un Parametro de proveedor. En el cuerpo del mensaje se envía en el formato adecuado el objeto con los datos modificados
+            </summary>
+            <param name="id"> Identificador único de la Parametro </param>
+            <param name="parametro">Grupo de poveedor con los valores que se desean en sus atributos</param>
+            <param name="tk"> Tique de autorización (Ver 'Login')</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.ParametrosController.Delete(System.Int32,System.String)">
+            <summary>
+            Elimina el Parametro que coincide con el id pasado
+            </summary>
+            <param name="id">Identificador de la Parametro a eliminar</param>
+            <param name="tk">Tique de autorización (Ver 'Login')</param>
+            <returns></returns>
+        </member>
         <member name="M:PortalProWebApi.Controllers.LoginProveedorController.GetLoginProveedor(System.String,System.String)">
             <summary>
             (usuarios de proveedor)

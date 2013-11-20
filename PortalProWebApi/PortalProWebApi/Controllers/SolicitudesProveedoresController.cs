@@ -221,6 +221,33 @@ namespace PortalProWebApi.Controllers
             }
         }
 
+        public virtual bool PostEnvioSolicitud(string email, string link, string comentarios, string tk)
+        {
+            using (PortalProContext ctx = new PortalProContext())
+            {
+                // comprobar el tique
+                if (!CntWebApiSeguridad.CheckTicket(tk, ctx))
+                {
+                    throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.Unauthorized, "Se necesita tique de autorización (Solicitudes proveedores)"));
+                }
+                // preparamos y enviamos el correo de confirmación por defecto (por si falla la plantilla).
+                string asunto = "[PortalPro] Solicitud de alta";
+                string cuerpo = String.Format("Use este enlace {0} copiándolo en su navegador para acceder al alta de  provedor", link);
+                // El primer paso es obtener la plantilla 
+                // en teoria la plantilla 4 es la que toca
+                Plantilla plantilla = (from pl in ctx.Plantillas
+                                       where pl.PlantillaId == 4
+                                       select pl).FirstOrDefault<Plantilla>();
+                if (plantilla != null)
+                {
+                    asunto = String.Format(plantilla.Asunto, link, comentarios);
+                    cuerpo = String.Format(plantilla.Cuerpo, link, comentarios);
+                }
+                PortalProMailController.SendEmail(email, asunto, cuerpo);
+            }
+            return true;
+        }
+
         /// <summary>
         /// Modificar una solicitud. En el cuerpo del mensaje se envía en el formato adecuado el objeto con los datos modificados
         /// </summary>
@@ -282,6 +309,8 @@ namespace PortalProWebApi.Controllers
                 return ctx.CreateDetachedCopy<SolicitudProveedor>(solProveedor, x => x.GrupoProveedor, x => x.SolicitudStatus);
             }
         }
+
+
 
         public virtual bool Put(int idSolPro, IEnumerable<Documento> documentos, string userId, string tk)
         {

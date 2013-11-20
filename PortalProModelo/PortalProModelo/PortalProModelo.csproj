@@ -108,6 +108,9 @@
     <Compile Include="LinPedido.generated.cs">
       <DependentUpon>PortalProEntities.rlinq</DependentUpon>
     </Compile>
+    <Compile Include="Parametro.generated.cs">
+      <DependentUpon>PortalProEntities.rlinq</DependentUpon>
+    </Compile>
     <Compile Include="Pedido.generated.cs">
       <DependentUpon>PortalProEntities.rlinq</DependentUpon>
     </Compile>
@@ -183,6 +186,11 @@
     <Content Include="SQL\PortalproConnection%282013-11-11 13-50-59%29.rlinq.sql" />
     <Content Include="SQL\PortalproConnection%282013-11-13 13-12-54%29.rlinq.sql" />
     <Content Include="SQL\PortalproConnection%282013-11-18 21-27-48%29.rlinq.sql" />
+    <Content Include="SQL\PortalproConnection%282013-11-20 12-24-47%29.rlinq.sql" />
+    <Content Include="SQL\PortalproConnection%282013-11-20 12-30-43%29.rlinq.sql" />
+    <Content Include="SQL\PortalproConnection%282013-11-20 17-05-20%29.rlinq.sql" />
+    <Content Include="SQL\PortalproConnection%282013-11-20 17-12-01%29.rlinq.sql" />
+    <Content Include="SQL\PortalproConnection%282013-11-20 17-16-01%29.rlinq.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

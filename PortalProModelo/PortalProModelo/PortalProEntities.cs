@@ -186,6 +186,14 @@ namespace PortalProModelo
 			}
 		}
 		
+		public IQueryable<Parametro> Parametros1 
+		{
+			get
+			{
+				return this.GetAll<Parametro>();
+			}
+		}
+		
 		public static BackendConfiguration GetBackendConfiguration()
 		{
 			BackendConfiguration backend = new BackendConfiguration();
@@ -263,6 +271,10 @@ namespace PortalProModelo
 			get;
 		}
 		IQueryable<LinPedido> LinPedidos
+		{
+			get;
+		}
+		IQueryable<Parametro> Parametros1
 		{
 			get;
 		}

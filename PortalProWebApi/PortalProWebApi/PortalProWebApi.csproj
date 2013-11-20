@@ -188,6 +188,7 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\CabFacturaController.cs" />
     <Compile Include="Controllers\CabPedidoController.cs" />
+    <Compile Include="Controllers\ParametrosController.cs" />
     <Compile Include="Controllers\LoginProveedorController.cs" />
     <Compile Include="Controllers\LinPedidoController.cs" />
     <Compile Include="Controllers\UsuarioProveedorController.cs" />

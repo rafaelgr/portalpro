@@ -456,6 +456,15 @@ namespace PortalProWebApi
                 m = String.Format("El pedido {0} no existe.", l.NumeroPedido);
                 return m;
             }
+            // Obtener parámetros y datos de proveedor para verificar márgenes
+            Parametro parametro = (from par in ctx.Parametros1
+                                   where par.ParametroId == 1
+                                   select par).FirstOrDefault<Parametro>();
+            Proveedor proveedor = p.Proveedor;
+            //
+            bool facAbierto = parametro.FacturaAbierto;
+            facAbierto = proveedor.FacAbierto;
+            int margen = parametro.MargenFactura;
             if (p.Estado == "FACTURADO" || p.Estado == "CANCELADO")
             {
                 m = String.Format("El pedido {0} ya ha sido facturado o está cancelado.", l.NumeroPedido);
@@ -467,7 +476,7 @@ namespace PortalProWebApi
                 return m;
             }
             // (2) comprobar que el importe que se va a facturar es menor o igual que el del pedido
-            if (l.Importe > (p.TotalPedido - p.TotalFacturado))
+            if (l.Importe > ((p.TotalPedido - p.TotalFacturado) + margen))
             {
                 m = String.Format("El importe {0:##,###,##0.00} supera el resto por facturar del pedido {1}.", l.Importe, l.NumeroPedido);
                 return m;
@@ -475,9 +484,17 @@ namespace PortalProWebApi
             // el estado por defecto de una factura es ACEPTADA, pero si es de un pedido ABIERTO  deberá ser RECIBIDA
             if (p.Estado == "ABIERTO")
             {
-                factura.Estado = "RECIBIDA2";
-                factura.Historial += String.Format("{0:dd/MM/yyyy hh:mm:ss} La factura {1} pasa a estado {3} debido a que el pedido {4} no está recibido, se espera a su aceptación manual <br/>",
-    DateTime.Now, factura.NumFactura, factura.TotalFactura, factura.Estado, p.NumPedido);
+                if (facAbierto)
+                {
+                    factura.Estado = "RECIBIDA2";
+                    factura.Historial += String.Format("{0:dd/MM/yyyy hh:mm:ss} La factura {1} pasa a estado {3} debido a que el pedido {4} no está recibido, se espera a su aceptación manual <br/>",
+        DateTime.Now, factura.NumFactura, factura.TotalFactura, factura.Estado, p.NumPedido);
+                }
+                else
+                {
+                    m = String.Format("El pedido {0} no está recibido, no puede emitir la factura contra él", l.NumeroPedido);
+                    return m;
+                }
             }
             // si llega aquí es una linea a dar de alta.
             factura.TotalFactura += l.Importe;

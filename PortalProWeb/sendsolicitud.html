@@ -1,0 +1,307 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <title> Envio de solicitud </title>
+        <meta name="description" content="" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <!-- basic styles -->
+        <link href="css/bootstrap.min.css" rel="stylesheet" />
+        <link href="css/bootstrap-responsive.min.css" rel="stylesheet" />
+
+        <link rel="stylesheet" href="css/font-awesome.min.css" />
+        <!--[if IE 7]>
+        <link rel="stylesheet" href="css/font-awesome-ie7.min.css" />
+        <![endif]-->
+
+        <!-- page specific plugin styles -->
+        <link rel="stylesheet" href="assets/css/jquery-ui-1.10.2.custom.min.css" />
+        <link rel="stylesheet" href="assets/css/chosen.css" />
+        <link rel="stylesheet" href="assets/css/datepicker.css" />
+        <link rel="stylesheet" href="assets/css/bootstrap-timepicker.css" />
+        <link rel="stylesheet" href="assets/css/daterangepicker.css" />
+        <link rel="stylesheet" href="assets/css/colorpicker.css" />
+        <!-- ace styles -->
+        <link rel="stylesheet" href="css/ace.min.css" />
+        <link rel="stylesheet" href="css/ace-responsive.min.css" />
+        <link rel="stylesheet" href="css/ace-skins.min.css" />
+        <link href="css/kendo.metro.min.css" rel="stylesheet" />
+        <!--[if lt IE 9]>
+        <link rel="stylesheet" href="css/ace-ie.css" />
+        <![endif]-->
+
+    </head>
+
+    <body>
+        <div id="topbar" class="navbar navbar-inverse">
+
+        </div><!--/navbar -->
+
+        <div class="container-fluid" id="main-container">
+            <a href="#" id="menu-toggler">
+                <span></span>
+            </a><!-- menu toggler -->
+
+            <div id="sidebar" class="row-fluid">
+
+            </div><!--/#sidebar-->
+
+            <div id="main-content" class="clearfix">
+
+                <div id="breadcrumbs">
+                    <ul class="breadcrumb">
+                        <li>
+                            <i class="icon-home"></i>
+                            <a href="main.html">Inicio</a>
+                            <span class="divider"><i class="icon-angle-right"></i></span>
+                            <a href="administracion.html">Administración</a>
+                            <span class="divider"><i class="icon-angle-right"></i></span>
+                            <a href="sendsolicitud.html">Envio de solicitudes</a>
+                        </li>
+                    </ul><!--.breadcrumb-->
+                </div><!--#breadcrumbs-->
+
+                <div id="page-content" class="clearfix">
+                    <div class="page-header position-relative">
+                        <h1>
+                            Enviar solicitud de alta a proveedor <i class="icon-envelope"></i>
+                        </h1>
+                    </div>
+                    <div id="send-form" class="row-fluid"> <!-- send-form -->
+                        <div class="row-fluid">
+                            <div class="span12">
+                                <label>
+                                    Grupo de proveedores
+                                    <a onclick="formSearch('GrupoProveedor');">
+                                        <i class="icon-search"></i>
+                                    </a>
+                                </label>
+                                <input id="GrupoProveedor" data-bind="value: GrupoProveedor.Nombre" style="width:100%;" name="GrupoProveedor" required />
+                                <input id="GrupoProveedorId" data-bind="value: GrupoProveedor.GrupoProveedorId" type="hidden" />
+                            </div>
+                        </div>
+                        <div class="row-fluid">
+                            <div class="span12">
+                                <label>Correo electrónico al que se enviará la solicitud</label>
+                                <input id="Email" class="span12" type="email" data-bind="value: Email" 
+                                       name="Email" required  />
+                            </div>
+                        </div>
+                        <div class="row-fluid">
+                            <div class="span12">
+                                <label>Comentarios</label>
+                                <textarea id="Comentarios" class="span12"data-bind="value: Comentarios"></textarea>
+                            </div>
+                        </div>
+                        <div class="row-fluid">
+                            <div class="pull-right">
+                                <button class="btn btn-small btn-primary" onclick ="formAccept()">
+                                    <i class="icon-ok icon-white"></i>
+                                </button>
+                                <button class="btn btn-small btn-primary" onclick="formExit()">
+                                    <i class="icon-signout icon-white"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div><!--/#send-form -->
+                </div><!--/#page-content-->
+
+            </div><!-- #main-content -->
+
+        </div><!--/.fluid-container#main-container-->
+
+        <a href="#" id="btn-scroll-up" class="btn btn-small btn-inverse">
+            <i class="icon-double-angle-up icon-only"></i>
+        </a>
+        <!-- Zona de templates -->
+
+        <!-- basic scripts -->
+        <script src="js/jquery-1.9.1.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/bootbox.min.js"></script>
+        <script src="js/knockout-2.2.1.js"></script>
+        <script src="js/kendo.web.js"></script>
+        <script src="js/kendo.culture.es-ES.min.js"></script>
+        <!-- page specific plugin scripts -->
+
+        <!-- ace scripts -->
+        <script src="js/ace-elements.js"></script>
+        <script src="js/ace.js"></script>
+
+        <!-- inline scripts related to this page -->
+        <!-- inline scripts related to this page -->
+        <script src="js/ari-general.js"></script>
+        <!-- parámetros -->
+        <script src="js/config.js"></script>
+        <!-- Scrip personalizado de apoyo -->
+        <script type="text/javascript">
+
+        </script>
+        <!-- Scripts de variables generales -->
+        <script type="text/javascript">
+            var caller; // establece quién, si alguien nos ha llamado.
+        </script>
+        <!-- Scripts manejo del form -->
+        <script type="text/javascript">
+            var validator = $("#send-form").kendoValidator({
+                validateOnBlur: false,
+                messages: {
+                    required: "Este campo es requerido",
+                    email: "Introduzca un correo válido",
+                    url: "Introduzca una dirección válida"
+                }
+            }).data("kendoValidator");
+        </script>
+        <!-- ViewModel -->
+        <script type="text/javascript">
+            function ModelView() {
+                var self = this;
+                self.GrupoProveedor = {
+                    GrupoProveedorId: ko.observable(),
+                    Nombre: ko.observable()
+                };
+                self.Email = ko.observable();
+                self.Comentarios = ko.observable();
+            }
+            
+            var vm = new ModelView();
+        
+            ko.applyBindings(vm);
+        </script>
+        <script type="text/javascript">
+            // cargar las opciones del desplegable
+            function loadCombos(id, nombre) {
+                // datasource para el desplegable de grupos
+                var dsGrupoProveedor = new kendo.data.DataSource({
+                    transport: {
+                        read: {
+                            url: ari_hosts.webapi + "/api/GruposProveedores?tk=" + getCookie("ari_tique"),
+                            dataType: "json",
+                            type: "GET",
+                            contentType: "application/json",
+                            serverFiltering: true,
+                            serverPaging: true
+                        },
+                        parameterMap: function (data, type) {
+                            if (type != "GET")
+                                return kendo.stringify(data);
+                        }
+                    },
+                    schema: {
+                        model: {
+                            id: "GrupoProveedorId",
+                            fields: {
+                                GrupoProveedorId: { type: "number" },
+                                Nombre: { type: "string" }
+                            }
+                        }
+                    },
+                    pageSize: 5
+                });
+                $("#GrupoProveedor").kendoAutoComplete({
+                    dataSource: dsGrupoProveedor,
+                    filter: "contains",
+                    dataTextField: "Nombre",
+                    select: function (e) {
+                        var dataItem = this.dataItem(e.item.index());
+                        // cargar id seleccionado
+                        vm.GrupoProveedor.GrupoProveedorId(dataItem.GrupoProveedorId);
+                    }
+                });
+            }
+            // llamada externa para búsquedas
+            function formSearch(option) {
+                saveDataCookie();
+                switch (option) {
+                    case "GrupoProveedor":
+                        window.open("grupoproveedor.html?mode=S&caller=sendsolicitud", '_self');
+                        break;
+                }
+            }
+            // salvar el modelo actual en una cookie
+            function saveDataCookie() {
+                var data = ko.toJSON(vm);
+                setCookie("sendsolicitud", data, 1);
+            }
+            // recuperar el modelo desde la cookie
+            function loadDataCookie() {
+                var dataS = getCookie("sendsolicitud");
+                var data = JSON.parse(dataS);
+                loadModel(data);
+            }
+            function loadModel(data) {
+                if (data.GrupoProveedor != null) {
+                    vm.GrupoProveedor.GrupoProveedorId(data.GrupoProveedor.GrupoProveedorId);
+                    vm.GrupoProveedor.Nombre(data.GrupoProveedor.Nombre);
+                }
+                if (data.Email != null) {
+                    vm.Email(data.Email);
+                }
+                vm.Comentarios(data.Comentarios);
+            }
+            function formAccept() {
+                if (!formOk())
+                    return;
+                saveData();
+            }
+            function formOk() {
+                // validación general
+                if (!validator.validate()) {
+                    return false;
+                }
+                return true;
+            }
+            function saveData() {
+                var verb = "";
+                var url = "";
+                // http://localhost:49573/solicitudproveedorfrm.html?GrupoProveedorId=2
+                var link = "http://" + window.location.host +"/solicitudproveedorfrm.html?GrupoProveedorId=" + vm.GrupoProveedor.GrupoProveedorId();
+                verb = "POST";
+                url = ari_hosts.webapi + "/api/solicitudesproveedores/?email=" + vm.Email() +
+                    "&link=" + link +
+                    "&comentarios=" + vm.Comentarios() +
+                    "&tk=" + getCookie("ari_tique");
+                $.ajax({
+                    type: verb,
+                    url: url,
+                    dataType: "json",
+                    contentType: "application/json",
+                    data: ko.toJSON(vm),
+                    success: function (data, textStatus) {
+                        // incluir aqui el tratamiento de los datos recibidos
+                        bootbox.alert("Se ha enviado el correo al proveedor", "Aceptar");
+                    },
+                });
+            }
+            function formExit() {
+                window.open("main.html", '_self');
+            }
+        </script>
+        <!-- Script en arranque -->
+        <script type="text/javascript">
+            (function ($) {
+                $(document).ready(function () {
+                    // en cualquier página hay que verificarla autorización
+                    checkAutorization();
+                    // cargar las barras superiores y laterales
+                    loadTopBar();
+                    loadSideBar();
+                    // quién nos ha llamado.
+                    caller = gup("caller");
+                    // aplicar idioma
+                    kendo.culture("es-Es");
+                    // 
+                    loadCombos();
+                    switch (caller) {
+                        case "grupoproveedor":
+                            // regresamos de la búsqueda de grupo para
+                            // el proveedor;
+                            loadDataCookie();
+                            loadCombos();
+                            break;
+                    }
+                });
+            })(jQuery);
+        </script>
+    </body>
+</html>

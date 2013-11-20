@@ -291,6 +291,9 @@
                     case "solicitudproveedor":
                         window.open("solicitudproveedor.html?caller=grupoproveedor", '_self');
                         break;
+                    case "sendsolicitud":
+                        window.open("sendsolicitud.html?caller=grupoproveedor", '_self');
+                        break;
                 }
             }
             function gridDelete(id, nombre) {
@@ -332,6 +335,10 @@
                     case "solicitudproveedor":
                         data = getCookie("solicitudProveedor");
                         break;
+                    case "sendsolicitud":
+                        data = getCookie("sendsolicitud");
+                        break;
+
                 }
                 // actualizamos con los valores seleccionados
                 var u = JSON.parse(data);
@@ -347,6 +354,10 @@
                     case "solicitudproveedor":
                         setCookie("solicitudProveedor", dataS, 1);
                         window.open("solicitudproveedor.html?caller=grupoproveedor", '_self');
+                        break;
+                    case "sendsolicitud":
+                        setCookie("sendsolicitud", dataS, 1);
+                        window.open("sendsolicitud.html?caller=grupoproveedor", '_self');
                         break;
                 }
             }
