@@ -206,6 +206,14 @@ namespace PortalProWebApi.Controllers
                 {
                     throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.BadRequest));
                 }
+                // comprobamos que no hay una factura para el mismo proveedor en ese año y con
+                // el mismo número de factura
+                CabFactura f = PortalProWebUtility.YaExisteUnaFacturaComoEsta(factura, ctx);
+                if (f != null)
+                {
+                    string m = String.Format("Ya hay una factura del proveedor para este año {0:yyyy} con el mismo número {1}", f.FechaEmision, f.NumFactura);
+                    throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotFound, m));
+                }
                 // Controlamos las propiedades que son en realidad objetos.
                 int proveedorId = 0;
                 if (factura.Proveedor != null)
@@ -268,6 +276,14 @@ namespace PortalProWebApi.Controllers
                 if (factura == null)
                 {
                     throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.BadRequest));
+                }
+                // comprobamos que no hay una factura para el mismo proveedor en ese año y con
+                // el mismo número de factura
+                CabFactura f = PortalProWebUtility.YaExisteUnaFacturaComoEsta(factura, ctx);
+                if (f != null)
+                {
+                    string m = String.Format("Ya hay una factura del proveedor para este año {0:yyyy} con el mismo número {1}", f.FechaEmision, f.NumFactura);
+                    throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotFound, m));
                 }
                 // La aplicación ahora depende del comienzo del usuario
                 string application = "PortalPro";
@@ -364,6 +380,7 @@ namespace PortalProWebApi.Controllers
                 CabFactura factura = PortalProWebUtility.GenerarFacturaDesdePedido(ped, ctx);
                 factura.Historial += String.Format("{0:dd/MM/yyyy hh:mm:ss} La factura {1} con Total {2:0.0} € has sido generada con estado {3} a partir del pedido {4} <br/>",
                     DateTime.Now, factura.NumFactura, factura.TotalFactura, factura.Estado, numPed);
+                factura.Generada = true;
                 ctx.SaveChanges();
 
                 return ctx.CreateDetachedCopy<CabFactura>(factura, x => x.Proveedor, x => x.DocumentoPdf, x => x.DocumentoXml);
@@ -392,6 +409,14 @@ namespace PortalProWebApi.Controllers
                 if (cfac == null)
                 {
                     throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotFound, "No hay una factura con el id proporcionado (CabFactura)"));
+                }
+                // comprobamos que no hay una factura para el mismo proveedor en ese año y con
+                // el mismo número de factura
+                CabFactura fc = PortalProWebUtility.YaExisteUnaFacturaComoEsta(factura, ctx);
+                if (fc != null)
+                {
+                    string m = String.Format("Ya hay una factura del proveedor para este año {0:yyyy} con el mismo número {1}", fc.FechaEmision, fc.NumFactura);
+                    throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotFound, m));
                 }
                 // La aplicación ahora depende del comienzo del usuario
                 string application = "PortalPro";
@@ -469,6 +494,7 @@ namespace PortalProWebApi.Controllers
                 }
                 factura.Historial += String.Format("{0:dd/MM/yyyy hh:mm:ss} La factura {1} con Total {2:0.0} € has sido modificada con estado {3} <br/>",
                     DateTime.Now, factura.NumFactura, factura.TotalFactura, factura.Estado);
+                factura.Generada = false; ;
                 ctx.SaveChanges();
                 return ctx.CreateDetachedCopy<CabFactura>(factura, x => x.Proveedor, x => x.DocumentoPdf, x => x.DocumentoXml);
             }
@@ -497,6 +523,15 @@ namespace PortalProWebApi.Controllers
                 {
                     throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotFound, "No hay una factura con el id proporcionado (CabFactura)"));
                 }
+                // comprobamos que no hay una factura para el mismo proveedor en ese año y con
+                // el mismo número de factura
+                CabFactura fc = PortalProWebUtility.YaExisteUnaFacturaComoEsta(factura, ctx);
+                if (fc != null)
+                {
+                    string m = String.Format("Ya hay una factura del proveedor para este año {0:yyyy} con el mismo número {1}", fc.FechaEmision, fc.NumFactura);
+                    throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotFound, m));
+                }
+
                 string application = "PortalPro";
                 switch (userId.Substring(0, 1))
                 {
@@ -576,6 +611,7 @@ namespace PortalProWebApi.Controllers
                 }
                 factura.Historial += String.Format("{0:dd/MM/yyyy hh:mm:ss} La factura {1} con Total {2:0.0} € has sido modificada con estado {3} <br/>",
                     DateTime.Now, factura.NumFactura, factura.TotalFactura, factura.Estado);
+                factura.Generada = false; ;
                 ctx.SaveChanges();
                 return ctx.CreateDetachedCopy<CabFactura>(factura, x => x.Proveedor, x => x.DocumentoPdf, x => x.DocumentoXml);
             }
@@ -684,6 +720,14 @@ namespace PortalProWebApi.Controllers
                 {
                     throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotFound, "No hay una factura con el id proporcionado (CabFactura)"));
                 }
+                // comprobamos que no hay una factura para el mismo proveedor en ese año y con
+                // el mismo número de factura
+                CabFactura fc = PortalProWebUtility.YaExisteUnaFacturaComoEsta(factura, ctx);
+                if (fc != null)
+                {
+                    string m = String.Format("Ya hay una factura del proveedor para este año {0:yyyy} con el mismo número {1}", fc.FechaEmision, fc.NumFactura);
+                    throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotFound, m));
+                }
                 // Controlamos las propiedades que son en realidad objetos.
                 int proveedorId = 0;
                 if (factura.Proveedor != null)
@@ -731,6 +775,7 @@ namespace PortalProWebApi.Controllers
                 }
                 factura.Historial += String.Format("{0:dd/MM/yyyy hh:mm:ss} La factura {1} con Total {2:0.0} € has sido modificada con estado {3} <br/>",
                     DateTime.Now, factura.NumFactura, factura.TotalFactura, factura.Estado);
+                factura.Generada = false;
                 ctx.SaveChanges();
                 return ctx.CreateDetachedCopy<CabFactura>(factura, x => x.Proveedor, x => x.DocumentoPdf, x => x.DocumentoXml);
             }

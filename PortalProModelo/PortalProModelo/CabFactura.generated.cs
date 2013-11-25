@@ -141,6 +141,19 @@ namespace PortalProModelo
 			}
 		}
 		
+		private bool _generada;
+		public virtual bool Generada
+		{
+			get
+			{
+				return this._generada;
+			}
+			set
+			{
+				this._generada = value;
+			}
+		}
+		
 		private Proveedor _proveedor;
 		public virtual Proveedor Proveedor
 		{

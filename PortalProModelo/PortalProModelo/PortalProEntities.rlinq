@@ -454,6 +454,9 @@
         <orm:field name="_fechaCobro" property="FechaCobro" uniqueId="5d33bb1e-9680-4a1d-b998-051940701df7" type="System.DateTime">
           <orm:column name="FechaCobro" sql-type="datetime" nullable="false" length="0" scale="0" ado-type="" />
         </orm:field>
+        <orm:field name="_generada" property="Generada" uniqueId="6d8a0cb6-70cc-4d59-9290-5a4872bc3fca" type="System.Boolean">
+          <orm:column nullable="false" scale="0" length="0" sql-type="bit" name="Generada" ado-type="" />
+        </orm:field>
         <orm:field name="_proveedor" property="Proveedor" behavior="readwrite" uniqueId="a0e7d402-f8cd-4e92-9322-d8fc12ad4d93" type="PortalProModelo.Proveedor">
           <orm:reference uniqueId="9750b7fa-84d1-4309-8275-c1b1677043e2" />
         </orm:field>
@@ -760,6 +763,7 @@
         <orm:column name="Historial" sql-type="text" nullable="true" length="0" scale="0" ado-type="" />
         <orm:column name="FechaPrevistaCobro" sql-type="datetime" nullable="false" length="0" scale="0" ado-type="" />
         <orm:column name="FechaCobro" sql-type="datetime" nullable="false" length="0" scale="0" ado-type="" />
+        <orm:column nullable="false" scale="0" length="0" sql-type="bit" name="Generada" ado-type="" />
         <orm:index name="idx_CabFactura_ProveedorId">
           <orm:columnMapping>
             <orm:column name="ProveedorId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
@@ -1279,6 +1283,7 @@
       <Property Id="8a253d04-15e4-4453-bd0a-483156beafb0" name="Historial" label="Historial : String" fieldName="_historial" />
       <Property Id="be508709-6b5f-4000-bec8-ba794ff0c94b" name="FechaPrevistaCobro" type="DateTime" label="FechaPrevistaCobro : DateTime" fieldName="_fechaPrevistaCobro" />
       <Property Id="5d33bb1e-9680-4a1d-b998-051940701df7" name="FechaCobro" type="DateTime" label="FechaCobro : DateTime" fieldName="_fechaCobro" />
+      <Property Id="6d8a0cb6-70cc-4d59-9290-5a4872bc3fca" name="Generada" type="Boolean" label="Generada : Boolean" fieldName="_generada" />
       <AssociationTargets>
         <Association Id="9750b7fa-84d1-4309-8275-c1b1677043e2" SourceMultiplicity="ZeroOne" name="CabFacturaHasProveedor">
           <DomainClassMoniker name="/PortalProContext/Proveedor" />

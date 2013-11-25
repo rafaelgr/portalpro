@@ -524,5 +524,34 @@ namespace PortalProWebApi
             }
             ctx.SaveChanges();
         }
+        public static CabFactura YaExisteUnaFacturaComoEsta(CabFactura factura, PortalProContext ctx)
+        {
+            // obtener el año de la fecha de factura.
+            int ano = factura.FechaEmision.Year;
+            // primer y último día de ese año.
+            DateTime primerDia = new DateTime(ano, 1, 1);
+            DateTime ultimoDia = new DateTime(ano, 12, 31);
+            CabFactura fac = null;
+            if (factura.CabFacturaId != 0)
+            {
+                fac = (from f in ctx.CabFacturas
+                       where f.Proveedor.ProveedorId == factura.Proveedor.ProveedorId
+                       && f.NumFactura == factura.NumFactura
+                       && f.FechaEmision >= primerDia
+                       && f.FechaEmision <= ultimoDia
+                       && f.CabFacturaId != factura.CabFacturaId
+                       select f).FirstOrDefault<CabFactura>();
+            }
+            else
+            {
+                fac = (from f in ctx.CabFacturas
+                       where f.Proveedor.ProveedorId == factura.Proveedor.ProveedorId
+                       && f.NumFactura == factura.NumFactura
+                       && f.FechaEmision >= primerDia
+                       && f.FechaEmision <= ultimoDia
+                       select f).FirstOrDefault<CabFactura>();
+            }
+            return fac;
+        }
     }
 }

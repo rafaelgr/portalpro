@@ -84,7 +84,7 @@
                         </div>
                         <div class="row-fluid">
                             <div class="span6">
-                                <label>Fecha de emisión</label>
+                                <label>Fecha factura</label>
                                 <input id="FechaEmision" data-bind="value: FechaEmision" name="FechaEmision" required/>
                             </div>
                             <div class="span6">
@@ -166,7 +166,10 @@
                                                 <input class="span12" style="text-align:right" data-bind="value: Importe" type="number" min="1" name="Importe" required validationMessage="Importe incorrecto"/>
                                             </td>
                                             <td class="hidden-480">
+                                                <select data-bind="options: $root.Porcentajes, value: PorcentajeIva"></select>
+                                                <!--
                                                 <input class="span12"  style="text-align:right" data-bind="value: PorcentajeIva" type="number" min="1" name="PorcentajeIva" required validationMessage="Porcentaje incorrecto"/>
+                                                -->
                                             </td>
                                             <td>
                                                 <button data-bind="click: $root.removeLineaFactura" class="btn btn-small btn-primary" title="Eliminar registro">
@@ -340,6 +343,7 @@
                     Url: ko.observable(),
                     Path: ko.observable()
                 }
+                self.Porcentajes = ko.observableArray(["21","10","4"]),
                 self.dspTotalFactura = ko.computed(function () {
                     var total = 0;
                     ko.utils.arrayForEach(self.LineasFactura(), function (linea) {
@@ -437,8 +441,8 @@
                         { field: "Proveedor", title: "Proveedor", template: "#=Proveedor?Proveedor.NombreComercial:''#", filterable:false },
                         { field: "NumFactura", title: "N. Factura" },
                         { field: "Estado", title: "Estado" },
-                        { field: "FechaEmision", title: "F.Emision", format: "{0:dd/MM/yyyy}" },
-                        { field: "FechaPrevistaCobro", title: "F.Prev. Cobro", format: "{0:dd/MM/yyyy}" },
+                        { field: "FechaEmision", title: "F.Factura", format: "{0:dd/MM/yyyy}" },
+                        { field: "FechaPrevistaCobro", title: "F.Prev.Cobro", format: "{0:dd/MM/yyyy}" },
                         { field: "FechaCobro", title: "F.Cobro", format: "{0:dd/MM/yyyy}" },
                         { field: "TotalFactura", title: "Total", format: "{0:##,###,##0.00}", attributes: { "style": "text-align:right" } },
                         { field: "FechaAlta", title: "F.Alta", format: "{0:dd/MM/yyyy}"},

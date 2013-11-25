@@ -179,6 +179,10 @@ namespace PortalProWebApi.Controllers
                 
                 // justo antes de darlo de alta le ponemos el sello
                 solProveedor.Sello = DateTime.Now;
+                // por defecto su estado es pendiente ID=1
+                solProveedor.SolicitudStatus = (from ss in ctx.SolicitudStatus
+                                                where ss.SolicitudStatusId == 1
+                                                select ss).FirstOrDefault<SolicitudStatus>();
                 // dar de alta el objeto en la base de datos y devolverlo en el mensaje
                 ctx.Add(solProveedor);
                 // eliminamos los documentos asociados si los hay
