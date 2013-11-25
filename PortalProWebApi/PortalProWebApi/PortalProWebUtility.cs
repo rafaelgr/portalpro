@@ -363,7 +363,6 @@ namespace PortalProWebApi
                 CabFacturaId = 0,
                 Proveedor = p.Proveedor,
                 FechaAlta = DateTime.Now,
-                FechaEmision = DateTime.Now,
                 Estado = "RECIBIDA"
             };
             ctx.Add(f);
@@ -527,7 +526,8 @@ namespace PortalProWebApi
         public static CabFactura YaExisteUnaFacturaComoEsta(CabFactura factura, PortalProContext ctx)
         {
             // obtener el año de la fecha de factura.
-            int ano = factura.FechaEmision.Year;
+            DateTime fechaEmision = (DateTime)factura.FechaEmision;
+            int ano = fechaEmision.Year;
             // primer y último día de ese año.
             DateTime primerDia = new DateTime(ano, 1, 1);
             DateTime ultimoDia = new DateTime(ano, 12, 31);

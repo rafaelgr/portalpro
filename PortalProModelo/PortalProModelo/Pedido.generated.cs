@@ -37,8 +37,8 @@ namespace PortalProModelo
 			}
 		}
 		
-		private DateTime _fechaAlta;
-		public virtual DateTime FechaAlta
+		private DateTime? _fechaAlta;
+		public virtual DateTime? FechaAlta
 		{
 			get
 			{
@@ -115,6 +115,19 @@ namespace PortalProModelo
 			}
 		}
 		
+		private string _tipoPedido;
+		public virtual string TipoPedido
+		{
+			get
+			{
+				return this._tipoPedido;
+			}
+			set
+			{
+				this._tipoPedido = value;
+			}
+		}
+		
 		private Proveedor _proveedor;
 		public virtual Proveedor Proveedor
 		{
@@ -138,6 +151,19 @@ namespace PortalProModelo
 			set
 			{
 				this._documento = value;
+			}
+		}
+		
+		private Documento _documento1;
+		public virtual Documento DocumentoXml
+		{
+			get
+			{
+				return this._documento1;
+			}
+			set
+			{
+				this._documento1 = value;
 			}
 		}
 		

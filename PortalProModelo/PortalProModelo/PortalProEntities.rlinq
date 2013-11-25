@@ -246,6 +246,9 @@
         <orm:field name="_pedidos" property="Pedidos" behavior="readwrite" uniqueId="f81f1fef-f274-4390-b378-cbc173ed6c89" type="PortalProModelo.Pedido">
           <orm:collection element-class="PortalProModelo.Pedido" inverse-field="_documento" order-by="" uniqueId="ce7ef598-0cdd-42a6-a384-133861d81017" />
         </orm:field>
+        <orm:field name="_pedidos1" property="PedidosXml" behavior="readwrite" uniqueId="001305b9-4b7b-468f-8891-e1d0f23bdfcb" type="PortalProModelo.Pedido">
+          <orm:collection element-class="PortalProModelo.Pedido" inverse-field="_documento1" order-by="" uniqueId="907cc82f-0d94-4949-a055-f2801c657a10" />
+        </orm:field>
       </orm:class>
       <orm:class name="SolicitudProveedor" uniqueId="2335b462-3777-4219-b736-d4f1654eeb56">
         <orm:table name="SolicitudProveedor" />
@@ -433,29 +436,29 @@
         <orm:field name="_fechaAlta" property="FechaAlta" uniqueId="abc28fe9-6bd6-46a8-b0b7-158c7d066fbd" type="System.DateTime">
           <orm:column name="FechaAlta" sql-type="datetime" nullable="false" length="0" scale="0" converter="OpenAccessRuntime.Data.Timestamp2DateTimeConverter" ado-type="DateTime" />
         </orm:field>
-        <orm:field name="_fechaEmision" property="FechaEmision" uniqueId="1d45c8c9-ebae-4d64-9a91-65f853c1f441" type="System.DateTime">
-          <orm:column name="FechaEmision" sql-type="datetime" nullable="false" length="0" scale="0" converter="OpenAccessRuntime.Data.Timestamp2DateTimeConverter" ado-type="DateTime" />
+        <orm:field name="_fechaEmision" property="FechaEmision" uniqueId="1d45c8c9-ebae-4d64-9a91-65f853c1f441" type="System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]">
+          <orm:column name="FechaEmision" sql-type="datetime" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.Timestamp2DateTimeConverter" ado-type="DateTime" />
         </orm:field>
         <orm:field name="_totalFactura" property="TotalFactura" uniqueId="f67b1736-31a6-45b0-8fd9-3bfb6ed38450" type="System.Decimal">
-          <orm:column name="TotalFactura" sql-type="decimal" nullable="false" length="10" scale="2" ado-type="Numeric" />
+          <orm:column name="TotalFactura" sql-type="decimal" nullable="false" length="12" scale="2" ado-type="Numeric" />
         </orm:field>
         <orm:field name="_numFactura" property="NumFactura" uniqueId="8e6deabf-9b02-4742-9d69-ad433275fd68" type="System.String">
           <orm:column name="NumFactura" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
         </orm:field>
         <orm:field name="_estado" property="Estado" uniqueId="44dd7e34-66b3-495b-9ed8-3605848703ed" type="System.String">
-          <orm:column name="Estado" sql-type="varchar" nullable="false" length="50" scale="0" ado-type="" />
+          <orm:column name="Estado" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
         </orm:field>
         <orm:field name="_historial" property="Historial" uniqueId="8a253d04-15e4-4453-bd0a-483156beafb0" type="System.String">
-          <orm:column name="Historial" sql-type="text" nullable="true" length="0" scale="0" ado-type="" />
+          <orm:column name="Historial" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
         </orm:field>
-        <orm:field name="_fechaPrevistaCobro" property="FechaPrevistaCobro" uniqueId="be508709-6b5f-4000-bec8-ba794ff0c94b" type="System.DateTime">
-          <orm:column name="FechaPrevistaCobro" sql-type="datetime" nullable="false" length="0" scale="0" ado-type="" />
+        <orm:field name="_fechaPrevistaCobro" property="FechaPrevistaCobro" uniqueId="be508709-6b5f-4000-bec8-ba794ff0c94b" type="System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]">
+          <orm:column name="FechaPrevistaCobro" sql-type="datetime" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.Timestamp2DateTimeConverter" ado-type="DateTime" />
         </orm:field>
-        <orm:field name="_fechaCobro" property="FechaCobro" uniqueId="5d33bb1e-9680-4a1d-b998-051940701df7" type="System.DateTime">
-          <orm:column name="FechaCobro" sql-type="datetime" nullable="false" length="0" scale="0" ado-type="" />
+        <orm:field name="_fechaCobro" property="FechaCobro" uniqueId="5d33bb1e-9680-4a1d-b998-051940701df7" type="System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]">
+          <orm:column name="FechaCobro" sql-type="datetime" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.Timestamp2DateTimeConverter" ado-type="DateTime" />
         </orm:field>
         <orm:field name="_generada" property="Generada" uniqueId="6d8a0cb6-70cc-4d59-9290-5a4872bc3fca" type="System.Boolean">
-          <orm:column nullable="false" scale="0" length="0" sql-type="bit" name="Generada" ado-type="" />
+          <orm:column name="Generada" sql-type="bit" nullable="false" length="0" scale="0" converter="OpenAccessRuntime.Data.Bit2BooleanConverter" ado-type="Bit" />
         </orm:field>
         <orm:field name="_proveedor" property="Proveedor" behavior="readwrite" uniqueId="a0e7d402-f8cd-4e92-9322-d8fc12ad4d93" type="PortalProModelo.Proveedor">
           <orm:reference uniqueId="9750b7fa-84d1-4309-8275-c1b1677043e2" />
@@ -531,34 +534,47 @@
         <orm:field name="_pedidoId" property="PedidoId" uniqueId="c1d8f6e8-47fd-4d46-9b90-eecd89d568d5" type="System.Int32">
           <orm:column name="PedidoId" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" backend-calculated="true" ado-type="Int32" />
         </orm:field>
-        <orm:field name="_fechaAlta" property="FechaAlta" uniqueId="46c6f0fb-d9cf-40af-9e85-7bd97adf99a1" type="System.DateTime">
-          <orm:column name="FechaAlta" sql-type="datetime" nullable="false" length="0" scale="0" converter="OpenAccessRuntime.Data.Timestamp2DateTimeConverter" ado-type="DateTime" />
+        <orm:field name="_fechaAlta" property="FechaAlta" uniqueId="46c6f0fb-d9cf-40af-9e85-7bd97adf99a1" type="System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]">
+          <orm:column name="FechaAlta" sql-type="datetime" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.Timestamp2DateTimeConverter" ado-type="DateTime" />
         </orm:field>
         <orm:field name="_numPedido" property="NumPedido" uniqueId="c484afc0-a2f0-44c0-932c-35b1a8d47a56" type="System.String">
           <orm:column name="NumPedido" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
         </orm:field>
         <orm:field name="_totalPedido" property="TotalPedido" uniqueId="062dc353-4850-4aa6-8c56-9dd5fa2f49ff" type="System.Decimal">
-          <orm:column name="TotalPedido" sql-type="decimal" nullable="false" length="10" scale="2" ado-type="Numeric" />
+          <orm:column name="TotalPedido" sql-type="decimal" nullable="false" length="12" scale="2" ado-type="Numeric" />
         </orm:field>
         <orm:field name="_totalFacturado" property="TotalFacturado" uniqueId="64a2b5e8-2825-48d6-8792-1af7f8ae8547" type="System.Decimal">
-          <orm:column name="TotalFacturado" sql-type="decimal" nullable="false" length="10" scale="2" ado-type="Numeric" />
+          <orm:column name="TotalFacturado" sql-type="decimal" nullable="false" length="12" scale="2" ado-type="Numeric" />
         </orm:field>
         <orm:field name="_estado" property="Estado" uniqueId="80c05708-7a88-4733-9199-42c00e3cce29" type="System.String">
-          <orm:column name="Estado" sql-type="varchar" nullable="false" length="50" scale="0" ado-type="" />
+          <orm:column name="Estado" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
         </orm:field>
-        <orm:field name="_responsable" property="Responsable" uniqueId="4a1282e7-1a84-47d8-bf48-47b9aae06635" type="System.String" />
+        <orm:field name="_responsable" property="Responsable" uniqueId="4a1282e7-1a84-47d8-bf48-47b9aae06635" type="System.String">
+          <orm:column name="Responsable" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        </orm:field>
+        <orm:field name="_tipoPedido" property="TipoPedido" uniqueId="12c9768c-c872-471b-94dd-10ce9daa4102" type="System.String">
+          <orm:column name="TipoPedido" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        </orm:field>
         <orm:field name="_proveedor" property="Proveedor" behavior="readwrite" uniqueId="be5b168f-c016-4e54-97f9-75cd7a2dba5f" type="PortalProModelo.Proveedor">
           <orm:reference uniqueId="eade228d-17d6-4ca7-a17f-2f5f674a5e44" />
         </orm:field>
         <orm:field name="_documento" property="DocumentoPdf" behavior="readwrite" uniqueId="a24e4085-402a-4960-922b-1af8fff25fb5" type="PortalProModelo.Documento">
           <orm:reference uniqueId="ce7ef598-0cdd-42a6-a384-133861d81017" />
         </orm:field>
+        <orm:field name="_documento1" property="DocumentoXml" behavior="readwrite" uniqueId="7148d677-9469-4a1f-83b3-83391f5629ba" type="PortalProModelo.Documento">
+          <orm:reference uniqueId="907cc82f-0d94-4949-a055-f2801c657a10" />
+        </orm:field>
         <orm:field name="_linPedidos" property="LinPedidos" behavior="readwrite" uniqueId="aa2d3426-6723-4a19-8203-7ae728255acd" type="PortalProModelo.LinPedido">
           <orm:collection element-class="PortalProModelo.LinPedido" inverse-field="_pedido" order-by="" uniqueId="2ef9c0aa-d285-45b6-98ff-c8b852d61572" />
         </orm:field>
-        <orm:index name="idx_Pedido_DocumentoId">
+        <orm:index name="idx_Pedido_DocumentoPdf_DocumentoId">
           <orm:columnMapping>
-            <orm:column name="DocumentoId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+            <orm:column name="DocumentoPdf_DocumentoId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+          </orm:columnMapping>
+        </orm:index>
+        <orm:index name="idx_Pedido_DocumentoXml_DocumentoId">
+          <orm:columnMapping>
+            <orm:column name="DocumentoXml_DocumentoId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
           </orm:columnMapping>
         </orm:index>
         <orm:index name="idx_Pedido_ProveedorId">
@@ -750,47 +766,6 @@
           </orm:columnMapping>
         </orm:index>
       </orm:table>
-      <orm:table name="CabFactura">
-        <orm:column name="CabFacturaId" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" backend-calculated="true" ado-type="Int32" />
-        <orm:column name="FechaAlta" sql-type="datetime" nullable="false" length="0" scale="0" converter="OpenAccessRuntime.Data.Timestamp2DateTimeConverter" ado-type="DateTime" />
-        <orm:column name="FechaEmision" sql-type="datetime" nullable="false" length="0" scale="0" converter="OpenAccessRuntime.Data.Timestamp2DateTimeConverter" ado-type="DateTime" />
-        <orm:column name="TotalFactura" sql-type="decimal" nullable="false" length="10" scale="2" ado-type="Numeric" />
-        <orm:column name="ProveedorId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
-        <orm:column name="DocumentoPdf_DocumentoId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
-        <orm:column name="DocumentoXml_DocumentoId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
-        <orm:column name="NumFactura" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
-        <orm:column name="Estado" sql-type="varchar" nullable="false" length="50" scale="0" ado-type="" />
-        <orm:column name="Historial" sql-type="text" nullable="true" length="0" scale="0" ado-type="" />
-        <orm:column name="FechaPrevistaCobro" sql-type="datetime" nullable="false" length="0" scale="0" ado-type="" />
-        <orm:column name="FechaCobro" sql-type="datetime" nullable="false" length="0" scale="0" ado-type="" />
-        <orm:column nullable="false" scale="0" length="0" sql-type="bit" name="Generada" ado-type="" />
-        <orm:index name="idx_CabFactura_ProveedorId">
-          <orm:columnMapping>
-            <orm:column name="ProveedorId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
-          </orm:columnMapping>
-        </orm:index>
-      </orm:table>
-      <orm:table name="Pedido">
-        <orm:column name="PedidoId" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" backend-calculated="true" ado-type="Int32" />
-        <orm:column name="FechaAlta" sql-type="datetime" nullable="false" length="0" scale="0" converter="OpenAccessRuntime.Data.Timestamp2DateTimeConverter" ado-type="DateTime" />
-        <orm:column name="NumPedido" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
-        <orm:column name="TotalPedido" sql-type="decimal" nullable="false" length="10" scale="2" ado-type="Numeric" />
-        <orm:column name="TotalFacturado" sql-type="decimal" nullable="false" length="10" scale="2" ado-type="Numeric" />
-        <orm:column name="ProveedorId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
-        <orm:column name="DocumentoId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
-        <orm:column name="Estado" sql-type="varchar" nullable="false" length="50" scale="0" ado-type="" />
-        <orm:column name="Responsable" sql-type="varchar" nullable="false" length="255" scale="0" ado-type="" />
-        <orm:index name="idx_Pedido_DocumentoId">
-          <orm:columnMapping>
-            <orm:column name="DocumentoId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
-          </orm:columnMapping>
-        </orm:index>
-        <orm:index name="idx_Pedido_ProveedorId">
-          <orm:columnMapping>
-            <orm:column name="ProveedorId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
-          </orm:columnMapping>
-        </orm:index>
-      </orm:table>
       <orm:table name="LinPedido">
         <orm:column name="LinPedidoId" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" backend-calculated="true" ado-type="Int32" />
         <orm:column name="Descripcion" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
@@ -800,6 +775,54 @@
         <orm:index name="idx_LinPedido_PedidoId">
           <orm:columnMapping>
             <orm:column name="PedidoId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+          </orm:columnMapping>
+        </orm:index>
+      </orm:table>
+      <orm:table name="Pedido">
+        <orm:column name="PedidoId" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" backend-calculated="true" ado-type="Int32" />
+        <orm:column name="FechaAlta" sql-type="datetime" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.Timestamp2DateTimeConverter" ado-type="DateTime" />
+        <orm:column name="NumPedido" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        <orm:column name="TotalPedido" sql-type="decimal" nullable="false" length="12" scale="2" ado-type="Numeric" />
+        <orm:column name="TotalFacturado" sql-type="decimal" nullable="false" length="12" scale="2" ado-type="Numeric" />
+        <orm:column name="Estado" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        <orm:column name="Responsable" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        <orm:column name="ProveedorId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+        <orm:column name="DocumentoPdf_DocumentoId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+        <orm:column name="TipoPedido" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        <orm:column name="DocumentoXml_DocumentoId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+        <orm:index name="idx_Pedido_DocumentoPdf_DocumentoId">
+          <orm:columnMapping>
+            <orm:column name="DocumentoPdf_DocumentoId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+          </orm:columnMapping>
+        </orm:index>
+        <orm:index name="idx_Pedido_DocumentoXml_DocumentoId">
+          <orm:columnMapping>
+            <orm:column name="DocumentoXml_DocumentoId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+          </orm:columnMapping>
+        </orm:index>
+        <orm:index name="idx_Pedido_ProveedorId">
+          <orm:columnMapping>
+            <orm:column name="ProveedorId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+          </orm:columnMapping>
+        </orm:index>
+      </orm:table>
+      <orm:table name="CabFactura">
+        <orm:column name="CabFacturaId" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" backend-calculated="true" ado-type="Int32" />
+        <orm:column name="FechaAlta" sql-type="datetime" nullable="false" length="0" scale="0" converter="OpenAccessRuntime.Data.Timestamp2DateTimeConverter" ado-type="DateTime" />
+        <orm:column name="FechaEmision" sql-type="datetime" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.Timestamp2DateTimeConverter" ado-type="DateTime" />
+        <orm:column name="TotalFactura" sql-type="decimal" nullable="false" length="12" scale="2" ado-type="Numeric" />
+        <orm:column name="NumFactura" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        <orm:column name="Estado" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        <orm:column name="Historial" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        <orm:column name="FechaPrevistaCobro" sql-type="datetime" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.Timestamp2DateTimeConverter" ado-type="DateTime" />
+        <orm:column name="FechaCobro" sql-type="datetime" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.Timestamp2DateTimeConverter" ado-type="DateTime" />
+        <orm:column name="Generada" sql-type="bit" nullable="false" length="0" scale="0" converter="OpenAccessRuntime.Data.Bit2BooleanConverter" ado-type="Bit" />
+        <orm:column name="ProveedorId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+        <orm:column name="DocumentoPdf_DocumentoId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+        <orm:column name="DocumentoXml_DocumentoId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+        <orm:index name="idx_CabFactura_ProveedorId">
+          <orm:columnMapping>
+            <orm:column name="ProveedorId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
           </orm:columnMapping>
         </orm:index>
       </orm:table>
@@ -1112,6 +1135,9 @@
         <classHasNavigationalProperties Id="341e9a3a-33d6-4403-8660-291ab99d7f09">
           <NavigationalProperty Id="f81f1fef-f274-4390-b378-cbc173ed6c89" name="Pedidos" type="IList&lt;Pedido&gt;" label="Pedidos : IList&lt;Pedido&gt;" nullable="true" kind="Persistent" fieldName="_pedidos" isDependent="false" isManaged="false" />
         </classHasNavigationalProperties>
+        <classHasNavigationalProperties Id="a53a8463-07c3-470c-8386-0af62128055a">
+          <NavigationalProperty Id="001305b9-4b7b-468f-8891-e1d0f23bdfcb" name="PedidosXml" type="IList&lt;Pedido&gt;" label="PedidosXml : IList&lt;Pedido&gt;" nullable="true" kind="Persistent" fieldName="_pedidos1" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
       </navigationalProperties>
     </DomainClass>
     <DomainClass Id="2335b462-3777-4219-b736-d4f1654eeb56" name="SolicitudProveedor" namespace="PortalProModelo" showPropertiesCompartment="true" identityMechanism="DatabaseServerCalculated" showNavigationCompartment="true" showImplementationCompartment="true">
@@ -1276,13 +1302,13 @@
     <DomainClass Id="c6d0c499-fab6-4f24-97b9-6f4f933d7931" name="CabFactura" namespace="PortalProModelo" showPropertiesCompartment="true" identityMechanism="DatabaseServerCalculated" showNavigationCompartment="true" showImplementationCompartment="true">
       <Property Id="83603d41-cfc0-411b-ba31-6f6f3824b2e2" name="CabFacturaId" type="System.Int32" label="CabFacturaId : System.Int32" identity="true" fieldName="_cabFacturaId" />
       <Property Id="abc28fe9-6bd6-46a8-b0b7-158c7d066fbd" name="FechaAlta" type="DateTime" label="FechaAlta : DateTime" fieldName="_fechaAlta" />
-      <Property Id="1d45c8c9-ebae-4d64-9a91-65f853c1f441" name="FechaEmision" type="DateTime" label="FechaEmision : DateTime" fieldName="_fechaEmision" />
+      <Property Id="1d45c8c9-ebae-4d64-9a91-65f853c1f441" name="FechaEmision" type="DateTime" label="FechaEmision : DateTime" nullable="true" fieldName="_fechaEmision" />
       <Property Id="f67b1736-31a6-45b0-8fd9-3bfb6ed38450" name="TotalFactura" type="Decimal" label="TotalFactura : Decimal" fieldName="_totalFactura" />
       <Property Id="8e6deabf-9b02-4742-9d69-ad433275fd68" name="NumFactura" label="NumFactura : String" fieldName="_numFactura" />
       <Property Id="44dd7e34-66b3-495b-9ed8-3605848703ed" name="Estado" label="Estado : String" fieldName="_estado" />
       <Property Id="8a253d04-15e4-4453-bd0a-483156beafb0" name="Historial" label="Historial : String" fieldName="_historial" />
-      <Property Id="be508709-6b5f-4000-bec8-ba794ff0c94b" name="FechaPrevistaCobro" type="DateTime" label="FechaPrevistaCobro : DateTime" fieldName="_fechaPrevistaCobro" />
-      <Property Id="5d33bb1e-9680-4a1d-b998-051940701df7" name="FechaCobro" type="DateTime" label="FechaCobro : DateTime" fieldName="_fechaCobro" />
+      <Property Id="be508709-6b5f-4000-bec8-ba794ff0c94b" name="FechaPrevistaCobro" type="DateTime" label="FechaPrevistaCobro : DateTime" nullable="true" fieldName="_fechaPrevistaCobro" />
+      <Property Id="5d33bb1e-9680-4a1d-b998-051940701df7" name="FechaCobro" type="DateTime" label="FechaCobro : DateTime" nullable="true" fieldName="_fechaCobro" />
       <Property Id="6d8a0cb6-70cc-4d59-9290-5a4872bc3fca" name="Generada" type="Boolean" label="Generada : Boolean" fieldName="_generada" />
       <AssociationTargets>
         <Association Id="9750b7fa-84d1-4309-8275-c1b1677043e2" SourceMultiplicity="ZeroOne" name="CabFacturaHasProveedor">
@@ -1389,12 +1415,13 @@
     </DomainClass>
     <DomainClass Id="444918ea-54df-42d5-a478-a1ab8d85d0b8" name="Pedido" namespace="PortalProModelo" showPropertiesCompartment="true" identityMechanism="DatabaseServerCalculated" showNavigationCompartment="true" showImplementationCompartment="true">
       <Property Id="c1d8f6e8-47fd-4d46-9b90-eecd89d568d5" name="PedidoId" type="System.Int32" label="PedidoId : System.Int32" identity="true" fieldName="_pedidoId" />
-      <Property Id="46c6f0fb-d9cf-40af-9e85-7bd97adf99a1" name="FechaAlta" type="DateTime" label="FechaAlta : DateTime" fieldName="_fechaAlta" />
+      <Property Id="46c6f0fb-d9cf-40af-9e85-7bd97adf99a1" name="FechaAlta" type="DateTime" label="FechaAlta : DateTime" nullable="true" fieldName="_fechaAlta" />
       <Property Id="c484afc0-a2f0-44c0-932c-35b1a8d47a56" name="NumPedido" label="NumPedido : String" fieldName="_numPedido" />
       <Property Id="062dc353-4850-4aa6-8c56-9dd5fa2f49ff" name="TotalPedido" type="Decimal" label="TotalPedido : Decimal" fieldName="_totalPedido" />
       <Property Id="64a2b5e8-2825-48d6-8792-1af7f8ae8547" name="TotalFacturado" type="Decimal" label="TotalFacturado : Decimal" fieldName="_totalFacturado" />
       <Property Id="80c05708-7a88-4733-9199-42c00e3cce29" name="Estado" label="Estado : String" fieldName="_estado" />
       <Property Id="4a1282e7-1a84-47d8-bf48-47b9aae06635" name="Responsable" label="Responsable : String" fieldName="_responsable" />
+      <Property Id="12c9768c-c872-471b-94dd-10ce9daa4102" name="TipoPedido" label="TipoPedido : String" fieldName="_tipoPedido" />
       <AssociationTargets>
         <Association Id="eade228d-17d6-4ca7-a17f-2f5f674a5e44" SourceMultiplicity="ZeroOne" name="PedidoHasProveedor">
           <DomainClassMoniker name="/PortalProContext/Proveedor" />
@@ -1422,6 +1449,19 @@
             </associationDefinesSourceProperty>
           </sourceNavigationalProperty>
         </Association>
+        <Association Id="907cc82f-0d94-4949-a055-f2801c657a10" SourceMultiplicity="ZeroOne" name="PedidoHasDocumento1">
+          <DomainClassMoniker name="/PortalProContext/Documento" />
+          <targetNavigationalProperty>
+            <associationDefinesTargetProperty Id="2616291e-9d9a-4af2-ba2c-271e7e62785e">
+              <NavigationalPropertyMoniker name="/PortalProContext/Documento/PedidosXml" />
+            </associationDefinesTargetProperty>
+          </targetNavigationalProperty>
+          <sourceNavigationalProperty>
+            <associationDefinesSourceProperty Id="2dd24674-d879-47b6-b18b-a491a1f51529">
+              <NavigationalPropertyMoniker name="/PortalProContext/Pedido/DocumentoXml" />
+            </associationDefinesSourceProperty>
+          </sourceNavigationalProperty>
+        </Association>
       </AssociationTargets>
       <navigationalProperties>
         <classHasNavigationalProperties Id="55e92d34-1cc0-4f9f-ba5b-02483e52b7d0">
@@ -1432,6 +1472,9 @@
         </classHasNavigationalProperties>
         <classHasNavigationalProperties Id="415b1322-2998-4147-b931-6cb6982b5057">
           <NavigationalProperty Id="a24e4085-402a-4960-922b-1af8fff25fb5" name="DocumentoPdf" type="Documento" label="DocumentoPdf : Documento" nullable="true" kind="Persistent" fieldName="_documento" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
+        <classHasNavigationalProperties Id="fb242677-6441-41f5-8ea7-eedf75df52b4">
+          <NavigationalProperty Id="7148d677-9469-4a1f-83b3-83391f5629ba" name="DocumentoXml" type="Documento" label="DocumentoXml : Documento" nullable="true" kind="Persistent" fieldName="_documento1" isDependent="false" isManaged="false" />
         </classHasNavigationalProperties>
       </navigationalProperties>
     </DomainClass>

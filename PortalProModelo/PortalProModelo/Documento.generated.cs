@@ -137,6 +137,15 @@ namespace PortalProModelo
 			}
 		}
 		
+		private IList<Pedido> _pedidos1 = new List<Pedido>();
+		public virtual IList<Pedido> PedidosXml
+		{
+			get
+			{
+				return this._pedidos1;
+			}
+		}
+		
 	}
 }
 #pragma warning restore 1591

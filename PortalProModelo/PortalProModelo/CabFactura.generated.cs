@@ -50,8 +50,8 @@ namespace PortalProModelo
 			}
 		}
 		
-		private DateTime _fechaEmision;
-		public virtual DateTime FechaEmision
+		private DateTime? _fechaEmision;
+		public virtual DateTime? FechaEmision
 		{
 			get
 			{
@@ -115,8 +115,8 @@ namespace PortalProModelo
 			}
 		}
 		
-		private DateTime _fechaPrevistaCobro;
-		public virtual DateTime FechaPrevistaCobro
+		private DateTime? _fechaPrevistaCobro;
+		public virtual DateTime? FechaPrevistaCobro
 		{
 			get
 			{
@@ -128,8 +128,8 @@ namespace PortalProModelo
 			}
 		}
 		
-		private DateTime _fechaCobro;
-		public virtual DateTime FechaCobro
+		private DateTime? _fechaCobro;
+		public virtual DateTime? FechaCobro
 		{
 			get
 			{

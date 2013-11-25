@@ -106,7 +106,11 @@
                             </div>
                         </div>
                         <div class="row-fluid">
-                            <div class="span6">
+                            <div class="span3">
+                                <label>Tipo</label>
+                                <input id="TipoPedido" data-bind="value:TipoPedido" type="text" name="TipoPedido" disabled/>
+                            </div>
+                            <div class="span3">
                                 <label>Fecha de alta</label>
                                 <input id="FechaAlta" data-bind="value: FechaAlta" name="FechaAlta" required/>
                             </div>
@@ -295,6 +299,7 @@
                 self.TotalPedido = ko.observable();
                 self.TotalFacturado = ko.observable();
                 self.Estado = ko.observable();
+                self.TipoPedido = ko.observable();
                 self.Responsable = ko.observable();
                 self.Proveedor = {
                     ProveedorId: ko.observable(),
@@ -384,6 +389,7 @@
                         fields: {
                             PedidoId: { type: "number" },
                             Estado: { type: "string" },
+                            TipoPedido: { type: "string" },
                             NumPedido: { type: "string" },
                             FechaAlta: { type: "date" },
                             TotalPedido: { type: "number" },
@@ -414,6 +420,7 @@
                     columns: [
                         { field: "PedidoId", title: "ID" },
                         { field: "Estado", title: "Estado" },
+                        { field: "TipoPedido", title: "Tipo" },
                         { field: "Proveedor", title: "Proveedor", template: "#=Proveedor?Proveedor.NombreComercial:''#", filterable:false },
                         { field: "NumPedido", title: "N. Pedido"},
                         { field: "FechaAlta", title: "F.Alta", format: "{0:dd/MM/yyyy}" },
@@ -623,6 +630,7 @@
                 vm.TotalPedido(data.TotalPedido);
                 vm.TotalFacturado(data.TotalFacturado);
                 vm.Estado(data.Estado);
+                vm.TipoPedido(data.TipoPedido);
                 vm.Responsable(data.Responsable);
                 if (data.DocumentoPdf != null && data.DocumentoPdf.DocumentoId != undefined) {
                     vm.DocumentoPdf.DocumentoId(data.DocumentoPdf.DocumentoId);
