@@ -669,13 +669,13 @@
                 vm.Estado(data.Estado);
                 vm.Historial(data.Historial);
                 $("#Historial").html(vm.Historial());
-                if (data.FechaEmision != "")
+                if (data.FechaEmision != null)
                     vm.FechaEmision(moment(data.FechaEmision).format("DD/MM/YYYY"));
-                if (data.FechaAlta != "")
+                if (data.FechaAlta != null)
                     vm.FechaAlta(moment(data.FechaAlta).format("DD/MM/YYYY"));
-                if (data.FechaPrevistaCobro != "")
+                if (data.FechaPrevistaCobro != null)
                     vm.FechaPrevistaCobro(moment(data.FechaPrevistaCobro).format("DD/MM/YYYY"));
-                if (data.FechaCobro != "")
+                if (data.FechaCobro != null)
                     vm.FechaCobro(moment(data.FechaCobro).format("DD/MM/YYYY"));
                 vm.TotalFactura(data.TotalFactura);
                 if (data.DocumentoPdf != null && data.DocumentoPdf.DocumentoId != undefined) {

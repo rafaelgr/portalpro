@@ -410,6 +410,10 @@ namespace PortalProWebApi.Controllers
                 {
                     throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotFound, "No hay una factura con el id proporcionado (CabFactura)"));
                 }
+                if (factura.Estado == "PROCESADA")
+                {
+                    throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotFound, "Las facturas procesadas no pueden ser modificadas (CabFactura)"));
+                }
                 // comprobamos que no hay una factura para el mismo proveedor en ese año y con
                 // el mismo número de factura
                 CabFactura fc = PortalProWebUtility.YaExisteUnaFacturaComoEsta(factura, ctx);
@@ -522,6 +526,10 @@ namespace PortalProWebApi.Controllers
                 if (cfac == null)
                 {
                     throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotFound, "No hay una factura con el id proporcionado (CabFactura)"));
+                }
+                if (factura.Estado == "PROCESADA")
+                {
+                    throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotFound, "Las facturas procesadas no pueden ser modificadas (CabFactura)"));
                 }
                 // comprobamos que no hay una factura para el mismo proveedor en ese año y con
                 // el mismo número de factura
@@ -640,6 +648,10 @@ namespace PortalProWebApi.Controllers
                 {
                     throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotFound, "No hay una factura con el id proporcionado (CabFactura)"));
                 }
+                if (factura.Estado == "PROCESADA")
+                {
+                    throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotFound, "Las facturas procesadas no pueden ser modificadas (CabFactura)"));
+                }
                 // Controlamos las propiedades que son en realidad objetos.
                 int proveedorId = 0;
                 if (factura.Proveedor != null)
@@ -690,6 +702,58 @@ namespace PortalProWebApi.Controllers
             }
         }
 
+        public virtual CabFactura PutCambioRevison(int id, string estado, string userId, string tk)
+        {
+            using (PortalProContext ctx = new PortalProContext())
+            {
+                // comprobar el tique
+                if (!CntWebApiSeguridad.CheckTicket(tk, ctx))
+                {
+                    throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.Unauthorized, "Se necesita tique de autorización (CabFactura)"));
+                }
+                // comprobar los formatos
+                // primero buscamos si un factura con ese id existe
+                CabFactura factura = (from f in ctx.CabFacturas
+                                   where f.CabFacturaId == id
+                                   select f).FirstOrDefault<CabFactura>();
+                // existe?
+                if (factura == null)
+                {
+                    throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotFound, "No hay una factura con el id proporcionado (CabFactura)"));
+                }
+                factura.Estado = estado;
+                factura.Historial += String.Format("{0:dd/MM/yyyy hh:mm:ss} La factura {1} con Total {2:0.0} € ha pasado al estado {3} por el usuario {4} con el motivo '{5}' <br/>",
+                    DateTime.Now, factura.NumFactura, factura.TotalFactura, factura.Estado, userId, "Revisión previa");
+                ctx.SaveChanges();
+                return ctx.CreateDetachedCopy<CabFactura>(factura, x => x.Proveedor, x => x.DocumentoPdf, x => x.DocumentoXml);
+            }
+        }
+
+        public virtual bool PutAdmisionProceso(string userId, string tk)
+        {
+            using (PortalProContext ctx = new PortalProContext())
+            {
+                // comprobar el tique
+                if (!CntWebApiSeguridad.CheckTicket(tk, ctx))
+                {
+                    throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.Unauthorized, "Se necesita tique de autorización (CabFactura)"));
+                }
+                // se trata de pasar todas la faturas de aceptada a procesada
+                var rs = (from f in ctx.CabFacturas
+                          where f.Estado == "ACEPTADA"
+                          select f);
+                foreach (CabFactura fac in rs)
+                {
+                    // las cambiamos individualmente de estado y las grabamos
+                    fac.Estado = "PROCESADA";
+                    fac.Historial += String.Format("{0:dd/MM/yyyy hh:mm:ss} La factura {1} con Total {2:0.0} € ha pasado al estado {3} por el usuario {4} <br/>",
+                                        DateTime.Now, fac.NumFactura, fac.TotalFactura, fac.Estado, userId);
+                    ctx.SaveChanges();
+                }
+                return true;
+            }
+        }
+
         /// <summary>
         /// Modificar una cabecera de factura. En el cuerpo del mensaje se envía en el formato adecuado el objeto con los datos modificados
         /// </summary>
@@ -719,6 +783,10 @@ namespace PortalProWebApi.Controllers
                 if (cfac == null)
                 {
                     throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotFound, "No hay una factura con el id proporcionado (CabFactura)"));
+                }
+                if (factura.Estado == "PROCESADA")
+                {
+                    throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotFound, "Las facturas procesadas no pueden ser modificadas (CabFactura)"));
                 }
                 // comprobamos que no hay una factura para el mismo proveedor en ese año y con
                 // el mismo número de factura
@@ -804,6 +872,10 @@ namespace PortalProWebApi.Controllers
                 if (cfac == null)
                 {
                     throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotFound, "No hay una factura con el id proporcionado (CabFactura)"));
+                }
+                if (cfac.Estado == "PROCESADA")
+                {
+                    throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotFound, "Las facturas procesadas no se pueden borrar (CabFactura)"));
                 }
                 // primero borarremos todas las líneas (con lo que se actualizan los pedidos asociados)
                 PortalProWebUtility.EliminarLineasFactura(cfac.LinFacturas, ctx);
