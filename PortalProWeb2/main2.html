@@ -2,7 +2,7 @@
 <html lang="es">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-        <title> Page Ttitle </title>
+        <title> Principal</title>
         <meta name="description" content="" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <!-- basic styles -->
@@ -23,7 +23,6 @@
         <!--[if lt IE 9]>
         <link rel="stylesheet" href="css/ace-ie.css" />
         <![endif]-->
-
     </head>
 
     <body>
@@ -45,6 +44,7 @@
                 <div id="breadcrumbs">
                     <ul class="breadcrumb">
                         <li>
+                            <h4><span id="company-name">Empresa</span></h4>
                             <i class="icon-home"></i>
                             <a href="main2.html">Inicio</a><span class="divider"><i class="icon-angle-right"></i></span>
                         </li>
@@ -134,6 +134,9 @@
                     loadTopBarProveedor();
                     loadSideBarProveedor();
                     cargaNombreProveedor();
+                    // cargar la empresa que han seleccionado
+                    var empresa = getCookie("ari_empresa");
+                    $("#company-name").text("Empresa: " + empresa);
                 });
             })(jQuery);
         </script>

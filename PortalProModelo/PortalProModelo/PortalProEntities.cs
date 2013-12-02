@@ -194,6 +194,22 @@ namespace PortalProModelo
 			}
 		}
 		
+		public IQueryable<Empresa> Empresas 
+		{
+			get
+			{
+				return this.GetAll<Empresa>();
+			}
+		}
+		
+		public IQueryable<Responsable> Responsables 
+		{
+			get
+			{
+				return this.GetAll<Responsable>();
+			}
+		}
+		
 		public static BackendConfiguration GetBackendConfiguration()
 		{
 			BackendConfiguration backend = new BackendConfiguration();
@@ -275,6 +291,14 @@ namespace PortalProModelo
 			get;
 		}
 		IQueryable<Parametro> Parametros1
+		{
+			get;
+		}
+		IQueryable<Empresa> Empresas
+		{
+			get;
+		}
+		IQueryable<Responsable> Responsables
 		{
 			get;
 		}

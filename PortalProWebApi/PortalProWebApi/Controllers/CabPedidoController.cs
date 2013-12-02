@@ -29,6 +29,9 @@ namespace PortalProWebApi.Controllers
                     FetchStrategy fs = new FetchStrategy();
                     fs.LoadWith<Pedido>(x => x.Proveedor);
                     fs.LoadWith<Pedido>(x => x.DocumentoPdf);
+                    fs.LoadWith<Pedido>(x => x.DocumentoXml);
+                    fs.LoadWith<Pedido>(x => x.Empresa);
+                    fs.LoadWith<Pedido>(x => x.Responsable);
                     pedidos = ctx.CreateDetachedCopy<IEnumerable<Pedido>>(pedidos, fs);
                     return pedidos;
                 }
@@ -55,6 +58,40 @@ namespace PortalProWebApi.Controllers
                     FetchStrategy fs = new FetchStrategy();
                     fs.LoadWith<Pedido>(x => x.Proveedor);
                     fs.LoadWith<Pedido>(x => x.DocumentoPdf);
+                    fs.LoadWith<Pedido>(x => x.DocumentoXml);
+                    fs.LoadWith<Pedido>(x => x.Empresa);
+                    fs.LoadWith<Pedido>(x => x.Responsable);
+                    pedidos = ctx.CreateDetachedCopy<IEnumerable<Pedido>>(pedidos, fs);
+                    return pedidos;
+                }
+                else
+                {
+                    throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.Unauthorized, "Se necesita tique de autorización (Pedido)"));
+                }
+            }
+        }
+
+        public virtual IEnumerable<Pedido> GetProveedorEmpresa(string proveedorGId, string empresa, string tk)
+        {
+            using (PortalProContext ctx = new PortalProContext())
+            {
+                if (CntWebApiSeguridad.CheckTicket(tk, ctx))
+                {
+                    // Comprobamos que hay un proveedor que coincide
+                    int pId = int.Parse(proveedorGId);
+                    IEnumerable<Pedido> pedidos = (from f in ctx.Pedidos
+                                                   where f.Proveedor.ProveedorId == pId &&
+                                                         f.Empresa.Nombre == empresa &&
+                                                         (f.Estado == "ABIERTO" || f.Estado == "RECIBIDO")
+                                                   orderby f.FechaAlta descending
+                                                   select f).ToList<Pedido>();
+                    // fetch estrategy, necesaria para poder devolver el grupo junto con cada usuariuo
+                    FetchStrategy fs = new FetchStrategy();
+                    fs.LoadWith<Pedido>(x => x.Proveedor);
+                    fs.LoadWith<Pedido>(x => x.DocumentoPdf);
+                    fs.LoadWith<Pedido>(x => x.DocumentoXml);
+                    fs.LoadWith<Pedido>(x => x.Empresa);
+                    fs.LoadWith<Pedido>(x => x.Responsable);
                     pedidos = ctx.CreateDetachedCopy<IEnumerable<Pedido>>(pedidos, fs);
                     return pedidos;
                 }
@@ -74,14 +111,17 @@ namespace PortalProWebApi.Controllers
                     // Comprobamos que hay un proveedor que coincide
                     int pId = int.Parse(proveedorGId);
                     IEnumerable<Pedido> pedidos = (from f in ctx.Pedidos
-                                                   where f.Proveedor.ProveedorId == pId
-                                                   && (f.Estado == "ABIERTO" || f.Estado == "RECIBIDO")
+                                                   where f.Proveedor.ProveedorId == pId &&
+                                                         (f.Estado == "ABIERTO" || f.Estado == "RECIBIDO")
                                                    orderby f.FechaAlta descending
                                                    select f).ToList<Pedido>();
                     // fetch estrategy, necesaria para poder devolver el grupo junto con cada usuariuo
                     FetchStrategy fs = new FetchStrategy();
                     fs.LoadWith<Pedido>(x => x.Proveedor);
                     fs.LoadWith<Pedido>(x => x.DocumentoPdf);
+                    fs.LoadWith<Pedido>(x => x.DocumentoXml);
+                    fs.LoadWith<Pedido>(x => x.Responsable);
+                    fs.LoadWith<Pedido>(x => x.Empresa);
                     pedidos = ctx.CreateDetachedCopy<IEnumerable<Pedido>>(pedidos, fs);
                     return pedidos;
                 }
@@ -101,14 +141,17 @@ namespace PortalProWebApi.Controllers
                     // Comprobamos que hay un proveedor que coincide
                     int pId = int.Parse(proveedorHId);
                     IEnumerable<Pedido> pedidos = (from f in ctx.Pedidos
-                                                   where f.Proveedor.ProveedorId == pId
-                                                   && (f.Estado == "FACTURADO" || f.Estado == "CANCELADO")
+                                                   where f.Proveedor.ProveedorId == pId &&
+                                                         (f.Estado == "FACTURADO" || f.Estado == "CANCELADO")
                                                    orderby f.FechaAlta descending
                                                    select f).ToList<Pedido>();
                     // fetch estrategy, necesaria para poder devolver el grupo junto con cada usuariuo
                     FetchStrategy fs = new FetchStrategy();
                     fs.LoadWith<Pedido>(x => x.Proveedor);
                     fs.LoadWith<Pedido>(x => x.DocumentoPdf);
+                    fs.LoadWith<Pedido>(x => x.DocumentoXml);
+                    fs.LoadWith<Pedido>(x => x.Empresa);
+                    fs.LoadWith<Pedido>(x => x.Responsable);
                     pedidos = ctx.CreateDetachedCopy<IEnumerable<Pedido>>(pedidos, fs);
                     return pedidos;
                 }
@@ -119,6 +162,36 @@ namespace PortalProWebApi.Controllers
             }
         }
 
+        public virtual IEnumerable<Pedido> GetHistoricosEmpresa(string proveedorHId, string empresa, string tk)
+        {
+            using (PortalProContext ctx = new PortalProContext())
+            {
+                if (CntWebApiSeguridad.CheckTicket(tk, ctx))
+                {
+                    // Comprobamos que hay un proveedor que coincide
+                    int pId = int.Parse(proveedorHId);
+                    IEnumerable<Pedido> pedidos = (from f in ctx.Pedidos
+                                                   where f.Proveedor.ProveedorId == pId &&
+                                                         f.Empresa.Nombre == empresa &&
+                                                         (f.Estado == "FACTURADO" || f.Estado == "CANCELADO")
+                                                   orderby f.FechaAlta descending
+                                                   select f).ToList<Pedido>();
+                    // fetch estrategy, necesaria para poder devolver el grupo junto con cada usuariuo
+                    FetchStrategy fs = new FetchStrategy();
+                    fs.LoadWith<Pedido>(x => x.Proveedor);
+                    fs.LoadWith<Pedido>(x => x.DocumentoPdf);
+                    fs.LoadWith<Pedido>(x => x.DocumentoXml);
+                    fs.LoadWith<Pedido>(x => x.Empresa);
+                    fs.LoadWith<Pedido>(x => x.Responsable);
+                    pedidos = ctx.CreateDetachedCopy<IEnumerable<Pedido>>(pedidos, fs);
+                    return pedidos;
+                }
+                else
+                {
+                    throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.Unauthorized, "Se necesita tique de autorización (Pedido)"));
+                }
+            }
+        }
 
         /// <summary>
         /// Obtiene la cabecera de pedido cuyo ID corresponde con el pasado
@@ -141,7 +214,7 @@ namespace PortalProWebApi.Controllers
                         //
                         if (pedido.DocumentoPdf != null)
                             pedido.DocumentoPdf.DescargaUrl = PortalProWebUtility.CargarUrlDocumento(application, pedido.DocumentoPdf, tk);
-                        pedido = ctx.CreateDetachedCopy<Pedido>(pedido, x => x.Proveedor, x => x.DocumentoPdf);
+                        pedido = ctx.CreateDetachedCopy<Pedido>(pedido, x => x.Proveedor, x => x.DocumentoPdf, x => x.DocumentoXml, x => x.Empresa, x => x.Responsable);
                         return pedido;
                     }
                     else
@@ -183,6 +256,24 @@ namespace PortalProWebApi.Controllers
                     proveedorId = pedido.Proveedor.ProveedorId;
                     pedido.Proveedor = null;
                 }
+                int responsableId = 0;
+                if (pedido.Responsable != null)
+                {
+                    responsableId = pedido.Responsable.ResponsableId;
+                    pedido.Responsable = null;
+                }
+                int empresaId = 0;
+                if (pedido.Empresa != null)
+                {
+                    empresaId = pedido.Empresa.EmpresaId;
+                    pedido.Empresa = null;
+                }
+                int documentoXmlId = 0;
+                if (pedido.DocumentoXml != null)
+                {
+                    documentoXmlId = pedido.DocumentoXml.DocumentoId;
+                    pedido.DocumentoXml = null;
+                }
                 int documentoPdfId = 0;
                 if (pedido.DocumentoPdf != null)
                 {
@@ -197,6 +288,25 @@ namespace PortalProWebApi.Controllers
                                         where p.ProveedorId == proveedorId
                                         select p).FirstOrDefault<Proveedor>();
                 }
+                if (empresaId != 0)
+                {
+                    pedido.Empresa = (from p in ctx.Empresas
+                                      where p.EmpresaId == empresaId
+                                      select p).FirstOrDefault<Empresa>();
+                }
+                if (responsableId != 0)
+                {
+                    pedido.Responsable = (from p in ctx.Responsables
+                                          where p.ResponsableId == responsableId
+                                          select p).FirstOrDefault<Responsable>();
+                }
+                if (documentoXmlId != 0)
+                {
+                    pedido.DocumentoXml = (from d in ctx.Documentos
+                                           where d.DocumentoId == documentoPdfId
+                                           select d).FirstOrDefault<Documento>();
+                }
+
                 if (documentoPdfId != 0)
                 {
                     pedido.DocumentoPdf = (from d in ctx.Documentos
@@ -205,7 +315,7 @@ namespace PortalProWebApi.Controllers
                 }
                 pedido.FechaAlta = DateTime.Now;
                 ctx.SaveChanges();
-                return ctx.CreateDetachedCopy<Pedido>(pedido, x => x.Proveedor, x => x.DocumentoPdf);
+                return ctx.CreateDetachedCopy<Pedido>(pedido, x => x.Proveedor, x => x.DocumentoPdf, x => x.Empresa);
             }
         }
 
@@ -247,6 +357,25 @@ namespace PortalProWebApi.Controllers
                     proveedorId = pedido.Proveedor.ProveedorId;
                     pedido.Proveedor = null;
                 }
+                int responsableId = 0;
+                if (pedido.Responsable != null)
+                {
+                    responsableId = pedido.Responsable.ResponsableId;
+                    pedido.Responsable = null;
+                }
+                int empresaId = 0;
+                if (pedido.Empresa != null)
+                {
+                    empresaId = pedido.Empresa.EmpresaId;
+                    pedido.Empresa = null;
+                }
+                int documentoXmlId = 0;
+                if (pedido.DocumentoXml != null)
+                {
+                    documentoXmlId = pedido.DocumentoXml.DocumentoId;
+                    pedido.DocumentoXml = null;
+                }
+
                 int documentoPdfId = 0;
                 if (pedido.DocumentoPdf != null)
                 {
@@ -261,6 +390,24 @@ namespace PortalProWebApi.Controllers
                                         where p.ProveedorId == proveedorId
                                         select p).FirstOrDefault<Proveedor>();
                 }
+                if (empresaId != 0)
+                {
+                    pedido.Empresa = (from p in ctx.Empresas
+                                      where p.EmpresaId == empresaId
+                                      select p).FirstOrDefault<Empresa>();
+                }
+                if (responsableId != 0)
+                {
+                    pedido.Responsable = (from p in ctx.Responsables
+                                          where p.ResponsableId == responsableId
+                                          select p).FirstOrDefault<Responsable>();
+                }
+                if (documentoXmlId != 0)
+                {
+                    pedido.DocumentoXml = (from d in ctx.Documentos
+                                           where d.DocumentoId == documentoPdfId
+                                           select d).FirstOrDefault<Documento>();
+                }
                 if (documentoPdfId != 0)
                 {
                     pedido.DocumentoPdf = (from d in ctx.Documentos
@@ -269,11 +416,11 @@ namespace PortalProWebApi.Controllers
                 }
                 if (fPdf != "")
                 {
-                    pedido.DocumentoPdf = PortalProWebUtility.CrearDocumentoDesdeArchivoCargado(application,fPdf, ctx);
+                    pedido.DocumentoPdf = PortalProWebUtility.CrearDocumentoDesdeArchivoCargado(application, fPdf, ctx);
                 }
                 pedido.FechaAlta = DateTime.Now;
                 ctx.SaveChanges();
-                return ctx.CreateDetachedCopy<Pedido>(pedido, x => x.Proveedor, x => x.DocumentoPdf);
+                return ctx.CreateDetachedCopy<Pedido>(pedido, x => x.Proveedor, x => x.DocumentoPdf, x => x.Empresa);
             }
         }
 
@@ -320,13 +467,31 @@ namespace PortalProWebApi.Controllers
                     proveedorId = pedido.Proveedor.ProveedorId;
                     pedido.Proveedor = null;
                 }
+                int responsableId = 0;
+                if (pedido.Responsable != null)
+                {
+                    responsableId = pedido.Responsable.ResponsableId;
+                    pedido.Responsable = null;
+                }
+                int empresaId = 0;
+                if (pedido.Empresa != null)
+                {
+                    empresaId = pedido.Empresa.EmpresaId;
+                    pedido.Empresa = null;
+                }
+                int documentoXmlId = 0;
+                if (pedido.DocumentoXml != null)
+                {
+                    documentoXmlId = pedido.DocumentoXml.DocumentoId;
+                    pedido.DocumentoXml = null;
+                }
+
                 int documentoPdfId = 0;
                 if (pedido.DocumentoPdf != null)
                 {
                     documentoPdfId = pedido.DocumentoPdf.DocumentoId;
                     pedido.DocumentoPdf = null;
                 }
-                int documentoXmlId = 0;
                 // modificar el objeto
                 ctx.AttachCopy<Pedido>(pedido);
                 // volvemos a leer el objecto para que lo maneje este contexto.
@@ -339,6 +504,24 @@ namespace PortalProWebApi.Controllers
                                         where p.ProveedorId == proveedorId
                                         select p).FirstOrDefault<Proveedor>();
                 }
+                if (empresaId != 0)
+                {
+                    pedido.Empresa = (from p in ctx.Empresas
+                                      where p.EmpresaId == empresaId
+                                      select p).FirstOrDefault<Empresa>();
+                }
+                if (responsableId != 0)
+                {
+                    pedido.Responsable = (from p in ctx.Responsables
+                                          where p.ResponsableId == responsableId
+                                          select p).FirstOrDefault<Responsable>();
+                }
+                if (documentoXmlId != 0)
+                {
+                    pedido.DocumentoXml = (from d in ctx.Documentos
+                                           where d.DocumentoId == documentoPdfId
+                                           select d).FirstOrDefault<Documento>();
+                }
                 if (documentoPdfId != 0)
                 {
                     pedido.DocumentoPdf = (from d in ctx.Documentos
@@ -350,11 +533,11 @@ namespace PortalProWebApi.Controllers
                 if (fPdf != "")
                 {
                     doc = pedido.DocumentoPdf;
-                    pedido.DocumentoPdf = PortalProWebUtility.CrearDocumentoDesdeArchivoCargado(application,fPdf, ctx);
+                    pedido.DocumentoPdf = PortalProWebUtility.CrearDocumentoDesdeArchivoCargado(application, fPdf, ctx);
                     PortalProWebUtility.EliminarDocumento(doc, ctx);
                 }
                 ctx.SaveChanges();
-                return ctx.CreateDetachedCopy<Pedido>(pedido, x => x.Proveedor, x => x.DocumentoPdf);
+                return ctx.CreateDetachedCopy<Pedido>(pedido, x => x.Proveedor, x => x.DocumentoPdf, x => x.Empresa);
             }
         }
 
@@ -395,6 +578,24 @@ namespace PortalProWebApi.Controllers
                     proveedorId = pedido.Proveedor.ProveedorId;
                     pedido.Proveedor = null;
                 }
+                int responsableId = 0;
+                if (pedido.Responsable != null)
+                {
+                    responsableId = pedido.Responsable.ResponsableId;
+                    pedido.Responsable = null;
+                }
+                int empresaId = 0;
+                if (pedido.Empresa != null)
+                {
+                    empresaId = pedido.Empresa.EmpresaId;
+                    pedido.Empresa = null;
+                }
+                int documentoXmlId = 0;
+                if (pedido.DocumentoXml != null)
+                {
+                    documentoXmlId = pedido.DocumentoXml.DocumentoId;
+                    pedido.DocumentoXml = null;
+                }
                 int documentoPdfId = 0;
                 if (pedido.DocumentoPdf != null)
                 {
@@ -413,6 +614,24 @@ namespace PortalProWebApi.Controllers
                                         where p.ProveedorId == proveedorId
                                         select p).FirstOrDefault<Proveedor>();
                 }
+                if (empresaId != 0)
+                {
+                    pedido.Empresa = (from p in ctx.Empresas
+                                      where p.EmpresaId == empresaId
+                                      select p).FirstOrDefault<Empresa>();
+                }
+                if (responsableId != 0)
+                {
+                    pedido.Responsable = (from p in ctx.Responsables
+                                          where p.ResponsableId == responsableId
+                                          select p).FirstOrDefault<Responsable>();
+                }
+                if (documentoXmlId != 0)
+                {
+                    pedido.DocumentoXml = (from d in ctx.Documentos
+                                           where d.DocumentoId == documentoPdfId
+                                           select d).FirstOrDefault<Documento>();
+                }
                 if (documentoPdfId != 0)
                 {
                     pedido.DocumentoPdf = (from d in ctx.Documentos
@@ -420,7 +639,7 @@ namespace PortalProWebApi.Controllers
                                            select d).FirstOrDefault<Documento>();
                 }
                 ctx.SaveChanges();
-                return ctx.CreateDetachedCopy<Pedido>(pedido, x => x.Proveedor, x => x.DocumentoPdf);
+                return ctx.CreateDetachedCopy<Pedido>(pedido, x => x.Proveedor, x => x.DocumentoPdf, x => x.Empresa);
             }
         }
 

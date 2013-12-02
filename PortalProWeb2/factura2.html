@@ -108,7 +108,7 @@
                             </div>
                             <div class="span6">
                                 <label>Total factura</label>
-                                <input id="TotalFactura" type="number" data-bind="value: TotalFactura" 
+                                <input id="TotalFactura" type="number" data-bind="value: frTotalFactura" 
                                        name="TotalFactura" disabled/>
                             </div>
                         </div>
@@ -253,10 +253,13 @@
         <script src="js2/kendo.web.js"></script>
         <script src="js2/kendo.culture.es-ES.min.js"></script>
         <!-- page specific plugin scripts -->
-
+        <script src="js2/numeral.js"></script>
+        <script src="js2/es.js"></script>
         <!-- ace scripts -->
         <script src="js2/ace-elements.js"></script>
         <script src="js2/ace.js"></script>
+
+        <!-- numeral (para formatear números y que queden monos -->
 
         <!-- inline scripts related to this page -->
         <script src="js2/ari-general.js"></script>
@@ -293,6 +296,27 @@
                 this.Descripcion = descripcion;
                 this.Importe = importe;
                 this.PorcentajeIva = poriva;
+                this.frImporte = importe;
+            }
+
+            function LineaC() {
+                var self = this;
+                self.LinFacturaId = ko.observable();
+                self.NumeroPedido = ko.observable();
+                self.Descripcion = ko.observable();
+                self.Importe = ko.observable();
+                self.PorcentajeIva = ko.observable();
+                self.frImporte = ko.computed({
+                    read: function () {
+                        return numeral(self.Importe()).format("0,000.00");
+                    },
+                    write: function (value) {
+                        var v = value;
+                        // solo aplicable si vemos una coma.
+                        if (v.indexOf(",") > 0) v = numeral().unformat(value);
+                        self.Importe(v);
+                    }
+                });
             }
 
             function viewModel() {
@@ -304,12 +328,24 @@
                 self.FechaPrevistaCobro = ko.observable();
                 self.FechaCobro = ko.observable();
                 self.TotalFactura = ko.observable();
+                self.frTotalFactura = ko.computed({
+                    read: function () {
+                        return numeral(self.TotalFactura()).format("0,000.00");
+                    },
+                    write: function () {
+                        var v = value;
+                        // solo aplicable si vemos una coma.
+                        if (v.indexOf(",") > 0) v = numeral().unformat(value);
+                        self.TotalFactura(v);
+                    }
+                });
                 self.Estado = ko.observable();
+                self.Generada = ko.observable();
                 self.Historial = ko.observable();
                 self.Proveedor = {
-                    ProveedorId: ko.observable(),
-                    NombreComercial: ko.observable()
-                }
+                    ProveedorId :ko.observable(),
+                    NombreComercial :ko.observable()
+                };
                 self.DocumentoPdf = {
                     DocumentoId: ko.observable(),
                     NomFichero: ko.observable(),
@@ -325,15 +361,19 @@
                     Comentario: ko.observable()
                 }
 
+                //self.LineasFactura = ko.observableArray([
+                //    ko.observable(
+                //        {
+                //        LinFacturaId: ko.observable(),
+                //        NumeroPedido: ko.observable(),
+                //        Descripcion: ko.observable(),
+                //        Importe: ko.observable(),
+                //        PorcentajeIva: ko.observable(),
+                //    })
+                //]);
+
                 self.LineasFactura = ko.observableArray([
-                    ko.observable(
-                        {
-                        LinFacturaId: ko.observable(),
-                        NumeroPedido: ko.observable(),
-                        Descripcion: ko.observable(),
-                        Importe: ko.observable(),
-                        PorcentajeIva: ko.observable()
-                    })
+                    ko.observable(new LineaC())
                 ]);
                 self.FacturaPdf = {
                     Url: ko.observable(),
@@ -353,11 +393,14 @@
                 });
                 // funciones CRUD
                 self.addLineaFactura = function () {
-                    var l = new Linea(0, "", "", 0, 0);
+                    var l = new Linea(0, "", "",0, 0);
                     self.LineasFactura.push(l);
                 }
                 self.removeLineaFactura = function(linea) {
                     self.LineasFactura.remove(linea);
+                }
+                self.addNewLinea = function (linea) {
+                    self.LineasFactura.push(linea);
                 }
             }
             
@@ -460,7 +503,7 @@
             // otras funciones de manejo
             function gridExit() {
                 // si estamos en generación hay que eliminar la factura
-                if (enGeneracion) {
+                if (vm.Generada()) {
 
                     enGeneracion = false;
                 }
@@ -503,6 +546,7 @@
                     dataType: "json",
                     contentType: "application/json",
                     success: function (data, textStatus) {
+                        gridRefresh();
                     },
                 });
             }
@@ -562,18 +606,22 @@
             }
             // salir del formulario sin guardar
             function formExit() {
-                if (enGeneracion) {
+                if (vm.Generada()) {
                     gridDelete2(vm.CabFacturaId());
                     enGeneracion = false;
                 }
-                // controlar que no se den de alta facturas a 0
-                //if (vm.TotalFactura() == "" && vm.CabFacturaId() != "") {
-                //    gridDelete2(vm.CabFacturaId());
-                //}
                 // ocultar posibles mensajes de validación 
                 validator.hideMessages();
                 $("#factura-grid").show();
                 $("#factura-form").hide()
+            }
+            function deleteNullInvoices() {
+                // comprobar si la factura actual es nula
+                // es decir se creó desde el pedido pero no se ha guardado.
+                if (vm.Generada() && vm.NumFactura() == null) {
+                    gridDelete2(vm.CabFacturaId());
+                    enGeneracion = false;
+                }
             }
             // carga los datos en el grid
             function loadData(id) {
@@ -613,6 +661,8 @@
                 vm.FechaAlta("");
                 vm.FechaPrevistaCobro("");
                 vm.FechaCobro("");
+                vm.Estado("");
+                vm.Generada(false);
                 vm.Proveedor.ProveedorId(getCookie("ari_proveedorId"));
                 vm.Proveedor.NombreComercial(getCookie("ari_proveedorNombre"));
                 vm.LineasFactura([]);
@@ -644,6 +694,7 @@
                 vm.CabFacturaId(data.CabFacturaId);
                 vm.NumFactura(data.NumFactura);
                 vm.Estado(data.Estado);
+                vm.Generada(data.Generada);
                 vm.Historial(data.Historial);
                 // para que se muestre el historial
                 $("#Historial").html(vm.Historial());
@@ -686,7 +737,13 @@
                 loadLineas(vm.CabFacturaId());
             }
             function loadModelLines(data) {
-                vm.LineasFactura(data);
+                //vm.LineasFactura(data);
+                vm.LineasFactura([]);
+                for (i = 0; i < data.length; i++) {
+                    var dl = data[i];
+                    var nl = new Linea(dl.LinFacturaId, dl.NumeroPedido, dl.Descripcion, dl.Importe, dl.PorcentajeIva);
+                    vm.addNewLinea(nl);
+                }
             }
             // cargar las opciones del desplegable
             function loadCombos(id, nombre) {
@@ -743,6 +800,7 @@
                 var fCobro = moment(vm.FechaCobro(), "DD/MM/YYYY");
                 var fEmision = moment(vm.FechaEmision(), "DD/MM/YYYY");
                 var userId = getCookie("ari_userId");
+                if (vm.Generada()) enGeneracion = true;
                 if (fAlta != null)
                     vm.FechaAlta(moment(fAlta).format("MM/DD/YYYY"));
                 if (fPrevistaCobro != null)
@@ -770,6 +828,37 @@
                         vm.CabFacturaId(data.CabFacturaId);
                         saveLineas(arg);
                     },
+                    error: function (xhr, textStatus, errorThrwon) {
+                        console.log("Error AJAX\n" + xhr.responseText);
+                        // tratar el error producido
+                        var message = "[" + xhr.status + "] " + xhr.statusText;
+                        // controlar si está devolviendo una página web, un objeto JSON o XML
+                        if (xhr.responseText != "") {
+                            try {
+                                message = JSON.parse(xhr.responseText);
+                                message = ari_formatErrorMessage(message);
+                            } catch (err) {
+                                if (typeof (xhr.responseText) != "undefined")
+                                    message = xhr.responseText;
+                            }
+                        }
+                        bootbox.dialog(message, [
+                            {
+                                "label": "OK",
+                                "class": "btn-small btn-success",
+                                "callback": function () {
+                                    if (enGeneracion) {
+                                        gridDelete2(vm.CabFacturaId());
+                                        enGeneracion = false;
+                                    }
+                                    // ocultar posibles mensajes de validación 
+                                    validator.hideMessages();
+                                    $("#factura-grid").show();
+                                    $("#factura-form").hide()
+                                }
+                            }
+                        ]);
+                    }
                 });
             }
             // salvar las líneas de la factura
@@ -802,6 +891,37 @@
                         $("#factura-form").hide();
                         $("#factura-grid").show();
                     },
+                    error: function (xhr, textStatus, errorThrwon) {
+                        console.log("Error AJAX\n" + xhr.responseText);
+                        // tratar el error producido
+                        var message = "[" + xhr.status + "] " + xhr.statusText;
+                        // controlar si está devolviendo una página web, un objeto JSON o XML
+                        if (xhr.responseText != "") {
+                            try {
+                                message = JSON.parse(xhr.responseText);
+                                message = ari_formatErrorMessage(message);
+                            } catch (err) {
+                                if (typeof (xhr.responseText) != "undefined")
+                                    message = xhr.responseText;
+                            }
+                        }
+                        bootbox.dialog(message, [
+                            {
+                                "label": "OK",
+                                "class": "btn-small btn-success",
+                                "callback": function () {
+                                    if (enGeneracion) {
+                                        gridDelete2(vm.CabFacturaId());
+                                        enGeneracion = false;
+                                    }
+                                    // ocultar posibles mensajes de validación 
+                                    validator.hideMessages();
+                                    $("#factura-grid").show();
+                                    $("#factura-form").hide()
+                                }
+                            }
+                        ]);
+                    }
                 });
             }
             // salvar el modelo actual en una cookie
@@ -851,7 +971,7 @@
             (function ($) {
                 $(document).ready(function () {
                     // tratamiento general de errores Ajax
-                    generalAjaxErrorTreatment();
+                    // generalAjaxErrorTreatment();
                     // en cualquier página hay que verificar la autorización
                     checkAutorizationProveedor();
                     // cargar el menú superior
@@ -865,6 +985,9 @@
                     loadTemplates();
                     // cargar el grid
                     gridBuild();
+                    // establecer el idioma
+                    kendo.culture("es-ES");
+                    numeral.language("es");
                     // comprobar como hemos sido llamados 
                     switch (caller) {
                         case "proveedor":
@@ -887,11 +1010,9 @@
                             break;
 
                     }
-                    // establecer el idioma
-                    kendo.culture("es-ES");
                     // controlar la salida de la página al cierre como si fuera
                     // el botón exit
-                    // window.onbeforeunload = formExit;
+                    window.onbeforeunload = deleteNullInvoices;
                 });
             })(jQuery);
         </script>

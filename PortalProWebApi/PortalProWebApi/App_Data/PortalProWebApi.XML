@@ -482,6 +482,46 @@
             <param name="tk">Tique de autorización (Ver 'Login')</param>
             <returns></returns>
         </member>
+        <member name="M:PortalProWebApi.Controllers.EmpresasController.Get(System.String)">
+            <summary>
+            Obtiene todos los empresas de la base de datos
+            </summary>
+            <param name="tk">Código del tique de autorización (Véase "Login")</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.EmpresasController.Get(System.Int32,System.String)">
+            <summary>
+            Obtiene un Empresas cuyo ID corresponde con el pasado
+            </summary>
+            <param name="id">Identificador único de la empresa</param>
+            <param name="tk">Código del tique de autorización (Véase "Login")</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.EmpresasController.Post(PortalProModelo.Empresa,System.String)">
+            <summary>
+            Crear un nuevo Empresas
+            </summary>
+            <param name="empresa">Objeto a crear, el atributo EmpresaId lo genera la aplicación y es devuelto en el objeto incluido en la respuesta.</param>
+            <param name="tk"> Tique de autorzación (se debe obtener con la accion Login)</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.EmpresasController.Put(System.Int32,PortalProModelo.Empresa,System.String)">
+            <summary>
+            Modificar una empresa. En el cuerpo del mensaje se envía en el formato adecuado el objeto con los datos modificados
+            </summary>
+            <param name="id"> Identificador único de la empresa </param>
+            <param name="empresa">Grupo de usuario con los valores que se desean en sus atributos</param>
+            <param name="tk"> Tique de autorización (Ver 'Login')</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.EmpresasController.Delete(System.Int32,System.String)">
+            <summary>
+            Elimina la empresa que coincide con el id pasado
+            </summary>
+            <param name="id">Identificador de la empresa a eliminar</param>
+            <param name="tk">Tique de autorización (Ver 'Login')</param>
+            <returns></returns>
+        </member>
         <member name="M:PortalProWebApi.Controllers.ParametrosController.Get(System.String)">
             <summary>
             Obtiene todos las Parametros de la base de datos

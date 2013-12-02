@@ -193,6 +193,19 @@ namespace PortalProModelo
 			}
 		}
 		
+		private Empresa _empresa;
+		public virtual Empresa Empresa
+		{
+			get
+			{
+				return this._empresa;
+			}
+			set
+			{
+				this._empresa = value;
+			}
+		}
+		
 		private IList<LinFactura> _linFacturas = new List<LinFactura>();
 		public virtual IList<LinFactura> LinFacturas
 		{

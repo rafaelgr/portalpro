@@ -308,7 +308,11 @@
     <Content Include="avatars\avatar3.png" />
     <Content Include="avatars\avatar4.png" />
     <Content Include="avatars\user.jpg" />
+    <Content Include="empresa.html" />
     <Content Include="facturaP.html" />
+    <Content Include="js\es-ES.js" />
+    <Content Include="js\es.js" />
+    <Content Include="js\numeral.js" />
     <Content Include="parametro.html" />
     <Content Include="sendsolicitud.html" />
     <Content Include="facturaG.html" />

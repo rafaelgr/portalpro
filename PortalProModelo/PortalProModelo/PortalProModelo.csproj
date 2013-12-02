@@ -96,6 +96,9 @@
     <Compile Include="Documento.generated.cs">
       <DependentUpon>PortalProEntities.rlinq</DependentUpon>
     </Compile>
+    <Compile Include="Empresa.generated.cs">
+      <DependentUpon>PortalProEntities.rlinq</DependentUpon>
+    </Compile>
     <Compile Include="GrupoProveedor.generated.cs">
       <DependentUpon>PortalProEntities.rlinq</DependentUpon>
     </Compile>
@@ -124,6 +127,9 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Proveedor.generated.cs">
+      <DependentUpon>PortalProEntities.rlinq</DependentUpon>
+    </Compile>
+    <Compile Include="Responsable.generated.cs">
       <DependentUpon>PortalProEntities.rlinq</DependentUpon>
     </Compile>
     <Compile Include="SolicitudLog.generated.cs">
@@ -193,6 +199,13 @@
     <Content Include="SQL\PortalproConnection%282013-11-20 17-16-01%29.rlinq.sql" />
     <Content Include="SQL\PortalproConnection%282013-11-24 10-16-30%29.rlinq.sql" />
     <Content Include="SQL\PortalproConnection%282013-11-25 17-17-48%29.rlinq.sql" />
+    <Content Include="SQL\PortalproConnection%282013-11-29 12-43-06%29.rlinq.sql" />
+    <Content Include="SQL\PortalproConnection%282013-11-29 12-43-51%29.rlinq.sql" />
+    <Content Include="SQL\PortalproConnection%282013-11-29 12-54-51%29.rlinq.sql" />
+    <Content Include="SQL\PortalproConnection%282013-11-29 12-55-29%29.rlinq.sql" />
+    <Content Include="SQL\PortalproConnection%282013-12-02 12-01-29%29.rlinq.sql" />
+    <Content Include="SQL\PortalproConnection%282013-12-02 12-14-59%29.rlinq.sql" />
+    <Content Include="SQL\PortalproConnection%282013-12-02 12-15-51%29.rlinq.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

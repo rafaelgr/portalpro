@@ -43,6 +43,9 @@
                 <div id="breadcrumbs">
                     <ul class="breadcrumb">
                         <li>
+                            <h4>
+                                <span id="company-name">Empresa</span>
+                            </h4>
                             <i class="icon-home"></i>
                             <a href="main2.html">Inicio</a>
                             <span class="divider"><i class="icon-angle-right"></i></span>
@@ -82,33 +85,54 @@
                                 <input id="ProveedorId" data-bind="value: Proveedor.ProveedorId" type="hidden" />
                             </div>
                         </div>
+                        <div class="row-fluid" style="padding-bottom:10px;">
+                            <div class="span12">
+                                <label>
+                                    Empresa
+                                </label>
+                                <input id="Empresa" type="text" data-bind="value: Empresa.Nombre" name="Empresa" class="span12" disabled />
+                            </div>
+                        </div>
                         <div class="row-fluid">
                             <div class="span12">
                                 <label>Responsable GD</label>
-                                <input id="Responsable" data-bind="value: Responsable" type="text" disabled style="width:100%;"/>
+                                <input id="Responsable" data-bind="value: Responsable.Nombre" type="text" disabled style="width:100%;"/>
                             </div>
                         </div>
                         <div class="row-fluid">
                             <div class="span6">
+                                <label>Numero de pedido</label>
+                                <input id="Text1" class="span12" type="text" data-bind="value: NumPedido" 
+                                       name="NumPedido" disabled />
+                            </div>
+                            <div class="span3">
+                                <label>Total pedido</label>
+                                <input id="Number1" type="number" data-bind="value: TotalPedido" 
+                                       name="TotalPedido" disabled/>
+                            </div>
+                            <div class="span3">
+                                <label>Total facturado</label>
+                                <input id="Number2" type="number" data-bind="value: TotalFacturado" 
+                                       name="TotalFacturado" disabled/>
+                            </div>
+                        </div>
+                        <div class="row-fluid">
+                            <div class="span3">
                                 <label>Fecha de alta</label>
                                 <input id="FechaAlta" data-bind="value: FechaAlta" name="FechaAlta" disabled/>
                             </div>
-                            <div class="span6">
-                                <label>Numero de pedido</label>
-                                <input id="NumPedido" class="span12" type="text" data-bind="value: NumPedido" 
-                                       name="NumPedido" disabled />
+                            <div class="span3">
+                                <label>Fecha limite (SUSCRIPCION)</label>
+                                <input id="FechaLimite" data-bind="value: FechaLimite" name="FechaLimite" type="text" disabled/>
                             </div>
-                        </div>
-                        <div class="row-fluid">
-                            <div class="span6">
-                                <label>Total pedido</label>
-                                <input id="TotalPedido" type="number" data-bind="value: TotalPedido" 
-                                    name="TotalPedido" disabled/>
+                            <div class="span3">
+                                <label>Fecha recepcion (RECIBIDOS)</label>
+                                <input id="FechaRecepcion" data-bind="value: FechaRecepcion" name="FechaRecepcion"  type="text" disabled/>
                             </div>
-                            <div class="span6">
-                                <label>Total facturado</label>
-                                <input id="TotalFacturado" type="number" data-bind="value: TotalFacturado" 
-                                       name="TotalFacturado" disabled/>
+                            <div class="span3">
+                                <label>Tipo</label>
+                                <input id="Tipo" class="span12" type="text" data-bind="value: Tipo" 
+                                       name="Tipo" disabled />
                             </div>
                         </div>
                         <div class="row-fluid">
@@ -250,14 +274,24 @@
                 self.PedidoId = ko.observable();
                 self.NumPedido = ko.observable();
                 self.FechaAlta = ko.observable();
+                self.FechaLimite = ko.observable();
+                self.FechaRecepcion = ko.observable();
                 self.TotalPedido = ko.observable();
                 self.Estado = ko.observable();
-                self.Responsable = ko.observable();
+                self.Tipo = ko.observable();
                 self.TotalFacturado = ko.observable();
                 self.Proveedor = {
                     ProveedorId: ko.observable(),
                     NombreComercial: ko.observable()
-                }
+                };
+                self.Empresa = {
+                    EmpresaId: ko.observable(),
+                    Nombre: ko.observable()
+                };
+                self.Responsable = {
+                    ResponsableId: ko.observable(),
+                    Nombre: ko.observable()
+                };
                 self.DocumentoPdf = {
                     DocumentoId: ko.observable(),
                     NomFichero: ko.observable(),
@@ -265,7 +299,7 @@
                     DescargaUrl: ko.observable(),
                     Comentario: ko.observable()
                 }
-                self.LineasPedido= ko.observableArray([
+                self.LineasPedido = ko.observableArray([
                     ko.observable(
                         {
                         LinPedidoId: ko.observable(),
@@ -326,7 +360,7 @@
             var gridDataSource = new kendo.data.DataSource({
                 transport: {
                     read: {
-                        url: ari_hosts.webapi + "/api/pedido?proveedorHId=" + getCookie("ari_proveedorId") + "&tk=" + getCookie("ari_tique"),
+                        url: ari_hosts.webapi + "/api/pedido?proveedorHId=" + getCookie("ari_proveedorId") + "&empresa=" + getCookie("ari_empresa") + "&tk=" + getCookie("ari_tique"),
                         dataType: "json",
                         type: "GET",
                         contentType: "application/json"
@@ -342,11 +376,15 @@
                         fields: {
                             PedidoId: { type: "number" },
                             Estado: {type: "string"},
+                            Tipo: { type: "string" },
                             NumPedido: { type: "string" },
                             FechaAlta: { type: "date" },
+                            FechaLimite: { type: "date" },
+                            FechaRecepcion: { type: "date" },
                             TotalPedido: { type: "number" },
                             TotalFacturado: { type: "number" },
-                            Responsable: {type: "string"},
+                            Responsable: {},
+                            Empresa: {},
                             Proveedor: {}
                         }
                     }
@@ -372,12 +410,16 @@
                     columns: [
                         { field: "PedidoId", title: "ID" },
                         { field: "Estado", title: "Estado"},
-                        { field: "Proveedor", title: "Proveedor", template: "#=Proveedor?Proveedor.NombreComercial:''#", filterable:false },
-                        { field: "NumPedido", title: "N. Pedido"},
+                        { field: "Tipo", title: "Tipo" },
+                        { field: "Proveedor", title: "Proveedor", template: "#=Proveedor?Proveedor.NombreComercial:''#", filterable: false },
+                        { field: "Empresa", title: "Empresa", template: "#=Empresa?Empresa.Nombre:''#", filterable: false },
+                        { field: "Responsable", title: "Responsable", template: "#=Responsable?Responsable.Nombre:''#", filterable: false },
+                        { field: "NumPedido", title: "N. Pedido" },
                         { field: "FechaAlta", title: "F.Alta", format: "{0:dd/MM/yyyy}" },
+                        { field: "FechaLimite", title: "F.Limite", format: "{0:dd/MM/yyyy}" },
+                        { field: "FechaRecepcion", title: "F.Recepcion", format: "{0:dd/MM/yyyy}" },
                         { field: "TotalPedido", title: "Total Pedido", format: "{0:##,###,##0.00}", attributes: { "style": "text-align:right" } },
                         { field: "TotalFacturado", title: "Total Facturado", format: "{0:##,###,##0.00}", attributes: { "style": "text-align:right" } },
-                        { field: "Responsable", title: "Responsable" },
                         { template: t_edit }
                     ],
                     toolbar: t_new,
@@ -427,12 +469,10 @@
                         }
                     }
                 ]);
-
                 // lamamos al form de facturas con los datos que corresponden.
-               ///window.open("factura.html?caller=pedido'_self');
+                ///window.open("factura.html?caller=pedido'_self');
             }
-
-
+            
             function gridDelete(id, nombre) {
                 regId = id;
                 var message = "<h4>¿Desea eliminar este registro? (" + nombre + ")</h4>";
@@ -469,7 +509,7 @@
                 ds.read();
                 return ds;
             }
-        
+            
         </script>
 
         <!-- manejo del form -->
@@ -556,12 +596,18 @@
                 vm.PedidoId("");
                 vm.NumPedido("");
                 vm.FechaAlta("");
+                vm.FechaLimite("");
+                vm.FechaRecepcion("");
                 vm.TotalPedido("");
                 vm.TotalFacturado("");
                 vn.Estado("");
-                vm.Responsable("");
+                vn.Tipo("");
                 vm.Proveedor.ProveedorId("");
                 vm.Proveedor.NombreComercial("");
+                vm.Empresa.EmpresaId("");
+                vm.Empresa.Nombre("");
+                vm.Responsable.ResponsableId("");
+                vm.Responsable.Nombre("");
                 vm.LineasPedido([]);
                 vm.PedidoPdf.Url("");
             }
@@ -571,21 +617,34 @@
                 vm.NumPedido(data.NumPedido);
                 if (data.FechaAlta != "")
                     vm.FechaAlta(moment(data.FechaAlta).format("DD/MM/YYYY"));
+                if (data.FechaLimite != null)
+                    vm.FechaLimite(moment(data.FechaLimite).format("DD/MM/YYYY"));
+                if (data.FechaRecepcion != null)
+                    vm.FechaRecepcion(moment(data.FechaRecepcion).format("DD/MM/YYYY"));
                 vm.TotalPedido(data.TotalPedido);
                 vm.TotalFacturado(data.TotalFacturado);
                 vm.Estado(data.Estado);
-                vm.Responsable(data.Responsable);
+                vm.Tipo(data.Tipo);
                 if (data.DocumentoPdf != null && data.DocumentoPdf.DocumentoId != undefined) {
                     vm.DocumentoPdf.DocumentoId(data.DocumentoPdf.DocumentoId);
                     vm.DocumentoPdf.DescargaUrl(data.DocumentoPdf.DescargaUrl);
                     vm.PedidoPdf.Url("/downloads/" + data.DocumentoPdf.DescargaUrl);
                 }
-                if (data.PedidoPdf != null) vm.PedidoPdf.Url(data.PedidoPdf.url);
+                if (data.PedidoPdf != null)
+                    vm.PedidoPdf.Url(data.PedidoPdf.url);
                 // el grupo al que pertenece
                 // ya que se admiten nulos hay que controlarlo
                 if (data.Proveedor != null) {
                     vm.Proveedor.ProveedorId(data.Proveedor.ProveedorId);
                     vm.Proveedor.NombreComercial(data.Proveedor.NombreComercial);
+                }
+                if (data.Empresa != null) {
+                    vm.Empresa.EmpresaId(data.Empresa.EmpresaId);
+                    vm.Empresa.Nombre(data.Empresa.Nombre);
+                }
+                if (data.Responsable != null) {
+                    vm.Responsable.ResponsableId(data.Responsable.ResponsableId);
+                    vm.Responsable.Nombre(data.Responsable.Nombre);
                 }
                 // aqui cargamos los documentos asociados
                 loadLineas(vm.PedidoId());
@@ -647,14 +706,15 @@
                 var userId = getCookie("ari_userId");
                 if (fAlta != null)
                     vm.FechaAlta(moment(fAlta).format("MM/DD/YYYY"));
-                if (arg == undefined && vm.PedidoId() == "") arg = "new";
+                if (arg == undefined && vm.PedidoId() == "")
+                    arg = "new";
                 if (arg == "new") {
                     verb = "POST";
-                    url = ari_hosts.webapi + "/api/pedido/?userId=" + userId +"&tk=" + getCookie("ari_tique");
+                    url = ari_hosts.webapi + "/api/pedido/?userId=" + userId + "&tk=" + getCookie("ari_tique");
                 }
                 else {
                     verb = "PUT";
-                    url = ari_hosts.webapi + "/api/pedido/" + vm.PedidoId() + "/?userId=" + userId +"&tk=" + getCookie("ari_tique");
+                    url = ari_hosts.webapi + "/api/pedido/" + vm.PedidoId() + "/?userId=" + userId + "&tk=" + getCookie("ari_tique");
                 }
                 $.ajax({
                     type: verb,
@@ -727,11 +787,11 @@
                 var ownURL = document.URL;
                 var userId = getCookie("ari_userId");
                 var targetURL = "Uploader.aspx?ReturnUrl=" + ownURL
-                    + "&Application=PortalPro"
-                    + "&UserId=" + userId
-                    + "&FormId=Pedido"
-                    + "&FieldId=PDF"
-                    + "&Extension=.pdf";
+                                + "&Application=PortalPro"
+                                + "&UserId=" + userId
+                                + "&FormId=Pedido"
+                                + "&FieldId=PDF"
+                                + "&Extension=.pdf";
                 window.open(targetURL, null, "width=500, height=500");
             }
             function sendXml() {
@@ -761,6 +821,10 @@
                     loadTemplates();
                     // cargar el grid
                     gridBuild();
+                    // establecer el idioma
+                    kendo.culture("es-ES");
+                    // cargamos el nombre de la empresa seleccionada
+                    $("#company-name").text("Empresa: " + getCookie("ari_empresa"));
                     // comprobar como hemos sido llamados 
                     switch (caller) {
                         case "proveedor":
@@ -778,8 +842,6 @@
                             $("#pedido-form").show();
                             break;
                     }
-                    // establecer el idioma
-                    kendo.culture("es-ES");
                 });
             })(jQuery);
         </script>

@@ -102,19 +102,6 @@ namespace PortalProModelo
 			}
 		}
 		
-		private string _responsable;
-		public virtual string Responsable
-		{
-			get
-			{
-				return this._responsable;
-			}
-			set
-			{
-				this._responsable = value;
-			}
-		}
-		
 		private string _tipoPedido;
 		public virtual string TipoPedido
 		{
@@ -125,6 +112,32 @@ namespace PortalProModelo
 			set
 			{
 				this._tipoPedido = value;
+			}
+		}
+		
+		private DateTime? _fechaLimite;
+		public virtual DateTime? FechaLimite
+		{
+			get
+			{
+				return this._fechaLimite;
+			}
+			set
+			{
+				this._fechaLimite = value;
+			}
+		}
+		
+		private DateTime? _fechaRecepcion;
+		public virtual DateTime? FechaRecepcion
+		{
+			get
+			{
+				return this._fechaRecepcion;
+			}
+			set
+			{
+				this._fechaRecepcion = value;
 			}
 		}
 		
@@ -164,6 +177,32 @@ namespace PortalProModelo
 			set
 			{
 				this._documento1 = value;
+			}
+		}
+		
+		private Empresa _empresa;
+		public virtual Empresa Empresa
+		{
+			get
+			{
+				return this._empresa;
+			}
+			set
+			{
+				this._empresa = value;
+			}
+		}
+		
+		private Responsable _responsable;
+		public virtual Responsable Responsable
+		{
+			get
+			{
+				return this._responsable;
+			}
+			set
+			{
+				this._responsable = value;
 			}
 		}
 		
