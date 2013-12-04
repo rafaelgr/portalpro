@@ -84,6 +84,16 @@
                         </div>
                         <div class="row-fluid">
                             <div class="span6">
+                                <label>Empresa</label>
+                                <input id="Empresa" class="span12" type="text" disabled data-bind="value: Empresa.Nombre" />
+                            </div>
+                            <div class="span6">
+                                <label>Responsable</label>
+                                <input id="Responsable" class="span12" type="text" disabled data-bind="value: Responsable.Nombre" />
+                            </div>
+                        </div>
+                        <div class="row-fluid">
+                            <div class="span6">
                                 <label>Fecha factura</label>
                                 <input id="FechaEmision" data-bind="value: FechaEmision" name="FechaEmision" disabled/>
                             </div>
@@ -289,6 +299,14 @@
                     ProveedorId: ko.observable(),
                     NombreComercial: ko.observable()
                 }
+                self.Empresa = {
+                    EmpresaId: ko.observable(),
+                    Nombre: ko.observable()
+                }
+                self.Responsable = {
+                    ResponsableId: ko.observable(),
+                    Nombre: ko.observable()
+                }
                 self.DocumentoPdf = {
                     DocumentoId: ko.observable(),
                     NomFichero: ko.observable(),
@@ -392,7 +410,9 @@
                             FechaPrevistaCobro: { type: "date" },
                             FechaCobro: { type: "date" },
                             TotalFactura: { type: "number" },
-                            Proveedor: {}
+                            Proveedor: {},
+                            Empresa: {},
+                            Responsable: {}
                         }
                     }
                 },
@@ -423,7 +443,9 @@
                         { field: "FechaPrevistaCobro", title: "F.Prev.Cobro", format: "{0:dd/MM/yyyy}" },
                         { field: "FechaCobro", title: "F.Cobro", format: "{0:dd/MM/yyyy}" },
                         { field: "TotalFactura", title: "Total", format: "{0:##,###,##0.00}", attributes: { "style": "text-align:right" } },
-                        { field: "FechaAlta", title: "F.Alta", format: "{0:dd/MM/yyyy}"},
+                        { field: "FechaAlta", title: "F.Alta", format: "{0:dd/MM/yyyy}" },
+                        { field: "Empresa", title: "Empresa", template: "#=Empresa?Empresa.Nombre:''#", filterable: false },
+                        { field: "Responsable", title: "Responsable", template: "#=Responsable?Responsable.Nombre:''#", filterable: false },
                         { template: t_edit }
                     ],
                     toolbar: t_new,
@@ -638,6 +660,10 @@
                 vm.FechaAlta("");
                 vm.Proveedor.ProveedorId("");
                 vm.Proveedor.NombreComercial("");
+                vm.Empresa.EmpresaId("");
+                vm.Empresa.Nombre("");
+                vm.Responsable.ResposnableId("");
+                vm.Responsable.Nombre("")
                 vm.LineasFactura([]);
                 vm.FacturaPdf.Url("");
                 vm.FacturaXml.Url("");
@@ -653,6 +679,14 @@
                 if (data.Proveedor != null) {
                     vm.Proveedor.ProveedorId(data.Proveedor.ProveedorId);
                     vm.Proveedor.NombreComercial(data.Proveedor.NombreComercial);
+                }
+                if (data.Empresa != null) {
+                    vm.Empresa.EmpresaId(data.Empresa.EmpresaId);
+                    vm.Empresa.Nombre(data.Empresa.Nombre);
+                }
+                if (data.Responsable != null) {
+                    vm.Responsable.ResponsableId(data.Responsable.ResponsableId);
+                    vm.Responsable.Nombre(data.Responsable.Nombre);
                 }
                 //
                 for (i = 0; i < data.LineasFactura.length; i++) {
@@ -697,6 +731,14 @@
                 if (data.Proveedor != null) {
                     vm.Proveedor.ProveedorId(data.Proveedor.ProveedorId);
                     vm.Proveedor.NombreComercial(data.Proveedor.NombreComercial);
+                }
+                if (data.Empresa != null) {
+                    vm.Empresa.EmpresaId(data.Empresa.EmpresaId);
+                    vm.Empresa.Nombre(data.Empresa.Nombre);
+                }
+                if (data.Responsable != null) {
+                    vm.Responsable.ResponsableId(data.Responsable.ResponsableId);
+                    vm.Responsable.Nombre(data.Responsable.Nombre);
                 }
                 // aqui cargamos los documentos asociados
                 loadLineas(vm.CabFacturaId());
@@ -883,6 +925,8 @@
                     loadTemplates();
                     // cargar el grid
                     gridBuild();
+                    // establecer el idioma
+                    kendo.culture("es-ES");
                     // comprobar como hemos sido llamados 
                     switch (caller) {
                         case "proveedor":
@@ -904,8 +948,7 @@
                             formEdit(gup("CabFacturaId"));
                             break;
                     }
-                    // establecer el idioma
-                    kendo.culture("es-ES");
+
                 });
             })(jQuery);
         </script>

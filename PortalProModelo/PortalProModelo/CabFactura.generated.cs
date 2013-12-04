@@ -206,6 +206,19 @@ namespace PortalProModelo
 			}
 		}
 		
+		private Responsable _responsable;
+		public virtual Responsable Responsable
+		{
+			get
+			{
+				return this._responsable;
+			}
+			set
+			{
+				this._responsable = value;
+			}
+		}
+		
 		private IList<LinFactura> _linFacturas = new List<LinFactura>();
 		public virtual IList<LinFactura> LinFacturas
 		{

@@ -308,6 +308,7 @@
     <Content Include="avatars\avatar3.png" />
     <Content Include="avatars\avatar4.png" />
     <Content Include="avatars\user.jpg" />
+    <Content Include="responsable.html" />
     <Content Include="empresa.html" />
     <Content Include="facturaP.html" />
     <Content Include="js\es-ES.js" />
@@ -500,7 +501,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties UseAjaxifiedTemplates="True" UseJQuerySupport="True" />
+      <UserProperties UseJQuerySupport="True" UseAjaxifiedTemplates="True" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

@@ -63,12 +63,34 @@ namespace PortalProModelo
 			}
 		}
 		
+		private Usuario _usuario;
+		public virtual Usuario Usuario
+		{
+			get
+			{
+				return this._usuario;
+			}
+			set
+			{
+				this._usuario = value;
+			}
+		}
+		
 		private IList<Pedido> _pedidos = new List<Pedido>();
 		public virtual IList<Pedido> Pedidos
 		{
 			get
 			{
 				return this._pedidos;
+			}
+		}
+		
+		private IList<CabFactura> _cabFacturas = new List<CabFactura>();
+		public virtual IList<CabFactura> CabFacturas
+		{
+			get
+			{
+				return this._cabFacturas;
 			}
 		}
 		

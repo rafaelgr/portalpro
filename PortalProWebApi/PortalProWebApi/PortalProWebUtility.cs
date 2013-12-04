@@ -363,7 +363,9 @@ namespace PortalProWebApi
                 CabFacturaId = 0,
                 Proveedor = p.Proveedor,
                 FechaAlta = DateTime.Now,
-                Estado = "RECIBIDA"
+                Empresa = p.Empresa,
+                Responsable = p.Responsable,
+                Estado = "INCIDENCIA"
             };
             ctx.Add(f);
             ctx.SaveChanges();
@@ -487,7 +489,7 @@ namespace PortalProWebApi
                 {
                     factura.Estado = "RECIBIDA2";
                     factura.Historial += String.Format("{0:dd/MM/yyyy hh:mm:ss} La factura {1} pasa a estado {3} debido a que el pedido {4} no está recibido, se espera a su aceptación manual <br/>",
-        DateTime.Now, factura.NumFactura, factura.TotalFactura, factura.Estado, p.NumPedido);
+                        DateTime.Now, factura.NumFactura, factura.TotalFactura, factura.Estado, p.NumPedido);
                 }
                 else
                 {
@@ -498,6 +500,9 @@ namespace PortalProWebApi
             // si llega aquí es una linea a dar de alta.
             factura.TotalFactura += l.Importe;
             p.TotalFacturado += l.Importe;
+            // actualizar empresa y responsables
+            factura.Empresa = p.Empresa;
+            factura.Responsable = p.Responsable;
             l.CabFactura = factura;
             ctx.Add(l);
             ctx.SaveChanges();
@@ -523,6 +528,7 @@ namespace PortalProWebApi
             }
             ctx.SaveChanges();
         }
+
         public static CabFactura YaExisteUnaFacturaComoEsta(CabFactura factura, PortalProContext ctx)
         {
             // obtener el año de la fecha de factura.
@@ -535,20 +541,20 @@ namespace PortalProWebApi
             if (factura.CabFacturaId != 0)
             {
                 fac = (from f in ctx.CabFacturas
-                       where f.Proveedor.ProveedorId == factura.Proveedor.ProveedorId
-                       && f.NumFactura == factura.NumFactura
-                       && f.FechaEmision >= primerDia
-                       && f.FechaEmision <= ultimoDia
-                       && f.CabFacturaId != factura.CabFacturaId
+                       where f.Proveedor.ProveedorId == factura.Proveedor.ProveedorId &&
+                             f.NumFactura == factura.NumFactura &&
+                             f.FechaEmision >= primerDia &&
+                             f.FechaEmision <= ultimoDia &&
+                             f.CabFacturaId != factura.CabFacturaId
                        select f).FirstOrDefault<CabFactura>();
             }
             else
             {
                 fac = (from f in ctx.CabFacturas
-                       where f.Proveedor.ProveedorId == factura.Proveedor.ProveedorId
-                       && f.NumFactura == factura.NumFactura
-                       && f.FechaEmision >= primerDia
-                       && f.FechaEmision <= ultimoDia
+                       where f.Proveedor.ProveedorId == factura.Proveedor.ProveedorId &&
+                             f.NumFactura == factura.NumFactura &&
+                             f.FechaEmision >= primerDia &&
+                             f.FechaEmision <= ultimoDia
                        select f).FirstOrDefault<CabFactura>();
             }
             return fac;

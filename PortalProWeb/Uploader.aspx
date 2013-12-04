@@ -138,7 +138,7 @@
             </script>
             <telerik:RadAjaxManager ID="RadAjaxManager1" runat="server">
             </telerik:RadAjaxManager>
-            <telerik:RadSkinManager ID="RadSkinManager1" runat="server" Skin="Metro"></telerik:RadSkinManager>
+            <telerik:RadSkinManager ID="RadSkinManager1" runat="server"></telerik:RadSkinManager>
             <telerik:RadWindowManager ID="RadWindowManager1" runat="server"></telerik:RadWindowManager>
             <div class="container-fluid">
                 <div id="TitleZone" class="row-fluid table-header">

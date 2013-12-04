@@ -131,8 +131,8 @@
                             </div>
                             <div class="span3">
                                 <label>Tipo</label>
-                                <input id="Tipo" class="span12" type="text" data-bind="value: Tipo" 
-                                       name="Tipo" disabled />
+                                <input id="TipoPedido" class="span12" type="text" data-bind="value: TipoPedido" 
+                                       name="TipoPedido" disabled />
                             </div>
                         </div>
                         <div class="row-fluid">
@@ -278,7 +278,7 @@
                 self.FechaRecepcion = ko.observable();
                 self.TotalPedido = ko.observable();
                 self.Estado = ko.observable();
-                self.Tipo = ko.observable();
+                self.TipoPedido = ko.observable();
                 self.TotalFacturado = ko.observable();
                 self.Proveedor = {
                     ProveedorId: ko.observable(),
@@ -376,7 +376,7 @@
                         fields: {
                             PedidoId: { type: "number" },
                             Estado: {type: "string"},
-                            Tipo: { type: "string" },
+                            TipoPedido: { type: "string" },
                             NumPedido: { type: "string" },
                             FechaAlta: { type: "date" },
                             FechaLimite: { type: "date" },
@@ -410,7 +410,7 @@
                     columns: [
                         { field: "PedidoId", title: "ID" },
                         { field: "Estado", title: "Estado"},
-                        { field: "Tipo", title: "Tipo" },
+                        { field: "TipoPedido", title: "Tipo" },
                         { field: "Proveedor", title: "Proveedor", template: "#=Proveedor?Proveedor.NombreComercial:''#", filterable: false },
                         { field: "Empresa", title: "Empresa", template: "#=Empresa?Empresa.Nombre:''#", filterable: false },
                         { field: "Responsable", title: "Responsable", template: "#=Responsable?Responsable.Nombre:''#", filterable: false },
@@ -601,7 +601,7 @@
                 vm.TotalPedido("");
                 vm.TotalFacturado("");
                 vn.Estado("");
-                vn.Tipo("");
+                vn.TipoPedido("");
                 vm.Proveedor.ProveedorId("");
                 vm.Proveedor.NombreComercial("");
                 vm.Empresa.EmpresaId("");
@@ -624,7 +624,7 @@
                 vm.TotalPedido(data.TotalPedido);
                 vm.TotalFacturado(data.TotalFacturado);
                 vm.Estado(data.Estado);
-                vm.Tipo(data.Tipo);
+                vm.TipoPedido(data.TipoPedido);
                 if (data.DocumentoPdf != null && data.DocumentoPdf.DocumentoId != undefined) {
                     vm.DocumentoPdf.DocumentoId(data.DocumentoPdf.DocumentoId);
                     vm.DocumentoPdf.DescargaUrl(data.DocumentoPdf.DescargaUrl);

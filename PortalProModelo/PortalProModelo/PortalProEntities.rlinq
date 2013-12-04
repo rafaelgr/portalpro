@@ -48,6 +48,9 @@
         <orm:field name="_solicitudLogs" property="SolicitudLogs" behavior="readwrite" uniqueId="c5afdc17-7748-4a44-9686-850218dce387" type="PortalProModelo.SolicitudLog">
           <orm:collection element-class="PortalProModelo.SolicitudLog" inverse-field="_usuario" order-by="" uniqueId="c538ceac-a6f5-40d6-904b-93aea77551c0" />
         </orm:field>
+        <orm:field name="_responsables" property="Responsables" behavior="readwrite" uniqueId="e0ce3fef-7df7-4d30-9a89-c05598c08b7e" type="PortalProModelo.Responsable">
+          <orm:collection element-class="PortalProModelo.Responsable" inverse-field="_usuario" order-by="" uniqueId="a9cdcd44-79bc-4641-ba75-e0fe78212878" />
+        </orm:field>
       </orm:class>
       <orm:class name="WebApiTicket" uniqueId="5986131f-345e-435f-8235-d87e4fc598c9">
         <orm:table name="WebApiTicket" />
@@ -475,6 +478,9 @@
         <orm:field name="_linFacturas" property="LinFacturas" behavior="readwrite" uniqueId="92a6a4d5-d147-4f2f-8a42-950f64a46158" type="PortalProModelo.LinFactura">
           <orm:collection element-class="PortalProModelo.LinFactura" inverse-field="_cabFactura" order-by="" uniqueId="99479ba3-b941-4d39-94d2-f99068cc96b7" />
         </orm:field>
+        <orm:field name="_responsable" property="Responsable" behavior="readwrite" uniqueId="d1d1a890-ad20-44e5-aa4c-6075976a6a75" type="PortalProModelo.Responsable">
+          <orm:reference uniqueId="41aadbf5-fa68-4555-9c91-c7056c324382" />
+        </orm:field>
         <orm:index name="idx_CabFactura_ProveedorId">
           <orm:columnMapping>
             <orm:column name="ProveedorId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
@@ -556,10 +562,10 @@
           <orm:column name="TipoPedido" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
         </orm:field>
         <orm:field name="_fechaLimite" property="FechaLimite" uniqueId="89a4c960-a2e0-4ca1-ab88-98c4697b9d88" type="System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]">
-          <orm:column nullable="true" scale="0" length="0" sql-type="datetime" name="FechaLimite" ado-type="" />
+          <orm:column name="FechaLimite" sql-type="datetime" nullable="true" length="0" scale="0" ado-type="" />
         </orm:field>
         <orm:field name="_fechaRecepcion" property="FechaRecepcion" uniqueId="6460576d-4a09-4c3e-9ada-2ac7e42d9470" type="System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]">
-          <orm:column nullable="true" scale="0" length="0" sql-type="datetime" name="FechaRecepcion" ado-type="" />
+          <orm:column name="FechaRecepcion" sql-type="datetime" nullable="true" length="0" scale="0" ado-type="" />
         </orm:field>
         <orm:field name="_proveedor" property="Proveedor" behavior="readwrite" uniqueId="be5b168f-c016-4e54-97f9-75cd7a2dba5f" type="PortalProModelo.Proveedor">
           <orm:reference uniqueId="eade228d-17d6-4ca7-a17f-2f5f674a5e44" />
@@ -573,11 +579,11 @@
         <orm:field name="_empresa" property="Empresa" behavior="readwrite" uniqueId="e5c6f059-a59c-4932-945f-b559dc8f670f" type="PortalProModelo.Empresa">
           <orm:reference uniqueId="3dae946b-4d15-4bc7-ac48-89cc8a2e11ee" />
         </orm:field>
-        <orm:field name="_linPedidos" property="LinPedidos" behavior="readwrite" uniqueId="aa2d3426-6723-4a19-8203-7ae728255acd" type="PortalProModelo.LinPedido">
-          <orm:collection element-class="PortalProModelo.LinPedido" inverse-field="_pedido" order-by="" uniqueId="2ef9c0aa-d285-45b6-98ff-c8b852d61572" />
-        </orm:field>
         <orm:field name="_responsable" property="Responsable" behavior="readwrite" uniqueId="dc980d38-7d89-44bb-95f9-983a5c3272a6" type="PortalProModelo.Responsable">
           <orm:reference uniqueId="c2c93ca7-1241-402d-9399-398bc2bafe79" />
+        </orm:field>
+        <orm:field name="_linPedidos" property="LinPedidos" behavior="readwrite" uniqueId="aa2d3426-6723-4a19-8203-7ae728255acd" type="PortalProModelo.LinPedido">
+          <orm:collection element-class="PortalProModelo.LinPedido" inverse-field="_pedido" order-by="" uniqueId="2ef9c0aa-d285-45b6-98ff-c8b852d61572" />
         </orm:field>
         <orm:index name="idx_Pedido_DocumentoPdf_DocumentoId">
           <orm:columnMapping>
@@ -661,8 +667,14 @@
         <orm:field name="_responsableId" property="ResponsableId" uniqueId="c1bbb836-431d-480a-be73-13dca90fbb3a" type="System.Int32" />
         <orm:field name="_nombre" property="Nombre" uniqueId="6403f658-a3d7-4682-9f91-945ee6edcb18" type="System.String" />
         <orm:field name="_email" property="Email" uniqueId="c49c6e3a-d96a-4b69-bede-eaf5d7c74241" type="System.String" />
+        <orm:field name="_usuario" property="Usuario" behavior="readwrite" uniqueId="28e639b8-9e74-4557-abf3-4ac9d8f4cb55" type="PortalProModelo.Usuario">
+          <orm:reference uniqueId="a9cdcd44-79bc-4641-ba75-e0fe78212878" />
+        </orm:field>
         <orm:field name="_pedidos" property="Pedidos" behavior="readwrite" uniqueId="e399d016-c4b7-4368-abab-be9bf785fc0b" type="PortalProModelo.Pedido">
           <orm:collection element-class="PortalProModelo.Pedido" inverse-field="_responsable" order-by="" uniqueId="c2c93ca7-1241-402d-9399-398bc2bafe79" />
+        </orm:field>
+        <orm:field name="_cabFacturas" property="CabFacturas" behavior="readwrite" uniqueId="39b38b60-3517-419c-b727-5869031d8948" type="PortalProModelo.CabFactura">
+          <orm:collection element-class="PortalProModelo.CabFactura" inverse-field="_responsable" order-by="" uniqueId="41aadbf5-fa68-4555-9c91-c7056c324382" />
         </orm:field>
       </orm:class>
     </orm:namespace>
@@ -827,8 +839,8 @@
         <orm:column name="DocumentoPdf_DocumentoId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
         <orm:column name="TipoPedido" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
         <orm:column name="DocumentoXml_DocumentoId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
-        <orm:column nullable="true" scale="0" length="0" sql-type="datetime" name="FechaLimite" ado-type="" />
-        <orm:column nullable="true" scale="0" length="0" sql-type="datetime" name="FechaRecepcion" ado-type="" />
+        <orm:column name="FechaLimite" sql-type="datetime" nullable="true" length="0" scale="0" ado-type="" />
+        <orm:column name="FechaRecepcion" sql-type="datetime" nullable="true" length="0" scale="0" ado-type="" />
         <orm:index name="idx_Pedido_DocumentoPdf_DocumentoId">
           <orm:columnMapping>
             <orm:column name="DocumentoPdf_DocumentoId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
@@ -947,6 +959,9 @@
         </classHasNavigationalProperties>
         <classHasNavigationalProperties Id="5370fc97-abae-4595-857d-070aaa12d536">
           <NavigationalProperty Id="c5afdc17-7748-4a44-9686-850218dce387" name="SolicitudLogs" type="IList&lt;SolicitudLog&gt;" label="SolicitudLogs : IList&lt;SolicitudLog&gt;" nullable="true" kind="Persistent" fieldName="_solicitudLogs" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
+        <classHasNavigationalProperties Id="c73b60d1-446d-42fe-b5cb-9e789db194fe">
+          <NavigationalProperty Id="e0ce3fef-7df7-4d30-9a89-c05598c08b7e" name="Responsables" type="IList&lt;Responsable&gt;" label="Responsables : IList&lt;Responsable&gt;" nullable="true" kind="Persistent" fieldName="_responsables" isDependent="false" isManaged="false" />
         </classHasNavigationalProperties>
       </navigationalProperties>
     </DomainClass>
@@ -1392,6 +1407,19 @@
             </associationDefinesSourceProperty>
           </sourceNavigationalProperty>
         </Association>
+        <Association Id="41aadbf5-fa68-4555-9c91-c7056c324382" SourceMultiplicity="ZeroOne" name="CabFacturaHasResponsable">
+          <DomainClassMoniker name="/PortalProContext/Responsable" />
+          <targetNavigationalProperty>
+            <associationDefinesTargetProperty Id="981cd6cc-24f7-44bf-a886-bb4a9cd8597c">
+              <NavigationalPropertyMoniker name="/PortalProContext/Responsable/CabFacturas" />
+            </associationDefinesTargetProperty>
+          </targetNavigationalProperty>
+          <sourceNavigationalProperty>
+            <associationDefinesSourceProperty Id="663139e8-9fb2-4da7-9702-ac3267b967e6">
+              <NavigationalPropertyMoniker name="/PortalProContext/CabFactura/Responsable" />
+            </associationDefinesSourceProperty>
+          </sourceNavigationalProperty>
+        </Association>
       </AssociationTargets>
       <navigationalProperties>
         <classHasNavigationalProperties Id="4d443491-9d57-48bc-96f7-5e81c787bcad">
@@ -1408,6 +1436,9 @@
         </classHasNavigationalProperties>
         <classHasNavigationalProperties Id="17fb36f4-c340-4104-8f19-7fa50510a12b">
           <NavigationalProperty Id="c44f0c07-0b21-4782-a2cb-e8b2495a3460" name="Empresa" type="Empresa" label="Empresa : Empresa" nullable="true" kind="Persistent" fieldName="_empresa" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
+        <classHasNavigationalProperties Id="aa21cc16-7329-416a-b6e9-cb04fc156bd2">
+          <NavigationalProperty Id="d1d1a890-ad20-44e5-aa4c-6075976a6a75" name="Responsable" type="Responsable" label="Responsable : Responsable" nullable="true" kind="Persistent" fieldName="_responsable" isDependent="false" isManaged="false" />
         </classHasNavigationalProperties>
       </navigationalProperties>
     </DomainClass>
@@ -1614,9 +1645,30 @@
       <Property Id="c1bbb836-431d-480a-be73-13dca90fbb3a" name="ResponsableId" type="System.Int32" label="ResponsableId : System.Int32" identity="true" fieldName="_responsableId" />
       <Property Id="6403f658-a3d7-4682-9f91-945ee6edcb18" name="Nombre" label="Nombre : String" fieldName="_nombre" />
       <Property Id="c49c6e3a-d96a-4b69-bede-eaf5d7c74241" name="Email" label="Email : String" fieldName="_email" />
+      <AssociationTargets>
+        <Association Id="a9cdcd44-79bc-4641-ba75-e0fe78212878" SourceMultiplicity="ZeroOne" name="ResponsableHasUsuario">
+          <DomainClassMoniker name="/PortalProContext/Usuario" />
+          <targetNavigationalProperty>
+            <associationDefinesTargetProperty Id="18a19830-8960-4b5b-990d-e25d4b3a0883">
+              <NavigationalPropertyMoniker name="/PortalProContext/Usuario/Responsables" />
+            </associationDefinesTargetProperty>
+          </targetNavigationalProperty>
+          <sourceNavigationalProperty>
+            <associationDefinesSourceProperty Id="8716dc63-570b-4a6f-b75e-9a85548f59b8">
+              <NavigationalPropertyMoniker name="/PortalProContext/Responsable/Usuario" />
+            </associationDefinesSourceProperty>
+          </sourceNavigationalProperty>
+        </Association>
+      </AssociationTargets>
       <navigationalProperties>
         <classHasNavigationalProperties Id="e06d12ad-dd65-426c-86fe-4238ec089cd6">
           <NavigationalProperty Id="e399d016-c4b7-4368-abab-be9bf785fc0b" name="Pedidos" type="IList&lt;Pedido&gt;" label="Pedidos : IList&lt;Pedido&gt;" nullable="true" kind="Persistent" fieldName="_pedidos" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
+        <classHasNavigationalProperties Id="3b234359-1246-4dc5-8ad0-0000bc273c09">
+          <NavigationalProperty Id="28e639b8-9e74-4557-abf3-4ac9d8f4cb55" name="Usuario" type="Usuario" label="Usuario : Usuario" nullable="true" kind="Persistent" fieldName="_usuario" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
+        <classHasNavigationalProperties Id="02390192-8739-446a-aeb9-d51d0500c4d5">
+          <NavigationalProperty Id="39b38b60-3517-419c-b727-5869031d8948" name="CabFacturas" type="IList&lt;CabFactura&gt;" label="CabFacturas : IList&lt;CabFactura&gt;" nullable="true" kind="Persistent" fieldName="_cabFacturas" isDependent="false" isManaged="false" />
         </classHasNavigationalProperties>
       </navigationalProperties>
     </DomainClass>

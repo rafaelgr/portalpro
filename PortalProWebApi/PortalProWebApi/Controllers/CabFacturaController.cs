@@ -30,6 +30,8 @@ namespace PortalProWebApi.Controllers
                     fs.LoadWith<CabFactura>(x => x.Proveedor);
                     fs.LoadWith<CabFactura>(x => x.DocumentoPdf);
                     fs.LoadWith<CabFactura>(x => x.DocumentoXml);
+                    fs.LoadWith<CabFactura>(x => x.Empresa);
+                    fs.LoadWith<CabFactura>(x => x.Responsable);
                     facturas = ctx.CreateDetachedCopy<IEnumerable<CabFactura>>(facturas, fs);
                     return facturas;
                 }
@@ -55,6 +57,8 @@ namespace PortalProWebApi.Controllers
                     fs.LoadWith<CabFactura>(x => x.Proveedor);
                     fs.LoadWith<CabFactura>(x => x.DocumentoPdf);
                     fs.LoadWith<CabFactura>(x => x.DocumentoXml);
+                    fs.LoadWith<CabFactura>(x => x.Empresa);
+                    fs.LoadWith<CabFactura>(x => x.Responsable);
                     facturas = ctx.CreateDetachedCopy<IEnumerable<CabFactura>>(facturas, fs);
                     return facturas;
                 }
@@ -82,6 +86,8 @@ namespace PortalProWebApi.Controllers
                     fs.LoadWith<CabFactura>(x => x.Proveedor);
                     fs.LoadWith<CabFactura>(x => x.DocumentoPdf);
                     fs.LoadWith<CabFactura>(x => x.DocumentoXml);
+                    fs.LoadWith<CabFactura>(x => x.Empresa);
+                    fs.LoadWith<CabFactura>(x => x.Responsable);
                     facturas = ctx.CreateDetachedCopy<IEnumerable<CabFactura>>(facturas, fs);
                     return facturas;
                 }
@@ -110,6 +116,8 @@ namespace PortalProWebApi.Controllers
                     fs.LoadWith<CabFactura>(x => x.Proveedor);
                     fs.LoadWith<CabFactura>(x => x.DocumentoPdf);
                     fs.LoadWith<CabFactura>(x => x.DocumentoXml);
+                    fs.LoadWith<CabFactura>(x => x.Empresa);
+                    fs.LoadWith<CabFactura>(x => x.Responsable);
                     facturas = ctx.CreateDetachedCopy<IEnumerable<CabFactura>>(facturas, fs);
                     return facturas;
                 }
@@ -138,6 +146,8 @@ namespace PortalProWebApi.Controllers
                     fs.LoadWith<CabFactura>(x => x.Proveedor);
                     fs.LoadWith<CabFactura>(x => x.DocumentoPdf);
                     fs.LoadWith<CabFactura>(x => x.DocumentoXml);
+                    fs.LoadWith<CabFactura>(x => x.Empresa);
+                    fs.LoadWith<CabFactura>(x => x.Responsable);
                     facturas = ctx.CreateDetachedCopy<IEnumerable<CabFactura>>(facturas, fs);
                     return facturas;
                 }
@@ -171,7 +181,7 @@ namespace PortalProWebApi.Controllers
                             factura.DocumentoPdf.DescargaUrl = PortalProWebUtility.CargarUrlDocumento(application, factura.DocumentoPdf, tk);
                         if (factura.DocumentoXml != null)
                             factura.DocumentoXml.DescargaUrl = PortalProWebUtility.CargarUrlDocumento(application, factura.DocumentoXml, tk);
-                        factura = ctx.CreateDetachedCopy<CabFactura>(factura, x => x.Proveedor, x => x.DocumentoXml, x => x.DocumentoPdf);
+                        factura = ctx.CreateDetachedCopy<CabFactura>(factura, x => x.Proveedor, x => x.DocumentoXml, x => x.DocumentoPdf, x=> x.Empresa, x=>x.Responsable);
                         return factura;
                     }
                     else
@@ -233,6 +243,18 @@ namespace PortalProWebApi.Controllers
                     documentoXmlId = factura.DocumentoXml.DocumentoId;
                     factura.DocumentoXml = null;
                 }
+                int empresaId = 0;
+                if (factura.Empresa != null) 
+                {
+                    empresaId = factura.Empresa.EmpresaId;
+                    factura.Empresa = null;
+                }
+                int responsableId = 0;
+                if (factura.Responsable != null)
+                {
+                    responsableId = factura.Responsable.ResponsableId;
+                    factura.Responsable = null;
+                }
                 // las facturas por defecto tienen el estado recibida
                 factura.Estado = "ACEPTADA";
                 // dar de alta el objeto en la base de datos y devolverlo en el mensaje
@@ -254,6 +276,18 @@ namespace PortalProWebApi.Controllers
                     factura.DocumentoXml = (from d in ctx.Documentos
                                             where d.DocumentoId == documentoXmlId
                                             select d).FirstOrDefault<Documento>();
+                }
+                if (empresaId != 0)
+                {
+                    factura.Empresa = (from e in ctx.Empresas
+                                       where e.EmpresaId == empresaId
+                                       select e).FirstOrDefault<Empresa>();
+                }
+                if (responsableId != 0)
+                {
+                    factura.Responsable = (from r in ctx.Responsables
+                                           where r.ResponsableId == responsableId
+                                           select r).FirstOrDefault<Responsable>();
                 }
                 factura.FechaAlta = DateTime.Now;
                 factura.Historial += String.Format("{0:dd/MM/yyyy hh:mm:ss} La factura {1} con Total {2:0.0} € has sido creada con estado {3} <br/>",
@@ -323,6 +357,18 @@ namespace PortalProWebApi.Controllers
                     documentoXmlId = factura.DocumentoXml.DocumentoId;
                     factura.DocumentoXml = null;
                 }
+                int empresaId = 0;
+                if (factura.Empresa != null)
+                {
+                    empresaId = factura.Empresa.EmpresaId;
+                    factura.Empresa = null;
+                }
+                int responsableId = 0;
+                if (factura.Responsable != null)
+                {
+                    responsableId = factura.Responsable.ResponsableId;
+                    factura.Responsable = null;
+                }
                 // dar de alta el objeto en la base de datos y devolverlo en el mensaje
                 factura.Estado = "ACEPTADA";
                 ctx.Add(factura);
@@ -351,6 +397,18 @@ namespace PortalProWebApi.Controllers
                 if (fXml != "")
                 {
                     factura.DocumentoXml = PortalProWebUtility.CrearDocumentoDesdeArchivoCargado(application, fXml, ctx);
+                }
+                if (empresaId != 0)
+                {
+                    factura.Empresa = (from e in ctx.Empresas
+                                       where e.EmpresaId == empresaId
+                                       select e).FirstOrDefault<Empresa>();
+                }
+                if (responsableId != 0)
+                {
+                    factura.Responsable = (from r in ctx.Responsables
+                                           where r.ResponsableId == responsableId
+                                           select r).FirstOrDefault<Responsable>();
                 }
                 factura.FechaAlta = DateTime.Now;
                 factura.Historial += String.Format("{0:dd/MM/yyyy hh:mm:ss} La factura {1} con Total {2:0.0} € has sido creada con estado {3} <br/>",
@@ -456,6 +514,18 @@ namespace PortalProWebApi.Controllers
                     documentoXmlId = factura.DocumentoXml.DocumentoId;
                     factura.DocumentoXml = null;
                 }
+                int empresaId = 0;
+                if (factura.Empresa != null)
+                {
+                    empresaId = factura.Empresa.EmpresaId;
+                    factura.Empresa = null;
+                }
+                int responsableId = 0;
+                if (factura.Responsable != null)
+                {
+                    responsableId = factura.Responsable.ResponsableId;
+                    factura.Responsable = null;
+                }
                 if (factura.Estado == null)
                     factura.Estado = "ACEPTADA";
                 // modificar el objeto
@@ -481,6 +551,18 @@ namespace PortalProWebApi.Controllers
                     factura.DocumentoXml = (from d in ctx.Documentos
                                             where d.DocumentoId == documentoXmlId
                                             select d).FirstOrDefault<Documento>();
+                }
+                if (empresaId != 0)
+                {
+                    factura.Empresa = (from e in ctx.Empresas
+                                       where e.EmpresaId == empresaId
+                                       select e).FirstOrDefault<Empresa>();
+                }
+                if (responsableId != 0)
+                {
+                    factura.Responsable = (from r in ctx.Responsables
+                                           where r.ResponsableId == responsableId
+                                           select r).FirstOrDefault<Responsable>();
                 }
                 Documento doc = null; // para cargar temporalmente documentos
                 // si se cumplen estas condiciones es que han cambiado el archivo asociado.
@@ -577,6 +659,18 @@ namespace PortalProWebApi.Controllers
                     documentoXmlId = factura.DocumentoXml.DocumentoId;
                     factura.DocumentoXml = null;
                 }
+                int empresaId = 0;
+                if (factura.Empresa != null)
+                {
+                    empresaId = factura.Empresa.EmpresaId;
+                    factura.Empresa = null;
+                }
+                int responsableId = 0;
+                if (factura.Responsable != null)
+                {
+                    responsableId = factura.Responsable.ResponsableId;
+                    factura.Responsable = null;
+                }
                 if (factura.Estado == null)
                     factura.Estado = "ACEPTADA";
                 // modificar el objeto
@@ -602,6 +696,18 @@ namespace PortalProWebApi.Controllers
                     factura.DocumentoXml = (from d in ctx.Documentos
                                             where d.DocumentoId == documentoXmlId
                                             select d).FirstOrDefault<Documento>();
+                }
+                if (empresaId != 0)
+                {
+                    factura.Empresa = (from e in ctx.Empresas
+                                       where e.EmpresaId == empresaId
+                                       select e).FirstOrDefault<Empresa>();
+                }
+                if (responsableId != 0)
+                {
+                    factura.Responsable = (from r in ctx.Responsables
+                                           where r.ResponsableId == responsableId
+                                           select r).FirstOrDefault<Responsable>();
                 }
                 Documento doc = null; // para cargar temporalmente documentos
                 // si se cumplen estas condiciones es que han cambiado el archivo asociado.
@@ -671,6 +777,18 @@ namespace PortalProWebApi.Controllers
                     documentoXmlId = factura.DocumentoXml.DocumentoId;
                     factura.DocumentoXml = null;
                 }
+                int empresaId = 0;
+                if (factura.Empresa != null)
+                {
+                    empresaId = factura.Empresa.EmpresaId;
+                    factura.Empresa = null;
+                }
+                int responsableId = 0;
+                if (factura.Responsable != null)
+                {
+                    responsableId = factura.Responsable.ResponsableId;
+                    factura.Responsable = null;
+                }
                 ctx.AttachCopy<CabFactura>(factura);
                 // volvemos a leer el objecto para que lo maneje este contexto.
                 factura = (from f in ctx.CabFacturas
@@ -693,6 +811,18 @@ namespace PortalProWebApi.Controllers
                     factura.DocumentoXml = (from d in ctx.Documentos
                                             where d.DocumentoId == documentoXmlId
                                             select d).FirstOrDefault<Documento>();
+                }
+                if (empresaId != 0)
+                {
+                    factura.Empresa = (from e in ctx.Empresas
+                                       where e.EmpresaId == empresaId
+                                       select e).FirstOrDefault<Empresa>();
+                }
+                if (responsableId != 0)
+                {
+                    factura.Responsable = (from r in ctx.Responsables
+                                           where r.ResponsableId == responsableId
+                                           select r).FirstOrDefault<Responsable>();
                 }
                 factura.Estado = estado;
                 factura.Historial += String.Format("{0:dd/MM/yyyy hh:mm:ss} La factura {1} con Total {2:0.0} € ha pasado al estado {3} por el usuario {4} con el motivo '{5}' <br/>",
@@ -815,6 +945,18 @@ namespace PortalProWebApi.Controllers
                     documentoXmlId = factura.DocumentoXml.DocumentoId;
                     factura.DocumentoXml = null;
                 }
+                int empresaId = 0;
+                if (factura.Empresa != null)
+                {
+                    empresaId = factura.Empresa.EmpresaId;
+                    factura.Empresa = null;
+                }
+                int responsableId = 0;
+                if (factura.Responsable != null)
+                {
+                    responsableId = factura.Responsable.ResponsableId;
+                    factura.Responsable = null;
+                }
                 // modificar el objeto
                 if (factura.Estado == null)
                     factura.Estado = "ACEPTADA";
@@ -840,6 +982,18 @@ namespace PortalProWebApi.Controllers
                     factura.DocumentoXml = (from d in ctx.Documentos
                                             where d.DocumentoId == documentoXmlId
                                             select d).FirstOrDefault<Documento>();
+                }
+                if (empresaId != 0)
+                {
+                    factura.Empresa = (from e in ctx.Empresas
+                                       where e.EmpresaId == empresaId
+                                       select e).FirstOrDefault<Empresa>();
+                }
+                if (responsableId != 0)
+                {
+                    factura.Responsable = (from r in ctx.Responsables
+                                           where r.ResponsableId == responsableId
+                                           select r).FirstOrDefault<Responsable>();
                 }
                 factura.Historial += String.Format("{0:dd/MM/yyyy hh:mm:ss} La factura {1} con Total {2:0.0} € has sido modificada con estado {3} <br/>",
                     DateTime.Now, factura.NumFactura, factura.TotalFactura, factura.Estado);

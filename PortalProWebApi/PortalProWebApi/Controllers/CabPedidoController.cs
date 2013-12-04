@@ -71,6 +71,35 @@ namespace PortalProWebApi.Controllers
             }
         }
 
+        public virtual IEnumerable<Pedido> GetResponsable(string responsable, string tk)
+        {
+            using (PortalProContext ctx = new PortalProContext())
+            {
+                if (CntWebApiSeguridad.CheckTicket(tk, ctx))
+                {
+                    // Comprobamos que hay un proveedor que coincide
+                    int pId = int.Parse(responsable);
+                    IEnumerable<Pedido> pedidos = (from f in ctx.Pedidos
+                                                   where f.Responsable.ResponsableId == pId
+                                                   orderby f.FechaAlta descending
+                                                   select f).ToList<Pedido>();
+                    // fetch estrategy, necesaria para poder devolver el grupo junto con cada usuariuo
+                    FetchStrategy fs = new FetchStrategy();
+                    fs.LoadWith<Pedido>(x => x.Proveedor);
+                    fs.LoadWith<Pedido>(x => x.DocumentoPdf);
+                    fs.LoadWith<Pedido>(x => x.DocumentoXml);
+                    fs.LoadWith<Pedido>(x => x.Empresa);
+                    fs.LoadWith<Pedido>(x => x.Responsable);
+                    pedidos = ctx.CreateDetachedCopy<IEnumerable<Pedido>>(pedidos, fs);
+                    return pedidos;
+                }
+                else
+                {
+                    throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.Unauthorized, "Se necesita tique de autorización (Pedido)"));
+                }
+            }
+        }
+
         public virtual IEnumerable<Pedido> GetProveedorEmpresa(string proveedorGId, string empresa, string tk)
         {
             using (PortalProContext ctx = new PortalProContext())

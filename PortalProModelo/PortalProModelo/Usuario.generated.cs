@@ -120,6 +120,15 @@ namespace PortalProModelo
 			}
 		}
 		
+		private IList<Responsable> _responsables = new List<Responsable>();
+		public virtual IList<Responsable> Responsables
+		{
+			get
+			{
+				return this._responsables;
+			}
+		}
+		
 	}
 }
 #pragma warning restore 1591

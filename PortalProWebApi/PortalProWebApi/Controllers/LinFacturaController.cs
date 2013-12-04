@@ -161,7 +161,7 @@ namespace PortalProWebApi.Controllers
                 {
                     if (factura.Estado == "RECIBIDA2")
                     {
-                        factura.Estado = "RECIBIDA";
+                        factura.Estado = "INCIDENCIA";
                     }
                     else
                     {
