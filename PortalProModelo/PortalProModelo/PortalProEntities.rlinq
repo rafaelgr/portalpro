@@ -319,6 +319,9 @@
         <orm:field name="_iBAN" property="IBAN" uniqueId="43a64c47-da3b-45a8-87c1-715ac4344cd4" type="System.String">
           <orm:column name="IBAN" sql-type="varchar" nullable="false" length="255" scale="0" ado-type="" />
         </orm:field>
+        <orm:field name="_bIC" property="BIC" uniqueId="2800b5e8-d621-4a39-8acc-d72375f68dd0" type="System.String">
+          <orm:column nullable="true" scale="0" length="255" sql-type="varchar" name="BIC" ado-type="" />
+        </orm:field>
         <orm:field name="_grupoProveedor" property="GrupoProveedor" behavior="readwrite" uniqueId="08cd3337-7360-4902-995d-381de10e73f3" type="PortalProModelo.GrupoProveedor">
           <orm:reference uniqueId="a6016d2b-968a-4597-977f-5973d26e08d3" />
         </orm:field>
@@ -475,11 +478,11 @@
         <orm:field name="_empresa" property="Empresa" behavior="readwrite" uniqueId="c44f0c07-0b21-4782-a2cb-e8b2495a3460" type="PortalProModelo.Empresa">
           <orm:reference uniqueId="5d701a62-9825-4d27-a40b-0c4500637c2e" />
         </orm:field>
-        <orm:field name="_linFacturas" property="LinFacturas" behavior="readwrite" uniqueId="92a6a4d5-d147-4f2f-8a42-950f64a46158" type="PortalProModelo.LinFactura">
-          <orm:collection element-class="PortalProModelo.LinFactura" inverse-field="_cabFactura" order-by="" uniqueId="99479ba3-b941-4d39-94d2-f99068cc96b7" />
-        </orm:field>
         <orm:field name="_responsable" property="Responsable" behavior="readwrite" uniqueId="d1d1a890-ad20-44e5-aa4c-6075976a6a75" type="PortalProModelo.Responsable">
           <orm:reference uniqueId="41aadbf5-fa68-4555-9c91-c7056c324382" />
+        </orm:field>
+        <orm:field name="_linFacturas" property="LinFacturas" behavior="readwrite" uniqueId="92a6a4d5-d147-4f2f-8a42-950f64a46158" type="PortalProModelo.LinFactura">
+          <orm:collection element-class="PortalProModelo.LinFactura" inverse-field="_cabFactura" order-by="" uniqueId="99479ba3-b941-4d39-94d2-f99068cc96b7" />
         </orm:field>
         <orm:index name="idx_CabFactura_ProveedorId">
           <orm:columnMapping>
@@ -792,6 +795,7 @@
         <orm:column name="ActividadPrincipal" sql-type="varchar" nullable="true" length="255" scale="0" ado-type="" />
         <orm:column name="PersonaContacto" sql-type="varchar" nullable="true" length="255" scale="0" ado-type="" />
         <orm:column name="IBAN" sql-type="varchar" nullable="false" length="255" scale="0" ado-type="" />
+        <orm:column nullable="true" scale="0" length="255" sql-type="varchar" name="BIC" ado-type="" />
         <orm:index name="idx_SolicitudProveedor_GrupoProveedorId">
           <orm:columnMapping>
             <orm:column name="GrupoProveedorId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
@@ -1215,6 +1219,7 @@
       <Property Id="982679fd-195e-496a-bc3a-8bb2cd3b2c07" name="ActividadPrincipal" label="ActividadPrincipal : String" fieldName="_actividadPrincipal" />
       <Property Id="d44ce5b1-ef8f-473c-889c-f5ba144d94f9" name="PersonaContacto" label="PersonaContacto : String" fieldName="_personaContacto" />
       <Property Id="43a64c47-da3b-45a8-87c1-715ac4344cd4" name="IBAN" label="IBAN : String" fieldName="_iBAN" />
+      <Property Id="2800b5e8-d621-4a39-8acc-d72375f68dd0" name="BIC" label="BIC : String" fieldName="_bIC" />
       <AssociationTargets>
         <Association Id="a6016d2b-968a-4597-977f-5973d26e08d3" SourceMultiplicity="ZeroOne" name="SolicitudProveedorHasGrupoProveedor">
           <DomainClassMoniker name="/PortalProContext/GrupoProveedor" />

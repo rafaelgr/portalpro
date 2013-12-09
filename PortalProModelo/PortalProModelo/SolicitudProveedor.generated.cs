@@ -284,6 +284,19 @@ namespace PortalProModelo
 			}
 		}
 		
+		private string _bIC;
+		public virtual string BIC
+		{
+			get
+			{
+				return this._bIC;
+			}
+			set
+			{
+				this._bIC = value;
+			}
+		}
+		
 		private GrupoProveedor _grupoProveedor;
 		public virtual GrupoProveedor GrupoProveedor
 		{

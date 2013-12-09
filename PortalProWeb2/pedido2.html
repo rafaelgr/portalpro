@@ -40,10 +40,16 @@
             <div id="sidebar" class="row-fluid">
             </div><!--/#sidebar-->
             <div id="main-content" class="clearfix">
+                <div id="empresa-seleccion" style="padding:5px; vertical-align:top">
+                    <h5>
+                        <span>Empresa: </span>
+                        <select class="span6" data-bind="options: Empresas, value: EmpresaSeleccionada"></select>
+                        <button id="btn-selec-empresa" class="btn btn-small btn-primary" onclick="changeEmpresa()"> Cambiar de empresa</button>
+                    </h5>
+                </div>
                 <div id="breadcrumbs">
                     <ul class="breadcrumb">
                         <li>
-                            <h4><span id="company-name">Empresa</span></h4>
                             <i class="icon-home"></i>
                             <a href="main2.html">Inicio</a>
                             <span class="divider"><i class="icon-angle-right"></i></span>
@@ -106,7 +112,7 @@
                             <div class="span3">
                                 <label>Total pedido</label>
                                 <input id="TotalPedido" type="number" data-bind="value: TotalPedido" 
-                                    name="TotalPedido" disabled/>
+                                       name="TotalPedido" disabled/>
                             </div>
                             <div class="span3">
                                 <label>Total facturado</label>
@@ -178,9 +184,9 @@
                                 </button>
                             </div>
                         </div>
-                    </div><!-- #usuario-form -->
-                </div><!--/#page-content-->
-            </div><!-- #main-content -->
+                    </div><!-- #pedido-form -->
+                </div><!-- #main-content -->
+            </div>
 
         </div><!--/.fluid-container#main-container-->
 
@@ -297,7 +303,7 @@
                     DescargaUrl: ko.observable(),
                     Comentario: ko.observable()
                 }
-                self.LineasPedido= ko.observableArray([
+                self.LineasPedido = ko.observableArray([
                     ko.observable(
                         {
                         LinPedidoId: ko.observable(),
@@ -326,10 +332,63 @@
                     self.LineasPedido.remove(linea);
                 }
             }
-            
+
             var vm = new viewModel();
         
-            ko.applyBindings(vm);
+            ko.applyBindings(vm, document.getElementById("pedido-form"));
+        
+        </script>
+
+        <!-- Modelo y funciones relacionadas con el desplegable de empresas -->
+        <script type="text/javascript">
+            function viewEmpresas() {
+                var self = this;
+                self.EmpresaSeleccionada = ko.observable();
+                self.Empresas = ko.observableArray([]);
+                self.addEmpresa = function (nombre) {
+                    self.Empresas().push(nombre);
+                };
+            }
+
+            var ve = new viewEmpresas();
+
+            function loadEmpresas() {
+                $.ajax({
+                    type: "GET",
+                    url: ari_hosts.webapi + "/api/empresas?tk=solicitud",
+                    dataType: "json",
+                    contentType: "application/json",
+                    success: function (data, textStatus) {
+                        ve.Empresas([]);
+                        for (i = 0; i < data.length; i++) {
+                            var e = data[i];
+                            ve.addEmpresa(e.Nombre);
+                        }
+                        ve.EmpresaSeleccionada(getCookie("ari_empresa"));
+                        ko.applyBindings(ve, document.getElementById("empresa-seleccion"));
+                    },
+                    error: function (xhr, textStatus, errorThrwon) {
+                        console.log("Ajax error");
+                        var message = ari_formatErrorMessage(JSON.parse(xhr.responseText));
+                        bootbox.dialog(message, [
+                            {
+                                "label": "OK",
+                                "class": "btn-small btn-primary"
+                            }
+                        ]);
+                    }
+                });
+            }
+
+            function changeEmpresa() {
+                var ds = $("#pedido-grid").data("kendoGrid").dataSource;
+                setCookie("ari_empresa", ve.EmpresaSeleccionada(), 1);
+                ds.transport.options.read.url = ari_hosts.webapi + "/api/pedido?proveedorGId=" + getCookie("ari_proveedorId") + "&empresa=" + getCookie("ari_empresa") + "&tk=" + getCookie("ari_tique");
+                ds.read();
+                $("#pedido-form").hide();
+                $("#pedido-grid").show();
+                return ds;
+            }
         
         </script>
 
@@ -358,7 +417,7 @@
             var gridDataSource = new kendo.data.DataSource({
                 transport: {
                     read: {
-                        url: ari_hosts.webapi + "/api/pedido?proveedorGId=" + getCookie("ari_proveedorId") +"&empresa=" + getCookie("ari_empresa")+ "&tk=" + getCookie("ari_tique"),
+                        url: ari_hosts.webapi + "/api/pedido?proveedorGId=" + getCookie("ari_proveedorId") + "&empresa=" + getCookie("ari_empresa") + "&tk=" + getCookie("ari_tique"),
                         dataType: "json",
                         type: "GET",
                         contentType: "application/json"
@@ -438,7 +497,7 @@
             // otras funciones de manejo
             function gridExit() {
             }
-
+            
             function gridNewFactura(id, numped) {
                 // generar una factura a partir de un pedido
                 var message = "<h4>¿Desea generar una factura desde el pedido? (Pedido:" + numped + ")</h4>";
@@ -467,12 +526,10 @@
                         }
                     }
                 ]);
-
                 // lamamos al form de facturas con los datos que corresponden.
-               ///window.open("factura.html?caller=pedido'_self');
+                ///window.open("factura.html?caller=pedido'_self');
             }
-
-
+            
             function gridDelete(id, nombre) {
                 regId = id;
                 var message = "<h4>¿Desea eliminar este registro? (" + nombre + ")</h4>";
@@ -631,7 +688,8 @@
                     vm.DocumentoPdf.DescargaUrl(data.DocumentoPdf.DescargaUrl);
                     vm.PedidoPdf.Url("/downloads/" + data.DocumentoPdf.DescargaUrl);
                 }
-                if (data.PedidoPdf != null) vm.PedidoPdf.Url(data.PedidoPdf.url);
+                if (data.PedidoPdf != null)
+                    vm.PedidoPdf.Url(data.PedidoPdf.url);
                 // el grupo al que pertenece
                 // ya que se admiten nulos hay que controlarlo
                 if (data.Proveedor != null) {
@@ -706,14 +764,15 @@
                 var userId = getCookie("ari_userId");
                 if (fAlta != null)
                     vm.FechaAlta(moment(fAlta).format("MM/DD/YYYY"));
-                if (arg == undefined && vm.PedidoId() == "") arg = "new";
+                if (arg == undefined && vm.PedidoId() == "")
+                    arg = "new";
                 if (arg == "new") {
                     verb = "POST";
-                    url = ari_hosts.webapi + "/api/pedido/?userId=" + userId +"&tk=" + getCookie("ari_tique");
+                    url = ari_hosts.webapi + "/api/pedido/?userId=" + userId + "&tk=" + getCookie("ari_tique");
                 }
                 else {
                     verb = "PUT";
-                    url = ari_hosts.webapi + "/api/pedido/" + vm.PedidoId() + "/?userId=" + userId +"&tk=" + getCookie("ari_tique");
+                    url = ari_hosts.webapi + "/api/pedido/" + vm.PedidoId() + "/?userId=" + userId + "&tk=" + getCookie("ari_tique");
                 }
                 $.ajax({
                     type: verb,
@@ -768,7 +827,7 @@
             function loadDataCookie() {
                 var dataS = getCookie("pedido");
                 var data = JSON.parse(dataS);
-                
+            
                 loadModel(data);
             }
             // llamada externa para búsquedas
@@ -786,11 +845,11 @@
                 var ownURL = document.URL;
                 var userId = getCookie("ari_userId");
                 var targetURL = "Uploader2.aspx?ReturnUrl=" + ownURL
-                    + "&Application=PortalPro"
-                    + "&UserId=" + userId
-                    + "&FormId=Pedido"
-                    + "&FieldId=PDF"
-                    + "&Extension=.pdf";
+                                + "&Application=PortalPro"
+                                + "&UserId=" + userId
+                                + "&FormId=Pedido"
+                                + "&FieldId=PDF"
+                                + "&Extension=.pdf";
                 window.open(targetURL, null, "width=500, height=500");
             }
             function sendXml() {
@@ -822,8 +881,9 @@
                     gridBuild();
                     // establecer el idioma
                     kendo.culture("es-ES");
-                    // cargar el nombre de la empresa
-                    $("#company-name").text("Empresa: " + getCookie("ari_empresa"));
+                    // cargar el nombre de la empresa (ahora hay que hacer otra cosa)
+                    // $("#company-name").text("Empresa: " + getCookie("ari_empresa"));
+                    loadEmpresas();
                     // comprobar como hemos sido llamados 
                     switch (caller) {
                         case "proveedor":
@@ -846,4 +906,3 @@
         </script>
     </body>
 </html>
-    

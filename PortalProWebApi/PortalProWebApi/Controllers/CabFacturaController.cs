@@ -98,6 +98,36 @@ namespace PortalProWebApi.Controllers
             }
         }
 
+        public virtual IEnumerable<CabFactura> GetProveedorEmpresa(string proveedorId,string empresa, string tk)
+        {
+            using (PortalProContext ctx = new PortalProContext())
+            {
+                if (CntWebApiSeguridad.CheckTicket(tk, ctx))
+                {
+                    int pId = int.Parse(proveedorId);
+                    IEnumerable<CabFactura> facturas = (from f in ctx.CabFacturas
+                                                        where f.Proveedor.ProveedorId == pId
+                                                        && f.Empresa.Nombre == empresa 
+                                                        orderby f.FechaEmision descending
+                                                        select f).ToList<CabFactura>();
+
+                    // fetch estrategy, necesaria para poder devolver el grupo junto con cada usuariuo
+                    FetchStrategy fs = new FetchStrategy();
+                    fs.LoadWith<CabFactura>(x => x.Proveedor);
+                    fs.LoadWith<CabFactura>(x => x.DocumentoPdf);
+                    fs.LoadWith<CabFactura>(x => x.DocumentoXml);
+                    fs.LoadWith<CabFactura>(x => x.Empresa);
+                    fs.LoadWith<CabFactura>(x => x.Responsable);
+                    facturas = ctx.CreateDetachedCopy<IEnumerable<CabFactura>>(facturas, fs);
+                    return facturas;
+                }
+                else
+                {
+                    throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.Unauthorized, "Se necesita tique de autorización (CabFactura)"));
+                }
+            }
+        }
+
         public virtual IEnumerable<CabFactura> GetHistoricas(string proveedorHId, string tk)
         {
             using (PortalProContext ctx = new PortalProContext())

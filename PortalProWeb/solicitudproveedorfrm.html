@@ -150,34 +150,19 @@
                         <input id="PersonaContacto" class="span12" type="text" data-bind="value:PersonaContacto" 
                                name="PersonaContacto" />
                     </div>
+                </div>
+                <div class="row-fluid">
                     <div class="span6">
-                        <label>IBAN (IBAN-Entidad-Sucursal-Control-Cuenta</label>
-                        <input id="IBAN" class="span12" type="text" data-bind="value:IBAN" 
-                               name="PersonaContacto" />
-                        <!--                        
-                        <div class="row-fluid">
-                        <div class="span2">
-                        <label>IBAN1</label>
-                        <input id="IBAN1" class="span12" type="text" name="IBAN1" />
-                        </div>
-                        <div class="span2">
-                        <label>Entidad</label>
-                        <input id="Entidad" class="span12" type="text" name="Entidad" />
-                        </div>
-                        <div class="span2">
-                        <label>Sucursal</label>
-                        <input id="Sucursal" class="span12" type="text" name="Sucursal" />
-                        </div>
-                        <div class="span1">
-                        <label>CNT</label>
-                        <input id="Control" class="span12" type="text" name="Control" />
-                        </div>
-                        <div class="span5">
-                        <label>Cuenta corriente</label>
-                        <input id="CuentaCorriente" class="span12" type="text" name="CuentaCorriente" />
-                        </div>
-                        </div>
-                        -->
+                        <label>IBAN </label>
+                        <input id="IBAN" class="span12" type="text" data-bind="value: IBAN" 
+                               name="IBAN" />
+
+                    </div>
+                    <div class="span6">
+                        <label>BIC/SWIFT </label>
+                        <input id="BIC" class="span12" type="text" data-bind="value: BIC" 
+                               name="BIC" />
+
                     </div>
                 </div>
                 <div>
@@ -189,9 +174,9 @@
                         Seleccione los ficheros que en formato PDF contienen la documentación que se solicita en cada apartado.
                     </p>
                     <p class="blue">
-                        Para cargar los ficheros haga clic en el botón <i class="icon-upload-alt icon-white"></i> de la linea correspondiente y 
+                        Para cargar los ficheros haga clic en el botón <i class="icon-upload-alt icon-white"></i> de la linea correspondiente y
                         siga los pasos que se le indican. Los ficheros no obligatorios tienen la posibilidad de ser eliminados de la lista haciendo clic
-                        en el botón <i class="icon-trash icon-white"></i> si está disponible. 
+                        en el botón <i class="icon-trash icon-white"></i> si está disponible.
                         Dispone de un campo de comentarios por cada fichero por si desea incluir alguno.
                     </p>
                     <p class="blue">
@@ -331,34 +316,35 @@
             // modelo de datos knockout
             function viewModel () {
                 var self = this;
-                self.SolicitudProveedorId= ko.observable(),
-                self.RazonSocial= ko.observable(),
-                self.NombreComercial= ko.observable(),
-                self.Direccion= ko.observable(),
-                self.CodPostal= ko.observable(),
-                self.Localidad= ko.observable(),
-                self.Provincia= ko.observable(),
-                self.Comunidad= ko.observable(),
-                self.Pais= ko.observable(),
-                self.ActividadPrincipal= ko.observable(),
-                self.PersonaContacto= ko.observable(),
-                self.Telefono= ko.observable(),
-                self.Fax= ko.observable(),
-                self.Movil= ko.observable(),
-                self.Email= ko.observable(),
-                self.EmailFacturas= ko.observable(),
-                self.Url= ko.observable(),
-                self.Nif= ko.observable(),
-                self.IBAN = ko.observable(),
+                self.SolicitudProveedorId= ko.observable();
+                self.RazonSocial= ko.observable();
+                self.NombreComercial= ko.observable();
+                self.Direccion= ko.observable();
+                self.CodPostal= ko.observable();
+                self.Localidad= ko.observable();
+                self.Provincia= ko.observable();
+                self.Comunidad= ko.observable();
+                self.Pais= ko.observable();
+                self.ActividadPrincipal= ko.observable();
+                self.PersonaContacto= ko.observable();
+                self.Telefono= ko.observable();
+                self.Fax= ko.observable();
+                self.Movil= ko.observable();
+                self.Email= ko.observable();
+                self.EmailFacturas= ko.observable();
+                self.Url= ko.observable();
+                self.Nif= ko.observable();
+                self.IBAN = ko.observable();
+                sel.BIC = ko.observable();
                 self.PersonaContacto = ko.observable(),
                 self.GrupoProveedor = {
                     GrupoProveedorId: ko.observable(),
                     Nombre: ko.observable()
-                },
-                self.SolicitudStatus= {
+                };
+                self.SolicitudStatus = {
                     SolicitudStatusId: ko.observable(),
                     Nombre: ko.observable()
-                }
+                };
                 self.Documentos = ko.observableArray([
                     ko.observable(
                         {
@@ -376,13 +362,13 @@
                 ]);
                 self.addNewDocumento = function (documento) {
                     self.Documentos.push(documento);
-                }
+                };
                 self.uploadDocumento = function (documento) {
                     sendPdf(documento);
-                }
+                };
                 self.removeDocumento = function (documento) {
                     self.Documentos.remove(documento);
-                }
+                };
             }
             
             var vm = new viewModel();
@@ -462,6 +448,7 @@
                 vm.EmailFacturas("");
                 vm.Nif("");
                 vm.IBAN("");
+                vm.BIC("");
                 vm.GrupoProveedor.GrupoProveedorId("");
                 vm.GrupoProveedor.Nombre("");
                 numFicheros = [];
@@ -487,6 +474,7 @@
                 vm.Nif(data.Nif);
                 vm.PersonaContacto(data.PersonaContacto);
                 vm.IBAN(data.IBAN);
+                vm.BIC(data.BIC);
                 // el grupo al que pertenece
                 // ya que se admiten nulos hay que controlarlo
                 if (data.GrupoProveedor != null) {
