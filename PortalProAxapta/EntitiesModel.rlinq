@@ -1,0 +1,419 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DomainModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="2.0.0.0" name="EntitiesModel" namespace="PortalProAxapta" showPropertiesCompartment="true" xmlns="http://www.telerik.com/ORM">
+  <orm:orm name="EntitiesModel" backend="mssql" default-schema="dbo" xmlns:orm="http://tempuri.org/ORM">
+    <orm:namespace name="PortalProAxapta" default="true">
+      <orm:class name="Cau_PortalPro_VResponsable" uniqueId="521f0778-599d-47b8-8160-da4624d249bc">
+        <orm:table name="Cau_PortalPro_VResponsable" />
+        <orm:identity>
+          <orm:single-field field-name="_iD" />
+        </orm:identity>
+        <orm:concurrency strategy="changed" />
+        <orm:field name="_iD" property="ID" behavior="readwrite" uniqueId="3c371527-f95a-44e1-9534-de63e29cc691" type="System.String">
+          <orm:column name="ID" sql-type="nvarchar" nullable="false" length="5" scale="0" primary-key="true" ado-type="UnicodeStringVariableLength" />
+        </orm:field>
+        <orm:field name="_nAME" property="NAME" behavior="readwrite" uniqueId="6530f8a2-9839-4648-8b03-03555b54ca16" type="System.String">
+          <orm:column name="NAME" sql-type="nvarchar" nullable="false" length="40" scale="0" ado-type="UnicodeStringVariableLength" />
+        </orm:field>
+        <orm:field name="_eMAIL" property="EMAIL" behavior="readwrite" uniqueId="34ad797e-a5dc-4fa7-bd56-7b0971750d69" type="System.String">
+          <orm:column name="EMAIL" sql-type="nvarchar" nullable="false" length="80" scale="0" ado-type="UnicodeStringVariableLength" />
+        </orm:field>
+      </orm:class>
+      <orm:class name="Cau_PortalPro_VProveedore" uniqueId="ec63e883-fe8b-45a1-afa5-de8891e03afe">
+        <orm:table name="Cau_PortalPro_VProveedores" />
+        <orm:identity>
+          <orm:single-field field-name="_aCCOUNTNUM" />
+        </orm:identity>
+        <orm:concurrency strategy="changed" />
+        <orm:field name="_aCCOUNTNUM" property="ACCOUNTNUM" behavior="readwrite" uniqueId="64ed1b29-3c42-45b5-a1f2-6a89e37b6f7c" type="System.String">
+          <orm:column name="ACCOUNTNUM" sql-type="nvarchar" nullable="false" length="20" scale="0" primary-key="true" ado-type="UnicodeStringVariableLength" />
+        </orm:field>
+        <orm:field name="_nAME" property="NAME" behavior="readwrite" uniqueId="07601a05-1315-42d3-996e-47054a231ea2" type="System.String">
+          <orm:column name="NAME" sql-type="nvarchar" nullable="false" length="60" scale="0" ado-type="UnicodeStringVariableLength" />
+        </orm:field>
+        <orm:field name="_aDDRESS" property="ADDRESS" behavior="readwrite" uniqueId="07d9ee73-4b73-4014-b502-352f239029ab" type="System.String">
+          <orm:column name="ADDRESS" sql-type="nvarchar" nullable="false" length="250" scale="0" ado-type="UnicodeStringVariableLength" />
+        </orm:field>
+        <orm:field name="_cITY" property="CITY" behavior="readwrite" uniqueId="a3594e9c-dc4c-4efe-85d6-9e28657c9c02" type="System.String">
+          <orm:column name="CITY" sql-type="nvarchar" nullable="false" length="60" scale="0" ado-type="UnicodeStringVariableLength" />
+        </orm:field>
+        <orm:field name="_zIPCODE" property="ZIPCODE" behavior="readwrite" uniqueId="eb99f31a-036d-4329-a6f6-830f25ec6713" type="System.String">
+          <orm:column name="ZIPCODE" sql-type="nvarchar" nullable="false" length="10" scale="0" ado-type="UnicodeStringVariableLength" />
+        </orm:field>
+        <orm:field name="_cOUNTRYREGIONID" property="COUNTRYREGIONID" behavior="readwrite" uniqueId="831aed21-2c0e-4802-a4ee-88fe90dae913" type="System.String">
+          <orm:column name="COUNTRYREGIONID" sql-type="nvarchar" nullable="false" length="13" scale="0" ado-type="UnicodeStringVariableLength" />
+        </orm:field>
+        <orm:field name="_pHONE" property="PHONE" behavior="readwrite" uniqueId="7631af7e-4d4f-47f2-b4ef-b3036bf3339b" type="System.String">
+          <orm:column name="PHONE" sql-type="nvarchar" nullable="false" length="20" scale="0" ado-type="UnicodeStringVariableLength" />
+        </orm:field>
+        <orm:field name="_tELEFAX" property="TELEFAX" behavior="readwrite" uniqueId="02bb8060-3716-443f-a635-b41287d03100" type="System.String">
+          <orm:column name="TELEFAX" sql-type="nvarchar" nullable="false" length="20" scale="0" ado-type="UnicodeStringVariableLength" />
+        </orm:field>
+        <orm:field name="_cELLULARPHONE" property="CELLULARPHONE" behavior="readwrite" uniqueId="cfd99ac6-3635-45c3-8397-84ddf5cc1d17" type="System.String">
+          <orm:column name="CELLULARPHONE" sql-type="nvarchar" nullable="false" length="20" scale="0" ado-type="UnicodeStringVariableLength" />
+        </orm:field>
+        <orm:field name="_eMAIL" property="EMAIL" behavior="readwrite" uniqueId="020b4f13-2918-415a-b8d2-c5f2669d2bd3" type="System.String">
+          <orm:column name="EMAIL" sql-type="nvarchar" nullable="false" length="80" scale="0" ado-type="UnicodeStringVariableLength" />
+        </orm:field>
+        <orm:field name="_vATNUM" property="VATNUM" behavior="readwrite" uniqueId="73a38d6a-4204-4b3b-8bc0-18847eab1b8a" type="System.String">
+          <orm:column name="VATNUM" sql-type="nvarchar" nullable="false" length="20" scale="0" ado-type="UnicodeStringVariableLength" />
+        </orm:field>
+        <orm:field name="_cONTACTO" property="CONTACTO" behavior="readwrite" uniqueId="258720d5-4a05-43f4-8b53-106078df82da" type="System.String">
+          <orm:column name="CONTACTO" sql-type="nvarchar" nullable="true" length="60" scale="0" ado-type="UnicodeStringVariableLength" />
+        </orm:field>
+        <orm:field name="_lINEOFBUSINESSID" property="LINEOFBUSINESSID" behavior="readwrite" uniqueId="deb409e0-a323-44e0-a426-7af62f782dbf" type="System.String">
+          <orm:column name="LINEOFBUSINESSID" sql-type="nvarchar" nullable="false" length="13" scale="0" ado-type="UnicodeStringVariableLength" />
+        </orm:field>
+        <orm:field name="_cAUPORTALPROEMAIL" property="CAUPORTALPROEMAIL" behavior="readwrite" uniqueId="bd9f9d53-bfb1-4d1b-8792-69a8194b08ec" type="System.String">
+          <orm:column name="CAUPORTALPROEMAIL" sql-type="nvarchar" nullable="false" length="80" scale="0" ado-type="UnicodeStringVariableLength" />
+        </orm:field>
+        <orm:field name="_bANKIBAN" property="BANKIBAN" behavior="readwrite" uniqueId="d125ba83-cbbe-4b85-90ea-757be2dfcd9c" type="System.String">
+          <orm:column name="BANKIBAN" sql-type="nvarchar" nullable="true" length="34" scale="0" ado-type="UnicodeStringVariableLength" />
+        </orm:field>
+        <orm:field name="_cAUPORTALPROALLOWINVOICE" property="CAUPORTALPROALLOWINVOICE" behavior="readwrite" uniqueId="04d491fc-147e-447d-85df-2cca0a0ba645" type="System.Int32">
+          <orm:column name="CAUPORTALPROALLOWINVOICE" sql-type="int" nullable="false" length="0" scale="0" ado-type="Int32" />
+        </orm:field>
+      </orm:class>
+      <orm:class name="Cau_PortalPro_VLinPedido" uniqueId="b7fe9c94-ab76-4808-acb9-297839298a27">
+        <orm:table name="Cau_PortalPro_VLinPedido" />
+        <orm:identity>
+          <orm:multiple-field>
+            <orm:single-field field-name="_pURCHID" />
+            <orm:single-field field-name="_lINENUM" />
+          </orm:multiple-field>
+        </orm:identity>
+        <orm:concurrency strategy="changed" />
+        <orm:field name="_pURCHID" property="PURCHID" behavior="readwrite" uniqueId="829998ae-5359-459c-9aab-c14227fd6c02" type="System.String">
+          <orm:column name="PURCHID" sql-type="nvarchar" nullable="false" length="20" scale="0" primary-key="true" ado-type="UnicodeStringVariableLength" />
+        </orm:field>
+        <orm:field name="_lINENUM" property="LINENUM" behavior="readwrite" uniqueId="87b48dd8-005a-4e9b-8353-6c681fd58a35" type="System.Decimal">
+          <orm:column name="LINENUM" sql-type="numeric" nullable="false" length="28" scale="12" primary-key="true" ado-type="Numeric" />
+        </orm:field>
+        <orm:field name="_iTEMID" property="ITEMID" behavior="readwrite" uniqueId="9a4e9e78-9210-4fcd-b3ec-ddfcead6e2fd" type="System.String">
+          <orm:column name="ITEMID" sql-type="nvarchar" nullable="false" length="20" scale="0" ado-type="UnicodeStringVariableLength" />
+        </orm:field>
+        <orm:field name="_nAME" property="NAME" behavior="readwrite" uniqueId="6e20ce05-b00a-45b6-b24a-3e84fb94931c" type="System.String">
+          <orm:column name="NAME" sql-type="nvarchar" nullable="false" length="1000" scale="0" ado-type="UnicodeStringVariableLength" />
+        </orm:field>
+        <orm:field name="_pURCHQTY" property="PURCHQTY" behavior="readwrite" uniqueId="2194bd73-fe68-41bc-9056-45f3a562b24b" type="System.Decimal">
+          <orm:column name="PURCHQTY" sql-type="numeric" nullable="false" length="28" scale="12" ado-type="Numeric" />
+        </orm:field>
+        <orm:field name="_pURCHUNIT" property="PURCHUNIT" behavior="readwrite" uniqueId="e6d4c3bf-238b-4a25-806f-1451dac032a3" type="System.String">
+          <orm:column name="PURCHUNIT" sql-type="nvarchar" nullable="false" length="13" scale="0" ado-type="UnicodeStringVariableLength" />
+        </orm:field>
+        <orm:field name="_pURCHPRICE" property="PURCHPRICE" behavior="readwrite" uniqueId="5877d3e2-b1f6-4adb-927d-e4e3d91990fa" type="System.Decimal">
+          <orm:column name="PURCHPRICE" sql-type="numeric" nullable="false" length="28" scale="12" ado-type="Numeric" />
+        </orm:field>
+        <orm:field name="_lINEAMOUNT" property="LINEAMOUNT" behavior="readwrite" uniqueId="08576d4d-789d-4536-a39d-cfc4569abea0" type="System.Decimal">
+          <orm:column name="LINEAMOUNT" sql-type="numeric" nullable="false" length="28" scale="12" ado-type="Numeric" />
+        </orm:field>
+        <orm:field name="_eSTADO" property="ESTADO" behavior="readwrite" uniqueId="8391358b-1834-4d79-9a4d-e1198d805c2b" type="System.String">
+          <orm:column name="ESTADO" sql-type="varchar" nullable="true" length="14" scale="0" ado-type="StringVariableLength" />
+        </orm:field>
+        <orm:field name="_rEMAINPURCHPHYSICAL" property="REMAINPURCHPHYSICAL" behavior="readwrite" uniqueId="f71f4113-fbfd-47fb-af4f-85c926a333cd" type="System.Decimal">
+          <orm:column name="REMAINPURCHPHYSICAL" sql-type="numeric" nullable="false" length="28" scale="12" ado-type="Numeric" />
+        </orm:field>
+        <orm:field name="_rEMAINPURCHFINANCIAL" property="REMAINPURCHFINANCIAL" behavior="readwrite" uniqueId="7c54916e-69c2-4ef3-88a4-b4cc1b453a8e" type="System.Decimal">
+          <orm:column name="REMAINPURCHFINANCIAL" sql-type="numeric" nullable="false" length="28" scale="12" ado-type="Numeric" />
+        </orm:field>
+        <orm:field name="_fECHARECEPCION" property="FECHARECEPCION" behavior="readwrite" uniqueId="b7251d7b-337f-4add-bcdf-f7abdb7e99ca" type="System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]">
+          <orm:column name="FECHARECEPCION" sql-type="datetime" nullable="true" length="0" scale="0" ado-type="DateTime" />
+        </orm:field>
+      </orm:class>
+      <orm:class name="Cau_portalpro_VLinFactura" uniqueId="aced9d70-702f-4163-9551-23805e2179c1">
+        <orm:table name="Cau_portalpro_VLinFactura" />
+        <orm:identity>
+          <orm:multiple-field>
+            <orm:single-field field-name="_iNVOICEID" />
+            <orm:single-field field-name="_lINENUM" />
+          </orm:multiple-field>
+        </orm:identity>
+        <orm:concurrency strategy="changed" />
+        <orm:field name="_iNVOICEID" property="INVOICEID" behavior="readwrite" uniqueId="b6e04f68-2799-4b10-810a-df08621672d3" type="System.String">
+          <orm:column name="INVOICEID" sql-type="nvarchar" nullable="false" length="20" scale="0" primary-key="true" ado-type="UnicodeStringVariableLength" />
+        </orm:field>
+        <orm:field name="_iNVOICEDATE" property="INVOICEDATE" behavior="readwrite" uniqueId="b92171b7-fc3b-4364-b642-58d360905425" type="System.DateTime">
+          <orm:column name="INVOICEDATE" sql-type="datetime" nullable="false" length="0" scale="0" ado-type="DateTime" />
+        </orm:field>
+        <orm:field name="_lINENUM" property="LINENUM" behavior="readwrite" uniqueId="efd665bf-75cf-420b-a149-da9d8462e91d" type="System.Decimal">
+          <orm:column name="LINENUM" sql-type="numeric" nullable="false" length="28" scale="12" primary-key="true" ado-type="Numeric" />
+        </orm:field>
+        <orm:field name="_pURCHID" property="PURCHID" behavior="readwrite" uniqueId="e2989ce7-ce6d-4e25-a58f-77a7da7d6ab6" type="System.String">
+          <orm:column name="PURCHID" sql-type="nvarchar" nullable="false" length="20" scale="0" ado-type="UnicodeStringVariableLength" />
+        </orm:field>
+        <orm:field name="_lINEAMOUNT" property="LINEAMOUNT" behavior="readwrite" uniqueId="d1ec389a-5c7c-4c0c-9ec5-91c32515480f" type="System.Decimal">
+          <orm:column name="LINEAMOUNT" sql-type="numeric" nullable="false" length="28" scale="12" ado-type="Numeric" />
+        </orm:field>
+      </orm:class>
+      <orm:class name="Cau_PortalPro_VEmpresa" uniqueId="8ce9e3ce-11cc-40b0-af34-23e8526ae8a7">
+        <orm:table name="Cau_PortalPro_VEmpresas" />
+        <orm:identity>
+          <orm:single-field field-name="_iDEMPRESA" />
+        </orm:identity>
+        <orm:concurrency strategy="changed" />
+        <orm:field name="_iDEMPRESA" property="IDEMPRESA" behavior="readwrite" uniqueId="fe4237f1-e495-414d-a104-4762403b3381" type="System.String">
+          <orm:column name="IDEMPRESA" sql-type="nvarchar" nullable="false" length="3" scale="0" primary-key="true" ado-type="UnicodeStringVariableLength" />
+        </orm:field>
+        <orm:field name="_nOMBRE" property="NOMBRE" behavior="readwrite" uniqueId="1f0ce896-433c-4baf-a842-b35e2f642e47" type="System.String">
+          <orm:column name="NOMBRE" sql-type="nvarchar" nullable="false" length="60" scale="0" ado-type="UnicodeStringVariableLength" />
+        </orm:field>
+      </orm:class>
+      <orm:class name="Cau_PortalPro_VCabPedido" uniqueId="1c92f017-5f53-47ec-a2aa-8525b392b94c">
+        <orm:table name="Cau_PortalPro_VCabPedido" />
+        <orm:identity>
+          <orm:single-field field-name="_pURCHID" />
+        </orm:identity>
+        <orm:concurrency strategy="changed" />
+        <orm:field name="_pURCHID" property="PURCHID" behavior="readwrite" uniqueId="9a215184-bc76-41f5-8bc8-62046d8bdf4d" type="System.String">
+          <orm:column name="PURCHID" sql-type="nvarchar" nullable="false" length="20" scale="0" primary-key="true" ado-type="UnicodeStringVariableLength" />
+        </orm:field>
+        <orm:field name="_iNVOICEACCOUNT" property="INVOICEACCOUNT" behavior="readwrite" uniqueId="dfd69c0f-45d5-4519-8c4d-193bd41c6131" type="System.String">
+          <orm:column name="INVOICEACCOUNT" sql-type="nvarchar" nullable="false" length="20" scale="0" ado-type="UnicodeStringVariableLength" />
+        </orm:field>
+        <orm:field name="_dATAAREAID" property="DATAAREAID" behavior="readwrite" uniqueId="0afc813e-02a1-47cd-aa88-af476b193b35" type="System.String">
+          <orm:column name="DATAAREAID" sql-type="nvarchar" nullable="false" length="3" scale="0" ado-type="UnicodeStringVariableLength" />
+        </orm:field>
+        <orm:field name="_eSTADO" property="ESTADO" behavior="readwrite" uniqueId="51c54a7e-1556-4f32-a23f-33d8f3c3c2e0" type="System.String">
+          <orm:column name="ESTADO" sql-type="varchar" nullable="true" length="14" scale="0" ado-type="StringVariableLength" />
+        </orm:field>
+        <orm:field name="_tIPO" property="TIPO" behavior="readwrite" uniqueId="26d87346-2e14-44d6-8fa2-5ed2707ce699" type="System.String">
+          <orm:column name="TIPO" sql-type="varchar" nullable="true" length="19" scale="0" ado-type="StringVariableLength" />
+        </orm:field>
+        <orm:field name="_cODCONTACTO" property="CODCONTACTO" behavior="readwrite" uniqueId="9d351e22-f02d-44ec-9f48-608fec99d402" type="System.String">
+          <orm:column name="CODCONTACTO" sql-type="nvarchar" nullable="false" length="5" scale="0" ado-type="UnicodeStringVariableLength" />
+        </orm:field>
+        <orm:field name="_cONTACTO" property="CONTACTO" behavior="readwrite" uniqueId="c773e6fa-3d37-4c4d-8b28-2e77730d4cc0" type="System.String">
+          <orm:column name="CONTACTO" sql-type="nvarchar" nullable="false" length="40" scale="0" ado-type="UnicodeStringVariableLength" />
+        </orm:field>
+        <orm:field name="_cREATEDDATE" property="CREATEDDATE" behavior="readwrite" uniqueId="7ef4630d-f7bf-4dbb-8c36-194f8ebdf7fb" type="System.DateTime">
+          <orm:column name="CREATEDDATE" sql-type="datetime" nullable="false" length="0" scale="0" ado-type="DateTime" />
+        </orm:field>
+        <orm:field name="_fECHARECEPCION" property="FECHARECEPCION" behavior="readwrite" uniqueId="bba5eb74-5046-4600-be99-0157a0762c28" type="System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]">
+          <orm:column name="FECHARECEPCION" sql-type="datetime" nullable="true" length="0" scale="0" ado-type="DateTime" />
+        </orm:field>
+        <orm:field name="_fECHALIMITE" property="FECHALIMITE" behavior="readwrite" uniqueId="d89ee7c2-4206-4087-b827-0e2255090fa9" type="System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]">
+          <orm:column name="FECHALIMITE" sql-type="datetime" nullable="true" length="0" scale="0" ado-type="DateTime" />
+        </orm:field>
+      </orm:class>
+      <orm:class name="Cau_PortalPro_VCabFactura" uniqueId="cd88bfdc-a5ad-4c4f-9d22-6f275191dbe8">
+        <orm:table name="Cau_PortalPro_VCabFactura" />
+        <orm:identity>
+          <orm:single-field field-name="_iNVOICEID" />
+        </orm:identity>
+        <orm:concurrency strategy="changed" />
+        <orm:field name="_aCCOUNTNUM" property="ACCOUNTNUM" behavior="readwrite" uniqueId="4c8e69ea-18a9-49c6-9333-2f43f36e6621" type="System.String">
+          <orm:column name="ACCOUNTNUM" sql-type="nvarchar" nullable="false" length="20" scale="0" ado-type="UnicodeStringVariableLength" />
+        </orm:field>
+        <orm:field name="_iDEMPRESA" property="IDEMPRESA" behavior="readwrite" uniqueId="9e4e7731-3793-4ce7-8997-3dacef29e927" type="System.String">
+          <orm:column name="IDEMPRESA" sql-type="nvarchar" nullable="false" length="3" scale="0" ado-type="UnicodeStringVariableLength" />
+        </orm:field>
+        <orm:field name="_iNVOICEID" property="INVOICEID" behavior="readwrite" uniqueId="911d37cb-36f4-45e1-b033-0ca7ec549679" type="System.String">
+          <orm:column name="INVOICEID" sql-type="nvarchar" nullable="false" length="20" scale="0" primary-key="true" ado-type="UnicodeStringVariableLength" />
+        </orm:field>
+        <orm:field name="_iNVOICEDATE" property="INVOICEDATE" behavior="readwrite" uniqueId="a97cf4d4-2aca-4ce6-be78-1fa8585ca04e" type="System.DateTime">
+          <orm:column name="INVOICEDATE" sql-type="datetime" nullable="false" length="0" scale="0" ado-type="DateTime" />
+        </orm:field>
+        <orm:field name="_iNVOICEAMOUNT" property="INVOICEAMOUNT" behavior="readwrite" uniqueId="4c54865d-82ee-4d86-901f-5f1d5da4fa68" type="System.Decimal">
+          <orm:column name="INVOICEAMOUNT" sql-type="numeric" nullable="false" length="28" scale="12" ado-type="Numeric" />
+        </orm:field>
+        <orm:field name="_fECHAPAGO" property="FECHAPAGO" behavior="readwrite" uniqueId="691466d8-5593-4b0d-8eb5-1d025ce616e4" type="System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]">
+          <orm:column name="FECHAPAGO" sql-type="datetime" nullable="true" length="0" scale="0" ado-type="DateTime" />
+        </orm:field>
+        <orm:field name="_eSTADI" property="ESTADI" behavior="readwrite" uniqueId="23d2d46b-6c3f-4ceb-99b1-8fb83269e01c" type="System.String">
+          <orm:column name="ESTADI" sql-type="varchar" nullable="false" length="10" scale="0" ado-type="StringVariableLength" />
+        </orm:field>
+        <orm:field name="_fECHAVENCIMIENTO" property="FECHAVENCIMIENTO" behavior="readwrite" uniqueId="027a4cc4-2a22-4ae1-8e76-d2753577e9dc" type="System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]">
+          <orm:column name="FECHAVENCIMIENTO" sql-type="datetime" nullable="true" length="0" scale="0" ado-type="DateTime" />
+        </orm:field>
+      </orm:class>
+    </orm:namespace>
+    <orm:schema schema="">
+      <orm:table name="Cau_PortalPro_VResponsable">
+        <orm:column name="ID" sql-type="nvarchar" nullable="false" length="5" scale="0" primary-key="true" ado-type="UnicodeStringVariableLength" />
+        <orm:column name="NAME" sql-type="nvarchar" nullable="false" length="40" scale="0" ado-type="UnicodeStringVariableLength" />
+        <orm:column name="EMAIL" sql-type="nvarchar" nullable="false" length="80" scale="0" ado-type="UnicodeStringVariableLength" />
+      </orm:table>
+      <orm:table name="Cau_PortalPro_VProveedores">
+        <orm:column name="ACCOUNTNUM" sql-type="nvarchar" nullable="false" length="20" scale="0" primary-key="true" ado-type="UnicodeStringVariableLength" />
+        <orm:column name="NAME" sql-type="nvarchar" nullable="false" length="60" scale="0" ado-type="UnicodeStringVariableLength" />
+        <orm:column name="ADDRESS" sql-type="nvarchar" nullable="false" length="250" scale="0" ado-type="UnicodeStringVariableLength" />
+        <orm:column name="CITY" sql-type="nvarchar" nullable="false" length="60" scale="0" ado-type="UnicodeStringVariableLength" />
+        <orm:column name="ZIPCODE" sql-type="nvarchar" nullable="false" length="10" scale="0" ado-type="UnicodeStringVariableLength" />
+        <orm:column name="COUNTRYREGIONID" sql-type="nvarchar" nullable="false" length="13" scale="0" ado-type="UnicodeStringVariableLength" />
+        <orm:column name="PHONE" sql-type="nvarchar" nullable="false" length="20" scale="0" ado-type="UnicodeStringVariableLength" />
+        <orm:column name="TELEFAX" sql-type="nvarchar" nullable="false" length="20" scale="0" ado-type="UnicodeStringVariableLength" />
+        <orm:column name="CELLULARPHONE" sql-type="nvarchar" nullable="false" length="20" scale="0" ado-type="UnicodeStringVariableLength" />
+        <orm:column name="EMAIL" sql-type="nvarchar" nullable="false" length="80" scale="0" ado-type="UnicodeStringVariableLength" />
+        <orm:column name="VATNUM" sql-type="nvarchar" nullable="false" length="20" scale="0" ado-type="UnicodeStringVariableLength" />
+        <orm:column name="CONTACTO" sql-type="nvarchar" nullable="true" length="60" scale="0" ado-type="UnicodeStringVariableLength" />
+        <orm:column name="LINEOFBUSINESSID" sql-type="nvarchar" nullable="false" length="13" scale="0" ado-type="UnicodeStringVariableLength" />
+        <orm:column name="CAUPORTALPROEMAIL" sql-type="nvarchar" nullable="false" length="80" scale="0" ado-type="UnicodeStringVariableLength" />
+        <orm:column name="BANKIBAN" sql-type="nvarchar" nullable="true" length="34" scale="0" ado-type="UnicodeStringVariableLength" />
+        <orm:column name="CAUPORTALPROALLOWINVOICE" sql-type="int" nullable="false" length="0" scale="0" ado-type="Int32" />
+      </orm:table>
+      <orm:table name="Cau_PortalPro_VLinPedido">
+        <orm:column name="PURCHID" sql-type="nvarchar" nullable="false" length="20" scale="0" primary-key="true" ado-type="UnicodeStringVariableLength" />
+        <orm:column name="LINENUM" sql-type="numeric" nullable="false" length="28" scale="12" primary-key="true" ado-type="Numeric" />
+        <orm:column name="ITEMID" sql-type="nvarchar" nullable="false" length="20" scale="0" ado-type="UnicodeStringVariableLength" />
+        <orm:column name="NAME" sql-type="nvarchar" nullable="false" length="1000" scale="0" ado-type="UnicodeStringVariableLength" />
+        <orm:column name="PURCHQTY" sql-type="numeric" nullable="false" length="28" scale="12" ado-type="Numeric" />
+        <orm:column name="PURCHUNIT" sql-type="nvarchar" nullable="false" length="13" scale="0" ado-type="UnicodeStringVariableLength" />
+        <orm:column name="PURCHPRICE" sql-type="numeric" nullable="false" length="28" scale="12" ado-type="Numeric" />
+        <orm:column name="LINEAMOUNT" sql-type="numeric" nullable="false" length="28" scale="12" ado-type="Numeric" />
+        <orm:column name="ESTADO" sql-type="varchar" nullable="true" length="14" scale="0" ado-type="StringVariableLength" />
+        <orm:column name="REMAINPURCHPHYSICAL" sql-type="numeric" nullable="false" length="28" scale="12" ado-type="Numeric" />
+        <orm:column name="REMAINPURCHFINANCIAL" sql-type="numeric" nullable="false" length="28" scale="12" ado-type="Numeric" />
+        <orm:column name="FECHARECEPCION" sql-type="datetime" nullable="true" length="0" scale="0" ado-type="DateTime" />
+      </orm:table>
+      <orm:table name="Cau_portalpro_VLinFactura">
+        <orm:column name="INVOICEID" sql-type="nvarchar" nullable="false" length="20" scale="0" primary-key="true" ado-type="UnicodeStringVariableLength" />
+        <orm:column name="INVOICEDATE" sql-type="datetime" nullable="false" length="0" scale="0" ado-type="DateTime" />
+        <orm:column name="LINENUM" sql-type="numeric" nullable="false" length="28" scale="12" primary-key="true" ado-type="Numeric" />
+        <orm:column name="PURCHID" sql-type="nvarchar" nullable="false" length="20" scale="0" ado-type="UnicodeStringVariableLength" />
+        <orm:column name="LINEAMOUNT" sql-type="numeric" nullable="false" length="28" scale="12" ado-type="Numeric" />
+      </orm:table>
+      <orm:table name="Cau_PortalPro_VEmpresas">
+        <orm:column name="IDEMPRESA" sql-type="nvarchar" nullable="false" length="3" scale="0" primary-key="true" ado-type="UnicodeStringVariableLength" />
+        <orm:column name="NOMBRE" sql-type="nvarchar" nullable="false" length="60" scale="0" ado-type="UnicodeStringVariableLength" />
+      </orm:table>
+      <orm:table name="Cau_PortalPro_VCabPedido">
+        <orm:column name="PURCHID" sql-type="nvarchar" nullable="false" length="20" scale="0" primary-key="true" ado-type="UnicodeStringVariableLength" />
+        <orm:column name="INVOICEACCOUNT" sql-type="nvarchar" nullable="false" length="20" scale="0" ado-type="UnicodeStringVariableLength" />
+        <orm:column name="DATAAREAID" sql-type="nvarchar" nullable="false" length="3" scale="0" ado-type="UnicodeStringVariableLength" />
+        <orm:column name="ESTADO" sql-type="varchar" nullable="true" length="14" scale="0" ado-type="StringVariableLength" />
+        <orm:column name="TIPO" sql-type="varchar" nullable="true" length="19" scale="0" ado-type="StringVariableLength" />
+        <orm:column name="CODCONTACTO" sql-type="nvarchar" nullable="false" length="5" scale="0" ado-type="UnicodeStringVariableLength" />
+        <orm:column name="CONTACTO" sql-type="nvarchar" nullable="false" length="40" scale="0" ado-type="UnicodeStringVariableLength" />
+        <orm:column name="CREATEDDATE" sql-type="datetime" nullable="false" length="0" scale="0" ado-type="DateTime" />
+        <orm:column name="FECHARECEPCION" sql-type="datetime" nullable="true" length="0" scale="0" ado-type="DateTime" />
+        <orm:column name="FECHALIMITE" sql-type="datetime" nullable="true" length="0" scale="0" ado-type="DateTime" />
+      </orm:table>
+      <orm:table name="Cau_PortalPro_VCabFactura">
+        <orm:column name="ACCOUNTNUM" sql-type="nvarchar" nullable="false" length="20" scale="0" ado-type="UnicodeStringVariableLength" />
+        <orm:column name="IDEMPRESA" sql-type="nvarchar" nullable="false" length="3" scale="0" ado-type="UnicodeStringVariableLength" />
+        <orm:column name="INVOICEID" sql-type="nvarchar" nullable="false" length="20" scale="0" primary-key="true" ado-type="UnicodeStringVariableLength" />
+        <orm:column name="INVOICEDATE" sql-type="datetime" nullable="false" length="0" scale="0" ado-type="DateTime" />
+        <orm:column name="INVOICEAMOUNT" sql-type="numeric" nullable="false" length="28" scale="12" ado-type="Numeric" />
+        <orm:column name="FECHAPAGO" sql-type="datetime" nullable="true" length="0" scale="0" ado-type="DateTime" />
+        <orm:column name="ESTADI" sql-type="varchar" nullable="false" length="10" scale="0" ado-type="StringVariableLength" />
+        <orm:column name="FECHAVENCIMIENTO" sql-type="datetime" nullable="true" length="0" scale="0" ado-type="DateTime" />
+      </orm:table>
+    </orm:schema>
+    <orm:relational-naming-settings>
+      <orm:remove-camel-case>False</orm:remove-camel-case>
+      <orm:source-strategy>Property</orm:source-strategy>
+    </orm:relational-naming-settings>
+  </orm:orm>
+  <ModelSettings xmlns="">
+    <AppConfigConnectionPropertyName>PortalProTestConnection</AppConfigConnectionPropertyName>
+    <AppConfigConnectionString>Data Source=PC-W8\SQLEXPRESS;Initial Catalog=PortalProTest;Integrated Security=True</AppConfigConnectionString>
+    <InitialCatalog>PortalProTest</InitialCatalog>
+    <NamingSettings>
+      <ClassRules>
+        <CaseMode>PascalCase</CaseMode>
+        <PluralizationMode>Singularize</PluralizationMode>
+      </ClassRules>
+      <FieldRules>
+        <AddPrefix>_</AddPrefix>
+        <CaseMode>CamelCase</CaseMode>
+      </FieldRules>
+      <PropertyRules>
+        <CaseMode>PascalCase</CaseMode>
+      </PropertyRules>
+    </NamingSettings>
+    <CodeGenerationSettings>
+      <MappingDefinitionType>Xml</MappingDefinitionType>
+    </CodeGenerationSettings>
+    <SchemaUpdateSettings />
+    <BackendConfigurationSettings>
+      <BackendConfiguration>
+        <Backend>MsSql</Backend>
+        <ProviderName>System.Data.SqlClient</ProviderName>
+      </BackendConfiguration>
+    </BackendConfigurationSettings>
+  </ModelSettings>
+  <Types>
+    <DomainClass Id="521f0778-599d-47b8-8160-da4624d249bc" name="Cau_PortalPro_VResponsable" namespace="PortalProAxapta" showPropertiesCompartment="true" concurrencyMode="Changed" showNavigationCompartment="true" showImplementationCompartment="true">
+      <Property Id="34ad797e-a5dc-4fa7-bd56-7b0971750d69" name="EMAIL" label="EMAIL : String" kind="Persistent" fieldName="_eMAIL" />
+      <Property Id="3c371527-f95a-44e1-9534-de63e29cc691" name="ID" label="ID : String" kind="Persistent" identity="true" fieldName="_iD" />
+      <Property Id="6530f8a2-9839-4648-8b03-03555b54ca16" name="NAME" label="NAME : String" kind="Persistent" fieldName="_nAME" />
+    </DomainClass>
+    <DomainClass Id="ec63e883-fe8b-45a1-afa5-de8891e03afe" name="Cau_PortalPro_VProveedore" namespace="PortalProAxapta" showPropertiesCompartment="true" concurrencyMode="Changed" showNavigationCompartment="true" showImplementationCompartment="true">
+      <Property Id="64ed1b29-3c42-45b5-a1f2-6a89e37b6f7c" name="ACCOUNTNUM" label="ACCOUNTNUM : String" kind="Persistent" identity="true" fieldName="_aCCOUNTNUM" />
+      <Property Id="07d9ee73-4b73-4014-b502-352f239029ab" name="ADDRESS" label="ADDRESS : String" kind="Persistent" fieldName="_aDDRESS" />
+      <Property Id="d125ba83-cbbe-4b85-90ea-757be2dfcd9c" name="BANKIBAN" label="BANKIBAN : String" kind="Persistent" fieldName="_bANKIBAN" />
+      <Property Id="04d491fc-147e-447d-85df-2cca0a0ba645" name="CAUPORTALPROALLOWINVOICE" type="Int32" label="CAUPORTALPROALLOWINVOICE : Int32" kind="Persistent" fieldName="_cAUPORTALPROALLOWINVOICE" />
+      <Property Id="bd9f9d53-bfb1-4d1b-8792-69a8194b08ec" name="CAUPORTALPROEMAIL" label="CAUPORTALPROEMAIL : String" kind="Persistent" fieldName="_cAUPORTALPROEMAIL" />
+      <Property Id="cfd99ac6-3635-45c3-8397-84ddf5cc1d17" name="CELLULARPHONE" label="CELLULARPHONE : String" kind="Persistent" fieldName="_cELLULARPHONE" />
+      <Property Id="a3594e9c-dc4c-4efe-85d6-9e28657c9c02" name="CITY" label="CITY : String" kind="Persistent" fieldName="_cITY" />
+      <Property Id="258720d5-4a05-43f4-8b53-106078df82da" name="CONTACTO" label="CONTACTO : String" kind="Persistent" fieldName="_cONTACTO" />
+      <Property Id="831aed21-2c0e-4802-a4ee-88fe90dae913" name="COUNTRYREGIONID" label="COUNTRYREGIONID : String" kind="Persistent" fieldName="_cOUNTRYREGIONID" />
+      <Property Id="020b4f13-2918-415a-b8d2-c5f2669d2bd3" name="EMAIL" label="EMAIL : String" kind="Persistent" fieldName="_eMAIL" />
+      <Property Id="deb409e0-a323-44e0-a426-7af62f782dbf" name="LINEOFBUSINESSID" label="LINEOFBUSINESSID : String" kind="Persistent" fieldName="_lINEOFBUSINESSID" />
+      <Property Id="07601a05-1315-42d3-996e-47054a231ea2" name="NAME" label="NAME : String" kind="Persistent" fieldName="_nAME" />
+      <Property Id="7631af7e-4d4f-47f2-b4ef-b3036bf3339b" name="PHONE" label="PHONE : String" kind="Persistent" fieldName="_pHONE" />
+      <Property Id="02bb8060-3716-443f-a635-b41287d03100" name="TELEFAX" label="TELEFAX : String" kind="Persistent" fieldName="_tELEFAX" />
+      <Property Id="73a38d6a-4204-4b3b-8bc0-18847eab1b8a" name="VATNUM" label="VATNUM : String" kind="Persistent" fieldName="_vATNUM" />
+      <Property Id="eb99f31a-036d-4329-a6f6-830f25ec6713" name="ZIPCODE" label="ZIPCODE : String" kind="Persistent" fieldName="_zIPCODE" />
+    </DomainClass>
+    <DomainClass Id="b7fe9c94-ab76-4808-acb9-297839298a27" name="Cau_PortalPro_VLinPedido" namespace="PortalProAxapta" showPropertiesCompartment="true" concurrencyMode="Changed" showNavigationCompartment="true" showImplementationCompartment="true">
+      <Property Id="8391358b-1834-4d79-9a4d-e1198d805c2b" name="ESTADO" label="ESTADO : String" kind="Persistent" fieldName="_eSTADO" />
+      <Property Id="b7251d7b-337f-4add-bcdf-f7abdb7e99ca" name="FECHARECEPCION" type="DateTime" label="FECHARECEPCION : DateTime" nullable="true" kind="Persistent" fieldName="_fECHARECEPCION" />
+      <Property Id="9a4e9e78-9210-4fcd-b3ec-ddfcead6e2fd" name="ITEMID" label="ITEMID : String" kind="Persistent" fieldName="_iTEMID" />
+      <Property Id="08576d4d-789d-4536-a39d-cfc4569abea0" name="LINEAMOUNT" type="Decimal" label="LINEAMOUNT : Decimal" kind="Persistent" fieldName="_lINEAMOUNT" />
+      <Property Id="87b48dd8-005a-4e9b-8353-6c681fd58a35" name="LINENUM" type="Decimal" label="LINENUM : Decimal" kind="Persistent" identity="true" fieldName="_lINENUM" />
+      <Property Id="6e20ce05-b00a-45b6-b24a-3e84fb94931c" name="NAME" label="NAME : String" kind="Persistent" fieldName="_nAME" />
+      <Property Id="829998ae-5359-459c-9aab-c14227fd6c02" name="PURCHID" label="PURCHID : String" kind="Persistent" identity="true" fieldName="_pURCHID" />
+      <Property Id="5877d3e2-b1f6-4adb-927d-e4e3d91990fa" name="PURCHPRICE" type="Decimal" label="PURCHPRICE : Decimal" kind="Persistent" fieldName="_pURCHPRICE" />
+      <Property Id="2194bd73-fe68-41bc-9056-45f3a562b24b" name="PURCHQTY" type="Decimal" label="PURCHQTY : Decimal" kind="Persistent" fieldName="_pURCHQTY" />
+      <Property Id="e6d4c3bf-238b-4a25-806f-1451dac032a3" name="PURCHUNIT" label="PURCHUNIT : String" kind="Persistent" fieldName="_pURCHUNIT" />
+      <Property Id="7c54916e-69c2-4ef3-88a4-b4cc1b453a8e" name="REMAINPURCHFINANCIAL" type="Decimal" label="REMAINPURCHFINANCIAL : Decimal" kind="Persistent" fieldName="_rEMAINPURCHFINANCIAL" />
+      <Property Id="f71f4113-fbfd-47fb-af4f-85c926a333cd" name="REMAINPURCHPHYSICAL" type="Decimal" label="REMAINPURCHPHYSICAL : Decimal" kind="Persistent" fieldName="_rEMAINPURCHPHYSICAL" />
+    </DomainClass>
+    <DomainClass Id="aced9d70-702f-4163-9551-23805e2179c1" name="Cau_portalpro_VLinFactura" namespace="PortalProAxapta" showPropertiesCompartment="true" concurrencyMode="Changed" showNavigationCompartment="true" showImplementationCompartment="true">
+      <Property Id="b92171b7-fc3b-4364-b642-58d360905425" name="INVOICEDATE" type="DateTime" label="INVOICEDATE : DateTime" kind="Persistent" fieldName="_iNVOICEDATE" />
+      <Property Id="b6e04f68-2799-4b10-810a-df08621672d3" name="INVOICEID" label="INVOICEID : String" kind="Persistent" identity="true" fieldName="_iNVOICEID" />
+      <Property Id="d1ec389a-5c7c-4c0c-9ec5-91c32515480f" name="LINEAMOUNT" type="Decimal" label="LINEAMOUNT : Decimal" kind="Persistent" fieldName="_lINEAMOUNT" />
+      <Property Id="efd665bf-75cf-420b-a149-da9d8462e91d" name="LINENUM" type="Decimal" label="LINENUM : Decimal" kind="Persistent" identity="true" fieldName="_lINENUM" />
+      <Property Id="e2989ce7-ce6d-4e25-a58f-77a7da7d6ab6" name="PURCHID" label="PURCHID : String" kind="Persistent" fieldName="_pURCHID" />
+    </DomainClass>
+    <DomainClass Id="8ce9e3ce-11cc-40b0-af34-23e8526ae8a7" name="Cau_PortalPro_VEmpresa" namespace="PortalProAxapta" showPropertiesCompartment="true" concurrencyMode="Changed" showNavigationCompartment="true" showImplementationCompartment="true">
+      <Property Id="fe4237f1-e495-414d-a104-4762403b3381" name="IDEMPRESA" label="IDEMPRESA : String" kind="Persistent" identity="true" fieldName="_iDEMPRESA" />
+      <Property Id="1f0ce896-433c-4baf-a842-b35e2f642e47" name="NOMBRE" label="NOMBRE : String" kind="Persistent" fieldName="_nOMBRE" />
+    </DomainClass>
+    <DomainClass Id="1c92f017-5f53-47ec-a2aa-8525b392b94c" name="Cau_PortalPro_VCabPedido" namespace="PortalProAxapta" showPropertiesCompartment="true" concurrencyMode="Changed" showNavigationCompartment="true" showImplementationCompartment="true">
+      <Property Id="9d351e22-f02d-44ec-9f48-608fec99d402" name="CODCONTACTO" label="CODCONTACTO : String" kind="Persistent" fieldName="_cODCONTACTO" />
+      <Property Id="c773e6fa-3d37-4c4d-8b28-2e77730d4cc0" name="CONTACTO" label="CONTACTO : String" kind="Persistent" fieldName="_cONTACTO" />
+      <Property Id="7ef4630d-f7bf-4dbb-8c36-194f8ebdf7fb" name="CREATEDDATE" type="DateTime" label="CREATEDDATE : DateTime" kind="Persistent" fieldName="_cREATEDDATE" />
+      <Property Id="0afc813e-02a1-47cd-aa88-af476b193b35" name="DATAAREAID" label="DATAAREAID : String" kind="Persistent" fieldName="_dATAAREAID" />
+      <Property Id="51c54a7e-1556-4f32-a23f-33d8f3c3c2e0" name="ESTADO" label="ESTADO : String" kind="Persistent" fieldName="_eSTADO" />
+      <Property Id="d89ee7c2-4206-4087-b827-0e2255090fa9" name="FECHALIMITE" type="DateTime" label="FECHALIMITE : DateTime" nullable="true" kind="Persistent" fieldName="_fECHALIMITE" />
+      <Property Id="bba5eb74-5046-4600-be99-0157a0762c28" name="FECHARECEPCION" type="DateTime" label="FECHARECEPCION : DateTime" nullable="true" kind="Persistent" fieldName="_fECHARECEPCION" />
+      <Property Id="dfd69c0f-45d5-4519-8c4d-193bd41c6131" name="INVOICEACCOUNT" label="INVOICEACCOUNT : String" kind="Persistent" fieldName="_iNVOICEACCOUNT" />
+      <Property Id="9a215184-bc76-41f5-8bc8-62046d8bdf4d" name="PURCHID" label="PURCHID : String" kind="Persistent" identity="true" fieldName="_pURCHID" />
+      <Property Id="26d87346-2e14-44d6-8fa2-5ed2707ce699" name="TIPO" label="TIPO : String" kind="Persistent" fieldName="_tIPO" />
+    </DomainClass>
+    <DomainClass Id="cd88bfdc-a5ad-4c4f-9d22-6f275191dbe8" name="Cau_PortalPro_VCabFactura" namespace="PortalProAxapta" showPropertiesCompartment="true" concurrencyMode="Changed" showNavigationCompartment="true" showImplementationCompartment="true">
+      <Property Id="4c8e69ea-18a9-49c6-9333-2f43f36e6621" name="ACCOUNTNUM" label="ACCOUNTNUM : String" kind="Persistent" fieldName="_aCCOUNTNUM" />
+      <Property Id="23d2d46b-6c3f-4ceb-99b1-8fb83269e01c" name="ESTADI" label="ESTADI : String" kind="Persistent" fieldName="_eSTADI" />
+      <Property Id="691466d8-5593-4b0d-8eb5-1d025ce616e4" name="FECHAPAGO" type="DateTime" label="FECHAPAGO : DateTime" nullable="true" kind="Persistent" fieldName="_fECHAPAGO" />
+      <Property Id="027a4cc4-2a22-4ae1-8e76-d2753577e9dc" name="FECHAVENCIMIENTO" type="DateTime" label="FECHAVENCIMIENTO : DateTime" nullable="true" kind="Persistent" fieldName="_fECHAVENCIMIENTO" />
+      <Property Id="9e4e7731-3793-4ce7-8997-3dacef29e927" name="IDEMPRESA" label="IDEMPRESA : String" kind="Persistent" fieldName="_iDEMPRESA" />
+      <Property Id="4c54865d-82ee-4d86-901f-5f1d5da4fa68" name="INVOICEAMOUNT" type="Decimal" label="INVOICEAMOUNT : Decimal" kind="Persistent" fieldName="_iNVOICEAMOUNT" />
+      <Property Id="a97cf4d4-2aca-4ce6-be78-1fa8585ca04e" name="INVOICEDATE" type="DateTime" label="INVOICEDATE : DateTime" kind="Persistent" fieldName="_iNVOICEDATE" />
+      <Property Id="911d37cb-36f4-45e1-b033-0ca7ec549679" name="INVOICEID" label="INVOICEID : String" kind="Persistent" identity="true" fieldName="_iNVOICEID" />
+    </DomainClass>
+  </Types>
+  <domainContext>
+    <domainModelHasDomainContext Id="c7f3980b-63ab-4ac1-afbb-36fdba332163">
+      <domainContainer name="EntitiesModel" namespace="PortalProAxapta" showPropertiesCompartment="true">
+        <entitySetProperty name="Cau_PortalPro_VResponsables" namespace="PortalProAxapta" type="Cau_PortalPro_VResponsable" label="Cau_PortalPro_VResponsables : IQueryable&lt;PortalProAxapta.Cau_PortalPro_VResponsable&gt;" />
+        <entitySetProperty name="Cau_PortalPro_VProveedores" namespace="PortalProAxapta" type="Cau_PortalPro_VProveedore" label="Cau_PortalPro_VProveedores : IQueryable&lt;PortalProAxapta.Cau_PortalPro_VProveedore&gt;" />
+        <entitySetProperty name="Cau_PortalPro_VLinPedidos" namespace="PortalProAxapta" type="Cau_PortalPro_VLinPedido" label="Cau_PortalPro_VLinPedidos : IQueryable&lt;PortalProAxapta.Cau_PortalPro_VLinPedido&gt;" />
+        <entitySetProperty name="Cau_portalpro_VLinFacturas" namespace="PortalProAxapta" type="Cau_portalpro_VLinFactura" label="Cau_portalpro_VLinFacturas : IQueryable&lt;PortalProAxapta.Cau_portalpro_VLinFactura&gt;" />
+        <entitySetProperty name="Cau_PortalPro_VEmpresas" namespace="PortalProAxapta" type="Cau_PortalPro_VEmpresa" label="Cau_PortalPro_VEmpresas : IQueryable&lt;PortalProAxapta.Cau_PortalPro_VEmpresa&gt;" />
+        <entitySetProperty name="Cau_PortalPro_VCabPedidos" namespace="PortalProAxapta" type="Cau_PortalPro_VCabPedido" label="Cau_PortalPro_VCabPedidos : IQueryable&lt;PortalProAxapta.Cau_PortalPro_VCabPedido&gt;" />
+        <entitySetProperty name="Cau_PortalPro_VCabFacturas" namespace="PortalProAxapta" type="Cau_PortalPro_VCabFactura" label="Cau_PortalPro_VCabFacturas : IQueryable&lt;PortalProAxapta.Cau_PortalPro_VCabFactura&gt;" />
+      </domainContainer>
+    </domainModelHasDomainContext>
+  </domainContext>
+</DomainModel>

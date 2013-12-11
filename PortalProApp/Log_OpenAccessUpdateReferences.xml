@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="_ConvertModelWizard_Files\UpgradeReferences.xslt"?>
+<UpgradeLog>
+  <Events>
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProModelo\PortalProModelo\PortalProModelo.csproj" Message="Assembly References" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProModelo\PortalProModelo\PortalProModelo.csproj" Message="Project References" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProModelo\PortalProModelo\PortalProModelo.csproj" Message="Import Directives" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProModelo\PortalProModelo\App.Config" Message="Assembly References" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProModelo\PortalProModelo\App.Config" Message="Http Handlers" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProModelo\PortalProModelo\App.Config" Message="Handlers (IIS7+)" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProModelo\PortalProModelo\App.Config" Message="Config Sections" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProModelo\PortalProModelo\App.Config" Message="Render Extensions" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProModelo\PortalProModelo\App.Config" Message="App.Config" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProModelo\PortalProModelo\packages.config" Message="Assembly References" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProModelo\PortalProModelo\packages.config" Message="Http Handlers" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProModelo\PortalProModelo\packages.config" Message="Handlers (IIS7+)" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProModelo\PortalProModelo\packages.config" Message="Config Sections" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProModelo\PortalProModelo\packages.config" Message="Render Extensions" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProModelo\PortalProModelo\packages.config" Message="packages.config" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProModelo\PortalProModelo\PortalProModelo.csproj" Message="PortalProModelo" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWebApi\PortalProWebApi\PortalProWebApi.csproj" Message="Assembly References" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWebApi\PortalProWebApi\PortalProWebApi.csproj" Message="Project References" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWebApi\PortalProWebApi\PortalProWebApi.csproj" Message="Import Directives" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWebApi\PortalProWebApi\Areas\HelpPage\Views\Web.config" Message="Assembly References" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWebApi\PortalProWebApi\Areas\HelpPage\Views\Web.config" Message="Http Handlers" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWebApi\PortalProWebApi\Areas\HelpPage\Views\Web.config" Message="Handlers (IIS7+)" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWebApi\PortalProWebApi\Areas\HelpPage\Views\Web.config" Message="Config Sections" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWebApi\PortalProWebApi\Areas\HelpPage\Views\Web.config" Message="Render Extensions" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWebApi\PortalProWebApi\Areas\HelpPage\Views\Web.config" Message="Web.config" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWebApi\PortalProWebApi\packages.config" Message="Assembly References" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWebApi\PortalProWebApi\packages.config" Message="Http Handlers" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWebApi\PortalProWebApi\packages.config" Message="Handlers (IIS7+)" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWebApi\PortalProWebApi\packages.config" Message="Config Sections" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWebApi\PortalProWebApi\packages.config" Message="Render Extensions" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWebApi\PortalProWebApi\packages.config" Message="packages.config" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWebApi\PortalProWebApi\Views\Web.config" Message="Assembly References" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWebApi\PortalProWebApi\Views\Web.config" Message="Http Handlers" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWebApi\PortalProWebApi\Views\Web.config" Message="Handlers (IIS7+)" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWebApi\PortalProWebApi\Views\Web.config" Message="Config Sections" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWebApi\PortalProWebApi\Views\Web.config" Message="Render Extensions" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWebApi\PortalProWebApi\Views\Web.config" Message="Web.config" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWebApi\PortalProWebApi\Web.config" Message="Assembly References" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWebApi\PortalProWebApi\Web.config" Message="Http Handlers" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWebApi\PortalProWebApi\Web.config" Message="Handlers (IIS7+)" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWebApi\PortalProWebApi\Web.config" Message="Config Sections" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWebApi\PortalProWebApi\Web.config" Message="Render Extensions" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWebApi\PortalProWebApi\Web.config" Message="Web.config" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWebApi\PortalProWebApi\Web.Debug.config" Message="Assembly References" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWebApi\PortalProWebApi\Web.Debug.config" Message="Http Handlers" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWebApi\PortalProWebApi\Web.Debug.config" Message="Handlers (IIS7+)" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWebApi\PortalProWebApi\Web.Debug.config" Message="Config Sections" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWebApi\PortalProWebApi\Web.Debug.config" Message="Render Extensions" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWebApi\PortalProWebApi\Web.Debug.config" Message="Web.Debug.config" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWebApi\PortalProWebApi\Web.Release.config" Message="Assembly References" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWebApi\PortalProWebApi\Web.Release.config" Message="Http Handlers" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWebApi\PortalProWebApi\Web.Release.config" Message="Handlers (IIS7+)" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWebApi\PortalProWebApi\Web.Release.config" Message="Config Sections" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWebApi\PortalProWebApi\Web.Release.config" Message="Render Extensions" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWebApi\PortalProWebApi\Web.Release.config" Message="Web.Release.config" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWebApi\PortalProWebApi\PortalProWebApi.csproj" Message="PortalProWebApi" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWeb\PortalProWeb.csproj" Message="Assembly References" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWeb\PortalProWeb.csproj" Message="Project References" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWeb\PortalProWeb.csproj" Message="Import Directives" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWeb\Uploader.aspx" Message="Register Directives" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWeb\Uploader.aspx" Message="Assembly Directives" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWeb\Uploader.aspx" Message="Uploader.aspx" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWeb\web.config" Message="Assembly References" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWeb\web.config" Message="Http Handlers" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWeb\web.config" Message="Handlers (IIS7+)" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWeb\web.config" Message="Config Sections" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWeb\web.config" Message="Render Extensions" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWeb\web.config" Message="web.config" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWeb\web.Debug.config" Message="Assembly References" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWeb\web.Debug.config" Message="Http Handlers" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWeb\web.Debug.config" Message="Handlers (IIS7+)" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWeb\web.Debug.config" Message="Config Sections" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWeb\web.Debug.config" Message="Render Extensions" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWeb\web.Debug.config" Message="web.Debug.config" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWeb\web.Release.config" Message="Assembly References" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWeb\web.Release.config" Message="Http Handlers" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWeb\web.Release.config" Message="Handlers (IIS7+)" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWeb\web.Release.config" Message="Config Sections" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWeb\web.Release.config" Message="Render Extensions" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWeb\web.Release.config" Message="web.Release.config" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWeb\PortalProWeb.csproj" Message="PortalProWeb" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWeb2\PortalProWeb2.csproj" Message="Assembly References" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWeb2\PortalProWeb2.csproj" Message="Project References" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWeb2\PortalProWeb2.csproj" Message="Import Directives" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWeb2\Default.aspx" Message="Register Directives" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWeb2\Default.aspx" Message="Assembly Directives" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWeb2\Default.aspx" Message="Default.aspx" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWeb2\Uploader2.aspx" Message="Register Directives" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWeb2\Uploader2.aspx" Message="Assembly Directives" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWeb2\Uploader2.aspx" Message="Uploader2.aspx" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWeb2\web.config" Message="Assembly References" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWeb2\web.config" Message="Http Handlers" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWeb2\web.config" Message="Handlers (IIS7+)" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWeb2\web.config" Message="Config Sections" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWeb2\web.config" Message="Render Extensions" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWeb2\web.config" Message="web.config" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWeb2\web.Debug.config" Message="Assembly References" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWeb2\web.Debug.config" Message="Http Handlers" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWeb2\web.Debug.config" Message="Handlers (IIS7+)" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWeb2\web.Debug.config" Message="Config Sections" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWeb2\web.Debug.config" Message="Render Extensions" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWeb2\web.Debug.config" Message="web.Debug.config" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWeb2\web.Release.config" Message="Assembly References" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWeb2\web.Release.config" Message="Http Handlers" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWeb2\web.Release.config" Message="Handlers (IIS7+)" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWeb2\web.Release.config" Message="Config Sections" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWeb2\web.Release.config" Message="Render Extensions" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWeb2\web.Release.config" Message="web.Release.config" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProWeb2\PortalProWeb2.csproj" Message="PortalProWeb2" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProAxapta\PortalProAxapta.csproj" Message="Assembly References" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProAxapta\PortalProAxapta.csproj" Message="Project References" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProAxapta\PortalProAxapta.csproj" Message="Import Directives" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProAxapta\App.Config" Message="Assembly References" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProAxapta\App.Config" Message="Http Handlers" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProAxapta\App.Config" Message="Handlers (IIS7+)" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProAxapta\App.Config" Message="Config Sections" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProAxapta\App.Config" Message="Render Extensions" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProAxapta\App.Config" Message="App.Config" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProAxapta\PortalProAxapta.csproj" Message="PortalProAxapta" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProConsola\PortalProConsola.csproj" Message="Assembly References" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProConsola\PortalProConsola.csproj" Message="Project References" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProConsola\PortalProConsola.csproj" Message="Import Directives" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProConsola\App.config" Message="Assembly References" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProConsola\App.config" Message="Http Handlers" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProConsola\App.config" Message="Handlers (IIS7+)" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProConsola\App.config" Message="Config Sections" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProConsola\App.config" Message="Render Extensions" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProConsola\App.config" Message="App.config" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProConsola\PortalProConsola.csproj" Message="PortalProConsola" />
+    <Event EventType="Success" Action="Analyze" SourceItem="C:\Proyectos\portalpro\PortalProApp\PortalProApp.sln" Message="PortalProApp" />
+  </Events>
+</UpgradeLog>

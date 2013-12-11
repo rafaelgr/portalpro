@@ -18,92 +18,60 @@ using Telerik.OpenAccess.Metadata;
 using Telerik.OpenAccess.Data.Common;
 using Telerik.OpenAccess.Metadata.Fluent;
 using Telerik.OpenAccess.Metadata.Fluent.Advanced;
-using PortalProModelo;
 
 namespace PortalProModelo	
 {
-	public partial class Responsable
+	public partial class Progresos
 	{
-		private int _responsableId;
-		public virtual int ResponsableId
+		private int _progresoId;
+		public virtual int ProgresoId
 		{
 			get
 			{
-				return this._responsableId;
+				return this._progresoId;
 			}
 			set
 			{
-				this._responsableId = value;
+				this._progresoId = value;
 			}
 		}
 		
-		private string _nombre;
-		public virtual string Nombre
+		private string _code;
+		public virtual string Code
 		{
 			get
 			{
-				return this._nombre;
+				return this._code;
 			}
 			set
 			{
-				this._nombre = value;
+				this._code = value;
 			}
 		}
 		
-		private string _email;
-		public virtual string Email
+		private int _numReg;
+		public virtual int NumReg
 		{
 			get
 			{
-				return this._email;
+				return this._numReg;
 			}
 			set
 			{
-				this._email = value;
+				this._numReg = value;
 			}
 		}
 		
-		private string _codAx;
-		public virtual string CodAx
+		private int _totReg;
+		public virtual int TotReg
 		{
 			get
 			{
-				return this._codAx;
+				return this._totReg;
 			}
 			set
 			{
-				this._codAx = value;
-			}
-		}
-		
-		private Usuario _usuario;
-		public virtual Usuario Usuario
-		{
-			get
-			{
-				return this._usuario;
-			}
-			set
-			{
-				this._usuario = value;
-			}
-		}
-		
-		private IList<Pedido> _pedidos = new List<Pedido>();
-		public virtual IList<Pedido> Pedidos
-		{
-			get
-			{
-				return this._pedidos;
-			}
-		}
-		
-		private IList<CabFactura> _cabFacturas = new List<CabFactura>();
-		public virtual IList<CabFactura> CabFacturas
-		{
-			get
-			{
-				return this._cabFacturas;
+				this._totReg = value;
 			}
 		}
 		

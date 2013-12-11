@@ -18,92 +18,73 @@ using Telerik.OpenAccess.Metadata;
 using Telerik.OpenAccess.Data.Common;
 using Telerik.OpenAccess.Metadata.Fluent;
 using Telerik.OpenAccess.Metadata.Fluent.Advanced;
-using PortalProModelo;
 
-namespace PortalProModelo	
+namespace PortalProAxapta	
 {
-	public partial class Responsable
+	public partial class Cau_portalpro_VLinFactura
 	{
-		private int _responsableId;
-		public virtual int ResponsableId
+		private string _iNVOICEID;
+		public virtual string INVOICEID
 		{
 			get
 			{
-				return this._responsableId;
+				return this._iNVOICEID;
 			}
 			set
 			{
-				this._responsableId = value;
+				this._iNVOICEID = value;
 			}
 		}
 		
-		private string _nombre;
-		public virtual string Nombre
+		private DateTime _iNVOICEDATE;
+		public virtual DateTime INVOICEDATE
 		{
 			get
 			{
-				return this._nombre;
+				return this._iNVOICEDATE;
 			}
 			set
 			{
-				this._nombre = value;
+				this._iNVOICEDATE = value;
 			}
 		}
 		
-		private string _email;
-		public virtual string Email
+		private decimal _lINENUM;
+		public virtual decimal LINENUM
 		{
 			get
 			{
-				return this._email;
+				return this._lINENUM;
 			}
 			set
 			{
-				this._email = value;
+				this._lINENUM = value;
 			}
 		}
 		
-		private string _codAx;
-		public virtual string CodAx
+		private string _pURCHID;
+		public virtual string PURCHID
 		{
 			get
 			{
-				return this._codAx;
+				return this._pURCHID;
 			}
 			set
 			{
-				this._codAx = value;
+				this._pURCHID = value;
 			}
 		}
 		
-		private Usuario _usuario;
-		public virtual Usuario Usuario
+		private decimal _lINEAMOUNT;
+		public virtual decimal LINEAMOUNT
 		{
 			get
 			{
-				return this._usuario;
+				return this._lINEAMOUNT;
 			}
 			set
 			{
-				this._usuario = value;
-			}
-		}
-		
-		private IList<Pedido> _pedidos = new List<Pedido>();
-		public virtual IList<Pedido> Pedidos
-		{
-			get
-			{
-				return this._pedidos;
-			}
-		}
-		
-		private IList<CabFactura> _cabFacturas = new List<CabFactura>();
-		public virtual IList<CabFactura> CabFacturas
-		{
-			get
-			{
-				return this._cabFacturas;
+				this._lINEAMOUNT = value;
 			}
 		}
 		

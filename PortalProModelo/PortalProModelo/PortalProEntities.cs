@@ -210,6 +210,14 @@ namespace PortalProModelo
 			}
 		}
 		
+		public IQueryable<Progresos> Progresos 
+		{
+			get
+			{
+				return this.GetAll<Progresos>();
+			}
+		}
+		
 		public static BackendConfiguration GetBackendConfiguration()
 		{
 			BackendConfiguration backend = new BackendConfiguration();
@@ -299,6 +307,10 @@ namespace PortalProModelo
 			get;
 		}
 		IQueryable<Responsable> Responsables
+		{
+			get;
+		}
+		IQueryable<Progresos> Progresos
 		{
 			get;
 		}

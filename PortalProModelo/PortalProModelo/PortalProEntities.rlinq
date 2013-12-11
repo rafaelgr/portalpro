@@ -320,7 +320,7 @@
           <orm:column name="IBAN" sql-type="varchar" nullable="false" length="255" scale="0" ado-type="" />
         </orm:field>
         <orm:field name="_bIC" property="BIC" uniqueId="2800b5e8-d621-4a39-8acc-d72375f68dd0" type="System.String">
-          <orm:column nullable="true" scale="0" length="255" sql-type="varchar" name="BIC" ado-type="" />
+          <orm:column name="BIC" sql-type="varchar" nullable="true" length="255" scale="0" ado-type="" />
         </orm:field>
         <orm:field name="_grupoProveedor" property="GrupoProveedor" behavior="readwrite" uniqueId="08cd3337-7360-4902-995d-381de10e73f3" type="PortalProModelo.GrupoProveedor">
           <orm:reference uniqueId="a6016d2b-968a-4597-977f-5973d26e08d3" />
@@ -648,13 +648,20 @@
           <orm:column name="MargenFactura" sql-type="integer" nullable="false" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
         </orm:field>
       </orm:class>
-      <orm:class name="Empresa" uniqueId="58c8b7e2-f73c-4e59-8611-e575a9f94303">
+      <orm:class name="Empresa" use-default-mapping="true" uniqueId="58c8b7e2-f73c-4e59-8611-e575a9f94303">
         <orm:identity>
           <orm:key-generator name="autoinc" />
           <orm:single-field field-name="_empresaId" />
         </orm:identity>
-        <orm:field name="_empresaId" property="EmpresaId" uniqueId="7573cb1e-bc23-463c-90b5-2bcc93668f2c" type="System.Int32" />
-        <orm:field name="_nombre" property="Nombre" uniqueId="47cefd7f-d069-46da-b8c6-0dd8a74a4b46" type="System.String" />
+        <orm:field name="_empresaId" property="EmpresaId" uniqueId="7573cb1e-bc23-463c-90b5-2bcc93668f2c" type="System.Int32">
+          <orm:column name="EmpresaId" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" backend-calculated="true" ado-type="Int32" />
+        </orm:field>
+        <orm:field name="_nombre" property="Nombre" uniqueId="47cefd7f-d069-46da-b8c6-0dd8a74a4b46" type="System.String">
+          <orm:column name="Nombre" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        </orm:field>
+        <orm:field name="_codAx" property="CodAx" uniqueId="f5646b3b-ae2d-4fed-9e4e-2e8c6cef882c" type="System.String">
+          <orm:column name="CodAx" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        </orm:field>
         <orm:field name="_pedidos" property="Pedidos" behavior="readwrite" uniqueId="ee0da0cb-62b7-47e2-b25e-0de2ee7dc9ea" type="PortalProModelo.Pedido">
           <orm:collection element-class="PortalProModelo.Pedido" inverse-field="_empresa" order-by="" uniqueId="3dae946b-4d15-4bc7-ac48-89cc8a2e11ee" />
         </orm:field>
@@ -662,14 +669,23 @@
           <orm:collection element-class="PortalProModelo.CabFactura" inverse-field="_empresa" order-by="" uniqueId="5d701a62-9825-4d27-a40b-0c4500637c2e" />
         </orm:field>
       </orm:class>
-      <orm:class name="Responsable" uniqueId="39a335b8-01a4-4d75-9974-fc756883a9b5">
+      <orm:class name="Responsable" use-default-mapping="true" uniqueId="39a335b8-01a4-4d75-9974-fc756883a9b5">
         <orm:identity>
           <orm:key-generator name="autoinc" />
           <orm:single-field field-name="_responsableId" />
         </orm:identity>
-        <orm:field name="_responsableId" property="ResponsableId" uniqueId="c1bbb836-431d-480a-be73-13dca90fbb3a" type="System.Int32" />
-        <orm:field name="_nombre" property="Nombre" uniqueId="6403f658-a3d7-4682-9f91-945ee6edcb18" type="System.String" />
-        <orm:field name="_email" property="Email" uniqueId="c49c6e3a-d96a-4b69-bede-eaf5d7c74241" type="System.String" />
+        <orm:field name="_responsableId" property="ResponsableId" uniqueId="c1bbb836-431d-480a-be73-13dca90fbb3a" type="System.Int32">
+          <orm:column name="ResponsableId" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" backend-calculated="true" ado-type="Int32" />
+        </orm:field>
+        <orm:field name="_nombre" property="Nombre" uniqueId="6403f658-a3d7-4682-9f91-945ee6edcb18" type="System.String">
+          <orm:column name="Nombre" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        </orm:field>
+        <orm:field name="_email" property="Email" uniqueId="c49c6e3a-d96a-4b69-bede-eaf5d7c74241" type="System.String">
+          <orm:column name="Email" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        </orm:field>
+        <orm:field name="_codAx" property="CodAx" uniqueId="70d6e3ff-c636-4c59-bd38-61664f072e64" type="System.String">
+          <orm:column name="CodAx" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        </orm:field>
         <orm:field name="_usuario" property="Usuario" behavior="readwrite" uniqueId="28e639b8-9e74-4557-abf3-4ac9d8f4cb55" type="PortalProModelo.Usuario">
           <orm:reference uniqueId="a9cdcd44-79bc-4641-ba75-e0fe78212878" />
         </orm:field>
@@ -678,6 +694,29 @@
         </orm:field>
         <orm:field name="_cabFacturas" property="CabFacturas" behavior="readwrite" uniqueId="39b38b60-3517-419c-b727-5869031d8948" type="PortalProModelo.CabFactura">
           <orm:collection element-class="PortalProModelo.CabFactura" inverse-field="_responsable" order-by="" uniqueId="41aadbf5-fa68-4555-9c91-c7056c324382" />
+        </orm:field>
+        <orm:index name="idx_Responsable_UsuarioId">
+          <orm:columnMapping>
+            <orm:column name="UsuarioId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+          </orm:columnMapping>
+        </orm:index>
+      </orm:class>
+      <orm:class name="Progresos" use-default-mapping="true" uniqueId="d75f081c-24ed-4d00-945b-e672b1d706f3">
+        <orm:identity>
+          <orm:key-generator name="autoinc" />
+          <orm:single-field field-name="_progresoId" />
+        </orm:identity>
+        <orm:field name="_progresoId" property="ProgresoId" uniqueId="3c79d38c-862a-4d9d-a8ba-c9b17378f67b" type="System.Int32">
+          <orm:column name="ProgresoId" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" backend-calculated="true" ado-type="Int32" />
+        </orm:field>
+        <orm:field name="_code" property="Code" uniqueId="b8493f29-d7e9-4213-b4f4-6ad4d5bc6ac5" type="System.String">
+          <orm:column name="Code" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        </orm:field>
+        <orm:field name="_numReg" property="NumReg" uniqueId="04ce7d52-67af-434b-9203-56051110fb9d" type="System.Int32">
+          <orm:column name="NumReg" sql-type="integer" nullable="false" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+        </orm:field>
+        <orm:field name="_totReg" property="TotReg" uniqueId="ff6b0050-722c-4ab4-99f0-76ee35b6da2c" type="System.Int32">
+          <orm:column name="TotReg" sql-type="integer" nullable="false" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
         </orm:field>
       </orm:class>
     </orm:namespace>
@@ -795,7 +834,7 @@
         <orm:column name="ActividadPrincipal" sql-type="varchar" nullable="true" length="255" scale="0" ado-type="" />
         <orm:column name="PersonaContacto" sql-type="varchar" nullable="true" length="255" scale="0" ado-type="" />
         <orm:column name="IBAN" sql-type="varchar" nullable="false" length="255" scale="0" ado-type="" />
-        <orm:column nullable="true" scale="0" length="255" sql-type="varchar" name="BIC" ado-type="" />
+        <orm:column name="BIC" sql-type="varchar" nullable="true" length="255" scale="0" ado-type="" />
         <orm:index name="idx_SolicitudProveedor_GrupoProveedorId">
           <orm:columnMapping>
             <orm:column name="GrupoProveedorId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
@@ -1637,6 +1676,7 @@
     <DomainClass Id="58c8b7e2-f73c-4e59-8611-e575a9f94303" name="Empresa" namespace="PortalProModelo" showPropertiesCompartment="true" identityMechanism="DatabaseServerCalculated" showNavigationCompartment="true" showImplementationCompartment="true">
       <Property Id="7573cb1e-bc23-463c-90b5-2bcc93668f2c" name="EmpresaId" type="System.Int32" label="EmpresaId : System.Int32" identity="true" fieldName="_empresaId" />
       <Property Id="47cefd7f-d069-46da-b8c6-0dd8a74a4b46" name="Nombre" label="Nombre : String" fieldName="_nombre" />
+      <Property Id="f5646b3b-ae2d-4fed-9e4e-2e8c6cef882c" name="CodAx" label="CodAx : String" fieldName="_codAx" />
       <navigationalProperties>
         <classHasNavigationalProperties Id="207c59d4-820d-4118-bd15-198b7a0023fc">
           <NavigationalProperty Id="ee0da0cb-62b7-47e2-b25e-0de2ee7dc9ea" name="Pedidos" type="IList&lt;Pedido&gt;" label="Pedidos : IList&lt;Pedido&gt;" nullable="true" kind="Persistent" fieldName="_pedidos" isDependent="false" isManaged="false" />
@@ -1650,6 +1690,7 @@
       <Property Id="c1bbb836-431d-480a-be73-13dca90fbb3a" name="ResponsableId" type="System.Int32" label="ResponsableId : System.Int32" identity="true" fieldName="_responsableId" />
       <Property Id="6403f658-a3d7-4682-9f91-945ee6edcb18" name="Nombre" label="Nombre : String" fieldName="_nombre" />
       <Property Id="c49c6e3a-d96a-4b69-bede-eaf5d7c74241" name="Email" label="Email : String" fieldName="_email" />
+      <Property Id="70d6e3ff-c636-4c59-bd38-61664f072e64" name="CodAx" label="CodAx : String" fieldName="_codAx" />
       <AssociationTargets>
         <Association Id="a9cdcd44-79bc-4641-ba75-e0fe78212878" SourceMultiplicity="ZeroOne" name="ResponsableHasUsuario">
           <DomainClassMoniker name="/PortalProContext/Usuario" />
@@ -1677,6 +1718,12 @@
         </classHasNavigationalProperties>
       </navigationalProperties>
     </DomainClass>
+    <DomainClass Id="d75f081c-24ed-4d00-945b-e672b1d706f3" name="Progresos" namespace="PortalProModelo" showPropertiesCompartment="true" identityMechanism="DatabaseServerCalculated" showNavigationCompartment="true" showImplementationCompartment="true">
+      <Property Id="3c79d38c-862a-4d9d-a8ba-c9b17378f67b" name="ProgresoId" type="System.Int32" label="ProgresoId : System.Int32" identity="true" fieldName="_progresoId" />
+      <Property Id="b8493f29-d7e9-4213-b4f4-6ad4d5bc6ac5" name="Code" label="Code : String" fieldName="_code" />
+      <Property Id="04ce7d52-67af-434b-9203-56051110fb9d" name="NumReg" type="Int32" label="NumReg : Int32" fieldName="_numReg" />
+      <Property Id="ff6b0050-722c-4ab4-99f0-76ee35b6da2c" name="TotReg" type="Int32" label="TotReg : Int32" fieldName="_totReg" />
+    </DomainClass>
   </Types>
   <domainContext>
     <domainModelHasDomainContext Id="b8a488e5-d05f-45aa-83ff-cddf4131e366">
@@ -1701,6 +1748,7 @@
         <entitySetProperty name="Parametros1" namespace="PortalProModelo" type="Parametro" label="Parametros1 : IQueryable&lt;PortalProModelo.Parametro&gt;" />
         <entitySetProperty name="Empresas" namespace="PortalProModelo" type="Empresa" label="Empresas : IQueryable&lt;PortalProModelo.Empresa&gt;" />
         <entitySetProperty name="Responsables" namespace="PortalProModelo" type="Responsable" label="Responsables : IQueryable&lt;PortalProModelo.Responsable&gt;" />
+        <entitySetProperty name="Progresos" namespace="PortalProModelo" type="Progresos" label="Progresos : IQueryable&lt;PortalProModelo.Progresos&gt;" />
       </domainContainer>
     </domainModelHasDomainContext>
   </domainContext>

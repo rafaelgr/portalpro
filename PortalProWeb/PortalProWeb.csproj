@@ -308,6 +308,7 @@
     <Content Include="avatars\avatar3.png" />
     <Content Include="avatars\avatar4.png" />
     <Content Include="avatars\user.jpg" />
+    <Content Include="importacion.html" />
     <Content Include="js\jquery.dataTables.js" />
     <Content Include="test_tablas.html" />
     <Content Include="responsable.html" />
@@ -503,7 +504,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties UseJQuerySupport="True" UseAjaxifiedTemplates="True" />
+      <UserProperties UseAjaxifiedTemplates="True" UseJQuerySupport="True" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

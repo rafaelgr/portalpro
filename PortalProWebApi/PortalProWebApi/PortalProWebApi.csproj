@@ -186,8 +186,10 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="CntAxapta.cs" />
     <Compile Include="Controllers\CabFacturaController.cs" />
     <Compile Include="Controllers\CabPedidoController.cs" />
+    <Compile Include="Controllers\ImportarController.cs" />
     <Compile Include="Controllers\Responsables.cs" />
     <Compile Include="Controllers\Empresas.cs" />
     <Compile Include="Controllers\ParametrosController.cs" />
@@ -208,12 +210,16 @@
     <Compile Include="Controllers\GruposUsuariosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="ImportResponsable.cs" />
+    <Compile Include="ImportPedido.cs" />
+    <Compile Include="ImportProveedor.cs" />
     <Compile Include="Email.cs" />
     <Compile Include="EmailConfig.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Handlers\CorsHandler.cs" />
+    <Compile Include="ImportEmpresa.cs" />
     <Compile Include="Indicador.cs" />
     <Compile Include="IResponseDocumentationProvider.cs" />
     <Compile Include="PortalProMailController.cs" />
@@ -354,6 +360,10 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\PortalProAxapta\PortalProAxapta.csproj">
+      <Project>{35c3fa67-fe2c-4d3c-9c8d-d6c6a73fa477}</Project>
+      <Name>PortalProAxapta</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\PortalProModelo\PortalProModelo\PortalProModelo.csproj">
       <Project>{49fc9f38-c473-4953-aca3-14844de92915}</Project>
       <Name>PortalProModelo</Name>

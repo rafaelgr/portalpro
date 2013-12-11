@@ -18,66 +18,34 @@ using Telerik.OpenAccess.Metadata;
 using Telerik.OpenAccess.Data.Common;
 using Telerik.OpenAccess.Metadata.Fluent;
 using Telerik.OpenAccess.Metadata.Fluent.Advanced;
-using PortalProModelo;
 
-namespace PortalProModelo	
+namespace PortalProAxapta	
 {
-	public partial class Empresa
+	public partial class Cau_PortalPro_VEmpresa
 	{
-		private int _empresaId;
-		public virtual int EmpresaId
+		private string _iDEMPRESA;
+		public virtual string IDEMPRESA
 		{
 			get
 			{
-				return this._empresaId;
+				return this._iDEMPRESA;
 			}
 			set
 			{
-				this._empresaId = value;
+				this._iDEMPRESA = value;
 			}
 		}
 		
-		private string _nombre;
-		public virtual string Nombre
+		private string _nOMBRE;
+		public virtual string NOMBRE
 		{
 			get
 			{
-				return this._nombre;
+				return this._nOMBRE;
 			}
 			set
 			{
-				this._nombre = value;
-			}
-		}
-		
-		private string _codAx;
-		public virtual string CodAx
-		{
-			get
-			{
-				return this._codAx;
-			}
-			set
-			{
-				this._codAx = value;
-			}
-		}
-		
-		private IList<Pedido> _pedidos = new List<Pedido>();
-		public virtual IList<Pedido> Pedidos
-		{
-			get
-			{
-				return this._pedidos;
-			}
-		}
-		
-		private IList<CabFactura> _cabFacturas = new List<CabFactura>();
-		public virtual IList<CabFactura> CabFacturas
-		{
-			get
-			{
-				return this._cabFacturas;
+				this._nOMBRE = value;
 			}
 		}
 		
