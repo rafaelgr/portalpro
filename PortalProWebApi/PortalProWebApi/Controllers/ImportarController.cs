@@ -65,6 +65,12 @@ namespace PortalProWebApi.Controllers
                         case "Responsable":
                             CntAxapta.ImportarResponsables();
                             break;
+                        case "Pedido":
+                            CntAxapta.ImportarPedidos();
+                            break;
+                        case "Factura":
+                            CntAxapta.ImportarFacturas();
+                            break;
                     }
 
                 }

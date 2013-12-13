@@ -210,16 +210,18 @@
     <Compile Include="Controllers\GruposUsuariosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
-    <Compile Include="ImportResponsable.cs" />
+    <Compile Include="ImportSqlFactura.cs" />
+    <Compile Include="ImportSqlPedido.cs" />
+    <Compile Include="ImportSqlResponsable.cs" />
+    <Compile Include="ImportSqlEmpresa.cs" />
+    <Compile Include="ImportSqlProveedor.cs" />
     <Compile Include="ImportPedido.cs" />
-    <Compile Include="ImportProveedor.cs" />
     <Compile Include="Email.cs" />
     <Compile Include="EmailConfig.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Handlers\CorsHandler.cs" />
-    <Compile Include="ImportEmpresa.cs" />
     <Compile Include="Indicador.cs" />
     <Compile Include="IResponseDocumentationProvider.cs" />
     <Compile Include="PortalProMailController.cs" />

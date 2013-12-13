@@ -1,44 +1,52 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Threading;
 using PortalProModelo;
 using PortalProAxapta;
+using System.Data.SqlClient;
 
 namespace PortalProWebApi
 {
-    public class ImportEmpresa
+    public class ImportSqlEmpresa
     {
         // este método se ejecutará de manera asíncrona.
         public string LaunchEmpresa(out int threadId)
         {
             threadId = Thread.CurrentThread.ManagedThreadId;
-                        int numreg = 0;
-            int totreg = 0;
+            // abrir conexiones 
             PortalProContext ctx = new PortalProContext();
-            EntitiesModel con = new EntitiesModel();
-            var rs = (from e in con.Cau_PortalPro_VEmpresas
-                      select e);
-            totreg = rs.Count();
-            foreach (Cau_PortalPro_VEmpresa emp1 in rs)
+            string strConnect = ConfigurationManager.ConnectionStrings["PortalProTestConnection"].ConnectionString;
+            SqlConnection con = new SqlConnection(strConnect);
+            con.Open();
+            string sql = "SELECT COUNT(*) FROM [PortalProTest].[dbo].[Cau_PortalPro_VEmpresas]";
+            SqlCommand cmd = new SqlCommand(sql, con);
+            int totreg = (int)cmd.ExecuteScalar();
+            int numreg = 0;
+            sql = @"SELECT  
+                        [IDEMPRESA]
+                        ,[NOMBRE]
+                    FROM [PortalProTest].[dbo].[Cau_PortalPro_VEmpresas]";
+            cmd = new SqlCommand(sql, con);
+            SqlDataReader dr = cmd.ExecuteReader();
+            while (dr.Read())
             {
                 numreg++;
+                string codax = dr.GetString(0);
                 // Buscamos si esa empresa existe
                 Empresa emp2 = (from e2 in ctx.Empresas
-                                where e2.CodAx == emp1.IDEMPRESA
+                                where e2.CodAx == codax
                                 select e2).FirstOrDefault<Empresa>();
                 if (emp2 == null)
                 {
                     emp2 = new Empresa();
-                    emp2.Nombre = emp1.NOMBRE;
-                    emp2.CodAx = emp1.IDEMPRESA;
                     ctx.Add(emp2);
                 }
-                else
-                {
-                    emp2.Nombre = emp1.NOMBRE;
-                }
+                emp2.CodAx = codax;
+                emp2.Nombre = dr.GetString(1);
+                ctx.SaveChanges();
                 // Actualizar los registros de proceso
                 Progresos progreso = (from p in ctx.Progresos
                                       where p.ProgresoId == 1
@@ -50,10 +58,12 @@ namespace PortalProWebApi
                     ctx.SaveChanges();
                 }
             }
+            dr.Close();
             ctx.Dispose();
+            con.Close();
             con.Dispose();
             return "";
         }
     }
-    public delegate string AsyncLaunchEmpresa(out int threadId);
+    public delegate string AsyncLaunchSqlEmpresa(out int threadId);
 }

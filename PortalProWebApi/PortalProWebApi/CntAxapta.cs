@@ -10,8 +10,8 @@ namespace PortalProWebApi
         public static bool ImportarEmpresas()
         {
             int threadId;
-            ImportEmpresa impEmpresa = new ImportEmpresa();
-            AsyncLaunchEmpresa caller = new AsyncLaunchEmpresa(impEmpresa.LaunchEmpresa);
+            ImportSqlEmpresa impEmpresa = new ImportSqlEmpresa();
+            AsyncLaunchSqlEmpresa caller = new AsyncLaunchSqlEmpresa(impEmpresa.LaunchEmpresa);
             IAsyncResult result = caller.BeginInvoke(out threadId, null, null);
             return true;
         }
@@ -19,17 +19,34 @@ namespace PortalProWebApi
         public static bool ImportarProveedors()
         {
             int threadId;
-            ImportProveedor impProveedor = new ImportProveedor();
+            ImportSqlProveedor impProveedor = new ImportSqlProveedor();
             //impProveedor.LaunchProveedor(out threadId);
-            AsyncLaunchProveedor caller = new AsyncLaunchProveedor(impProveedor.LaunchProveedor);
+            AsyncLaunchSqlProveedor caller = new AsyncLaunchSqlProveedor(impProveedor.LaunchProveedor);
             IAsyncResult result = caller.BeginInvoke(out threadId, null, null);
             return true;
         }
         public static bool ImportarResponsables()
         {
             int threadId;
-            ImportResponsable impResponsable = new ImportResponsable();
-            AsyncLaunchResponsable caller = new AsyncLaunchResponsable(impResponsable.LaunchResponsable);
+            ImportSqlResponsable impResponsable = new ImportSqlResponsable();
+            AsyncLaunchSqlResponsable caller = new AsyncLaunchSqlResponsable(impResponsable.LaunchResponsable);
+            IAsyncResult result = caller.BeginInvoke(out threadId, null, null);
+            return true;
+        }
+        public static bool ImportarPedidos()
+        {
+            int threadId;
+            ImportSqlPedido impPedido = new ImportSqlPedido();
+            AsyncLaunchSqlPedido caller = new AsyncLaunchSqlPedido(impPedido.LaunchPedido);
+            IAsyncResult result = caller.BeginInvoke(out threadId, null, null);
+            return true;
+        }
+
+        public static bool ImportarFacturas()
+        {
+            int threadId;
+            ImportSqlFactura impFactura = new ImportSqlFactura();
+            AsyncLaunchSqlFactura caller = new AsyncLaunchSqlFactura(impFactura.LaunchFactura);
             IAsyncResult result = caller.BeginInvoke(out threadId, null, null);
             return true;
         }

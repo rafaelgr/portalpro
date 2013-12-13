@@ -179,16 +179,16 @@
           <orm:column name="Email" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
         </orm:field>
         <orm:field name="_razonSocial" property="RazonSocial" uniqueId="3209a33e-93ae-40cd-bec6-d4c55d62cd57" type="System.String">
-          <orm:column name="RazonSocial" sql-type="varchar" nullable="false" length="255" scale="0" ado-type="" />
+          <orm:column name="RazonSocial" sql-type="varchar" nullable="true" length="255" scale="0" ado-type="" />
         </orm:field>
         <orm:field name="_personaContacto" property="PersonaContacto" uniqueId="52cc548d-29cb-4711-8177-5a618f6d5823" type="System.String">
           <orm:column name="PersonaContacto" sql-type="varchar" nullable="true" length="255" scale="0" ado-type="" />
         </orm:field>
         <orm:field name="_emailFacturas" property="EmailFacturas" uniqueId="0958dafc-8c22-4941-a6ad-4371c12a3b4a" type="System.String">
-          <orm:column name="EmailFacturas" sql-type="varchar" nullable="false" length="255" scale="0" ado-type="" />
+          <orm:column name="EmailFacturas" sql-type="varchar" nullable="true" length="255" scale="0" ado-type="" />
         </orm:field>
         <orm:field name="_iBAN" property="IBAN" uniqueId="82ca5e94-af3f-41b2-8b5d-113b1ff33e8b" type="System.String">
-          <orm:column name="IBAN" sql-type="varchar" nullable="false" length="255" scale="0" ado-type="" />
+          <orm:column name="IBAN" sql-type="varchar" nullable="true" length="255" scale="0" ado-type="" />
         </orm:field>
         <orm:field name="_actividadPrincipal" property="ActividadPrincipal" uniqueId="dd2b4782-b024-4f59-8707-98e9e5a31409" type="System.String">
           <orm:column name="ActividadPrincipal" sql-type="varchar" nullable="true" length="255" scale="0" ado-type="" />
@@ -197,7 +197,7 @@
           <orm:column name="CodAx" sql-type="varchar" nullable="true" length="10" scale="0" ado-type="" />
         </orm:field>
         <orm:field name="_facAbierto" property="FacAbierto" uniqueId="ccc2361a-b5bc-4b01-ab15-15dbd05083b1" type="System.Boolean">
-          <orm:column name="FacAbierto" sql-type="bit" nullable="false" length="1" scale="0" ado-type="" />
+          <orm:column name="FacAbierto" sql-type="bit" nullable="true" length="1" scale="0" ado-type="" />
         </orm:field>
         <orm:field name="_nif" property="Nif" uniqueId="f5142d9d-9def-4ed7-9f7c-b8c083655907" type="System.String" />
         <orm:field name="_grupoProveedor" property="GrupoProveedor" behavior="readwrite" uniqueId="770bad8d-fa9f-4718-81ce-4d10a60b42b8" type="PortalProModelo.GrupoProveedor">
@@ -503,13 +503,25 @@
           <orm:column name="NumeroPedido" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
         </orm:field>
         <orm:field name="_descripcion" property="Descripcion" uniqueId="f26aa2ca-e7c0-46c9-83ee-fa73102b6c89" type="System.String">
-          <orm:column name="Descripcion" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+          <orm:column name="Descripcion" sql-type="text" nullable="true" length="0" scale="0" ado-type="Varchar" />
         </orm:field>
         <orm:field name="_importe" property="Importe" uniqueId="473579a4-5e89-4fed-a955-65fc948a8f77" type="System.Decimal">
-          <orm:column name="Importe" sql-type="decimal" nullable="false" length="10" scale="2" ado-type="Numeric" />
+          <orm:column name="Importe" sql-type="decimal" nullable="false" length="20" scale="10" ado-type="Numeric" />
         </orm:field>
         <orm:field name="_porcentajeIva" property="PorcentajeIva" uniqueId="631761ea-e7c6-4ff8-9cac-a7e5acae937d" type="System.Decimal">
-          <orm:column name="PorcentajeIva" sql-type="decimal" nullable="false" length="5" scale="2" ado-type="Numeric" />
+          <orm:column name="PorcentajeIva" sql-type="decimal" nullable="false" length="20" scale="10" ado-type="Numeric" />
+        </orm:field>
+        <orm:field name="_numLineaPedido" property="NumLineaPedido" uniqueId="f6019576-d604-4ae7-bf21-c495a7142c83" type="System.Int32">
+          <orm:column name="NumLineaPedido" sql-type="integer" nullable="false" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+        </orm:field>
+        <orm:field name="_numFactura" property="NumFactura" uniqueId="698c20df-577c-404f-8734-44c77b4d91c5" type="System.String">
+          <orm:column name="NumFactura" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        </orm:field>
+        <orm:field name="_numLineaFactura" property="NumLineaFactura" uniqueId="7eff67d8-de9b-478b-b7f6-bc697e9f4b33" type="System.Int32">
+          <orm:column name="NumLineaFactura" sql-type="integer" nullable="false" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+        </orm:field>
+        <orm:field name="_fechaEmision" property="FechaEmision" uniqueId="7950713e-ab26-4333-b522-da5837920efa" type="System.DateTime">
+          <orm:column nullable="false" scale="0" length="0" sql-type="datetime" name="FechaEmision" ado-type="" />
         </orm:field>
         <orm:field name="_cabFactura" property="CabFactura" behavior="readwrite" uniqueId="45a0f306-e10b-4a8f-b1b8-7042a7b8e87d" type="PortalProModelo.CabFactura">
           <orm:reference uniqueId="99479ba3-b941-4d39-94d2-f99068cc96b7" />
@@ -614,13 +626,28 @@
           <orm:column name="LinPedidoId" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" backend-calculated="true" ado-type="Int32" />
         </orm:field>
         <orm:field name="_descripcion" property="Descripcion" uniqueId="1c14c953-df55-4fa4-b2b0-8d29abb3aca1" type="System.String">
-          <orm:column name="Descripcion" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+          <orm:column name="Descripcion" sql-type="text" nullable="true" length="0" scale="0" ado-type="Varchar" />
         </orm:field>
         <orm:field name="_importe" property="Importe" uniqueId="4dc3258b-11cb-4720-856f-3e57dd18100b" type="System.Decimal">
-          <orm:column name="Importe" sql-type="decimal" nullable="false" length="10" scale="2" ado-type="Numeric" />
+          <orm:column name="Importe" sql-type="decimal" nullable="false" length="20" scale="10" ado-type="Numeric" />
         </orm:field>
         <orm:field name="_porcentajeIva" property="PorcentajeIva" uniqueId="b9689c72-1d5a-4755-b1e6-e7ea9363abf9" type="System.Decimal">
-          <orm:column name="PorcentajeIva" sql-type="decimal" nullable="false" length="5" scale="2" ado-type="Numeric" />
+          <orm:column name="PorcentajeIva" sql-type="decimal" nullable="false" length="20" scale="10" ado-type="Numeric" />
+        </orm:field>
+        <orm:field name="_numPedido" property="NumPedido" uniqueId="77a136cc-fa94-43a0-b652-0415ec6d3284" type="System.String">
+          <orm:column name="NumPedido" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        </orm:field>
+        <orm:field name="_numLinea" property="NumLinea" uniqueId="bd52aef1-8a0b-4d00-8811-301902f62a19" type="System.Int32">
+          <orm:column name="NumLinea" sql-type="integer" nullable="false" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+        </orm:field>
+        <orm:field name="_facturado" property="Facturado" uniqueId="3f790d98-d08a-430a-a2b9-1314091b0740" type="System.Decimal">
+          <orm:column name="Facturado" sql-type="decimal" nullable="false" length="20" scale="10" ado-type="Numeric" />
+        </orm:field>
+        <orm:field name="_fechaRecepcion" property="FechaRecepcion" uniqueId="44dfbd69-e008-4704-951c-b154b951a968" type="System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]">
+          <orm:column name="FechaRecepcion" sql-type="datetime" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.Timestamp2DateTimeConverter" ado-type="DateTime" />
+        </orm:field>
+        <orm:field name="_estado" property="Estado" uniqueId="ad94b63e-1639-477f-a0a6-b03704e26f73" type="System.String">
+          <orm:column name="Estado" sql-type="varchar" nullable="true" length="255" scale="0" ado-type="" />
         </orm:field>
         <orm:field name="_pedido" property="Pedido" behavior="readwrite" uniqueId="10bcefdf-c30e-42b3-86cf-511f65f3ab1d" type="PortalProModelo.Pedido">
           <orm:reference uniqueId="2ef9c0aa-d285-45b6-98ff-c8b852d61572" />
@@ -760,13 +787,13 @@
         <orm:column name="Movil" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
         <orm:column name="Url" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
         <orm:column name="Email" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
-        <orm:column name="RazonSocial" sql-type="varchar" nullable="false" length="255" scale="0" ado-type="" />
+        <orm:column name="RazonSocial" sql-type="varchar" nullable="true" length="255" scale="0" ado-type="" />
         <orm:column name="PersonaContacto" sql-type="varchar" nullable="true" length="255" scale="0" ado-type="" />
-        <orm:column name="EmailFacturas" sql-type="varchar" nullable="false" length="255" scale="0" ado-type="" />
-        <orm:column name="IBAN" sql-type="varchar" nullable="false" length="255" scale="0" ado-type="" />
+        <orm:column name="EmailFacturas" sql-type="varchar" nullable="true" length="255" scale="0" ado-type="" />
+        <orm:column name="IBAN" sql-type="varchar" nullable="true" length="255" scale="0" ado-type="" />
         <orm:column name="ActividadPrincipal" sql-type="varchar" nullable="true" length="255" scale="0" ado-type="" />
         <orm:column name="CodAx" sql-type="varchar" nullable="true" length="10" scale="0" ado-type="" />
-        <orm:column name="FacAbierto" sql-type="bit" nullable="false" length="1" scale="0" ado-type="" />
+        <orm:column name="FacAbierto" sql-type="bit" nullable="true" length="1" scale="0" ado-type="" />
       </orm:table>
       <orm:table name="Documento">
         <orm:column name="DocumentoId" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" backend-calculated="true" ado-type="Int32" />
@@ -846,31 +873,6 @@
           </orm:columnMapping>
         </orm:index>
       </orm:table>
-      <orm:table name="LinFactura">
-        <orm:column name="LinFacturaId" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" backend-calculated="true" ado-type="Int32" />
-        <orm:column name="NumeroPedido" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
-        <orm:column name="Descripcion" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
-        <orm:column name="Importe" sql-type="decimal" nullable="false" length="10" scale="2" ado-type="Numeric" />
-        <orm:column name="PorcentajeIva" sql-type="decimal" nullable="false" length="5" scale="2" ado-type="Numeric" />
-        <orm:column name="CabFacturaId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
-        <orm:index name="idx_LinFactura_CabFacturaId">
-          <orm:columnMapping>
-            <orm:column name="CabFacturaId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
-          </orm:columnMapping>
-        </orm:index>
-      </orm:table>
-      <orm:table name="LinPedido">
-        <orm:column name="LinPedidoId" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" backend-calculated="true" ado-type="Int32" />
-        <orm:column name="Descripcion" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
-        <orm:column name="Importe" sql-type="decimal" nullable="false" length="10" scale="2" ado-type="Numeric" />
-        <orm:column name="PorcentajeIva" sql-type="decimal" nullable="false" length="5" scale="2" ado-type="Numeric" />
-        <orm:column name="PedidoId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
-        <orm:index name="idx_LinPedido_PedidoId">
-          <orm:columnMapping>
-            <orm:column name="PedidoId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
-          </orm:columnMapping>
-        </orm:index>
-      </orm:table>
       <orm:table name="Pedido">
         <orm:column name="PedidoId" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" backend-calculated="true" ado-type="Int32" />
         <orm:column name="FechaAlta" sql-type="datetime" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.Timestamp2DateTimeConverter" ado-type="DateTime" />
@@ -917,6 +919,40 @@
         <orm:index name="idx_CabFactura_ProveedorId">
           <orm:columnMapping>
             <orm:column name="ProveedorId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+          </orm:columnMapping>
+        </orm:index>
+      </orm:table>
+      <orm:table name="LinPedido">
+        <orm:column name="LinPedidoId" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" backend-calculated="true" ado-type="Int32" />
+        <orm:column name="Descripcion" sql-type="text" nullable="true" length="0" scale="0" ado-type="Varchar" />
+        <orm:column name="Importe" sql-type="decimal" nullable="false" length="20" scale="10" ado-type="Numeric" />
+        <orm:column name="PorcentajeIva" sql-type="decimal" nullable="false" length="20" scale="10" ado-type="Numeric" />
+        <orm:column name="NumPedido" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        <orm:column name="NumLinea" sql-type="integer" nullable="false" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+        <orm:column name="Facturado" sql-type="decimal" nullable="false" length="20" scale="10" ado-type="Numeric" />
+        <orm:column name="FechaRecepcion" sql-type="datetime" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.Timestamp2DateTimeConverter" ado-type="DateTime" />
+        <orm:column name="PedidoId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+        <orm:column name="Estado" sql-type="varchar" nullable="true" length="255" scale="0" ado-type="" />
+        <orm:index name="idx_LinPedido_PedidoId">
+          <orm:columnMapping>
+            <orm:column name="PedidoId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+          </orm:columnMapping>
+        </orm:index>
+      </orm:table>
+      <orm:table name="LinFactura">
+        <orm:column name="LinFacturaId" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" backend-calculated="true" ado-type="Int32" />
+        <orm:column name="NumeroPedido" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        <orm:column name="Descripcion" sql-type="text" nullable="true" length="0" scale="0" ado-type="Varchar" />
+        <orm:column name="Importe" sql-type="decimal" nullable="false" length="20" scale="10" ado-type="Numeric" />
+        <orm:column name="PorcentajeIva" sql-type="decimal" nullable="false" length="20" scale="10" ado-type="Numeric" />
+        <orm:column name="CabFacturaId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+        <orm:column name="NumLineaPedido" sql-type="integer" nullable="false" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+        <orm:column name="NumFactura" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        <orm:column name="NumLineaFactura" sql-type="integer" nullable="false" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+        <orm:column nullable="false" scale="0" length="0" sql-type="datetime" name="FechaEmision" ado-type="" />
+        <orm:index name="idx_LinFactura_CabFacturaId">
+          <orm:columnMapping>
+            <orm:column name="CabFacturaId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
           </orm:columnMapping>
         </orm:index>
       </orm:table>
@@ -1492,6 +1528,10 @@
       <Property Id="f26aa2ca-e7c0-46c9-83ee-fa73102b6c89" name="Descripcion" label="Descripcion : String" fieldName="_descripcion" />
       <Property Id="473579a4-5e89-4fed-a955-65fc948a8f77" name="Importe" type="Decimal" label="Importe : Decimal" fieldName="_importe" />
       <Property Id="631761ea-e7c6-4ff8-9cac-a7e5acae937d" name="PorcentajeIva" type="Decimal" label="PorcentajeIva : Decimal" fieldName="_porcentajeIva" />
+      <Property Id="f6019576-d604-4ae7-bf21-c495a7142c83" name="NumLineaPedido" type="Int32" label="NumLineaPedido : Int32" fieldName="_numLineaPedido" />
+      <Property Id="698c20df-577c-404f-8734-44c77b4d91c5" name="NumFactura" label="NumFactura : String" fieldName="_numFactura" />
+      <Property Id="7eff67d8-de9b-478b-b7f6-bc697e9f4b33" name="NumLineaFactura" type="Int32" label="NumLineaFactura : Int32" fieldName="_numLineaFactura" />
+      <Property Id="7950713e-ab26-4333-b522-da5837920efa" name="FechaEmision" type="DateTime" label="FechaEmision : DateTime" fieldName="_fechaEmision" />
       <AssociationTargets>
         <Association Id="99479ba3-b941-4d39-94d2-f99068cc96b7" SourceMultiplicity="ZeroOne" name="LinFacturaHasCabFactura">
           <DomainClassMoniker name="/PortalProContext/CabFactura" />
@@ -1646,6 +1686,11 @@
       <Property Id="1c14c953-df55-4fa4-b2b0-8d29abb3aca1" name="Descripcion" label="Descripcion : String" fieldName="_descripcion" />
       <Property Id="4dc3258b-11cb-4720-856f-3e57dd18100b" name="Importe" type="Decimal" label="Importe : Decimal" fieldName="_importe" />
       <Property Id="b9689c72-1d5a-4755-b1e6-e7ea9363abf9" name="PorcentajeIva" type="Decimal" label="PorcentajeIva : Decimal" fieldName="_porcentajeIva" />
+      <Property Id="77a136cc-fa94-43a0-b652-0415ec6d3284" name="NumPedido" label="NumPedido : String" fieldName="_numPedido" />
+      <Property Id="bd52aef1-8a0b-4d00-8811-301902f62a19" name="NumLinea" type="Int32" label="NumLinea : Int32" fieldName="_numLinea" />
+      <Property Id="3f790d98-d08a-430a-a2b9-1314091b0740" name="Facturado" type="Decimal" label="Facturado : Decimal" fieldName="_facturado" />
+      <Property Id="44dfbd69-e008-4704-951c-b154b951a968" name="FechaRecepcion" type="DateTime" label="FechaRecepcion : DateTime" nullable="true" fieldName="_fechaRecepcion" />
+      <Property Id="ad94b63e-1639-477f-a0a6-b03704e26f73" name="Estado" label="Estado : String" fieldName="_estado" />
       <AssociationTargets>
         <Association Id="2ef9c0aa-d285-45b6-98ff-c8b852d61572" SourceMultiplicity="ZeroOne" name="LinPedidoHasPedido">
           <DomainClassMoniker name="/PortalProContext/Pedido" />

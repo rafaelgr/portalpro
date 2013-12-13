@@ -89,6 +89,58 @@ namespace PortalProModelo
 			}
 		}
 		
+		private int _numLineaPedido;
+		public virtual int NumLineaPedido
+		{
+			get
+			{
+				return this._numLineaPedido;
+			}
+			set
+			{
+				this._numLineaPedido = value;
+			}
+		}
+		
+		private string _numFactura;
+		public virtual string NumFactura
+		{
+			get
+			{
+				return this._numFactura;
+			}
+			set
+			{
+				this._numFactura = value;
+			}
+		}
+		
+		private int _numLineaFactura;
+		public virtual int NumLineaFactura
+		{
+			get
+			{
+				return this._numLineaFactura;
+			}
+			set
+			{
+				this._numLineaFactura = value;
+			}
+		}
+		
+		private DateTime _fechaEmision;
+		public virtual DateTime FechaEmision
+		{
+			get
+			{
+				return this._fechaEmision;
+			}
+			set
+			{
+				this._fechaEmision = value;
+			}
+		}
+		
 		private CabFactura _cabFactura;
 		public virtual CabFactura CabFactura
 		{

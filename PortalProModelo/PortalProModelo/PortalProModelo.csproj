@@ -175,47 +175,12 @@
       <DependentUpon>PortalProEntities.rlinq</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <Content Include="SQL\PortalproConnection%282013-06-17 10-27-22%29.rlinq.sql" />
-    <Content Include="SQL\PortalproConnection%282013-06-18 09-48-36%29.rlinq.sql" />
-    <Content Include="SQL\PortalproConnection%282013-06-18 09-49-50%29.rlinq.sql" />
-    <Content Include="SQL\PortalproConnection%282013-06-19 08-24-27%29.rlinq.sql" />
-    <Content Include="SQL\PortalproConnection%282013-07-08 10-27-49%29.rlinq.sql" />
-    <Content Include="SQL\PortalproConnection%282013-07-08 11-50-55%29.rlinq.sql" />
-    <Content Include="SQL\PortalproConnection%282013-07-08 12-27-50%29.rlinq.sql" />
-    <Content Include="SQL\PortalproConnection%282013-07-08 13-07-18%29.rlinq.sql" />
-    <Content Include="SQL\PortalproConnection%282013-09-30 17-43-47%29.rlinq.sql" />
-    <Content Include="SQL\PortalproConnection%282013-10-11 10-48-23%29.rlinq.sql" />
-    <Content Include="SQL\PortalproConnection%282013-10-21 12-50-42%29.rlinq.sql" />
-    <Content Include="SQL\PortalproConnection%282013-11-04 13-09-13%29.rlinq.sql" />
-    <Content Include="SQL\PortalproConnection%282013-11-04 17-25-07%29.rlinq.sql" />
-    <Content Include="SQL\PortalproConnection%282013-11-11 09-34-22%29.rlinq.sql" />
-    <Content Include="SQL\PortalproConnection%282013-11-11 13-49-22%29.rlinq.sql" />
-    <Content Include="SQL\PortalproConnection%282013-11-11 13-50-59%29.rlinq.sql" />
-    <Content Include="SQL\PortalproConnection%282013-11-13 13-12-54%29.rlinq.sql" />
-    <Content Include="SQL\PortalproConnection%282013-11-18 21-27-48%29.rlinq.sql" />
-    <Content Include="SQL\PortalproConnection%282013-11-20 12-24-47%29.rlinq.sql" />
-    <Content Include="SQL\PortalproConnection%282013-11-20 12-30-43%29.rlinq.sql" />
-    <Content Include="SQL\PortalproConnection%282013-11-20 17-05-20%29.rlinq.sql" />
-    <Content Include="SQL\PortalproConnection%282013-11-20 17-12-01%29.rlinq.sql" />
-    <Content Include="SQL\PortalproConnection%282013-11-20 17-16-01%29.rlinq.sql" />
-    <Content Include="SQL\PortalproConnection%282013-11-24 10-16-30%29.rlinq.sql" />
-    <Content Include="SQL\PortalproConnection%282013-11-25 17-17-48%29.rlinq.sql" />
-    <Content Include="SQL\PortalproConnection%282013-11-29 12-43-06%29.rlinq.sql" />
-    <Content Include="SQL\PortalproConnection%282013-11-29 12-43-51%29.rlinq.sql" />
-    <Content Include="SQL\PortalproConnection%282013-11-29 12-54-51%29.rlinq.sql" />
-    <Content Include="SQL\PortalproConnection%282013-11-29 12-55-29%29.rlinq.sql" />
-    <Content Include="SQL\PortalproConnection%282013-12-02 12-01-29%29.rlinq.sql" />
-    <Content Include="SQL\PortalproConnection%282013-12-02 12-14-59%29.rlinq.sql" />
-    <Content Include="SQL\PortalproConnection%282013-12-02 12-15-51%29.rlinq.sql" />
-    <Content Include="SQL\PortalproConnection%282013-12-03 09-01-35%29.rlinq.sql" />
-    <Content Include="SQL\PortalproConnection%282013-12-03 11-02-14%29.rlinq.sql" />
-    <Content Include="SQL\PortalproConnection%282013-12-03 11-21-53%29.rlinq.sql" />
-    <Content Include="SQL\PortalproConnection%282013-12-09 13-34-54%29.rlinq.sql" />
-    <Content Include="SQL\PortalproConnection%282013-12-09 17-04-28%29.rlinq.sql" />
-    <Content Include="SQL\PortalproConnection%282013-12-09 19-02-16%29.rlinq.sql" />
-    <Content Include="SQL\PortalproConnection%282013-12-10 16-55-29%29.rlinq.sql" />
+    <Content Include="SQL\PortalproConnection%282013-12-11 16-22-14%29.rlinq.sql" />
+    <Content Include="SQL\PortalproConnection%282013-12-11 16-57-43%29.rlinq.sql" />
+    <Content Include="SQL\PortalproConnection%282013-12-11 16-58-37%29.rlinq.sql" />
+    <Content Include="SQL\PortalproConnection%282013-12-11 17-37-17%29.rlinq.sql" />
+    <Content Include="SQL\PortalproConnection%282013-12-11 18-25-41%29.rlinq.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
