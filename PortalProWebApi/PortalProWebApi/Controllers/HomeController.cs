@@ -12,5 +12,10 @@ namespace PortalProWebApi.Controllers
         {
             return View();
         }
+        public ActionResult Link()
+        {
+            return View();
+        }
+
     }
 }

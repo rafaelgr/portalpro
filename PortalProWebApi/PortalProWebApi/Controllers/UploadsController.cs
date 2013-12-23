@@ -13,7 +13,6 @@ namespace PortalProWebApi.Controllers
 {
     public class UploadsController : ApiController
     {
-       
         /// <summary>
         /// Se utiliza par subir ficheros al servidor
         /// el nombre completo del fichero a guardar se monta encadenando 
@@ -28,7 +27,7 @@ namespace PortalProWebApi.Controllers
         {
             using (PortalProContext ctx = new PortalProContext())
             {
-                if (!CntWebApiSeguridad.CheckTicket(tk, ctx) && tk!= "solicitud")
+                if (!CntWebApiSeguridad.CheckTicket(tk, ctx) && tk != "solicitud")
                 {
                     throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.Unauthorized, "Se necesita tique de autorización (Carga de ficheros)"));
                 }
@@ -94,6 +93,26 @@ namespace PortalProWebApi.Controllers
             HttpContext.Current.Response.AddHeader("Access-Control-Allow-Credentials", "true");
             return true;
         }
+
+        public string DeleteFile(string usuario, string item, string tipo, string tk)
+        {
+            string r = "";
+            using (PortalProContext ctx = new PortalProContext())
+            {
+                if (!CntWebApiSeguridad.CheckTicket(tk, ctx) && tk != "solicitud")
+                {
+                    throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.Unauthorized, "Se necesita tique de autorización (Carga de ficheros)"));
+                }
+            }
+            string root = System.Web.HttpContext.Current.Server.MapPath("~/uploads");
+            string fileName = String.Format("{0}-{1}-{2}-*", usuario, item, tipo);
+            foreach (FileInfo f in new DirectoryInfo(root).GetFiles(fileName))
+            {
+                f.Delete();
+            }
+            return r;
+        }
+
         /// <summary>
         /// Borra todos los ficheros del directorio de descargas que se han 
         /// cargado con el tique pasado
@@ -114,33 +133,42 @@ namespace PortalProWebApi.Controllers
             PortalProWebUtility.BorrarDocumentos(tk);
             return true;
         }
-        public void PostFile()
+
+        public UploadResponse PostFile(string usuario, string item, string tipo, string tk)
         {
-            HttpRequestMessage request = this.Request;
-            if (!request.Content.IsMimeMultipartContent())
+            using (PortalProContext ctx = new PortalProContext())
             {
-                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.UnsupportedMediaType));
-            }
-
-            string root = System.Web.HttpContext.Current.Server.MapPath("~/uploads");
-            var provider = new MultipartFormDataStreamProvider(root);
-
-            var task = request.Content.ReadAsMultipartAsync(provider).
-            ContinueWith<HttpResponseMessage>(o =>
-            {
-                FileInfo finfo = new FileInfo(provider.FileData.First().LocalFileName);
-                string fichero = provider.FileData.First().Headers.ContentDisposition.FileName.Replace("\"", "");
-                fichero = String.Format("PRUEBAS#{0}",fichero);
-                string destino = Path.Combine(root, fichero);
-                //File.Copy(finfo.FullName, destino, true);
-                //File.Delete(finfo.FullName);
-                File.Move(finfo.FullName, destino);
-                return new HttpResponseMessage()
+                if (!CntWebApiSeguridad.CheckTicket(tk, ctx) && tk != "solicitud")
                 {
-                    Content = new StringContent("")
-                };
-            });
-            HttpContext.Current.Response.AddHeader("Access-Control-Allow-Credentials", "true");
+                    throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.Unauthorized, "Se necesita tique de autorización (Carga de ficheros)"));
+                }
+            }
+            UploadResponse uR = new UploadResponse();
+            uR.Usuario = usuario;
+            uR.Item = item;
+            uR.Tipo = tipo;
+            string fileName = "";
+            HttpRequest request = HttpContext.Current.Request;
+            foreach (string file in request.Files)
+            {
+                HttpPostedFile hpf = request.Files[file] as HttpPostedFile;
+                if (hpf.ContentLength == 0)
+                    continue;
+                fileName = String.Format("{0}-{1}-{2}-{3}", usuario, item, tipo, Path.GetFileName(hpf.FileName));
+                string savedFileName = Path.Combine(
+                    AppDomain.CurrentDomain.BaseDirectory + "\\uploads",
+                    fileName);
+                hpf.SaveAs(savedFileName);
+            }
+            // obtener la raiz del servidor
+            // comenzar a partir de 8 es para evita '//'
+            uR.Url = "url";
+            int pos = request.Url.AbsoluteUri.IndexOf("/", 8);
+            if (pos > -1)
+                uR.Url = request.Url.AbsoluteUri.Substring(0, pos) + "/uploads/" + fileName;
+            uR.Status = 1;
+            uR.Message = "message";
+            return uR;
         }
     }
 }

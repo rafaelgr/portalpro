@@ -1,0 +1,1761 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>PortalProWebApi</name>
+    </assembly>
+    <members>
+        <member name="T:Resources.EditorLocalization">
+            <summary>
+              Clase de recurso fuertemente tipado, para buscar cadenas traducidas, etc.
+            </summary>
+        </member>
+        <member name="P:Resources.EditorLocalization.ResourceManager">
+            <summary>
+              Devuelve la instancia de ResourceManager almacenada en caché utilizada por esta clase.
+            </summary>
+        </member>
+        <member name="P:Resources.EditorLocalization.Culture">
+            <summary>
+              Invalida la propiedad CurrentUICulture del subproceso actual para todas las
+              búsquedas de recursos mediante esta clase de recurso fuertemente tipado.
+            </summary>
+        </member>
+        <member name="P:Resources.EditorLocalization.Bold">
+            <summary>
+              Busca una cadena traducida similar a Bold.
+            </summary>
+        </member>
+        <member name="P:Resources.EditorLocalization.Close">
+            <summary>
+              Busca una cadena traducida similar a Close.
+            </summary>
+        </member>
+        <member name="P:Resources.EditorLocalization.CreateLink">
+            <summary>
+              Busca una cadena traducida similar a Insert hyperlink.
+            </summary>
+        </member>
+        <member name="P:Resources.EditorLocalization.DeleteFile">
+            <summary>
+              Busca una cadena traducida similar a Are you sure you want to delete {0}?.
+            </summary>
+        </member>
+        <member name="P:Resources.EditorLocalization.DirectoryNotFound">
+            <summary>
+              Busca una cadena traducida similar a A directory with this name was not found..
+            </summary>
+        </member>
+        <member name="P:Resources.EditorLocalization.EmptyFolder">
+            <summary>
+              Busca una cadena traducida similar a Empty Folder.
+            </summary>
+        </member>
+        <member name="P:Resources.EditorLocalization.FontName">
+            <summary>
+              Busca una cadena traducida similar a Select font family.
+            </summary>
+        </member>
+        <member name="P:Resources.EditorLocalization.FontNameInherit">
+            <summary>
+              Busca una cadena traducida similar a (inherited font).
+            </summary>
+        </member>
+        <member name="P:Resources.EditorLocalization.FontSize">
+            <summary>
+              Busca una cadena traducida similar a Select font size.
+            </summary>
+        </member>
+        <member name="P:Resources.EditorLocalization.FontSizeInherit">
+            <summary>
+              Busca una cadena traducida similar a (inherited size).
+            </summary>
+        </member>
+        <member name="P:Resources.EditorLocalization.FormatBlock">
+            <summary>
+              Busca una cadena traducida similar a Select block type.
+            </summary>
+        </member>
+        <member name="P:Resources.EditorLocalization.Indent">
+            <summary>
+              Busca una cadena traducida similar a Indent.
+            </summary>
+        </member>
+        <member name="P:Resources.EditorLocalization.Insert">
+            <summary>
+              Busca una cadena traducida similar a Insert.
+            </summary>
+        </member>
+        <member name="P:Resources.EditorLocalization.InsertHtml">
+            <summary>
+              Busca una cadena traducida similar a Insert HTML.
+            </summary>
+        </member>
+        <member name="P:Resources.EditorLocalization.InsertImage">
+            <summary>
+              Busca una cadena traducida similar a Insert image.
+            </summary>
+        </member>
+        <member name="P:Resources.EditorLocalization.InsertOrderedList">
+            <summary>
+              Busca una cadena traducida similar a Insert ordered list.
+            </summary>
+        </member>
+        <member name="P:Resources.EditorLocalization.InsertUnorderedList">
+            <summary>
+              Busca una cadena traducida similar a Insert unordered list.
+            </summary>
+        </member>
+        <member name="P:Resources.EditorLocalization.InvalidFileType">
+            <summary>
+              Busca una cadena traducida similar a The selected file {0} is not valid. Supported file types are {1}..
+            </summary>
+        </member>
+        <member name="P:Resources.EditorLocalization.Italic">
+            <summary>
+              Busca una cadena traducida similar a Italic.
+            </summary>
+        </member>
+        <member name="P:Resources.EditorLocalization.JustifyCenter">
+            <summary>
+              Busca una cadena traducida similar a Center text.
+            </summary>
+        </member>
+        <member name="P:Resources.EditorLocalization.JustifyFull">
+            <summary>
+              Busca una cadena traducida similar a Justify.
+            </summary>
+        </member>
+        <member name="P:Resources.EditorLocalization.JustifyLeft">
+            <summary>
+              Busca una cadena traducida similar a Align text left.
+            </summary>
+        </member>
+        <member name="P:Resources.EditorLocalization.JustifyRight">
+            <summary>
+              Busca una cadena traducida similar a Align text right.
+            </summary>
+        </member>
+        <member name="P:Resources.EditorLocalization.OpenInNewWindow">
+            <summary>
+              Busca una cadena traducida similar a Open link in new window.
+            </summary>
+        </member>
+        <member name="P:Resources.EditorLocalization.Or">
+            <summary>
+              Busca una cadena traducida similar a or.
+            </summary>
+        </member>
+        <member name="P:Resources.EditorLocalization.OrderBy">
+            <summary>
+              Busca una cadena traducida similar a Arrange by:.
+            </summary>
+        </member>
+        <member name="P:Resources.EditorLocalization.OrderByName">
+            <summary>
+              Busca una cadena traducida similar a Name.
+            </summary>
+        </member>
+        <member name="P:Resources.EditorLocalization.OrderBySize">
+            <summary>
+              Busca una cadena traducida similar a Size.
+            </summary>
+        </member>
+        <member name="P:Resources.EditorLocalization.Outdent">
+            <summary>
+              Busca una cadena traducida similar a Outdent.
+            </summary>
+        </member>
+        <member name="P:Resources.EditorLocalization.OverwriteFile">
+            <summary>
+              Busca una cadena traducida similar a A file with name {0} already exists in the current directory. Do you want to overwrite it?.
+            </summary>
+        </member>
+        <member name="P:Resources.EditorLocalization.Strikethrough">
+            <summary>
+              Busca una cadena traducida similar a Strikethrough.
+            </summary>
+        </member>
+        <member name="P:Resources.EditorLocalization.Style">
+            <summary>
+              Busca una cadena traducida similar a Styles.
+            </summary>
+        </member>
+        <member name="P:Resources.EditorLocalization.Tooltip">
+            <summary>
+              Busca una cadena traducida similar a Tooltip.
+            </summary>
+        </member>
+        <member name="P:Resources.EditorLocalization.Underline">
+            <summary>
+              Busca una cadena traducida similar a Underline.
+            </summary>
+        </member>
+        <member name="P:Resources.EditorLocalization.Unlink">
+            <summary>
+              Busca una cadena traducida similar a Remove hyperlink.
+            </summary>
+        </member>
+        <member name="P:Resources.EditorLocalization.UploadFile">
+            <summary>
+              Busca una cadena traducida similar a Upload.
+            </summary>
+        </member>
+        <member name="P:Resources.EditorLocalization.WebAddress">
+            <summary>
+              Busca una cadena traducida similar a Web address.
+            </summary>
+        </member>
+        <member name="T:Resources.GridLocalization">
+            <summary>
+              Clase de recurso fuertemente tipado, para buscar cadenas traducidas, etc.
+            </summary>
+        </member>
+        <member name="P:Resources.GridLocalization.ResourceManager">
+            <summary>
+              Devuelve la instancia de ResourceManager almacenada en caché utilizada por esta clase.
+            </summary>
+        </member>
+        <member name="P:Resources.GridLocalization.Culture">
+            <summary>
+              Invalida la propiedad CurrentUICulture del subproceso actual para todas las
+              búsquedas de recursos mediante esta clase de recurso fuertemente tipado.
+            </summary>
+        </member>
+        <member name="P:Resources.GridLocalization.AddNew">
+            <summary>
+              Busca una cadena traducida similar a Add new record.
+            </summary>
+        </member>
+        <member name="P:Resources.GridLocalization.Cancel">
+            <summary>
+              Busca una cadena traducida similar a Cancel.
+            </summary>
+        </member>
+        <member name="P:Resources.GridLocalization.CancelChanges">
+            <summary>
+              Busca una cadena traducida similar a Cancel changes.
+            </summary>
+        </member>
+        <member name="P:Resources.GridLocalization.Delete">
+            <summary>
+              Busca una cadena traducida similar a Delete.
+            </summary>
+        </member>
+        <member name="P:Resources.GridLocalization.DeleteConfirmation">
+            <summary>
+              Busca una cadena traducida similar a Are you sure you want to delete this record?.
+            </summary>
+        </member>
+        <member name="P:Resources.GridLocalization.DisplayingItems">
+            <summary>
+              Busca una cadena traducida similar a Displaying items {0} - {1} of {2}.
+            </summary>
+        </member>
+        <member name="P:Resources.GridLocalization.Edit">
+            <summary>
+              Busca una cadena traducida similar a Edit.
+            </summary>
+        </member>
+        <member name="P:Resources.GridLocalization.Filter">
+            <summary>
+              Busca una cadena traducida similar a Filter.
+            </summary>
+        </member>
+        <member name="P:Resources.GridLocalization.FilterAnd">
+            <summary>
+              Busca una cadena traducida similar a And.
+            </summary>
+        </member>
+        <member name="P:Resources.GridLocalization.FilterBoolIsFalse">
+            <summary>
+              Busca una cadena traducida similar a is false.
+            </summary>
+        </member>
+        <member name="P:Resources.GridLocalization.FilterBoolIsTrue">
+            <summary>
+              Busca una cadena traducida similar a is true.
+            </summary>
+        </member>
+        <member name="P:Resources.GridLocalization.FilterClear">
+            <summary>
+              Busca una cadena traducida similar a Clear Filter.
+            </summary>
+        </member>
+        <member name="P:Resources.GridLocalization.FilterDateEq">
+            <summary>
+              Busca una cadena traducida similar a Is equal to.
+            </summary>
+        </member>
+        <member name="P:Resources.GridLocalization.FilterDateGe">
+            <summary>
+              Busca una cadena traducida similar a Is after or equal to.
+            </summary>
+        </member>
+        <member name="P:Resources.GridLocalization.FilterDateGt">
+            <summary>
+              Busca una cadena traducida similar a Is after.
+            </summary>
+        </member>
+        <member name="P:Resources.GridLocalization.FilterDateLe">
+            <summary>
+              Busca una cadena traducida similar a Is before or equal to.
+            </summary>
+        </member>
+        <member name="P:Resources.GridLocalization.FilterDateLt">
+            <summary>
+              Busca una cadena traducida similar a Is before.
+            </summary>
+        </member>
+        <member name="P:Resources.GridLocalization.FilterDateNe">
+            <summary>
+              Busca una cadena traducida similar a Is not equal to.
+            </summary>
+        </member>
+        <member name="P:Resources.GridLocalization.FilterEnumEq">
+            <summary>
+              Busca una cadena traducida similar a Is equal to.
+            </summary>
+        </member>
+        <member name="P:Resources.GridLocalization.FilterEnumNe">
+            <summary>
+              Busca una cadena traducida similar a Is not equal to.
+            </summary>
+        </member>
+        <member name="P:Resources.GridLocalization.FilterForeignKeyEq">
+            <summary>
+              Busca una cadena traducida similar a Is equal to.
+            </summary>
+        </member>
+        <member name="P:Resources.GridLocalization.FilterForeignKeyNe">
+            <summary>
+              Busca una cadena traducida similar a Is not equal to.
+            </summary>
+        </member>
+        <member name="P:Resources.GridLocalization.FilterNumberEq">
+            <summary>
+              Busca una cadena traducida similar a Is equal to.
+            </summary>
+        </member>
+        <member name="P:Resources.GridLocalization.FilterNumberGe">
+            <summary>
+              Busca una cadena traducida similar a Is greater than or equal to.
+            </summary>
+        </member>
+        <member name="P:Resources.GridLocalization.FilterNumberGt">
+            <summary>
+              Busca una cadena traducida similar a Is greater than.
+            </summary>
+        </member>
+        <member name="P:Resources.GridLocalization.FilterNumberLe">
+            <summary>
+              Busca una cadena traducida similar a Is less than or equal to.
+            </summary>
+        </member>
+        <member name="P:Resources.GridLocalization.FilterNumberLt">
+            <summary>
+              Busca una cadena traducida similar a Is less than.
+            </summary>
+        </member>
+        <member name="P:Resources.GridLocalization.FilterNumberNe">
+            <summary>
+              Busca una cadena traducida similar a Is not equal to.
+            </summary>
+        </member>
+        <member name="P:Resources.GridLocalization.FilterOr">
+            <summary>
+              Busca una cadena traducida similar a Or.
+            </summary>
+        </member>
+        <member name="P:Resources.GridLocalization.FilterSelectValue">
+            <summary>
+              Busca una cadena traducida similar a -Select value-.
+            </summary>
+        </member>
+        <member name="P:Resources.GridLocalization.FilterShowRows">
+            <summary>
+              Busca una cadena traducida similar a Show rows with value that.
+            </summary>
+        </member>
+        <member name="P:Resources.GridLocalization.FilterStringEndsWith">
+            <summary>
+              Busca una cadena traducida similar a Ends with.
+            </summary>
+        </member>
+        <member name="P:Resources.GridLocalization.FilterStringEq">
+            <summary>
+              Busca una cadena traducida similar a Is equal to.
+            </summary>
+        </member>
+        <member name="P:Resources.GridLocalization.FilterStringNe">
+            <summary>
+              Busca una cadena traducida similar a Is not equal to.
+            </summary>
+        </member>
+        <member name="P:Resources.GridLocalization.FilterStringNotSubstringOf">
+            <summary>
+              Busca una cadena traducida similar a Does not contain.
+            </summary>
+        </member>
+        <member name="P:Resources.GridLocalization.FilterStringStartsWith">
+            <summary>
+              Busca una cadena traducida similar a Starts with.
+            </summary>
+        </member>
+        <member name="P:Resources.GridLocalization.FilterStringSubstringOf">
+            <summary>
+              Busca una cadena traducida similar a Contains.
+            </summary>
+        </member>
+        <member name="P:Resources.GridLocalization.GroupHint">
+            <summary>
+              Busca una cadena traducida similar a Drag a column header and drop it here to group by that column.
+            </summary>
+        </member>
+        <member name="P:Resources.GridLocalization.Insert">
+            <summary>
+              Busca una cadena traducida similar a Insert.
+            </summary>
+        </member>
+        <member name="P:Resources.GridLocalization.NoRecords">
+            <summary>
+              Busca una cadena traducida similar a No records to display..
+            </summary>
+        </member>
+        <member name="P:Resources.GridLocalization.Page">
+            <summary>
+              Busca una cadena traducida similar a Page .
+            </summary>
+        </member>
+        <member name="P:Resources.GridLocalization.PageOf">
+            <summary>
+              Busca una cadena traducida similar a of {0}.
+            </summary>
+        </member>
+        <member name="P:Resources.GridLocalization.Refresh">
+            <summary>
+              Busca una cadena traducida similar a Refresh.
+            </summary>
+        </member>
+        <member name="P:Resources.GridLocalization.SaveChanges">
+            <summary>
+              Busca una cadena traducida similar a Save changes.
+            </summary>
+        </member>
+        <member name="P:Resources.GridLocalization.Select">
+            <summary>
+              Busca una cadena traducida similar a Select.
+            </summary>
+        </member>
+        <member name="P:Resources.GridLocalization.SortedAsc">
+            <summary>
+              Busca una cadena traducida similar a sorted ascending.
+            </summary>
+        </member>
+        <member name="P:Resources.GridLocalization.SortedDesc">
+            <summary>
+              Busca una cadena traducida similar a sorted descending.
+            </summary>
+        </member>
+        <member name="P:Resources.GridLocalization.UnGroup">
+            <summary>
+              Busca una cadena traducida similar a ungroup.
+            </summary>
+        </member>
+        <member name="P:Resources.GridLocalization.Update">
+            <summary>
+              Busca una cadena traducida similar a Update.
+            </summary>
+        </member>
+        <member name="M:PortalProWebApi.Areas.HelpPage.ApiDescriptionExtensions.GetFriendlyId(System.Web.Http.Description.ApiDescription)">
+            <summary>
+            Generates an URI-friendly ID for the <see cref="T:System.Web.Http.Description.ApiDescription"/>. E.g. "Get-Values-id_name" instead of "GetValues/{id}?name={name}"
+            </summary>
+            <param name="description">The <see cref="T:System.Web.Http.Description.ApiDescription"/>.</param>
+            <returns>The ID as a string.</returns>
+        </member>
+        <member name="T:PortalProWebApi.Areas.HelpPage.HelpPageConfig">
+            <summary>
+            Use this class to customize the Help Page.
+            For example you can set a custom <see cref="T:System.Web.Http.Description.IDocumentationProvider"/> to supply the documentation
+            or you can provide the samples for the requests/responses.
+            </summary>
+        </member>
+        <member name="T:PortalProWebApi.Areas.HelpPage.Controllers.HelpController">
+            <summary>
+            The controller that will handle requests for the help page.
+            </summary>
+        </member>
+        <member name="M:PortalProWebApi.Areas.HelpPage.HelpPageConfigurationExtensions.SetDocumentationProvider(System.Web.Http.HttpConfiguration,System.Web.Http.Description.IDocumentationProvider)">
+            <summary>
+            Sets the documentation provider for help page.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="documentationProvider">The documentation provider.</param>
+        </member>
+        <member name="M:PortalProWebApi.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleObjects(System.Web.Http.HttpConfiguration,System.Collections.Generic.IDictionary{System.Type,System.Object})">
+            <summary>
+            Sets the objects that will be used by the formatters to produce sample requests/responses.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sampleObjects">The sample objects.</param>
+        </member>
+        <member name="M:PortalProWebApi.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleRequest(System.Web.Http.HttpConfiguration,System.Object,System.Net.Http.Headers.MediaTypeHeaderValue,System.String,System.String)">
+            <summary>
+            Sets the sample request directly for the specified media type and action.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sample">The sample request.</param>
+            <param name="mediaType">The media type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+        </member>
+        <member name="M:PortalProWebApi.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleRequest(System.Web.Http.HttpConfiguration,System.Object,System.Net.Http.Headers.MediaTypeHeaderValue,System.String,System.String,System.String[])">
+            <summary>
+            Sets the sample request directly for the specified media type and action with parameters.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sample">The sample request.</param>
+            <param name="mediaType">The media type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+        </member>
+        <member name="M:PortalProWebApi.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleResponse(System.Web.Http.HttpConfiguration,System.Object,System.Net.Http.Headers.MediaTypeHeaderValue,System.String,System.String)">
+            <summary>
+            Sets the sample request directly for the specified media type of the action.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sample">The sample response.</param>
+            <param name="mediaType">The media type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+        </member>
+        <member name="M:PortalProWebApi.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleResponse(System.Web.Http.HttpConfiguration,System.Object,System.Net.Http.Headers.MediaTypeHeaderValue,System.String,System.String,System.String[])">
+            <summary>
+            Sets the sample response directly for the specified media type of the action with specific parameters.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sample">The sample response.</param>
+            <param name="mediaType">The media type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+        </member>
+        <member name="M:PortalProWebApi.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleForType(System.Web.Http.HttpConfiguration,System.Object,System.Net.Http.Headers.MediaTypeHeaderValue,System.Type)">
+            <summary>
+            Sets the sample directly for all actions with the specified type and media type.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sample">The sample.</param>
+            <param name="mediaType">The media type.</param>
+            <param name="type">The parameter type or return type of an action.</param>
+        </member>
+        <member name="M:PortalProWebApi.Areas.HelpPage.HelpPageConfigurationExtensions.SetActualRequestType(System.Web.Http.HttpConfiguration,System.Type,System.String,System.String)">
+            <summary>
+            Specifies the actual type of <see cref="T:System.Net.Http.ObjectContent`1"/> passed to the <see cref="T:System.Net.Http.HttpRequestMessage"/> in an action. 
+            The help page will use this information to produce more accurate request samples.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="type">The type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+        </member>
+        <member name="M:PortalProWebApi.Areas.HelpPage.HelpPageConfigurationExtensions.SetActualRequestType(System.Web.Http.HttpConfiguration,System.Type,System.String,System.String,System.String[])">
+            <summary>
+            Specifies the actual type of <see cref="T:System.Net.Http.ObjectContent`1"/> passed to the <see cref="T:System.Net.Http.HttpRequestMessage"/> in an action. 
+            The help page will use this information to produce more accurate request samples.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="type">The type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+        </member>
+        <member name="M:PortalProWebApi.Areas.HelpPage.HelpPageConfigurationExtensions.SetActualResponseType(System.Web.Http.HttpConfiguration,System.Type,System.String,System.String)">
+            <summary>
+            Specifies the actual type of <see cref="T:System.Net.Http.ObjectContent`1"/> returned as part of the <see cref="T:System.Net.Http.HttpRequestMessage"/> in an action. 
+            The help page will use this information to produce more accurate response samples.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="type">The type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+        </member>
+        <member name="M:PortalProWebApi.Areas.HelpPage.HelpPageConfigurationExtensions.SetActualResponseType(System.Web.Http.HttpConfiguration,System.Type,System.String,System.String,System.String[])">
+            <summary>
+            Specifies the actual type of <see cref="T:System.Net.Http.ObjectContent`1"/> returned as part of the <see cref="T:System.Net.Http.HttpRequestMessage"/> in an action. 
+            The help page will use this information to produce more accurate response samples.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="type">The type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+        </member>
+        <member name="M:PortalProWebApi.Areas.HelpPage.HelpPageConfigurationExtensions.GetHelpPageSampleGenerator(System.Web.Http.HttpConfiguration)">
+            <summary>
+            Gets the help page sample generator.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <returns>The help page sample generator.</returns>
+        </member>
+        <member name="M:PortalProWebApi.Areas.HelpPage.HelpPageConfigurationExtensions.SetHelpPageSampleGenerator(System.Web.Http.HttpConfiguration,PortalProWebApi.Areas.HelpPage.HelpPageSampleGenerator)">
+            <summary>
+            Sets the help page sample generator.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sampleGenerator">The help page sample generator.</param>
+        </member>
+        <member name="M:PortalProWebApi.Areas.HelpPage.HelpPageConfigurationExtensions.GetHelpPageApiModel(System.Web.Http.HttpConfiguration,System.String)">
+            <summary>
+            Gets the model that represents an API displayed on the help page. The model is initialized on the first call and cached for subsequent calls.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="apiDescriptionId">The <see cref="T:System.Web.Http.Description.ApiDescription"/> ID.</param>
+            <returns>
+            An <see cref="T:PortalProWebApi.Areas.HelpPage.Models.HelpPageApiModel"/>
+            </returns>
+        </member>
+        <member name="T:PortalProWebApi.Areas.HelpPage.Models.HelpPageApiModel">
+            <summary>
+            The model that represents an API displayed on the help page.
+            </summary>
+        </member>
+        <member name="M:PortalProWebApi.Areas.HelpPage.Models.HelpPageApiModel.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:PortalProWebApi.Areas.HelpPage.Models.HelpPageApiModel"/> class.
+            </summary>
+        </member>
+        <member name="P:PortalProWebApi.Areas.HelpPage.Models.HelpPageApiModel.ApiDescription">
+            <summary>
+            Gets or sets the <see cref="P:PortalProWebApi.Areas.HelpPage.Models.HelpPageApiModel.ApiDescription"/> that describes the API.
+            </summary>
+        </member>
+        <member name="P:PortalProWebApi.Areas.HelpPage.Models.HelpPageApiModel.SampleRequests">
+            <summary>
+            Gets the sample requests associated with the API.
+            </summary>
+        </member>
+        <member name="P:PortalProWebApi.Areas.HelpPage.Models.HelpPageApiModel.SampleResponses">
+            <summary>
+            Gets the sample responses associated with the API.
+            </summary>
+        </member>
+        <member name="P:PortalProWebApi.Areas.HelpPage.Models.HelpPageApiModel.ErrorMessages">
+            <summary>
+            Gets the error messages associated with this model.
+            </summary>
+        </member>
+        <member name="P:PortalProWebApi.Areas.HelpPage.Models.HelpPageApiModel.ResponseDocumentation">
+            <summary>
+            Gets or sets the response documentation
+            Help page customizations
+            </summary>
+        </member>
+        <member name="T:PortalProWebApi.Areas.HelpPage.HelpPageSampleGenerator">
+            <summary>
+            This class will generate the samples for the help page.
+            </summary>
+        </member>
+        <member name="M:PortalProWebApi.Areas.HelpPage.HelpPageSampleGenerator.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:PortalProWebApi.Areas.HelpPage.HelpPageSampleGenerator"/> class.
+            </summary>
+        </member>
+        <member name="M:PortalProWebApi.Areas.HelpPage.HelpPageSampleGenerator.GetSampleRequests(System.Web.Http.Description.ApiDescription)">
+            <summary>
+            Gets the request body samples for a given <see cref="T:System.Web.Http.Description.ApiDescription"/>.
+            </summary>
+            <param name="api">The <see cref="T:System.Web.Http.Description.ApiDescription"/>.</param>
+            <returns>The samples keyed by media type.</returns>
+        </member>
+        <member name="M:PortalProWebApi.Areas.HelpPage.HelpPageSampleGenerator.GetSampleResponses(System.Web.Http.Description.ApiDescription)">
+            <summary>
+            Gets the response body samples for a given <see cref="T:System.Web.Http.Description.ApiDescription"/>.
+            </summary>
+            <param name="api">The <see cref="T:System.Web.Http.Description.ApiDescription"/>.</param>
+            <returns>The samples keyed by media type.</returns>
+        </member>
+        <member name="M:PortalProWebApi.Areas.HelpPage.HelpPageSampleGenerator.GetSample(System.Web.Http.Description.ApiDescription,PortalProWebApi.Areas.HelpPage.SampleDirection)">
+            <summary>
+            Gets the request or response body samples.
+            </summary>
+            <param name="api">The <see cref="T:System.Web.Http.Description.ApiDescription"/>.</param>
+            <param name="sampleDirection">The value indicating whether the sample is for a request or for a response.</param>
+            <returns>The samples keyed by media type.</returns>
+        </member>
+        <member name="M:PortalProWebApi.Areas.HelpPage.HelpPageSampleGenerator.GetActionSample(System.String,System.String,System.Collections.Generic.IEnumerable{System.String},System.Type,System.Net.Http.Formatting.MediaTypeFormatter,System.Net.Http.Headers.MediaTypeHeaderValue,PortalProWebApi.Areas.HelpPage.SampleDirection)">
+            <summary>
+            Search for samples that are provided directly through <see cref="P:PortalProWebApi.Areas.HelpPage.HelpPageSampleGenerator.ActionSamples"/>.
+            </summary>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+            <param name="type">The CLR type.</param>
+            <param name="formatter">The formatter.</param>
+            <param name="mediaType">The media type.</param>
+            <param name="sampleDirection">The value indicating whether the sample is for a request or for a response.</param>
+            <returns>The sample that matches the parameters.</returns>
+        </member>
+        <member name="M:PortalProWebApi.Areas.HelpPage.HelpPageSampleGenerator.GetSampleObject(System.Type)">
+            <summary>
+            Gets the sample object that will be serialized by the formatters. 
+            First, it will look at the <see cref="P:PortalProWebApi.Areas.HelpPage.HelpPageSampleGenerator.SampleObjects"/>. If no sample object is found, it will try to create one using <see cref="T:PortalProWebApi.Areas.HelpPage.ObjectGenerator"/>.
+            </summary>
+            <param name="type">The type.</param>
+            <returns>The sample object.</returns>
+        </member>
+        <member name="M:PortalProWebApi.Areas.HelpPage.HelpPageSampleGenerator.ResolveType(System.Web.Http.Description.ApiDescription,System.String,System.String,System.Collections.Generic.IEnumerable{System.String},PortalProWebApi.Areas.HelpPage.SampleDirection,System.Collections.ObjectModel.Collection{System.Net.Http.Formatting.MediaTypeFormatter}@)">
+            <summary>
+            Resolves the type of the action parameter or return value when <see cref="T:System.Net.Http.HttpRequestMessage"/> or <see cref="T:System.Net.Http.HttpResponseMessage"/> is used.
+            </summary>
+            <param name="api">The <see cref="T:System.Web.Http.Description.ApiDescription"/>.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+            <param name="sampleDirection">The value indicating whether the sample is for a request or a response.</param>
+            <param name="formatters">The formatters.</param>
+        </member>
+        <member name="M:PortalProWebApi.Areas.HelpPage.HelpPageSampleGenerator.WriteSampleObjectUsingFormatter(System.Net.Http.Formatting.MediaTypeFormatter,System.Object,System.Type,System.Net.Http.Headers.MediaTypeHeaderValue)">
+            <summary>
+            Writes the sample object using formatter.
+            </summary>
+            <param name="formatter">The formatter.</param>
+            <param name="value">The value.</param>
+            <param name="type">The type.</param>
+            <param name="mediaType">Type of the media.</param>
+            <returns></returns>
+        </member>
+        <member name="P:PortalProWebApi.Areas.HelpPage.HelpPageSampleGenerator.ActualHttpMessageTypes">
+            <summary>
+            Gets CLR types that are used as the content of <see cref="T:System.Net.Http.HttpRequestMessage"/> or <see cref="T:System.Net.Http.HttpResponseMessage"/>.
+            </summary>
+        </member>
+        <member name="P:PortalProWebApi.Areas.HelpPage.HelpPageSampleGenerator.ActionSamples">
+            <summary>
+            Gets the objects that are used directly as samples for certain actions.
+            </summary>
+        </member>
+        <member name="P:PortalProWebApi.Areas.HelpPage.HelpPageSampleGenerator.SampleObjects">
+            <summary>
+            Gets the objects that are serialized as samples by the supported formatters.
+            </summary>
+        </member>
+        <member name="T:PortalProWebApi.Areas.HelpPage.HelpPageSampleKey">
+            <summary>
+            This is used to identify the place where the sample should be applied.
+            </summary>
+        </member>
+        <member name="M:PortalProWebApi.Areas.HelpPage.HelpPageSampleKey.#ctor(System.Net.Http.Headers.MediaTypeHeaderValue,System.Type)">
+            <summary>
+            Creates a new <see cref="T:PortalProWebApi.Areas.HelpPage.HelpPageSampleKey"/> based on media type and CLR type.
+            </summary>
+            <param name="mediaType">The media type.</param>
+            <param name="type">The CLR type.</param>
+        </member>
+        <member name="M:PortalProWebApi.Areas.HelpPage.HelpPageSampleKey.#ctor(PortalProWebApi.Areas.HelpPage.SampleDirection,System.String,System.String,System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Creates a new <see cref="T:PortalProWebApi.Areas.HelpPage.HelpPageSampleKey"/> based on <see cref="P:PortalProWebApi.Areas.HelpPage.HelpPageSampleKey.SampleDirection"/>, controller name, action name and parameter names.
+            </summary>
+            <param name="sampleDirection">The <see cref="P:PortalProWebApi.Areas.HelpPage.HelpPageSampleKey.SampleDirection"/>.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+        </member>
+        <member name="M:PortalProWebApi.Areas.HelpPage.HelpPageSampleKey.#ctor(System.Net.Http.Headers.MediaTypeHeaderValue,PortalProWebApi.Areas.HelpPage.SampleDirection,System.String,System.String,System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Creates a new <see cref="T:PortalProWebApi.Areas.HelpPage.HelpPageSampleKey"/> based on media type, <see cref="P:PortalProWebApi.Areas.HelpPage.HelpPageSampleKey.SampleDirection"/>, controller name, action name and parameter names.
+            </summary>
+            <param name="mediaType">The media type.</param>
+            <param name="sampleDirection">The <see cref="P:PortalProWebApi.Areas.HelpPage.HelpPageSampleKey.SampleDirection"/>.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+        </member>
+        <member name="P:PortalProWebApi.Areas.HelpPage.HelpPageSampleKey.ControllerName">
+            <summary>
+            Gets the name of the controller.
+            </summary>
+            <value>
+            The name of the controller.
+            </value>
+        </member>
+        <member name="P:PortalProWebApi.Areas.HelpPage.HelpPageSampleKey.ActionName">
+            <summary>
+            Gets the name of the action.
+            </summary>
+            <value>
+            The name of the action.
+            </value>
+        </member>
+        <member name="P:PortalProWebApi.Areas.HelpPage.HelpPageSampleKey.MediaType">
+            <summary>
+            Gets the media type.
+            </summary>
+            <value>
+            The media type.
+            </value>
+        </member>
+        <member name="P:PortalProWebApi.Areas.HelpPage.HelpPageSampleKey.ParameterNames">
+            <summary>
+            Gets the parameter names.
+            </summary>
+        </member>
+        <member name="P:PortalProWebApi.Areas.HelpPage.HelpPageSampleKey.SampleDirection">
+            <summary>
+            Gets the <see cref="P:PortalProWebApi.Areas.HelpPage.HelpPageSampleKey.SampleDirection"/>.
+            </summary>
+        </member>
+        <member name="T:PortalProWebApi.Areas.HelpPage.ImageSample">
+            <summary>
+            This represents an image sample on the help page. There's a display template named ImageSample associated with this class.
+            </summary>
+        </member>
+        <member name="M:PortalProWebApi.Areas.HelpPage.ImageSample.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:PortalProWebApi.Areas.HelpPage.ImageSample"/> class.
+            </summary>
+            <param name="src">The URL of an image.</param>
+        </member>
+        <member name="T:PortalProWebApi.Areas.HelpPage.InvalidSample">
+            <summary>
+            This represents an invalid sample on the help page. There's a display template named InvalidSample associated with this class.
+            </summary>
+        </member>
+        <member name="T:PortalProWebApi.Areas.HelpPage.ObjectGenerator">
+            <summary>
+            This class will create an object of a given type and populate it with sample data.
+            </summary>
+        </member>
+        <member name="M:PortalProWebApi.Areas.HelpPage.ObjectGenerator.GenerateObject(System.Type)">
+            <summary>
+            Generates an object for a given type. The type needs to be public, have a public default constructor and settable public properties/fields. Currently it supports the following types:
+            Simple types: <see cref="T:System.Int32"/>, <see cref="T:System.String"/>, <see cref="T:System.Enum"/>, <see cref="T:System.DateTime"/>, <see cref="T:System.Uri"/>, etc.
+            Complex types: POCO types.
+            Nullables: <see cref="T:System.Nullable`1"/>.
+            Arrays: arrays of simple types or complex types.
+            Key value pairs: <see cref="T:System.Collections.Generic.KeyValuePair`2"/>
+            Tuples: <see cref="T:System.Tuple`1"/>, <see cref="T:System.Tuple`2"/>, etc
+            Dictionaries: <see cref="T:System.Collections.Generic.IDictionary`2"/> or anything deriving from <see cref="T:System.Collections.Generic.IDictionary`2"/>.
+            Collections: <see cref="T:System.Collections.Generic.IList`1"/>, <see cref="T:System.Collections.Generic.IEnumerable`1"/>, <see cref="T:System.Collections.Generic.ICollection`1"/>, <see cref="T:System.Collections.IList"/>, <see cref="T:System.Collections.IEnumerable"/>, <see cref="T:System.Collections.ICollection"/> or anything deriving from <see cref="T:System.Collections.Generic.ICollection`1"/> or <see cref="T:System.Collections.IList"/>.
+            Queryables: <see cref="T:System.Linq.IQueryable"/>, <see cref="T:System.Linq.IQueryable`1"/>.
+            </summary>
+            <param name="type">The type.</param>
+            <returns>An object of the given type.</returns>
+        </member>
+        <member name="T:PortalProWebApi.Areas.HelpPage.SampleDirection">
+            <summary>
+            Indicates whether the sample is used for request or response
+            </summary>
+        </member>
+        <member name="T:PortalProWebApi.Areas.HelpPage.TextSample">
+            <summary>
+            This represents a preformatted text sample on the help page. There's a display template named TextSample associated with this class.
+            </summary>
+        </member>
+        <member name="T:PortalProWebApi.Areas.HelpPage.XmlDocumentationProvider">
+            <summary>
+            A custom <see cref="T:System.Web.Http.Description.IDocumentationProvider"/> that reads the API documentation from an XML documentation file.
+            </summary>
+        </member>
+        <member name="M:PortalProWebApi.Areas.HelpPage.XmlDocumentationProvider.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:PortalProWebApi.Areas.HelpPage.XmlDocumentationProvider"/> class.
+            </summary>
+            <param name="documentPath">The physical path to XML document.</param>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.FacturaController.Get(System.String)">
+            <summary>
+            Obtiene todos las cabeceras de factura de la base de datos
+            </summary>
+            <param name="tk">Código del tique de autorización (Véase "Login")</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.FacturaController.Get(System.Int32,System.String,System.String)">
+            <summary>
+            Obtiene la cabecera de factura cuyo ID corresponde con el pasado
+            </summary>
+            <param name="id">Identificador único de la factura</param>
+            <param name="tk">Código del tique de autorización (Véase "Login")</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.FacturaController.Post(PortalProModelo.CabFactura,System.String)">
+            <summary>
+            Crear un nueva cabecera de factura
+            </summary>
+            <param name="CabFactura">Objeto a crear, el atributo CabFacturaId lo genera la aplicación y es devuelto en el objeto incluido en la respuesta.</param>
+            <param name="tk"> Tique de autorzación (se debe obtener con la accion Login)</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.FacturaController.Put(System.Int32,PortalProModelo.CabFactura,System.String)">
+            <summary>
+            Modificar una cabecera de factura. En el cuerpo del mensaje se envía en el formato adecuado el objeto con los datos modificados
+            </summary>
+            <param name="id"> Identificador único de la cabecera de factura </param>
+            <param name="factura">Cabecera de factura los valores que se desean en sus atributos</param>
+            <param name="tk"> Tique de autorización (Ver 'Login')</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.FacturaController.Delete(System.Int32,System.String)">
+            <summary>
+            Elimina la factura que coincide con el id pasado
+            </summary>
+            <param name="id">Identificador de la factura a eliminar</param>
+            <param name="tk">Tique de autorización (Ver 'Login')</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.PedidoController.Get(System.String)">
+            <summary>
+            Obtiene todos los pedidos de la base de datos
+            </summary>
+            <param name="tk">Código del tique de autorización (Véase "Login")</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.PedidoController.Get(System.Int32,System.String,System.String)">
+            <summary>
+            Obtiene la cabecera de pedido cuyo ID corresponde con el pasado
+            </summary>
+            <param name="id">Identificador único del pedido</param>
+            <param name="tk">Código del tique de autorización (Véase "Login")</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.PedidoController.Post(PortalProModelo.Pedido,System.String)">
+            <summary>
+            Crear un nueva cabecera de pedido
+            </summary>
+            <param name="Pedido">Objeto a crear, el atributo PedidoId lo genera la aplicación y es devuelto en el objeto incluido en la respuesta.</param>
+            <param name="tk"> Tique de autorización (se debe obtener con la accion Login)</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.PedidoController.Put(System.Int32,PortalProModelo.Pedido,System.String)">
+            <summary>
+            Modificar una cabecera de pedido. En el cuerpo del mensaje se envía en el formato adecuado el objeto con los datos modificados
+            </summary>
+            <param name="id"> Identificador único de la cabecera de factura </param>
+            <param name="pedido">Cabecera de pedido los valores que se desean en sus atributos</param>
+            <param name="tk"> Tique de autorización (Ver 'Login')</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.PedidoController.Delete(System.Int32,System.String)">
+            <summary>
+            Elimina el pedido que coincide con el id pasado
+            </summary>
+            <param name="id">Identificador de la factura a eliminar</param>
+            <param name="tk">Tique de autorización (Ver 'Login')</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.ResponsablesController.Get(System.String)">
+            <summary>
+            Obtiene todos los Responsables de la base de datos
+            </summary>
+            <param name="tk">Código del tique de autorización (Véase "Login")</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.ResponsablesController.Get(System.Int32,System.String)">
+            <summary>
+            Obtiene un Responsables cuyo ID corresponde con el pasado
+            </summary>
+            <param name="id">Identificador único de la Responsable</param>
+            <param name="tk">Código del tique de autorización (Véase "Login")</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.ResponsablesController.Post(PortalProModelo.Responsable,System.String)">
+            <summary>
+            Crear un nuevo Responsables
+            </summary>
+            <param name="responsable">Objeto a crear, el atributo ResponsableId lo genera la aplicación y es devuelto en el objeto incluido en la respuesta.</param>
+            <param name="tk"> Tique de autorzación (se debe obtener con la accion Login)</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.ResponsablesController.Put(System.Int32,PortalProModelo.Responsable,System.String)">
+            <summary>
+            Modificar una Responsable. En el cuerpo del mensaje se envía en el formato adecuado el objeto con los datos modificados
+            </summary>
+            <param name="id"> Identificador único de la Responsable </param>
+            <param name="responsable">Grupo de usuario con los valores que se desean en sus atributos</param>
+            <param name="tk"> Tique de autorización (Ver 'Login')</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.ResponsablesController.Delete(System.Int32,System.String)">
+            <summary>
+            Elimina la Responsable que coincide con el id pasado
+            </summary>
+            <param name="id">Identificador de la Responsable a eliminar</param>
+            <param name="tk">Tique de autorización (Ver 'Login')</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.EmpresasController.Get(System.String)">
+            <summary>
+            Obtiene todos los empresas de la base de datos
+            </summary>
+            <param name="tk">Código del tique de autorización (Véase "Login")</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.EmpresasController.Get(System.Int32,System.String)">
+            <summary>
+            Obtiene un Empresas cuyo ID corresponde con el pasado
+            </summary>
+            <param name="id">Identificador único de la empresa</param>
+            <param name="tk">Código del tique de autorización (Véase "Login")</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.EmpresasController.Post(PortalProModelo.Empresa,System.String)">
+            <summary>
+            Crear un nuevo Empresas
+            </summary>
+            <param name="empresa">Objeto a crear, el atributo EmpresaId lo genera la aplicación y es devuelto en el objeto incluido en la respuesta.</param>
+            <param name="tk"> Tique de autorzación (se debe obtener con la accion Login)</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.EmpresasController.Put(System.Int32,PortalProModelo.Empresa,System.String)">
+            <summary>
+            Modificar una empresa. En el cuerpo del mensaje se envía en el formato adecuado el objeto con los datos modificados
+            </summary>
+            <param name="id"> Identificador único de la empresa </param>
+            <param name="empresa">Grupo de usuario con los valores que se desean en sus atributos</param>
+            <param name="tk"> Tique de autorización (Ver 'Login')</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.EmpresasController.Delete(System.Int32,System.String)">
+            <summary>
+            Elimina la empresa que coincide con el id pasado
+            </summary>
+            <param name="id">Identificador de la empresa a eliminar</param>
+            <param name="tk">Tique de autorización (Ver 'Login')</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.ParametrosController.Get(System.String)">
+            <summary>
+            Obtiene todos las Parametros de la base de datos
+            </summary>
+            <param name="tk">Código del tique de autorización (Véase "Login")</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.ParametrosController.Get(System.Int32,System.String)">
+            <summary>
+            Obtiene una Parametro cuyo ID corresponde con el pasado
+            </summary>
+            <param name="id">Identificador único de la Parametro</param>
+            <param name="tk">Código del tique de autorización (Véase "Login")</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.ParametrosController.Get(System.Int32)">
+            <summary>
+            Obtiene una Parametro cuyo ID corresponde con el pasado
+            en este caso no necesita tique porque es para solicitudes.
+            </summary>
+            <param name="id">Identificador único de la Parametro</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.ParametrosController.Post(PortalProModelo.Parametro,System.String)">
+            <summary>
+            Crear un nuevo Parametro de proveedores
+            </summary>
+            <param name="parametro">Objeto a crear, el atributo ParametroId lo genera la aplicación y es devuelto en el objeto incluido en la respuesta.</param>
+            <param name="tk"> Tique de autorzación (se debe obtener con la accion Login)</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.ParametrosController.Put(System.Int32,PortalProModelo.Parametro,System.String)">
+            <summary>
+            Modificar un Parametro de proveedor. En el cuerpo del mensaje se envía en el formato adecuado el objeto con los datos modificados
+            </summary>
+            <param name="id"> Identificador único de la Parametro </param>
+            <param name="parametro">Grupo de poveedor con los valores que se desean en sus atributos</param>
+            <param name="tk"> Tique de autorización (Ver 'Login')</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.ParametrosController.Delete(System.Int32,System.String)">
+            <summary>
+            Elimina el Parametro que coincide con el id pasado
+            </summary>
+            <param name="id">Identificador de la Parametro a eliminar</param>
+            <param name="tk">Tique de autorización (Ver 'Login')</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.LoginProveedorController.GetLoginProveedor(System.String,System.String)">
+            <summary>
+            (usuarios de proveedor)
+            Tras comprobar que un usuario con el login y password dados 
+            existe, crea un tique que devuelve en el cuerpo del mensaje
+            </summary>
+            <param name="login">Login del usuario</param>
+            <param name="password">Contraseña del usuario</param>
+            <returns>Un objeto que representa un tique</returns>
+            <remarks>Este es un comentario adicional</remarks>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.LoginProveedorController.PutLoginProveedor(System.String)">
+            <summary>
+            Renueva el tique por 30 minutos adicionales
+            </summary>
+            <param name="tk">Tique que se desea renovar</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.LinPedidoController.GetLineas(System.Int32,System.String)">
+            <summary>
+            Devuelve las líneas que corresponden a un pedido determinado
+            </summary>
+            <param name="idPed">Identificador del pedido al que pertencen las líneas</param>
+            <param name="tk">Código del tique de autorización (Véase "Login")</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.LinPedidoController.Get(System.Int32,System.String)">
+            <summary>
+            Devuelve la línea de pedido que coincide con el id proporcionado
+            </summary>
+            <param name="id">Identificador único de la línea</param>
+            <param name="tk">Código del tique de autorización (Véase "Login")</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.LinPedidoController.Post(PortalProModelo.LinPedido,System.String)">
+            <summary>
+            Crear una nueva línea de pedido
+            </summary>
+            <param name="LinPedido">Objeto a crear, el atributo LinPedidoId lo genera la aplicación y es devuelto en el objeto incluido en la respuesta.</param>
+            <param name="tk"> Tique de autorización (se debe obtener con la accion Login)</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.LinPedidoController.Put(System.Int32,PortalProModelo.LinPedido,System.String)">
+            <summary>
+            Modificar una linea de pedido. En el cuerpo del mensaje se envía en el formato adecuado el objeto con los datos modificados
+            </summary>
+            <param name="id"> Identificador único de la linea de pedido</param>
+            <param name="linea">Linea de pedido con los valores que se desean en sus atributos</param>
+            <param name="tk"> Tique de autorización (Ver 'Login')</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.LinPedidoController.Delete(System.Int32,System.String)">
+            <summary>
+            Elimina la linea que coincide con el id pasado
+            </summary>
+            <param name="id">Identificador de la linea a eliminar</param>
+            <param name="tk">Tique de autorización (Ver 'Login')</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.UsuarioProveedorController.Get(System.String)">
+            <summary>
+            Obtiene todos los usuarios ligados a proveedores de la base de  datos
+            </summary>
+            <param name="tk">Código del tique de autorización (Véase "Login")</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.UsuarioProveedorController.Get(System.Int32,System.String)">
+            <summary>
+            Obtiene el usuario de proveedor cuyo ID corresponde con el pasado
+            </summary>
+            <param name="id">Identificador único del grupo</param>
+            <param name="tk">Código del tique de autorización (Véase "Login")</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.UsuarioProveedorController.Post(PortalProModelo.UsuarioProveedor,System.String)">
+            <summary>
+            Crear un nuevo usuario de proveedor
+            </summary>
+            <param name="Usuario">Objeto a crear, el atributo UsuarioPorveedorId lo genera la aplicación y es devuelto en el objeto incluido en la respuesta.</param>
+            <param name="tk"> Tique de autorización (se debe obtener con la accion Login)</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.UsuarioProveedorController.Put(System.Int32,PortalProModelo.UsuarioProveedor,System.String)">
+            <summary>
+            Modificar un usuario ligado a un proveedor. En el cuerpo del mensaje se envía en el formato adecuado el objeto con los datos modificados
+            </summary>
+            <param name="id"> Identificador único del usuario </param>
+            <param name="usuarioProveedor">Datos del usario ligado a proveedor</param>
+            <param name="tk"> Tique de autorización (Ver 'Login')</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.UsuarioProveedorController.Delete(System.Int32,System.String)">
+            <summary>
+            Elimina el usuario que coincide con el id pasado
+            </summary>
+            <param name="id">Identificador del usuario a eliminar</param>
+            <param name="tk">Tique de autorización (Ver 'Login')</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.IndicadoresController.Get(System.String)">
+            <summary>
+            Retorna un vector con parejas de nombre y valor
+            que reflejan una serie de indicadores:
+            n_solPro = Número de solicitudes de proveedores
+            n_solProA = Núemro de solicitudes aceptadas.
+            n_solProR = Número de solicitudes rechazadas
+            </summary>
+            <param name="tk">Tique de autorización (ver Login)</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.LinFacturaController.GetLineas(System.Int32,System.String)">
+            <summary>
+            Devuelve las líneas que corresponden a una factura determinada
+            </summary>
+            <param name="idFac">Identificador de la factura a la que pertencen las líneas</param>
+            <param name="tk">Código del tique de autorización (Véase "Login")</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.LinFacturaController.Get(System.Int32,System.String)">
+            <summary>
+            Devuelve la línea de factura que coincide con el id proporcionado
+            </summary>
+            <param name="id">Identificador único de la línea</param>
+            <param name="tk">Código del tique de autorización (Véase "Login")</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.LinFacturaController.Post(PortalProModelo.LinFactura,System.String)">
+            <summary>
+            Crear una nueva línea de factura
+            </summary>
+            <param name="LinFactura">Objeto a crear, el atributo LinFacturaId lo genera la aplicación y es devuelto en el objeto incluido en la respuesta.</param>
+            <param name="tk"> Tique de autorzación (se debe obtener con la accion Login)</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.LinFacturaController.Put(System.Int32,PortalProModelo.LinFactura,System.String)">
+            <summary>
+            Modificar una linea de factura. En el cuerpo del mensaje se envía en el formato adecuado el objeto con los datos modificados
+            </summary>
+            <param name="id"> Identificador único de la linea de fcatura</param>
+            <param name="linea">Linea de fcatura con los valores que se desean en sus atributos</param>
+            <param name="tk"> Tique de autorización (Ver 'Login')</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.LinFacturaController.Delete(System.Int32,System.String)">
+            <summary>
+            Elimina la linea que coincide con el id pasado
+            </summary>
+            <param name="id">Identificador de la linea a eliminar</param>
+            <param name="tk">Tique de autorización (Ver 'Login')</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.SolicitudesLogController.Get(System.String)">
+            <summary>
+            Obtiene todos los log de solicitudes de la base de datos
+            </summary>
+            <param name="tk">Código del tique de autorización (Véase "Login")</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.SolicitudesLogController.Get(System.Int32,System.String)">
+            <summary>
+            Obtiene log de solicitud que corresponde con el pasado
+            </summary>
+            <param name="id">Identificador único del log</param>
+            <param name="tk">Código del tique de autorización (Véase "Login")</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.SolicitudesLogController.Post(PortalProModelo.SolicitudLog,System.String)">
+            <summary>
+            Crear un nuevo solog
+            </summary>
+            <param name="SolicitudLog">Objeto a crear, el atributo SolicitudLogId lo genera la aplicación y es devuelto en el objeto incluido en la respuesta.</param>
+            <param name="tk"> Tique de autorzación (se debe obtener con la accion Login)</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.SolicitudesLogController.Put(System.Int32,PortalProModelo.SolicitudLog,System.String)">
+            <summary>
+            Modificar un log de solicitud. En el cuerpo del mensaje se envía en el formato adecuado el objeto con los datos modificados
+            </summary>
+            <param name="id"> Identificador único del log </param>
+            <param name="solog">Log de solicitud con los valores que se desean en sus atributos</param>
+            <param name="tk"> Tique de autorización (Ver 'Login')</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.SolicitudesLogController.Delete(System.Int32,System.String)">
+            <summary>
+            Elimina el log que coincide con el id pasado. La solicitud a la que pertenece
+            pasa al estado de pendiente.
+            </summary>
+            <param name="id">Identificador del log a eliminar</param>
+            <param name="tk">Tique de autorización (Ver 'Login')</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.PlantillasController.Get(System.String)">
+            <summary>
+            Obtiene todos las plantillas de la base de datos
+            </summary>
+            <param name="tk">Código del tique de autorización (Véase "Login")</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.PlantillasController.Get(System.Int32,System.String)">
+            <summary>
+            Obtiene una plantilla cuyo ID corresponde con el pasado
+            </summary>
+            <param name="id">Identificador único de la plantilla</param>
+            <param name="tk">Código del tique de autorización (Véase "Login")</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.PlantillasController.Get(System.Int32)">
+            <summary>
+            Obtiene una plantilla cuyo ID corresponde con el pasado
+            en este caso no necesita tique porque es para solicitudes.
+            </summary>
+            <param name="id">Identificador único de la plantilla</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.PlantillasController.Post(PortalProModelo.Plantilla,System.String)">
+            <summary>
+            Crear un nuevo plantilla de proveedores
+            </summary>
+            <param name="plantilla">Objeto a crear, el atributo PlantillaId lo genera la aplicación y es devuelto en el objeto incluido en la respuesta.</param>
+            <param name="tk"> Tique de autorzación (se debe obtener con la accion Login)</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.PlantillasController.Put(System.Int32,PortalProModelo.Plantilla,System.String)">
+            <summary>
+            Modificar un plantilla de proveedor. En el cuerpo del mensaje se envía en el formato adecuado el objeto con los datos modificados
+            </summary>
+            <param name="id"> Identificador único de la plantilla </param>
+            <param name="plantilla">Grupo de poveedor con los valores que se desean en sus atributos</param>
+            <param name="tk"> Tique de autorización (Ver 'Login')</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.PlantillasController.Delete(System.Int32,System.String)">
+            <summary>
+            Elimina el plantilla que coincide con el id pasado
+            </summary>
+            <param name="id">Identificador de la plantilla a eliminar</param>
+            <param name="tk">Tique de autorización (Ver 'Login')</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.SolicitudesProveedoresController.Get(System.String)">
+            <summary>
+            Obtiene todos las solicitudes de la base de datos
+            </summary>
+            <param name="tk">Código del tique de autorización (Véase "Login")</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.SolicitudesProveedoresController.GetPorEstado(System.String,System.String)">
+            <summary>
+            Devuelve las solicitudes que se encuentran en un determinado estado
+            </summary>
+            <param name="tk">Tique de autorización</param>
+            <param name="estado">Posibles estados (1=pendiente / 2=Aceptada / 3=Rechazada)</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.SolicitudesProveedoresController.Get(System.Int32,System.String)">
+            <summary>
+            Obtiene la solicitud cuyo ID corresponde con el pasado
+            </summary>
+            <param name="id">Identificador únicode la solicitud</param>
+            <param name="tk">Código del tique de autorización (Véase "Login")</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.SolicitudesProveedoresController.Post(PortalProModelo.SolicitudProveedor,System.String)">
+            <summary>
+            Crear un nueva solicitud
+            </summary>
+            <param name="Proveedor">Objeto a crear, el atributo SolicitudProveedorId lo genera la aplicación y es devuelto en el objeto incluido en la respuesta.</param>
+            <param name="tk"> Tique de autorización (se debe obtener con la accion Login). Caso especial "solicitud"</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.SolicitudesProveedoresController.Put(System.Int32,PortalProModelo.SolicitudProveedor,System.String)">
+            <summary>
+            Modificar una solicitud. En el cuerpo del mensaje se envía en el formato adecuado el objeto con los datos modificados
+            </summary>
+            <param name="id"> Identificador único de la solicitud </param>
+            <param name="solProveedor">Solicitud de proveedor con los valores que se desean en sus atributos</param>
+            <param name="tk"> Tique de autorización (Ver 'Login'). Caso "solicitud"</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.SolicitudesProveedoresController.PutStatus(System.Int32,System.String,System.Int32,System.Int32,System.String)">
+            <summary>
+            Cambia el estado de una solicitud y realiza la grabación 
+            correspondiente en el log
+            </summary>
+            <param name="id">Identificador de la solicitud a procesar</param>
+            <param name="tk">Tique de autorización (ver Login)</param>
+            <param name="status">Código del estado al que se quiere pasar (2=Aceptada / 3=Rechazada)</param>
+            <param name="userId">Identificador del usuario que avala el cambio</param>
+            <param name="comentarios">Comentarios adicionales</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.SolicitudesProveedoresController.Delete(System.Int32,System.String)">
+            <summary>
+            Elimina la solicitud que coincide con el id pasado
+            </summary>
+            <param name="id">Identificadorde la solicitud a eliminar</param>
+            <param name="tk">Tique de autorización (Ver 'Login')</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.DocumentosController.Get(System.String)">
+            <summary>
+            Obtiene todos los documentos de la base de datos. Lo que se devuelven los objetos tal cual
+            sin haber sido copiados a su directorio de descarga y sin haber propocionado el enlace para hacerla
+            </summary>
+            <param name="tk">Código del tique de autorización (Véase "Login")</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.DocumentosController.GetFromProveedor(System.String,System.String)">
+            <summary>
+            Se obtienen todos los documentos pertenecientes a un proveedor.
+            Los documentos se copian al directorio de descarga y se proporciona su enlace en la propiedad "DescargaUrl"
+            </summary>
+            <param name="tk">Tique de autorización</param>
+            <param name="codigoProveedor">Código del proveedor del que se solcitan los documentos.</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.DocumentosController.Get(System.Int32,System.String)">
+            <summary>
+            Obtiene el documento cuyo ID corresponde con el pasado.
+            Cuando se devuelve el objeto documento en su url de descarga figura en enlace
+            para visualizarlo.
+            </summary>
+            <param name="id">Identificador único del grupo</param>
+            <param name="tk">Código del tique de autorización (Véase "Login")</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.DocumentosController.Delete(System.Int32,System.String)">
+            <summary>
+            Elimina el documento que coincide con el id pasado
+            </summary>
+            <param name="id">Identificador del documento a eliminar</param>
+            <param name="tk">Tique de autorización (Ver 'Login')</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.DocumentosController.Delete(System.String)">
+            <summary>
+            Elimina del directorio de descarga los ficheros de ese tique y los parciales que pudieran haber quedado. Su
+            utilidad es limpiar el directorio tras salir de formularios
+            </summary>
+            <param name="tk">Tique de autorización</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.ProveedoresController.Get(System.String)">
+            <summary>
+            Obtiene todos los proveedores de la base de datos
+            </summary>
+            <param name="tk">Código del tique de autorización (Véase "Login")</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.ProveedoresController.Get(System.Int32,System.String)">
+            <summary>
+            Obtiene el proveedor cuyo ID corresponde con el pasado
+            </summary>
+            <param name="id">Identificador único del proveedor</param>
+            <param name="tk">Código del tique de autorización (Véase "Login")</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.ProveedoresController.Post(PortalProModelo.Proveedor,System.String)">
+            <summary>
+            Crear un nuevo proveedor
+            </summary>
+            <param name="Proveedor">Objeto a crear, el atributo ProveedorId lo genera la aplicación y es devuelto en el objeto incluido en la respuesta.</param>
+            <param name="tk"> Tique de autorzación (se debe obtener con la accion Login)</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.ProveedoresController.Put(System.Int32,PortalProModelo.Proveedor,System.String)">
+            <summary>
+            Modificar un proveedor. En el cuerpo del mensaje se envía en el formato adecuado el objeto con los datos modificados
+            </summary>
+            <param name="id"> Identificador único del grupo </param>
+            <param name="proveedor">Grupo de proveedor con los valores que se desean en sus atributos</param>
+            <param name="tk"> Tique de autorización (Ver 'Login')</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.ProveedoresController.Delete(System.Int32,System.String)">
+            <summary>
+            Elimina el proveedor que coincide con el id pasado
+            </summary>
+            <param name="id">Identificador del proveedor a eliminar</param>
+            <param name="tk">Tique de autorización (Ver 'Login')</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.GruposProveedoresController.Get(System.String)">
+            <summary>
+            Obtiene todos los grupos de proveedores de la base de datos
+            </summary>
+            <param name="tk">Código del tique de autorización (Véase "Login")</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.GruposProveedoresController.Get(System.Int32,System.String)">
+            <summary>
+            Obtiene un grupo de proveedores cuyo ID corresponde con el pasado
+            </summary>
+            <param name="id">Identificador único del grupo</param>
+            <param name="tk">Código del tique de autorización (Véase "Login"), admite "solicitud"</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.GruposProveedoresController.Get(System.Int32)">
+            <summary>
+            Obtiene un grupo de proveedores cuyo ID corresponde con el pasado
+            en este caso no necesita tique porque es para solicitudes.
+            </summary>
+            <param name="id">Identificador único del grupo</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.GruposProveedoresController.Post(PortalProModelo.GrupoProveedor,System.String)">
+            <summary>
+            Crear un nuevo grupo de proveedores
+            </summary>
+            <param name="grupoProveedor">Objeto a crear, el atributo GrupoProveedorId lo genera la aplicación y es devuelto en el objeto incluido en la respuesta.</param>
+            <param name="tk"> Tique de autorzación (se debe obtener con la accion Login)</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.GruposProveedoresController.Put(System.Int32,PortalProModelo.GrupoProveedor,System.String)">
+            <summary>
+            Modificar un grupo de proveedor. En el cuerpo del mensaje se envía en el formato adecuado el objeto con los datos modificados
+            </summary>
+            <param name="id"> Identificador único del grupo </param>
+            <param name="grupoProveedor">Grupo de poveedor con los valores que se desean en sus atributos</param>
+            <param name="tk"> Tique de autorización (Ver 'Login')</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.GruposProveedoresController.Delete(System.Int32,System.String)">
+            <summary>
+            Elimina el grupo de proveedor que coincide con el id pasado
+            </summary>
+            <param name="id">Identificador del grupo a eliminar</param>
+            <param name="tk">Tique de autorización (Ver 'Login')</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.TiposDocumentosController.Get(System.String)">
+            <summary>
+            Obtiene todos los tipos de la base de datos
+            </summary>
+            <param name="tk">Código del tique de autorización (Véase "Login")</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.TiposDocumentosController.Get(System.String,System.String)">
+            <summary>
+            Devuelve la lista de los tipos de documentos asociados al grupo de usuarios cuyo id correspone a la cadena pasada
+            </summary>
+            <param name="tk">Tique obtienido en el login se puede forzar con el valor "solicitud"</param>
+            <param name="grupoCode">Identificador de grupo de proveedor pasado como cadena</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.TiposDocumentosController.Get(System.Int32,System.String)">
+            <summary>
+            Obtiene un tipo de documento cuyo ID corresponde con el pasado
+            </summary>
+            <param name="id">Identificador único del tipo</param>
+            <param name="tk">Código del tique de autorización (Véase "Login")</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.TiposDocumentosController.Post(PortalProModelo.TipoDocumento,System.String)">
+            <summary>
+            Crear un nuevo tipo de documento
+            </summary>
+            <param name="tipoDocumento">Objeto a crear, el atributo TipoDocumentoId lo genera la aplicación y es devuelto en el objeto incluido en la respuesta.</param>
+            <param name="tk"> Tique de autorización (se debe obtener con la accion Login)</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.TiposDocumentosController.Post(System.Collections.Generic.IList{System.Int32},System.String,System.String)">
+            <summary>
+            Se utiliza para cargar los tipos de documentos asociados a un grupo de proveedores
+            </summary>
+            <param name="tipos">Vector de enteros con los identificadores de los tipos de documento a asociar</param>
+            <param name="tk">Tique de autorización (ver Login)</param>
+            <param name="grupoCode">Identificador del grupo de proveedores</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.TiposDocumentosController.Put(System.Int32,PortalProModelo.TipoDocumento,System.String)">
+            <summary>
+            Modificar un tipo de documento. En el cuerpo del mensaje se envía en el formato adecuado el objeto con los datos modificados
+            </summary>
+            <param name="id"> Identificador único del tipo </param>
+            <param name="tipoDocumento">Tipo de documento con los valores que se desean en sus atributos</param>
+            <param name="tk"> Tique de autorización (Ver 'Login')</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.TiposDocumentosController.Delete(System.Int32,System.String)">
+            <summary>
+            Elimina el tipo de docuemnto que coincide con el id pasado
+            </summary>
+            <param name="id">Identificador del tipo a eliminar</param>
+            <param name="tk">Tique de autorización (Ver 'Login')</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.UploadsController.PostFile(System.String,System.String)">
+            <summary>
+            Se utiliza par subir ficheros al servidor
+            el nombre completo del fichero a guardar se monta encadenando 
+            tk#tipo#nombre_del_fichero
+            Esta operación se realiza sobre el directorio de carga, habitualemnte 
+            \App_Data\Uploads
+            </summary>
+            <param name="tk">Tique de autorizacion o el valor "solicitud" (ver Login). Admite el caso "solicitud"</param>
+            <param name="tipo">Tipo del fichero subido según la acción TiposDocumentos</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.UploadsController.DeleteFile(System.String,System.String)">
+            <summary>
+            Elimina el fichero con ell nombre pasado en una variable en el body
+            el nombre completo del fichero a borrar se monta encadenando 
+            tk#tipo#nombre_del_fichero
+            Esta operación se realiza sobre el directorio de carga, habitualemnte 
+            \App_Data\Uploads
+            </summary>
+            <param name="tk">Tique de autorización, admite "solicitud"</param>
+            <param name="tipo">Tipo del fichero a borra</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.UploadsController.DeleteFiles(System.String)">
+            <summary>
+            Borra todos los ficheros del directorio de descargas que se han 
+            cargado con el tique pasado
+            </summary>
+            <param name="tk">Tique usado</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.UsuariosController.Get(System.String)">
+            <summary>
+            Obtiene todos los usuarios de la base de datos
+            </summary>
+            <param name="tk">Código del tique de autorización (Véase "Login")</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.UsuariosController.Get(System.Int32,System.String)">
+            <summary>
+            Obtiene el usuario cuyo ID corresponde con el pasado
+            </summary>
+            <param name="id">Identificador único del grupo</param>
+            <param name="tk">Código del tique de autorización (Véase "Login")</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.UsuariosController.Post(PortalProModelo.Usuario,System.String)">
+            <summary>
+            Crear un nuevo usuario
+            </summary>
+            <param name="Usuario">Objeto a crear, el atributo UsuarioId lo genera la aplicación y es devuelto en el objeto incluido en la respuesta.</param>
+            <param name="tk"> Tique de autorzación (se debe obtener con la accion Login)</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.UsuariosController.Put(System.Int32,PortalProModelo.Usuario,System.String)">
+            <summary>
+            Modificar un usuario. En el cuerpo del mensaje se envía en el formato adecuado el objeto con los datos modificados
+            </summary>
+            <param name="id"> Identificador único del grupo </param>
+            <param name="usuario">Grupo de usuario con los valores que se desean en sus atributos</param>
+            <param name="tk"> Tique de autorización (Ver 'Login')</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.UsuariosController.Delete(System.Int32,System.String)">
+            <summary>
+            Elimina el usuario que coincide con el id pasado
+            </summary>
+            <param name="id">Identificador del usuario a eliminar</param>
+            <param name="tk">Tique de autorización (Ver 'Login')</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.GruposUsuariosController.Get(System.String)">
+            <summary>
+            Obtiene todos los grupos de usarios de la base de datos
+            </summary>
+            <param name="tk">Código del tique de autorización (Véase "Login")</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.GruposUsuariosController.Get(System.Int32,System.String)">
+            <summary>
+            Obtiene un grupo de usuarios cuyo ID corresponde con el pasado
+            </summary>
+            <param name="id">Identificador único del grupo</param>
+            <param name="tk">Código del tique de autorización (Véase "Login")</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.GruposUsuariosController.Post(PortalProModelo.GrupoUsuario,System.String)">
+            <summary>
+            Crear un nuevo grupo de usuarios
+            </summary>
+            <param name="grupoUsuario">Objeto a crear, el atributo GrupoUsuarioId lo genera la aplicación y es devuelto en el objeto incluido en la respuesta.</param>
+            <param name="tk"> Tique de autorzación (se debe obtener con la accion Login)</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.GruposUsuariosController.Put(System.Int32,PortalProModelo.GrupoUsuario,System.String)">
+            <summary>
+            Modificar un grupo de usuario. En el cuerpo del mensaje se envía en el formato adecuado el objeto con los datos modificados
+            </summary>
+            <param name="id"> Identificador único del grupo </param>
+            <param name="grupoUsuario">Grupo de usuario con los valores que se desean en sus atributos</param>
+            <param name="tk"> Tique de autorización (Ver 'Login')</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.GruposUsuariosController.Delete(System.Int32,System.String)">
+            <summary>
+            Elimina el grupo de usuario que coincide con el id pasado
+            </summary>
+            <param name="id">Identificador del grupo a eliminar</param>
+            <param name="tk">Tique de autorización (Ver 'Login')</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.LoginController.GetLogin(System.String,System.String)">
+            <summary>
+            Tras comprobar que un usuario con el login y password dados 
+            existe, crea un tique que devuelve en el cuerpo del mensaje
+            </summary>
+            <param name="login">Login del usuario</param>
+            <param name="password">Contraseña del usuario</param>
+            <returns>Un objeto que representa un tique</returns>
+            <remarks>Este es un comentario adicional</remarks>
+        </member>
+        <member name="M:PortalProWebApi.Controllers.LoginController.PutLogin(System.String)">
+            <summary>
+            Renueva el tique por 30 minutos adicionales
+            </summary>
+            <param name="tk">Tique que se desea renovar</param>
+            <returns></returns>
+        </member>
+        <member name="P:PortalProWebApi.EmailConfig.Server">
+            <summary>
+            Servidor smtp
+            </summary>
+        </member>
+        <member name="P:PortalProWebApi.EmailConfig.Port">
+            <summary>
+            Puerto de smtp
+            </summary>
+        </member>
+        <member name="P:PortalProWebApi.EmailConfig.Address">
+            <summary>
+            Dirección from del correo
+            </summary>
+        </member>
+        <member name="P:PortalProWebApi.EmailConfig.AddressCc">
+            <summary>
+            Copia por defecto a esta dirección
+            </summary>
+        </member>
+        <member name="P:PortalProWebApi.EmailConfig.Usr">
+            <summary>
+            Autenticación (Usuario)
+            </summary>
+        </member>
+        <member name="P:PortalProWebApi.EmailConfig.Password">
+            <summary>
+            Autenticación (Password)
+            </summary>
+        </member>
+        <member name="P:PortalProWebApi.EmailConfig.UseSsl">
+            <summary>
+            Usa SSL?
+            </summary>
+        </member>
+        <member name="M:PortalProWebApi.PortalProWebUtility.ComprobarCargarFicherosProveedor(System.String,System.String,PortalProModelo.SolicitudProveedor,PortalProModelo.PortalProContext)">
+            <summary>
+            Comprueba que los ficheros necesarios para rellenar a la solicitud están.
+            Asocia esos ficheros como documentos a la solicitud de que se trate.
+            </summary>
+            <param name="webRoot">Directorio de subida de ficheros</param>
+            <param name="tk">Tique de autorización (caso especial "solicitud")</param>
+            <param name="solProveedor">Solicitud de proveedor a procesar</param>
+            <param name="ctx">Contexto para acceso a la base de datos (OpenAccess)</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.PortalProWebUtility.ComprobarCargarFicherosProveedor(System.String,System.String,PortalProModelo.Proveedor,PortalProModelo.PortalProContext)">
+            <summary>
+            Comprueba que los ficheros necesarios para asociar a un proveedor están peresentes
+            Si esa comprobación es superada dá de alta los ficheros asociados.
+            </summary>
+            <param name="webRoot">Directorio en el que la carga ha dejado los ficheros</param>
+            <param name="tk">El código de tique usado en este momento</param>
+            <param name="solProveedor">Proveedor al que asociarán los ficheros</param>
+            <param name="ctx">Contexto de OpenAccess usado por el proceso.</param>
+            <returns>Una cadena vacía en el caso de que todo haya sido correcto y si no el mensaje explicativo</returns>
+        </member>
+        <member name="M:PortalProWebApi.PortalProWebUtility.ComprobarCargarFicherosSolicitudProveedor(System.String,PortalProModelo.SolicitudProveedor,PortalProModelo.PortalProContext)">
+            <summary>
+            Comprueba que los ficheros necesarios para asociar a una solicitud de proveedor están peresentes
+            Si esa comprobación es superada dá de alta los ficheros asociados.
+            </summary>
+            <param name="webRoot">Directorio en el que la carga ha dejado los ficheros</param>
+            <param name="tk">El código de tique usado en este momento</param>
+            <param name="solProveedor">Proveedor al que asociarán los ficheros</param>
+            <param name="ctx">Contexto de OpenAccess usado por el proceso.</param>
+            <returns>Una cadena vacía en el caso de que todo haya sido correcto y si no el mensaje explicativo</returns>
+        </member>
+    </members>
+</doc>

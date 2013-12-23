@@ -1,0 +1,43 @@
+@using System.Web.Http
+@using System.Web.Http.Description
+@using System.Collections.ObjectModel
+@using PortalProWebApi.Areas.HelpPage.Models
+@model Collection<ApiDescription>
+
+@{
+    ViewBag.Title = "PortalPro Web API Ayuda";
+
+    // Group APIs by controller
+    ILookup<string, ApiDescription> apiGroups = Model.ToLookup(api => api.ActionDescriptor.ControllerDescriptor.ControllerName);
+}
+
+<header>
+    <div class="content-wrapper">
+        <div class="float-left">
+            <h1>@ViewBag.Title</h1>
+        </div>
+    </div>
+</header>
+<div id="body">
+    <section class="featured">
+        <div class="content-wrapper">
+            <h2>Introducción</h2>
+            <p>
+               Aquí dispone de una lista con las diferentes acciones a las que responde este servicio Web API. 
+               Por cada acción se detallan los verbos http implicados y el formato de mensaje y respuesta si es necesario.
+                En la página específica de ayuda para un verbo concreto encontrará un enlace en la parte inferior izquierda bajo la leyenda "TEST API", este enlace le permitirá probar el verbo del que se trate
+                especificando los parámetros URI o del cuerpo del mensaje en cada caso.
+            </p>
+        </div>
+    </section>
+    <section class="content-wrapper main-content clear-fix">
+        @foreach (var group in apiGroups)
+        {
+            @Html.DisplayFor(m => group, "ApiGroup")
+        }
+    </section>
+</div>
+
+@section Scripts {
+    <link type="text/css" href="~/Areas/HelpPage/HelpPage.css" rel="stylesheet" />
+}

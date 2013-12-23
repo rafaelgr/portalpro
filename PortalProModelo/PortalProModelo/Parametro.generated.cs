@@ -75,6 +75,19 @@ namespace PortalProModelo
 			}
 		}
 		
+		private int _maxImportePdf;
+		public virtual int MaxImportePdf
+		{
+			get
+			{
+				return this._maxImportePdf;
+			}
+			set
+			{
+				this._maxImportePdf = value;
+			}
+		}
+		
 	}
 }
 #pragma warning restore 1591

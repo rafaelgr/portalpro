@@ -521,7 +521,7 @@
           <orm:column name="NumLineaFactura" sql-type="integer" nullable="false" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
         </orm:field>
         <orm:field name="_fechaEmision" property="FechaEmision" uniqueId="7950713e-ab26-4333-b522-da5837920efa" type="System.DateTime">
-          <orm:column nullable="false" scale="0" length="0" sql-type="datetime" name="FechaEmision" ado-type="" />
+          <orm:column name="FechaEmision" sql-type="datetime" nullable="false" length="0" scale="0" ado-type="" />
         </orm:field>
         <orm:field name="_cabFactura" property="CabFactura" behavior="readwrite" uniqueId="45a0f306-e10b-4a8f-b1b8-7042a7b8e87d" type="PortalProModelo.CabFactura">
           <orm:reference uniqueId="99479ba3-b941-4d39-94d2-f99068cc96b7" />
@@ -673,6 +673,9 @@
         </orm:field>
         <orm:field name="_margenFactura" property="MargenFactura" uniqueId="19a2eb0c-cc58-45de-8205-5898c67b92e0" type="System.Int32">
           <orm:column name="MargenFactura" sql-type="integer" nullable="false" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+        </orm:field>
+        <orm:field name="_maxImportePdf" property="MaxImportePdf" uniqueId="fa565b7d-f242-4b98-89d5-9ff113a2109f" type="System.Int32">
+          <orm:column name="MaxImportePdf" sql-type="integer" nullable="false" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
         </orm:field>
       </orm:class>
       <orm:class name="Empresa" use-default-mapping="true" uniqueId="58c8b7e2-f73c-4e59-8611-e575a9f94303">
@@ -949,7 +952,7 @@
         <orm:column name="NumLineaPedido" sql-type="integer" nullable="false" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
         <orm:column name="NumFactura" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
         <orm:column name="NumLineaFactura" sql-type="integer" nullable="false" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
-        <orm:column nullable="false" scale="0" length="0" sql-type="datetime" name="FechaEmision" ado-type="" />
+        <orm:column name="FechaEmision" sql-type="datetime" nullable="false" length="0" scale="0" ado-type="" />
         <orm:index name="idx_LinFactura_CabFacturaId">
           <orm:columnMapping>
             <orm:column name="CabFacturaId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
@@ -1717,6 +1720,7 @@
       <Property Id="4ce6a683-6248-44b5-b5aa-0bee2c49fb76" name="FacturaAbierto" type="Boolean" label="FacturaAbierto : Boolean" fieldName="_facturaAbierto" />
       <Property Id="b9bfd556-4bcc-4d77-82aa-8fd578e4c487" name="MaxFichero" type="Int32" label="MaxFichero : Int32" fieldName="_maxFichero" />
       <Property Id="19a2eb0c-cc58-45de-8205-5898c67b92e0" name="MargenFactura" type="Int32" label="MargenFactura : Int32" fieldName="_margenFactura" />
+      <Property Id="fa565b7d-f242-4b98-89d5-9ff113a2109f" name="MaxImportePdf" type="Int32" label="MaxImportePdf : Int32" fieldName="_maxImportePdf" />
     </DomainClass>
     <DomainClass Id="58c8b7e2-f73c-4e59-8611-e575a9f94303" name="Empresa" namespace="PortalProModelo" showPropertiesCompartment="true" identityMechanism="DatabaseServerCalculated" showNavigationCompartment="true" showImplementationCompartment="true">
       <Property Id="7573cb1e-bc23-463c-90b5-2bcc93668f2c" name="EmpresaId" type="System.Int32" label="EmpresaId : System.Int32" identity="true" fieldName="_empresaId" />

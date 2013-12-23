@@ -3,29 +3,36 @@
   <Class Name="PortalProWebApi.PortalProWebUtility">
     <Position X="1.25" Y="0.75" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAEAAAAACAAAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <HashCode>AAACBABAEAAAAACQAAAAAgACAYSAAAAAEIAgAAAgQAA=</HashCode>
       <FileName>PortalProWebUtility.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="PortalProWebApi.PortalProMailController" Collapsed="true">
     <Position X="4.25" Y="0.75" Width="3" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAABAAAAAAA=</HashCode>
       <FileName>PortalProMailController.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="PortalProWebApi.Email">
+  <Class Name="PortalProWebApi.Email" Collapsed="true">
     <Position X="11.5" Y="0.75" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AgAAABAAACAAAAAAAIABAAAAAAAIAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AEAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAA=</HashCode>
       <FileName>Email.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="PortalProWebApi.EmailConfig">
-    <Position X="8.75" Y="1.5" Width="1.5" />
+  <Class Name="PortalProWebApi.EmailConfig" Collapsed="true">
+    <Position X="8.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAQAAAAAAAACAAEAQACAAAAAgAAAAA=</HashCode>
+      <HashCode>EAAAAAAAAAAAAAAAAAAAAAAACAAEAQACAAAAAgAAAAA=</HashCode>
       <FileName>EmailConfig.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PortalProWebApi.UploadResponse">
+    <Position X="8.25" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQABAAEAAAAAAAAAAQAAAAEAAAIAAQACAAEIAAAACQ=</HashCode>
+      <FileName>UploadResponse.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />

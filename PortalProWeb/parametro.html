@@ -64,10 +64,11 @@
                 <div id="page-content" class="clearfix">
                     <div class="page-header position-relative">
                         <h1>
-                            Parámetros generales de la aplicación 
+                            Parámetros generales de la aplicación
                         </h1>
                     </div>
-                    <div id="send-form" class="row-fluid"> <!-- send-form -->
+                    <div id="send-form" class="row-fluid">
+                        <!-- send-form -->
                         <div class="row-fluid">
                             <div class="span12">
                                 <label>
@@ -87,6 +88,13 @@
                                 <label>Margen de exceso (euros) que se permite en la creación de facturas sobre el total de pedido</label>
                                 <input id="MargenFactura" class="span12" type="number" data-bind="value:MargenFactura" 
                                        name="MargenFactura" required  />
+                            </div>
+                        </div>
+                        <div class="row-fluid">
+                            <div class="span12">
+                                <label>Importe a partir del cual se exige un verificación del documento PDF adjunto</label>
+                                <input id="MaxImportePdf" class="span12" type="number" data-bind="value:MaxImportePdf" 
+                                       name="MarImportePdf" required  />
                             </div>
                         </div>
 
@@ -148,19 +156,21 @@
                     url: "Introduzca una dirección válida"
                 }
             }).data("kendoValidator");
+        
         </script>
         <!-- ViewModel -->
         <script type="text/javascript">
-            function ModelView() {
+            function viewModel() {
                 var self = this;
                 self.ParametroId = ko.observable();
                 self.FacturaAbierto = ko.observable(false);
                 self.MaxFichero = ko.observable();
                 self.MargenFactura = ko.observable();
+                self.MaxImportePdf = ko.observable();
             }
             
-            var vm = new ModelView();
-        
+            var vm = new viewModel();
+            
             ko.applyBindings(vm);
         </script>
         <script type="text/javascript">
@@ -180,6 +190,7 @@
                 vm.FacturaAbierto(data.FacturaAbierto);
                 vm.MaxFichero(data.MaxFichero);
                 vm.MargenFactura(data.MargenFactura);
+                vm.MaxImportePdf(data.MaxImportePdf);
             }
             function formAccept() {
                 if (!formOk())

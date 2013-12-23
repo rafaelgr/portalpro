@@ -132,6 +132,7 @@
     <Content Include="assets\css\ace-responsive.min.css" />
     <Content Include="assets\css\ace-skins.min.css" />
     <Content Include="assets\css\ace.min.css" />
+    <Content Include="css\ariadna-style.css" />
     <Content Include="assets\css\bootstrap-responsive.min.css" />
     <Content Include="assets\css\bootstrap-timepicker.css" />
     <Content Include="assets\css\bootstrap.min.css" />
@@ -315,10 +316,24 @@
     <Content Include="avatars\avatar3.png" />
     <Content Include="avatars\avatar4.png" />
     <Content Include="avatars\user.jpg" />
+    <Content Include="css\Bootstrap\editor.png" />
+    <Content Include="css\Bootstrap\imagebrowser.png" />
+    <Content Include="css\Bootstrap\indeterminate.gif" />
+    <Content Include="css\Bootstrap\loading-image.gif" />
+    <Content Include="css\Bootstrap\loading.gif" />
+    <Content Include="css\Bootstrap\loading_2x.gif" />
+    <Content Include="css\Bootstrap\slider-h.gif" />
+    <Content Include="css\Bootstrap\slider-v.gif" />
+    <Content Include="css\Bootstrap\sprite.png" />
+    <Content Include="css\Bootstrap\sprite_2x.png" />
+    <Content Include="css\kendo.bootstrap.min.css" />
+    <Content Include="css\kendo.common-bootstrap.min.css" />
     <Content Include="facturaH.html" />
     <Content Include="js2\es-ES.js" />
     <Content Include="js2\es.js" />
+    <Content Include="js2\handlebars-v1.1.2.js" />
     <Content Include="js2\numeral.js" />
+    <Content Include="js2\pekeUpload.js" />
     <Content Include="pedidoH.html" />
     <Content Include="pedido2.html" />
     <Content Include="usuarioproveedor2.html" />
@@ -463,6 +478,8 @@
     <Content Include="font\fontawesome-webfont.woff" />
     <Content Include="font\FontAwesome.otf" />
     <Content Include="snippets\jqAjax.snippet" />
+    <Content Include="js2\kendo.web.min.js.map" />
+    <Content Include="js2\kendo.culture.es-ES.min.js.map" />
     <None Include="Properties\PublishProfiles\PortalProWeb2.pubxml" />
     <None Include="Properties\PublishProfiles\ProtalProWeb.pubxml" />
     <None Include="web.Debug.config">
@@ -506,7 +523,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties UseAjaxifiedTemplates="True" UseJQuerySupport="True" />
+      <UserProperties UseJQuerySupport="True" UseAjaxifiedTemplates="True" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
