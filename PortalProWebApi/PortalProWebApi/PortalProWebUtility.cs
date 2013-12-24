@@ -470,13 +470,19 @@ namespace PortalProWebApi
             return url;
         }
 
-        public static void BorrarDocumentos(string tk) 
+        public static void BorrarDocumentos(string userId) 
         {
-            string downloadRepository = ConfigurationManager.AppSettings["DownloadRepository"];
-            foreach (FileInfo f in new DirectoryInfo(downloadRepository).GetFiles(String.Format("{0}*", tk)))
+            string downloadRepository =  AppDomain.CurrentDomain.BaseDirectory + "\\downloads";
+            foreach (FileInfo f in new DirectoryInfo(downloadRepository).GetFiles(String.Format("{0}-*", userId)))
             {
                 f.Delete();
             }
+            string uploadRepository = AppDomain.CurrentDomain.BaseDirectory + "\\uploads";
+            foreach (FileInfo f in new DirectoryInfo(uploadRepository).GetFiles(String.Format("{0}-*", userId)))
+            {
+                f.Delete();
+            }
+
         }
 
         public static CabFactura GenerarFacturaDesdePedido(Pedido p, PortalProContext ctx)

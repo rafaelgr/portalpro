@@ -111,12 +111,12 @@ namespace PortalProWebApi.Controllers
         }
 
         /// <summary>
-        /// Borra todos los ficheros del directorio de descargas que se han 
+        /// Borra todos los ficheros del directorio de descargas y cargas que se han 
         /// cargado con el tique pasado
         /// </summary>
         /// <param name="tk">Tique usado</param>
         /// <returns></returns>
-        public bool DeleteFiles(string tk)
+        public bool DeleteFiles(string userId,string tk)
         {
             using (PortalProContext ctx = new PortalProContext())
             {
@@ -127,7 +127,7 @@ namespace PortalProWebApi.Controllers
             }
             // This access control necessary for Autoupload (kendo UI)
             HttpContext.Current.Response.AddHeader("Access-Control-Allow-Credentials", "true");
-            PortalProWebUtility.BorrarDocumentos(tk);
+            PortalProWebUtility.BorrarDocumentos(userId);
             return true;
         }
     }

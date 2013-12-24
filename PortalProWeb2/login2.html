@@ -136,6 +136,30 @@
                         setCookie("ari_proveedorNombre", tique.UsuarioProveedor.Proveedor.NombreComercial, 1);
                         setCookie("ari_empresa", vm.EmpresaSeleccionada(), 1);
                         // ir a la página principal
+                        //window.open("main2.html", '_self');
+                        deleteFiles("U" + tique.UsuarioProveedor.UsuarioProveedorId, tique.Codigo);
+                    },
+                    error: function (xhr, textStatus, errorThrwon) {
+                        console.log("Ajax error");
+                        var message = ari_formatErrorMessage(JSON.parse(xhr.responseText));
+                        bootbox.dialog(message, [
+                            {
+                                "label": "OK",
+                                "class": "btn-small btn-primary"
+                            }
+                        ]);
+                    }
+                });
+                
+            }
+            function deleteFiles(userId, tk) {
+                $.ajax({
+                    type: "DELETE",
+                    url: ari_hosts.webapi + "/api/uploads?userId=" + userId + "&tk=" + tk,
+                    dataType: "json",
+                    contentType: "application/json",
+                    success: function (data, textStatus) {
+                        // ir a la página principal
                         window.open("main2.html", '_self');
                     },
                     error: function (xhr, textStatus, errorThrwon) {
@@ -150,7 +174,6 @@
                     }
                 });
             }
-
             // loadEmpresas:
             // Carga en un desplegable las empresas del grupo
             // para que las escoja el proveedor.
