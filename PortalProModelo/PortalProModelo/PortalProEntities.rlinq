@@ -246,11 +246,17 @@
         <orm:field name="_solicitudProveedor" property="SolicitudProveedor" behavior="readwrite" uniqueId="7004d2a0-a60a-43b1-a9e3-1240e5383abd" type="PortalProModelo.SolicitudProveedor">
           <orm:reference uniqueId="38fb6818-4bb8-47aa-a77c-dbc923a4c7c5" />
         </orm:field>
-        <orm:field name="_pedidos" property="Pedidos" behavior="readwrite" uniqueId="f81f1fef-f274-4390-b378-cbc173ed6c89" type="PortalProModelo.Pedido">
-          <orm:collection element-class="PortalProModelo.Pedido" inverse-field="_documento" order-by="" uniqueId="ce7ef598-0cdd-42a6-a384-133861d81017" />
-        </orm:field>
         <orm:field name="_pedidos1" property="PedidosXml" behavior="readwrite" uniqueId="001305b9-4b7b-468f-8891-e1d0f23bdfcb" type="PortalProModelo.Pedido">
           <orm:collection element-class="PortalProModelo.Pedido" inverse-field="_documento1" order-by="" uniqueId="907cc82f-0d94-4949-a055-f2801c657a10" />
+        </orm:field>
+        <orm:field name="_cabFacturas" property="CabFacturasXml" behavior="readwrite" uniqueId="15dab770-1984-4080-8f69-df0e95d21612" type="PortalProModelo.CabFactura">
+          <orm:collection element-class="PortalProModelo.CabFactura" inverse-field="_documento1" order-by="" uniqueId="4b96947a-19bb-42b7-8990-05c9813aed7d" />
+        </orm:field>
+        <orm:field name="_cabFacturas1" property="CabFacturasPdf" behavior="readwrite" uniqueId="49cbaafa-7e15-4b06-abd4-eab2d779d286" type="PortalProModelo.CabFactura">
+          <orm:collection element-class="PortalProModelo.CabFactura" inverse-field="_documento" order-by="" uniqueId="65acfdff-8576-4f23-859e-280a6e557001" />
+        </orm:field>
+        <orm:field name="_pedidos" property="PedidosPdf" behavior="readwrite" uniqueId="f81f1fef-f274-4390-b378-cbc173ed6c89" type="PortalProModelo.Pedido">
+          <orm:collection element-class="PortalProModelo.Pedido" inverse-field="_documento" order-by="" uniqueId="ce7ef598-0cdd-42a6-a384-133861d81017" />
         </orm:field>
       </orm:class>
       <orm:class name="SolicitudProveedor" uniqueId="2335b462-3777-4219-b736-d4f1654eeb56">
@@ -469,12 +475,6 @@
         <orm:field name="_proveedor" property="Proveedor" behavior="readwrite" uniqueId="a0e7d402-f8cd-4e92-9322-d8fc12ad4d93" type="PortalProModelo.Proveedor">
           <orm:reference uniqueId="9750b7fa-84d1-4309-8275-c1b1677043e2" />
         </orm:field>
-        <orm:field name="_documento" property="DocumentoPdf" behavior="readwrite" uniqueId="5f008862-41ca-4f8e-bd54-361c6d5cc2c6" type="PortalProModelo.Documento">
-          <orm:reference uniqueId="65acfdff-8576-4f23-859e-280a6e557001" />
-        </orm:field>
-        <orm:field name="_documento1" property="DocumentoXml" behavior="readwrite" uniqueId="e16c2a38-d715-4fad-8f00-da6102f3bb22" type="PortalProModelo.Documento">
-          <orm:reference uniqueId="4b96947a-19bb-42b7-8990-05c9813aed7d" />
-        </orm:field>
         <orm:field name="_empresa" property="Empresa" behavior="readwrite" uniqueId="c44f0c07-0b21-4782-a2cb-e8b2495a3460" type="PortalProModelo.Empresa">
           <orm:reference uniqueId="5d701a62-9825-4d27-a40b-0c4500637c2e" />
         </orm:field>
@@ -483,6 +483,12 @@
         </orm:field>
         <orm:field name="_linFacturas" property="LinFacturas" behavior="readwrite" uniqueId="92a6a4d5-d147-4f2f-8a42-950f64a46158" type="PortalProModelo.LinFactura">
           <orm:collection element-class="PortalProModelo.LinFactura" inverse-field="_cabFactura" order-by="" uniqueId="99479ba3-b941-4d39-94d2-f99068cc96b7" />
+        </orm:field>
+        <orm:field name="_documento1" property="DocumentoXml" behavior="readwrite" uniqueId="e16c2a38-d715-4fad-8f00-da6102f3bb22" type="PortalProModelo.Documento">
+          <orm:reference uniqueId="4b96947a-19bb-42b7-8990-05c9813aed7d" />
+        </orm:field>
+        <orm:field name="_documento" property="DocumentoPdf" behavior="readwrite" uniqueId="5f008862-41ca-4f8e-bd54-361c6d5cc2c6" type="PortalProModelo.Documento">
+          <orm:reference uniqueId="65acfdff-8576-4f23-859e-280a6e557001" />
         </orm:field>
         <orm:index name="idx_CabFactura_ProveedorId">
           <orm:columnMapping>
@@ -585,9 +591,6 @@
         <orm:field name="_proveedor" property="Proveedor" behavior="readwrite" uniqueId="be5b168f-c016-4e54-97f9-75cd7a2dba5f" type="PortalProModelo.Proveedor">
           <orm:reference uniqueId="eade228d-17d6-4ca7-a17f-2f5f674a5e44" />
         </orm:field>
-        <orm:field name="_documento" property="DocumentoPdf" behavior="readwrite" uniqueId="a24e4085-402a-4960-922b-1af8fff25fb5" type="PortalProModelo.Documento">
-          <orm:reference uniqueId="ce7ef598-0cdd-42a6-a384-133861d81017" />
-        </orm:field>
         <orm:field name="_documento1" property="DocumentoXml" behavior="readwrite" uniqueId="7148d677-9469-4a1f-83b3-83391f5629ba" type="PortalProModelo.Documento">
           <orm:reference uniqueId="907cc82f-0d94-4949-a055-f2801c657a10" />
         </orm:field>
@@ -599,6 +602,9 @@
         </orm:field>
         <orm:field name="_linPedidos" property="LinPedidos" behavior="readwrite" uniqueId="aa2d3426-6723-4a19-8203-7ae728255acd" type="PortalProModelo.LinPedido">
           <orm:collection element-class="PortalProModelo.LinPedido" inverse-field="_pedido" order-by="" uniqueId="2ef9c0aa-d285-45b6-98ff-c8b852d61572" />
+        </orm:field>
+        <orm:field name="_documento" property="DocumentoPdf" behavior="readwrite" uniqueId="a24e4085-402a-4960-922b-1af8fff25fb5" type="PortalProModelo.Documento">
+          <orm:reference uniqueId="ce7ef598-0cdd-42a6-a384-133861d81017" />
         </orm:field>
         <orm:index name="idx_Pedido_DocumentoPdf_DocumentoId">
           <orm:columnMapping>
@@ -1269,10 +1275,16 @@
           <NavigationalProperty Id="7004d2a0-a60a-43b1-a9e3-1240e5383abd" name="SolicitudProveedor" type="SolicitudProveedor" label="SolicitudProveedor : SolicitudProveedor" nullable="true" kind="Persistent" fieldName="_solicitudProveedor" isDependent="false" isManaged="false" />
         </classHasNavigationalProperties>
         <classHasNavigationalProperties Id="341e9a3a-33d6-4403-8660-291ab99d7f09">
-          <NavigationalProperty Id="f81f1fef-f274-4390-b378-cbc173ed6c89" name="Pedidos" type="IList&lt;Pedido&gt;" label="Pedidos : IList&lt;Pedido&gt;" nullable="true" kind="Persistent" fieldName="_pedidos" isDependent="false" isManaged="false" />
+          <NavigationalProperty Id="f81f1fef-f274-4390-b378-cbc173ed6c89" name="PedidosPdf" type="IList&lt;Pedido&gt;" label="PedidosPdf : IList&lt;Pedido&gt;" nullable="true" kind="Persistent" fieldName="_pedidos" isDependent="false" isManaged="false" />
         </classHasNavigationalProperties>
         <classHasNavigationalProperties Id="a53a8463-07c3-470c-8386-0af62128055a">
           <NavigationalProperty Id="001305b9-4b7b-468f-8891-e1d0f23bdfcb" name="PedidosXml" type="IList&lt;Pedido&gt;" label="PedidosXml : IList&lt;Pedido&gt;" nullable="true" kind="Persistent" fieldName="_pedidos1" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
+        <classHasNavigationalProperties Id="543a7a11-a784-4f8d-860a-3b2a01e80737">
+          <NavigationalProperty Id="15dab770-1984-4080-8f69-df0e95d21612" name="CabFacturasXml" type="IList&lt;CabFactura&gt;" label="CabFacturasXml : IList&lt;CabFactura&gt;" nullable="true" kind="Persistent" fieldName="_cabFacturas" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
+        <classHasNavigationalProperties Id="c0b15f96-e1ec-43da-8147-94d0215cdc58">
+          <NavigationalProperty Id="49cbaafa-7e15-4b06-abd4-eab2d779d286" name="CabFacturasPdf" type="IList&lt;CabFactura&gt;" label="CabFacturasPdf : IList&lt;CabFactura&gt;" nullable="true" kind="Persistent" fieldName="_cabFacturas1" isDependent="false" isManaged="false" />
         </classHasNavigationalProperties>
       </navigationalProperties>
     </DomainClass>
@@ -1463,6 +1475,11 @@
         </Association>
         <Association Id="65acfdff-8576-4f23-859e-280a6e557001" SourceMultiplicity="ZeroOne" name="CabFacturaHasDocumento">
           <DomainClassMoniker name="/PortalProContext/Documento" />
+          <targetNavigationalProperty>
+            <associationDefinesTargetProperty Id="5a33a022-5cf8-4999-a87a-a4d5371f14a0">
+              <NavigationalPropertyMoniker name="/PortalProContext/Documento/CabFacturasPdf" />
+            </associationDefinesTargetProperty>
+          </targetNavigationalProperty>
           <sourceNavigationalProperty>
             <associationDefinesSourceProperty Id="76bc7aa5-2f01-4488-819a-52900de6007a">
               <NavigationalPropertyMoniker name="/PortalProContext/CabFactura/DocumentoPdf" />
@@ -1471,6 +1488,11 @@
         </Association>
         <Association Id="4b96947a-19bb-42b7-8990-05c9813aed7d" SourceMultiplicity="ZeroOne" name="CabFacturaHasDocumento1">
           <DomainClassMoniker name="/PortalProContext/Documento" />
+          <targetNavigationalProperty>
+            <associationDefinesTargetProperty Id="adb6f02d-16c8-42dd-988c-11148310bc82">
+              <NavigationalPropertyMoniker name="/PortalProContext/Documento/CabFacturasXml" />
+            </associationDefinesTargetProperty>
+          </targetNavigationalProperty>
           <sourceNavigationalProperty>
             <associationDefinesSourceProperty Id="ab533baf-8750-4225-8543-dc57e00712f4">
               <NavigationalPropertyMoniker name="/PortalProContext/CabFactura/DocumentoXml" />
@@ -1614,7 +1636,7 @@
           <DomainClassMoniker name="/PortalProContext/Documento" />
           <targetNavigationalProperty>
             <associationDefinesTargetProperty Id="68d04b9d-34d4-4252-b9ee-34082ddc8c79">
-              <NavigationalPropertyMoniker name="/PortalProContext/Documento/Pedidos" />
+              <NavigationalPropertyMoniker name="/PortalProContext/Documento/PedidosPdf" />
             </associationDefinesTargetProperty>
           </targetNavigationalProperty>
           <sourceNavigationalProperty>

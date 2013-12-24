@@ -277,6 +277,7 @@ namespace PortalProWebApi
             return archivo;
         }
 
+
         public static Documento CrearDocumentoDesdeArchivoCargado(string application, string fichero, PortalProContext ctx)
         {
             Documento d = null;
@@ -311,39 +312,161 @@ namespace PortalProWebApi
 
         public static void EliminarDocumento(Documento d, PortalProContext ctx)
         {
+            EliminarFicheroDocumento(d);
+            ctx.Delete(d);
+            ctx.SaveChanges();
+        }
+
+        public static void EliminarFicheroDocumento(Documento d)
+        {
             if (d == null)
                 return;
             // eliminamos el fichero físico asociado
             string portalProRepo = ConfigurationManager.AppSettings["PortalProRepository"];
             string fichero = String.Format("{0:000000}-{1}", d.DocumentoId, d.NomFichero);
             string ficheroCompleto = Path.Combine(portalProRepo, fichero);
-            ctx.Delete(d);
             File.Delete(ficheroCompleto);
-            ctx.SaveChanges();
         }
 
-        public static string CargarUrlDocumento(string application, Documento d, string tk)
+        public static string ObtenerFicheroDocumento(string usuario, string item, Documento doc) 
+        {
+            if (doc == null) return "";
+            // hay que copiar el archivo desde el repositorio al directorio de descargas
+            // que es el del sitio más "/downloads"
+
+            //
+            return "";
+        }
+
+        public static Documento CrearFicheroDocumento(string usuario, string item, Documento doc, PortalProContext ctx)
+        {
+            if (doc == null) return null;
+            if (doc.DescargaUrl == null) return null;
+            Documento d = null;
+            if (doc.DocumentoId == 0)
+            {
+                // es un documento recién creado, debe tener el fichero en uploads
+                if (doc.DescargaUrl == "" || (doc.DescargaUrl.IndexOf("uploads") == -1)) return null;
+                int tipo = 0;
+                string archivo = "";
+                string extension = "";
+                string nomFichero = "";
+                if (doc.TipoDocumento != null) tipo = doc.TipoDocumento.TipoDocumentoId;
+                // buscamos el directorio físico que se corresponde a website/uploads
+                string uploadDirectory = AppDomain.CurrentDomain.BaseDirectory + "\\uploads";
+                string searchFileName = String.Format("{0}-{1}-{2}-*", usuario, item, tipo);
+                string[] archivos = Directory.GetFiles(uploadDirectory, searchFileName);
+                // si encontramos algún coincidente devolvemos el primero.
+                if (archivos.Length > 0)
+                    archivo = archivos[0];
+                // si contiene un path lo eliminamos (solo el nombre final de fcihero)
+                int pos = archivo.LastIndexOf("-");
+                if (pos > -1) nomFichero = archivo.Substring(pos + 1);
+                // ahora la extensión
+                pos = archivo.LastIndexOf(".");
+                if (pos > -1) extension = archivo.Substring(pos + 1);
+                // creamos el documento
+                d = new Documento();
+                d.Comentario = "";
+                d.DescargaUrl = "";
+                d.Extension = extension;
+                d.NomFichero = nomFichero;
+                d.TipoDocumento = doc.TipoDocumento;
+                ctx.Add(d);
+                ctx.SaveChanges();
+                int id = d.DocumentoId;
+                // copiamos el documento físicamente al repositorio
+                string repoDirectory = ConfigurationManager.AppSettings["PortalProRepository"];
+                string origen = Path.Combine(uploadDirectory, archivo);
+                string nomDestino = String.Format("{0:000000}-{1}", d.DocumentoId, d.NomFichero);
+                string destino = Path.Combine(repoDirectory, nomDestino);
+                File.Copy(origen, destino, true);
+            }
+            else
+            {
+                // el documento existe, solamente en el caso de que su URL esté
+                // en uploads indicará que quieren cambiar el fichero
+                if (doc.DescargaUrl.IndexOf("uploads") == -1)
+                {
+                    // dejamos el documento como está
+                    d = doc;
+                }
+                else
+                {
+                    // quieren cambiar el fichero asociado al documento
+                    // borramos el antiguo salvando el tipo de documento por si acaso
+                    int tipo = 0;
+                    TipoDocumento tipoDocumento = null;
+                    if (doc.TipoDocumento != null)
+                    {
+                        tipo = doc.TipoDocumento.TipoDocumentoId;
+                        tipoDocumento = doc.TipoDocumento;
+                    }
+                    // para eliminar el documento no puede ser trasient
+                    // hay que leerlo de la base de datos
+                    doc = (from dc in ctx.Documentos
+                           where dc.DocumentoId == doc.DocumentoId
+                           select dc).FirstOrDefault<Documento>();
+                    EliminarFicheroDocumento(doc);
+                    // y creamos el nuevo
+                    string archivo = "";
+                    string extension = "";
+                    string nomFichero = "";
+                    // buscamos el directorio físico que se corresponde a website/uploads
+                    string uploadDirectory = AppDomain.CurrentDomain.BaseDirectory + "\\uploads";
+                    string searchFileName = String.Format("{0}-{1}-{2}-*", usuario, item, tipo);
+                    string[] archivos = Directory.GetFiles(uploadDirectory, searchFileName);
+                    // si encontramos algún coincidente devolvemos el primero.
+                    if (archivos.Length > 0)
+                        archivo = archivos[0];
+                    // si contiene un path lo eliminamos (solo el nombre final de fcihero)
+                    int pos = archivo.LastIndexOf("-");
+                    if (pos > -1) nomFichero = archivo.Substring(pos + 1);
+                    // ahora la extensión
+                    pos = archivo.LastIndexOf(".");
+                    if (pos > -1) extension = archivo.Substring(pos + 1);
+                    // modificacmos la asociación del documento
+                    doc.NomFichero = nomFichero;
+                    doc.Extension = extension;
+                    int id = doc.DocumentoId;
+                    // copiamos el documento físicamente al repositorio
+                    string repoDirectory = ConfigurationManager.AppSettings["PortalProRepository"];
+                    string origen = Path.Combine(uploadDirectory, archivo);
+                    string nomDestino = String.Format("{0:000000}-{1}", doc.DocumentoId, doc.NomFichero);
+                    string destino = Path.Combine(repoDirectory, nomDestino);
+                    File.Copy(origen, destino, true);
+                    ctx.SaveChanges();
+                    d = doc;
+                }
+            }
+            return d;
+        }
+
+        public static string CargarUrlDocumento(Documento d, string usuario, string item, HttpRequest request)
         {
             if (d == null)
                 return "";
             string url = "";
             // copiamos el fichero del repositiorio al directorio de descargas
             string portalProRepo = ConfigurationManager.AppSettings["PortalProRepository"];
-            string downloadRepository = ConfigurationManager.AppSettings["DownloadRepository"];
-            switch (application)
-            {
-                case "PortalPro":
-                    downloadRepository = ConfigurationManager.AppSettings["DownloadRepository"];
-                    break;
-                case "PortalPro2":
-                    downloadRepository = ConfigurationManager.AppSettings["DownloadRepository2"];
-                    break;
-            }
+            string downloadRepository = AppDomain.CurrentDomain.BaseDirectory + "\\downloads";
             string fichero = String.Format("{0:000000}-{1}", d.DocumentoId, d.NomFichero);
             string origen = Path.Combine(portalProRepo, fichero);
-            string destino = Path.Combine(downloadRepository, String.Format("{0}-{1}", tk, fichero));
-            url = String.Format("{0}-{1}", tk, fichero);
+            int tipo = 0;
+            if (d.TipoDocumento != null) tipo = d.TipoDocumento.TipoDocumentoId;
+            string fileName = String.Format("{0}-{1}-{2}-{3}", usuario, item, tipo, d.NomFichero);
+            string destino = Path.Combine(downloadRepository, fileName);
+            // borrar posibles anteriores
+            string fileDelete = String.Format("{0}-{1}-{2}-*", usuario, item, tipo);
+            foreach (FileInfo f in new DirectoryInfo(downloadRepository).GetFiles(fileDelete))
+            {
+                f.Delete();
+            }
             File.Copy(origen, destino, true);
+            // ahora montamos las url
+            int pos = request.Url.AbsoluteUri.IndexOf("/", 8);
+            if (pos > -1)
+                url = request.Url.AbsoluteUri.Substring(0, pos) + "/downloads/" + fileName;
             return url;
         }
 

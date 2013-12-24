@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 using PortalProModelo;
 using Telerik.OpenAccess.FetchOptimization;
@@ -228,12 +229,13 @@ namespace PortalProWebApi.Controllers
         /// <param name="id">Identificador único del pedido</param>
         /// <param name="tk">Código del tique de autorización (Véase "Login")</param>
         /// <returns></returns>
-        public virtual Pedido Get(int id, string application, string tk)
+        public virtual Pedido Get(int id, string userId, string tk)
         {
             using (PortalProContext ctx = new PortalProContext())
             {
                 if (CntWebApiSeguridad.CheckTicket(tk, ctx))
                 {
+                    HttpRequest rq = HttpContext.Current.Request;
                     Pedido pedido = (from f in ctx.Pedidos
                                      where f.PedidoId == id
                                      orderby f.FechaAlta descending
@@ -242,7 +244,7 @@ namespace PortalProWebApi.Controllers
                     {
                         //
                         if (pedido.DocumentoPdf != null)
-                            pedido.DocumentoPdf.DescargaUrl = PortalProWebUtility.CargarUrlDocumento(application, pedido.DocumentoPdf, tk);
+                            pedido.DocumentoPdf.DescargaUrl = PortalProWebUtility.CargarUrlDocumento(pedido.DocumentoPdf,userId,"ITEM", rq);
                         pedido = ctx.CreateDetachedCopy<Pedido>(pedido, x => x.Proveedor, x => x.DocumentoPdf, x => x.DocumentoXml, x => x.Empresa, x => x.Responsable);
                         return pedido;
                     }

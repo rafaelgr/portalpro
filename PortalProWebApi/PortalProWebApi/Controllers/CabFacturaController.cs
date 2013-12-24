@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Web.Http;
 using PortalProModelo;
 using Telerik.OpenAccess.FetchOptimization;
+using System.Web;
 
 namespace PortalProWebApi.Controllers
 {
@@ -194,12 +195,13 @@ namespace PortalProWebApi.Controllers
         /// <param name="id">Identificador único de la factura</param>
         /// <param name="tk">Código del tique de autorización (Véase "Login")</param>
         /// <returns></returns>
-        public virtual CabFactura Get(int id, string application, string tk)
+        public virtual CabFactura Get(int id, string userId, string tk)
         {
             using (PortalProContext ctx = new PortalProContext())
             {
                 if (CntWebApiSeguridad.CheckTicket(tk, ctx))
                 {
+                    HttpRequest rq = HttpContext.Current.Request;
                     CabFactura factura = (from f in ctx.CabFacturas
                                           where f.CabFacturaId == id
                                           orderby f.FechaEmision descending
@@ -208,9 +210,9 @@ namespace PortalProWebApi.Controllers
                     {
                         //
                         if (factura.DocumentoPdf != null)
-                            factura.DocumentoPdf.DescargaUrl = PortalProWebUtility.CargarUrlDocumento(application, factura.DocumentoPdf, tk);
+                            factura.DocumentoPdf.DescargaUrl = PortalProWebUtility.CargarUrlDocumento(factura.DocumentoPdf,userId,"PDF",rq);
                         if (factura.DocumentoXml != null)
-                            factura.DocumentoXml.DescargaUrl = PortalProWebUtility.CargarUrlDocumento(application, factura.DocumentoXml, tk);
+                            factura.DocumentoXml.DescargaUrl = PortalProWebUtility.CargarUrlDocumento(factura.DocumentoXml,userId,"XML", rq);
                         factura = ctx.CreateDetachedCopy<CabFactura>(factura, x => x.Proveedor, x => x.DocumentoXml, x => x.DocumentoPdf, x=> x.Empresa, x=>x.Responsable);
                         return factura;
                     }
@@ -539,20 +541,15 @@ namespace PortalProWebApi.Controllers
                     throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotFound, m));
                 }
                 // La aplicación ahora depende del comienzo del usuario
-                string application = "PortalPro";
-                switch(userId.Substring(0, 1))
+                factura.DocumentoPdf = PortalProWebUtility.CrearFicheroDocumento(userId, "PDF", factura.DocumentoPdf, ctx);
+                // El doucmento PDF es obligatorio
+                if (factura.DocumentoPdf == null)
                 {
-                    case "U":
-                        application = "PortalPro2";
-                        break;
-                    case "G":
-                        application = "PortalPro";
-                        break;
+                    string m = String.Format("La factura debe llevar un archivo PDF asociado");
+                    throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotFound, m));
                 }
-                // En la actualización a lo mejor no han cargado ningún archivo
-                string fPdf = PortalProWebUtility.BuscarArchivoCargado(application, userId, "Factura", "PDF");
-                // el archivo Xml no es obligatorio, pero si lo han subido cargamos el fichero
-                string fXml = PortalProWebUtility.BuscarArchivoCargado(application, userId, "Factura", "XML");
+                // el fichero XML no es obligatorio, pero si existe lo asociamos
+                factura.DocumentoXml = PortalProWebUtility.CrearFicheroDocumento(userId, "XML", factura.DocumentoXml, ctx);
                 // Controlamos las propiedades que son en realidad objetos.
                 int proveedorId = 0;
                 if (factura.Proveedor != null)
@@ -622,23 +619,9 @@ namespace PortalProWebApi.Controllers
                                            where r.ResponsableId == responsableId
                                            select r).FirstOrDefault<Responsable>();
                 }
-                Documento doc = null; // para cargar temporalmente documentos
-                // si se cumplen estas condiciones es que han cambiado el archivo asociado.
-                if (fPdf != "")
-                {
-                    doc = factura.DocumentoPdf;
-                    factura.DocumentoPdf = PortalProWebUtility.CrearDocumentoDesdeArchivoCargado(application, fPdf, ctx);
-                    PortalProWebUtility.EliminarDocumento(doc, ctx);
-                }
-                if (fXml != "")
-                {
-                    doc = factura.DocumentoXml;
-                    factura.DocumentoXml = PortalProWebUtility.CrearDocumentoDesdeArchivoCargado(application, fXml, ctx);
-                    PortalProWebUtility.EliminarDocumento(doc, ctx);
-                }
                 factura.Historial += String.Format("{0:dd/MM/yyyy hh:mm:ss} La factura {1} con Total {2:0.0} € has sido modificada con estado {3} <br/>",
                     DateTime.Now, factura.NumFactura, factura.TotalFactura, factura.Estado);
-                factura.Generada = false; ;
+                factura.Generada = false; 
                 ctx.SaveChanges();
                 return ctx.CreateDetachedCopy<CabFactura>(factura, x => x.Proveedor, x => x.DocumentoPdf, x => x.DocumentoXml);
             }
@@ -680,24 +663,15 @@ namespace PortalProWebApi.Controllers
                     throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotFound, m));
                 }
 
-                string application = "PortalPro";
-                switch (userId.Substring(0, 1))
+                factura.DocumentoPdf = PortalProWebUtility.CrearFicheroDocumento(userId, "PDF", factura.DocumentoPdf, ctx);
+                if (factura.DocumentoPdf == null)
                 {
-                    case "U":
-                        application = "PortalPro2";
-                        break;
-                    case "G":
-                        application = "PortalPro";
-                        break;
-                }
-                // En la actualización a lo mejor no han cargado ningún archivo
-                string fPdf = PortalProWebUtility.BuscarArchivoCargado(application, userId, "Factura", "PDF");
-                if (fPdf == "")
-                {
-                    throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotFound, "Se necesita un fichero PDF asociado a la factura (CabFactura)"));
+                    string m = String.Format("La factura debe llevar un archivo PDF asociado");
+                    throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotFound, m));
                 }
                 // el archivo Xml no es obligatorio, pero si lo han subido cargamos el fichero
-                string fXml = PortalProWebUtility.BuscarArchivoCargado(application, userId, "Factura", "XML");
+                factura.DocumentoXml = PortalProWebUtility.CrearFicheroDocumento(userId, "XML", factura.DocumentoXml, ctx);
+
                 // Controlamos las propiedades que son en realidad objetos.
                 int proveedorId = 0;
                 if (factura.Proveedor != null)
@@ -767,23 +741,9 @@ namespace PortalProWebApi.Controllers
                                            where r.ResponsableId == responsableId
                                            select r).FirstOrDefault<Responsable>();
                 }
-                Documento doc = null; // para cargar temporalmente documentos
-                // si se cumplen estas condiciones es que han cambiado el archivo asociado.
-                if (fPdf != "")
-                {
-                    doc = factura.DocumentoPdf;
-                    factura.DocumentoPdf = PortalProWebUtility.CrearDocumentoDesdeArchivoCargado(application, fPdf, ctx);
-                    PortalProWebUtility.EliminarDocumento(doc, ctx);
-                }
-                if (fXml != "")
-                {
-                    doc = factura.DocumentoXml;
-                    factura.DocumentoXml = PortalProWebUtility.CrearDocumentoDesdeArchivoCargado(application, fXml, ctx);
-                    PortalProWebUtility.EliminarDocumento(doc, ctx);
-                }
                 factura.Historial += String.Format("{0:dd/MM/yyyy hh:mm:ss} La factura {1} con Total {2:0.0} € has sido modificada con estado {3} <br/>",
                     DateTime.Now, factura.NumFactura, factura.TotalFactura, factura.Estado);
-                factura.Generada = false; ;
+                factura.Generada = false; 
                 ctx.SaveChanges();
                 return ctx.CreateDetachedCopy<CabFactura>(factura, x => x.Proveedor, x => x.DocumentoPdf, x => x.DocumentoXml);
             }
@@ -1083,7 +1043,8 @@ namespace PortalProWebApi.Controllers
                 // existe?
                 if (cfac == null)
                 {
-                    throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotFound, "No hay una factura con el id proporcionado (CabFactura)"));
+                    // ya está eliminada
+                    return true;
                 }
                 if (cfac.Estado == "PROCESADA")
                 {

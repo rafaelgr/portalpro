@@ -128,21 +128,39 @@ namespace PortalProModelo
 			}
 		}
 		
-		private IList<Pedido> _pedidos = new List<Pedido>();
-		public virtual IList<Pedido> Pedidos
-		{
-			get
-			{
-				return this._pedidos;
-			}
-		}
-		
 		private IList<Pedido> _pedidos1 = new List<Pedido>();
 		public virtual IList<Pedido> PedidosXml
 		{
 			get
 			{
 				return this._pedidos1;
+			}
+		}
+		
+		private IList<CabFactura> _cabFacturas = new List<CabFactura>();
+		public virtual IList<CabFactura> CabFacturasXml
+		{
+			get
+			{
+				return this._cabFacturas;
+			}
+		}
+		
+		private IList<CabFactura> _cabFacturas1 = new List<CabFactura>();
+		public virtual IList<CabFactura> CabFacturasPdf
+		{
+			get
+			{
+				return this._cabFacturas1;
+			}
+		}
+		
+		private IList<Pedido> _pedidos = new List<Pedido>();
+		public virtual IList<Pedido> PedidosPdf
+		{
+			get
+			{
+				return this._pedidos;
 			}
 		}
 		

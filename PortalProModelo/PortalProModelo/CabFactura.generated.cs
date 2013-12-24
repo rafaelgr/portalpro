@@ -167,32 +167,6 @@ namespace PortalProModelo
 			}
 		}
 		
-		private Documento _documento;
-		public virtual Documento DocumentoPdf
-		{
-			get
-			{
-				return this._documento;
-			}
-			set
-			{
-				this._documento = value;
-			}
-		}
-		
-		private Documento _documento1;
-		public virtual Documento DocumentoXml
-		{
-			get
-			{
-				return this._documento1;
-			}
-			set
-			{
-				this._documento1 = value;
-			}
-		}
-		
 		private Empresa _empresa;
 		public virtual Empresa Empresa
 		{
@@ -216,6 +190,32 @@ namespace PortalProModelo
 			set
 			{
 				this._responsable = value;
+			}
+		}
+		
+		private Documento _documento1;
+		public virtual Documento DocumentoXml
+		{
+			get
+			{
+				return this._documento1;
+			}
+			set
+			{
+				this._documento1 = value;
+			}
+		}
+		
+		private Documento _documento;
+		public virtual Documento DocumentoPdf
+		{
+			get
+			{
+				return this._documento;
+			}
+			set
+			{
+				this._documento = value;
 			}
 		}
 		

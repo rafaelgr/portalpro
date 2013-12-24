@@ -117,19 +117,6 @@ namespace PortalProWebApi.Controllers
                                                        select d).ToList<Documento>();
                         // La aplicación ahora depende del comienzo del usuario
                         string application = "PortalPro";
-                        switch (userId.Substring(0, 1))
-                        {
-                            case "U":
-                                application = "PortalPro2";
-                                break;
-                            case "G":
-                                application = "PortalPro";
-                                break;
-                        }
-                        foreach (Documento d in docs)
-                        {
-                            d.DescargaUrl = "/downloads/" + PortalProWebUtility.CargarUrlDocumento(application, d, tk);
-                        }
                         FetchStrategy fs = new FetchStrategy();
                         fs.LoadWith<Documento>(x => x.TipoDocumento);
                         IEnumerable<Documento> documentos = ctx.CreateDetachedCopy<IEnumerable<Documento>>(docs, fs);
