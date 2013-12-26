@@ -1,0 +1,998 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <title> Pedidos en gestión </title>
+        <meta name="description" content="" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <!-- basic styles -->
+        <link href="css/bootstrap.min.css" rel="stylesheet" />
+        <link href="css/bootstrap-responsive.min.css" rel="stylesheet" />
+        <link href="css/kendo.common.min.css" rel="stylesheet" />
+        <link href="css/kendo.metro.css" rel="stylesheet" />
+        <link href="css/ariadna-style.css" rel="stylesheet" />
+        <link rel="stylesheet" href="css/font-awesome.min.css" />
+        <!--[if IE 7]>
+        <link rel="stylesheet" href="css/font-awesome-ie7.min.css" />
+        <![endif]-->
+
+        <!-- page specific plugin styles -->
+
+        <!-- ace styles -->
+        <link rel="stylesheet" href="css/ace.min.css" />
+        <link rel="stylesheet" href="css/ace-responsive.min.css" />
+        <link rel="stylesheet" href="css/ace-skins.min.css" />
+        <!--[if lt IE 9]>
+        <link rel="stylesheet" href="css/ace-ie.css" />
+        <![endif]-->
+
+    </head>
+
+    <body>
+        <div id="topbar" class="navbar navbar-inverse">
+
+        </div><!--/navbar -->
+
+        <div class="container-fluid" id="main-container">
+            <a href="#" id="menu-toggler">
+                <span></span>
+            </a><!-- menu toggler -->
+            <div id="sidebar" class="row-fluid">
+            </div><!--/#sidebar-->
+            <div id="main-content" class="clearfix">
+                <div id="empresa-seleccion" style="padding:5px; vertical-align:top">
+                    <h5>
+                        <span>Empresa: </span>
+                        <select class="span6" data-bind="options: Empresas, value: EmpresaSeleccionada"></select>
+                        <button id="btn-selec-empresa" class="btn btn-small btn-primary" onclick="changeEmpresa()"> Cambiar de empresa</button>
+                    </h5>
+                </div>
+                <div id="breadcrumbs">
+                    <ul class="breadcrumb">
+                        <li>
+                            <i class="icon-home"></i>
+                            <a href="main2.html">Inicio</a>
+                            <span class="divider"><i class="icon-angle-right"></i></span>
+                            <a href="administracion2.html">Administración</a>
+                            <span class="divider"><i class="icon-angle-right"></i></span>
+                            <a href="pedido2.html">Pedidos</a>
+                        </li>
+                    </ul><!--.breadcrumb-->
+                </div><!--#breadcrumbs-->
+                <div id="page-content" class="clearfix">
+                    <div class="page-header position-relative">
+                        <h1>
+                            Pedidos en gestión <i id="isearch" class="icon-search" style="display:none;"></i>
+                        </h1>
+                    </div>
+                    <div id="pedido-seleccion" class="row-fluid">
+                        <p class="blue">
+                            Seleccione el pedido o los pedidos de los que desea generar la factura. Una vez selecciones haga clic en el botón.
+                            <button class="btn btn-primary" onclick="gridNewFactura();" title="Generar factura desde pedidos">
+                                Generar facturas <i class="icon-cog icon-white"></i>
+                            </button>
+                        </p>
+                    </div>
+                    <div id="pedido-grid" class="row-fluid">
+                    </div><!--/#usuario-grid-->
+                    <div id="pedido-form" class="row-fluid" style="display:none;">
+                        <div class="row-fluid">
+                            <div class="span6">
+                                <h4>
+                                    <span class="blue" id="form-title">Nuevo pedido</span>
+                                </h4>
+                            </div>
+                            <div class="span6">
+                                <h4 class="blue pull-right">
+                                    ESTADO:<span data-bind="text: Estado"></span> ID:<span data-bind="text: PedidoId"></span>
+                                </h4>
+                            </div>
+                        </div>
+                        <div class="row-fluid" style="padding-bottom:10px;">
+                            <div class="span12">
+                                <label class="blue borde-inferior">
+                                    Proveedor
+                                </label>
+                                <span data-bind="text: Proveedor.NombreComercial"></span>
+                            </div>
+                        </div>
+                        <div class="row-fluid" style="padding-bottom:10px;">
+                            <div class="span12">
+                                <label class="blue borde-inferior" for="Empresa">
+                                    Empresa
+                                </label>
+                                <span id="Empresa" data-bind="text: Empresa.Nombre"></span>
+                            </div>
+                        </div>
+                        <div class="row-fluid">
+                            <div class="span12">
+                                <label class="blue borde-inferior">Responsable GD</label>
+                                <span data-bind="text: Responsable.Nombre"></span>
+                            </div>
+                        </div>
+                        <div class="row-fluid">
+                            <div class="span6">
+                                <label class="blue borde-inferior">Numero de pedido</label>
+                                <span data-bind="text: NumPedido"></span>
+                            </div>
+                            <div class="span3">
+                                <label class="blue borde-inferior">Total pedido</label>
+                                <span data-bind="text: frTotalPedido"></span>
+                            </div>
+                            <div class="span3">
+                                <label class="blue borde-inferior">Total facturado</label>
+                                <span data-bind="text: frTotalFacturado"></span>
+                            </div>
+                        </div>
+                        <div class="row-fluid">
+                            <div class="span3">
+                                <label class="blue borde-inferior">Fecha de alta</label>
+                                <span data-bind="text: FechaAlta"></span>
+                            </div>
+                            <div class="span3">
+                                <label class="blue borde-inferior">Fecha limite (SUSCRIPCION)</label>
+                                <span data-bind="text: FechaLimite"></span>
+                            </div>
+                            <div class="span3">
+                                <label class="blue borde-inferior">Fecha recepcion (RECIBIDOS)</label>
+                                <span data-bind="text: FechaRecepcion"></span>
+                            </div>
+                            <div class="span3">
+                                <label class="blue borde-inferior">Tipo</label>
+                                <span data-bind="text: TipoPedido"></span>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row-fluid">
+                            <div id="UPDF">
+                                Fichero PDF que contiene el pedido:
+                                <a data-bind="attr: { href: PedidoPdf.Url }" target="_blank">ver fichero asociado</a>
+                                <br />
+                                <span data-bind="text: PedidoPdf.Url"></span>
+                            </div>
+                        </div>
+                        <div class="row-fluid" style="padding-top:10px;">
+                            <div class="span12">
+                                <span class="blue">LINEAS DE PEDIDO</span>
+                            </div>
+                        </div>
+                        <div class="row-fluid" style="padding-top:10px;">
+                            <div class="span12">
+                                <table id="lineas-pedido" class="table table-striped table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th class="hidden-480">ID</th>
+                                            <th>Descripción</th>
+                                            <th style="text-align:right">Importe</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody data-bind="foreach: LineasPedido">
+                                        <tr>
+                                            <td data-bind="text: LinPedidoId" class="hidden-480"></td>
+                                            <td>
+                                                <span data-bind="text: Descripcion"></span>
+                                            </td>
+                                            <td >
+                                                <span data-bind="text: Importe"></span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row-fluid" style="padding-top:10px;">
+                            <div class="pull-right">
+                                <button class="btn btn-small btn-primary" onclick="formExit()">
+                                    <i class="icon-signout icon-white"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div><!-- #pedido-form -->
+                </div><!-- #main-content -->
+            </div>
+
+        </div><!--/.fluid-container#main-container-->
+
+        <a href="#" id="btn-scroll-up" class="btn btn-small btn-inverse">
+            <i class="icon-double-angle-up icon-only"></i>
+        </a>
+
+        <!-- Zona de templates -->
+        <div>
+            <script type="text/x-kendo-template" id="tNew">
+
+            </script>
+            <script type="text/x-kendo-template" id="tNewS">
+                <button class="btn btn-small btn-primary" onclick="gridExit();" title="Volver al formulario">
+                    <i class="icon-arrow-left icon-white"></i>
+                </button>
+            </script>
+            <script type="tex/x-kendo-template" id="tEdit">
+                <div class="pull-right">
+                    <button class="btn btn-small btn-primary" onclick="formEdit(#=PedidoId#);" title="Ver registro">
+                        <i class="icon-pencil icon-white"></i>
+                    </button>
+                </div>
+            </script>
+            <script type="tex/x-kendo-template" id="tEditS">
+                <div class="pull-right">
+                    <button class="btn btn-small btn-primary" onclick="gridSelect(#=PedidoId#,'#=NumPedido#');" title="Seleccionar registro">
+                        <i class="icon-share icon-white"></i>
+                    </button>
+                </div>
+            </script>
+        </div> <!-- /Zona de templates -->
+        <!-- basic scripts -->
+        <script src="js2/jquery-1.9.1.min.js"></script>
+        <script src="js2/bootstrap.min.js"></script>
+        <script src="js2/bootbox.min.js"></script>
+        <script src="js2/knockout-2.2.1.js"></script>
+        <script src="js2/knockout.mapping-latest.debug.js"></script>
+        <script src="js2/moment.js"></script>
+        <script src="js2/numeral.js"></script>
+        <!-- kendo scripts -->
+        <script src="js2/kendo.web.js"></script>
+        <script src="js2/kendo.culture.es-ES.min.js"></script>
+        <!-- page specific plugin scripts -->
+
+        <!-- ace scripts -->
+        <script src="js2/ace-elements.js"></script>
+        <script src="js2/ace.js"></script>
+
+        <!-- inline scripts related to this page -->
+        <script src="js2/ari-general.js"></script>
+        <script src="js2/ari-localization.es-ES.js"></script>
+
+        <!-- parámetros -->
+        <script src="js2/config.js"></script>
+        <!-- Scripts personalizados -->
+        <script type="text/javascript">
+            
+        </script>
+        <!-- variables generales de la página -->
+        <script type="text/javascript">
+            var mode; // indica si la página es llamada para búsqueda (=S)
+            var type; // para el form indica si estamos creando o editando
+            var regId; // para cargar identificadores de registro;
+            var caller; // establece quién, si alguien nos ha llamado.
+            // validador de los campos de formulario
+            var validator = $("#pedido-form").kendoValidator({
+                validateOnBlur: false,
+                messages: {
+                    required: "Este campo es requerido",
+                    email: "Introduzca un correo válido",
+                    url: "Introduzca una dirección válida",
+                    number: "Cantidad o importe incorrecto"
+                }
+            }).data("kendoValidator");
+            
+            // modelo de datos knockout
+            function Linea(id, descripcion, importe, poriva) {
+                this.LinPedidoId = id;
+                this.Descripcion = descripcion;
+                this.Importe = importe;
+                this.PorcentajeIva = poriva;
+            }
+
+            function viewModel() {
+                var self = this;
+                self.PedidoId = ko.observable();
+                self.NumPedido = ko.observable();
+                self.FechaAlta = ko.observable();
+                self.FechaLimite = ko.observable();
+                self.FechaRecepcion = ko.observable();
+                self.TotalPedido = ko.observable();
+                self.frTotalPedido = ko.computed(function () {
+                    return numeral(self.TotalPedido()).format("0,000.00");
+                });
+                self.Estado = ko.observable();
+                self.TipoPedido = ko.observable();
+                self.TotalFacturado = ko.observable();
+                self.frTotalFacturado = ko.computed(function () {
+                    return numeral(self.TotalFacturado()).format("0,000.00");
+                });
+                self.Proveedor = {
+                    ProveedorId: ko.observable(),
+                    NombreComercial: ko.observable()
+                }
+                self.Empresa = {
+                    EmpresaId: ko.observable(),
+                    Nombre: ko.observable()
+                }
+                self.Responsable = {
+                    ResponsableId: ko.observable(),
+                    Nombre: ko.observable()
+                }
+                self.DocumentoPdf = {
+                    DocumentoId: ko.observable(),
+                    NomFichero: ko.observable(),
+                    Extension: ko.observable(),
+                    DescargaUrl: ko.observable(),
+                    Comentario: ko.observable()
+                }
+                self.LineasPedido = ko.observableArray([
+                    ko.observable(
+                        {
+                            LinPedidoId: ko.observable(),
+                            Descripcion: ko.observable(),
+                            Importe: ko.observable(),
+                            PorcentajeIva: ko.observable(),
+                    })
+                ]);
+                self.PedidoPdf = {
+                    Url: ko.observable(),
+                    Path: ko.observable()
+                }
+                self.dspTotalPedido = ko.computed(function () {
+                    var total = 0;
+                    ko.utils.arrayForEach(self.LineasPedido(), function (linea) {
+                        total += parseFloat(ko.utils.unwrapObservable(linea.Importe));
+                    });
+                    return total;
+                });
+                // funciones CRUD
+                self.addLineaPedido = function () {
+                    var l = new Linea(0, "", "", 0, 0);
+                    self.LineasPedido.push(l);
+                }
+                self.removeLineaPedido = function(linea) {
+                    self.LineasPedido.remove(linea);
+                }
+                self.pedidosSeleccionados = ko.observableArray([]);
+            }
+
+            var vm = new viewModel();
+        
+            ko.applyBindings(vm, document.getElementById("pedido-form"));
+        
+        </script>
+
+        <!-- Modelo y funciones relacionadas con el desplegable de empresas -->
+        <script type="text/javascript">
+            function viewEmpresas() {
+                var self = this;
+                self.EmpresaSeleccionada = ko.observable();
+                self.Empresas = ko.observableArray([]);
+                self.addEmpresa = function (nombre) {
+                    self.Empresas().push(nombre);
+                };
+            }
+
+            var ve = new viewEmpresas();
+
+            function loadEmpresas() {
+                $.ajax({
+                    type: "GET",
+                    url: ari_hosts.webapi + "/api/empresas?tk=solicitud",
+                    dataType: "json",
+                    contentType: "application/json",
+                    success: function (data, textStatus) {
+                        ve.Empresas([]);
+                        for (i = 0; i < data.length; i++) {
+                            var e = data[i];
+                            ve.addEmpresa(e.Nombre);
+                        }
+                        ve.EmpresaSeleccionada(getCookie("ari_empresa"));
+                        ko.applyBindings(ve, document.getElementById("empresa-seleccion"));
+                    },
+                    error: function (xhr, textStatus, errorThrwon) {
+                        console.log("Ajax error");
+                        var message = ari_formatErrorMessage(JSON.parse(xhr.responseText));
+                        bootbox.dialog(message, [
+                            {
+                                "label": "OK",
+                                "class": "btn-small btn-primary"
+                            }
+                        ]);
+                    }
+                });
+            }
+
+            function changeEmpresa() {
+                var ds = $("#pedido-grid").data("kendoGrid").dataSource;
+                setCookie("ari_empresa", ve.EmpresaSeleccionada(), 1);
+                ds.transport.options.read.url = ari_hosts.webapi + "/api/pedido?proveedorGId=" + getCookie("ari_proveedorId") + "&empresa=" + getCookie("ari_empresa") + "&tk=" + getCookie("ari_tique");
+                ds.read();
+                $("#pedido-form").hide();
+                $("#pedido-grid").show();
+                $("#pedido-seleccion").show();
+                return ds;
+            }
+        
+        </script>
+
+        <!-- manejo de los templates que usará el grid -->
+        <script type="text/javascript">
+            var t_new;
+            var t_edit;
+            
+            function loadTemplates() {
+                t_new = kendo.template($("#tNew").html());
+                t_edit = kendo.template($("#tEdit").html());
+                if (mode == "S") {
+                    t_new = kendo.template($("#tNewS").html());
+                    t_edit = kendo.template($("#tEditS").html());
+                    // valorar si se necesita icono de búsqueda en el título
+                    $("#isearch").show();
+                }
+            }
+        
+        </script>
+
+        <!-- manejo del grid  -->
+        <script type="text/javascript">
+            
+            // este la fuente de datos que usará el grid
+            var gridDataSource = new kendo.data.DataSource({
+                transport: {
+                    read: {
+                        url: ari_hosts.webapi + "/api/pedido?proveedorGId=" + getCookie("ari_proveedorId") + "&empresa=" + getCookie("ari_empresa") + "&tk=" + getCookie("ari_tique"),
+                        dataType: "json",
+                        type: "GET",
+                        contentType: "application/json"
+                    },
+                    parameterMap: function (data, type) {
+                        if (type != "GET")
+                            return kendo.stringify(data);
+                    }
+                },
+                schema: {
+                    model: {
+                        id: "PedidoId",
+                        fields: {
+                            PedidoId: { type: "number" },
+                            Estado: { type: "string" },
+                            TipoPedido: { type: "string" },
+                            NumPedido: { type: "string" },
+                            FechaAlta: { type: "date" },
+                            FechaLimite: { type: "date" },
+                            FechaRecepcion: { type: "date" },
+                            TotalPedido: { type: "number" },
+                            TotalFacturado: { type: "number" },
+                            Proveedor: {},
+                            Responsable: {},
+                            Empresa: {}
+                        }
+                    }
+                },
+                pageSize: 5
+            });
+            
+            // montamos una función que maneje los errores de la fuente de datos
+            function gridErrorHandler(e) {
+                var message = ari_formatErrorMessage(JSON.parse(e.xhr.responseText));
+                bootbox.alert(message, "Aceptar");
+            }
+            
+            // enlazamos la función al evento del grid
+            gridDataSource.bind("error", gridErrorHandler);
+            
+            // por último la función que lo integra todo y que monta el grid en el espacio
+            // para ello
+            function gridBuild() {
+                console.log("Grid Build facturas");
+                $("#pedido-grid").kendoGrid({
+                    dataSource: gridDataSource,
+                    columns: [
+                        { template: "<input type='checkbox' class='checkbox'/><span class='lbl'></span>" },
+                        { field: "PedidoId", title: "ID", hidden: true },
+                        { field: "NumPedido", title: "N. Pedido" },
+                        { field: "Estado", title: "Estado" },
+                        { field: "TipoPedido", title: "Tipo" },
+                        { field: "Proveedor", title: "Proveedor", template: "#=Proveedor?Proveedor.NombreComercial:''#", filterable:false, hidden:true },
+                        { field: "Empresa", title: "Empresa", template: "#=Empresa?Empresa.Nombre:''#", filterable: false, hidden: true },
+                        { field: "Responsable", title: "Responsable", template: "#=Responsable?Responsable.Nombre:''#", filterable: false, hidden: true },
+                        { field: "FechaAlta", title: "F.Alta", format: "{0:dd/MM/yyyy}" },
+                        { field: "FechaLimite", title: "F.Limite", format: "{0:dd/MM/yyyy}", hidden: true },
+                        { field: "FechaRecepcion", title: "F.Recepcion", format: "{0:dd/MM/yyyy}", hidden: true },
+                        { field: "TotalPedido", title: "Total Pedido", format: "{0:##,###,##0.00}", attributes: { "style": "text-align:right" }, hidden: true },
+                        { field: "TotalFacturado", title: "Total Facturado", format: "{0:##,###,##0.00}", attributes: { "style": "text-align:right" }, hidden: true },
+                        { template: t_edit }
+                    ],
+                    toolbar: t_new,
+                    pageable: ari_pageable_es_ES,
+                    sortable: true,
+                    groupable: ari_groupable_es_ES,
+                    filterable: ari_filterable_es_ES,
+                    columnMenu: ari_columnMenu_es_ES,
+                    dataBound: function (e) {
+                        console.log("dataBound");
+                        var view = this.dataSource.view();
+                        for (var i = 0; i < view.length; i++) {
+                            if (checkedIds[view[i].id]) {
+                                this.tbody.find("tr[data-uid='" + view[i].uid + "']")
+                                .addClass("k-state-selected")
+                                .find(".checkbox")
+                                .attr("checked", "checked");
+                            }
+                        }
+                    },
+                    dataBinding: function (e) {
+                        console.log("dataBinding");
+                    },
+                });
+
+                var grid = $("#pedido-grid").data("kendoGrid");
+                grid.table.on("click", ".checkbox", selectRow);
+            }
+            
+            var checkedIds = {};
+
+            //on click of the checkbox:
+            function selectRow() {
+                var checked = this.checked,
+                row = $(this).closest("tr"),
+                grid = $("#pedido-grid").data("kendoGrid"),
+                dataItem = grid.dataItem(row);
+
+                checkedIds[dataItem.id] = checked;
+                if (checked) {
+                    //-select the row
+                    row.addClass("k-state-selected");
+                }
+                else {
+                    //-remove selection
+                    row.removeClass("k-state-selected");
+                }
+            }
+
+            // otras funciones de manejo
+            function gridExit() {
+
+            }
+            
+            function gridNewFactura() {
+                var checked = [];
+                for (var i in checkedIds) {
+                    if (checkedIds[i]) {
+                        checked.push(i);
+                        vm.pedidosSeleccionados().push(i);
+                    }
+                }
+                var sl1 = vm.pedidosSeleccionados();
+                var sl2 = ko.toJSON(vm.pedidosSeleccionados);
+                var sl = JSON.stringify(checked);
+                //alert(checked);
+                var message = "<h4>¿Desea generar una factura desde los pedidos seleccionados?</h4>";
+                bootbox.dialog(message, [
+                    {
+                        "label": "Cancelar",
+                        "class": "btn-small btn-success",
+                        "callback": function () {
+                        }
+                    }, {
+                        "label": "Aceptar",
+                        "class": "btn-small btn-error",
+                        "callback": function () {
+                            var url = ari_hosts.webapi + "/api/factura/?gen=ko&tk=" + getCookie("ari_tique");
+                            var options = {
+                                type: 'POST',
+                                url: url,
+                                dataType: 'json',
+                                data: ko.toJSON(vm.pedidosSeleccionados),
+                                contentType: "application/json",
+                                success: function (data, textStatus) {
+                                    // llamamos a la creación de líneas
+                                    window.open("factura2.html?caller=pedido&CabFacturaId=" + data.CabFacturaId, '_self');
+                                }
+                            };
+                            $.ajax(options);
+                        }
+                    }
+                ]);
+            }
+
+            function gridNewFactura2(id, numped) {
+                // generar una factura a partir de un pedido
+                var message = "<h4>¿Desea generar una factura desde el pedido? (Pedido:" + numped + ")</h4>";
+                bootbox.dialog(message, [
+                    {
+                        "label": "Cancelar",
+                        "class": "btn-small btn-success",
+                        "callback": function () {
+                        }
+                    }, {
+                        "label": "Aceptar",
+                        "class": "btn-small btn-error",
+                        "callback": function () {
+                            var url = ari_hosts.webapi + "/api/factura/?numPed=" + numped + "&tk=" + getCookie("ari_tique");
+                            var options = {
+                                type: 'POST',
+                                url: url,
+                                dataType: 'json',
+                                contentType: "application/json",
+                                success: function (data, textStatus) {
+                                    // llamamos a la creación de líneas
+                                    window.open("factura2.html?caller=pedido&CabFacturaId=" + data.CabFacturaId, '_self');
+                                }
+                            };
+                            $.ajax(options);
+                        }
+                    }
+                ]);
+                // lamamos al form de facturas con los datos que corresponden.
+                ///window.open("factura.html?caller=pedido'_self');
+            }
+            
+            function gridDelete(id, nombre) {
+                regId = id;
+                var message = "<h4>¿Desea eliminar este registro? (" + nombre + ")</h4>";
+                bootbox.dialog(message, [
+                    {
+                        "label": "Cancelar",
+                        "class": "btn-small btn-success",
+                        "callback": function () {
+                        }
+                    },{
+                        "label": "Aceptar",
+                        "class": "btn-small btn-error",
+                        "callback": function () {
+                            var url = ari_hosts.webapi + "/api/pedido/" + regId + "?tk=" + getCookie("ari_tique");
+                            var options = {
+                                type: 'DELETE',
+                                url: url,
+                                dataType: 'json',
+                                contentType: "application/json",
+                                success: function (data, textStatus) {
+                                    gridRefresh();
+                                }
+                            };
+                            $.ajax(options);
+                        }
+                    }
+                ]);
+            }
+            
+            function gridSelect(id, nombre) {
+            }
+            function gridRefresh() {
+                var ds = $("#pedido-grid").data("kendoGrid").dataSource;
+                ds.read();
+                return ds;
+            }
+        
+        </script>
+
+        <!-- manejo del form -->
+        <script type="text/javascript">
+            // botón nuevo (del grid)
+            function formNew() {
+                type = "new";
+                // ocultar grid - mostrar form
+                $("#pedido-grid").hide();
+                $("#pedido-seleccion").hide();
+                $("#pedido-form").show();
+                $("#form-title").text("Nuevo pedido");
+                clearData();
+                loadCombos();
+                loadDateFields();
+                $("#Proveedor").focus();
+            }
+            // botón editar (del grid)
+            function formEdit(id) {
+                type = "edit";
+                $("#pedido-grid").hide();
+                $("#pedido-seleccion").hide();
+                $("#pedido-form").show();
+                $("#form-title").text("Ver pedido");
+                loadData(id);
+                loadCombos();
+                loadDateFields();
+                $("#Proveedor").focus();
+            }
+            // botón aceptar / salvar
+            function formAccept() {
+                if (!formOk())
+                    return;
+                saveData(type);
+            }
+            // comprobar la correción de datos
+            function formOk() {
+                // validación general
+                if (!validator.validate()) {
+                    return false;
+                }
+                // validaciones específicas
+                // controlamos si queremos no asignar grupo
+                if (vm.Proveedor.NombreComercial() == "")
+                    vm.Proveedor.ProveedorId("");
+                return true;
+            }
+            // salir del formulario sin guardar
+            function formExit() {
+                // ocultar posibles mensajes de validación 
+                validator.hideMessages();
+                $("#pedido-grid").show();
+                $("#pedido-seleccion").show();
+                $("#pedido-form").hide()
+            }
+            // carga los datos en el grid
+            function loadData(id) {
+                $.ajax({
+                    type: "GET",
+                    url: ari_hosts.webapi + "/api/pedido/" + id + "/?userId=" + getCookie("ari_userId")+ "&tk=" + getCookie("ari_tique"),
+                    dataType: "json",
+                    contentType: "application/json",
+                    success: function (data, textStatus) {
+                        loadModel(data);
+                    },
+                });
+            }
+            function loadLineas(id) {
+                // si no hay factura no se pueden cargar sus lineas
+                if (id == "") {
+                    loadModelLines([]);
+                }
+                else {
+                    $.ajax({
+                        type: "GET",
+                        url: ari_hosts.webapi + "/api/LinPedido?idPed=" + id + "&tk=" + getCookie("ari_tique"),
+                        dataType: "json",
+                        contentType: "application/json",
+                        success: function (data, textStatus) {
+                            loadModelLines(data);
+                        },
+                    });
+                }
+            }
+            // limpiar los datos del modelo
+            function clearData() {
+                vm.PedidoId("");
+                vm.NumPedido("");
+                vm.FechaAlta("");
+                vm.FechaLimite("");
+                vm.FechaRecepcion("");
+                vm.TotalPedido("");
+                vm.TotalFacturado("");
+                vm.Estado("");
+                vm.TipoPedido("");
+                vm.Responsable("");
+                vm.Proveedor.ProveedorId("");
+                vm.Proveedor.NombreComercial("");
+                vm.Empresa.EmpresaId("");
+                vm.Empresa.Nombre("");
+                vm.Responsable.ResponsableId("");
+                vm.Responsable.Nombre("");
+                vm.LineasPedido([]);
+                vm.PedidoPdf.Url("");
+            }
+            // cargar el modelo
+            function loadModel(data) {
+                vm.PedidoId(data.PedidoId);
+                vm.NumPedido(data.NumPedido);
+                if (data.FechaAlta != null)
+                    vm.FechaAlta(moment(data.FechaAlta).format("DD/MM/YYYY"));
+                if (data.FechaLimite != null)
+                    vm.FechaLimite(moment(data.FechaLimite).format("DD/MM/YYYY"));
+                if (data.FechaRecepcion != null)
+                    vm.FechaRecepcion(moment(data.FechaRecepcion).format("DD/MM/YYYY"));
+                vm.TotalPedido(data.TotalPedido);
+                vm.TotalFacturado(data.TotalFacturado);
+                vm.Estado(data.Estado);
+                vm.TipoPedido(data.TipoPedido);
+                if (data.DocumentoPdf != null && data.DocumentoPdf.DocumentoId != undefined) {
+                    vm.DocumentoPdf.DocumentoId(data.DocumentoPdf.DocumentoId);
+                    vm.DocumentoPdf.DescargaUrl(data.DocumentoPdf.DescargaUrl);
+                    vm.PedidoPdf.Url("/downloads/" + data.DocumentoPdf.DescargaUrl);
+                }
+                if (data.PedidoPdf != null)
+                    vm.PedidoPdf.Url(data.PedidoPdf.url);
+                // el grupo al que pertenece
+                // ya que se admiten nulos hay que controlarlo
+                if (data.Proveedor != null) {
+                    vm.Proveedor.ProveedorId(data.Proveedor.ProveedorId);
+                    vm.Proveedor.NombreComercial(data.Proveedor.NombreComercial);
+                }
+                if (data.Empresa != null) {
+                    vm.Empresa.EmpresaId(data.Empresa.EmpresaId);
+                    vm.Empresa.Nombre(data.Empresa.Nombre);
+                }
+                if (data.Responsable != null) {
+                    vm.Responsable.ResponsableId(data.Responsable.ResponsableId);
+                    vm.Responsable.Nombre(data.Responsable.Nombre);
+                }
+                // aqui cargamos los documentos asociados
+                loadLineas(vm.PedidoId());
+            }
+            function loadModelLines(data) {
+                vm.LineasPedido(data);
+            }
+            // cargar las opciones del desplegable
+            function loadCombos(id, nombre) {
+                // datasource para el desplegable de grupos
+                var dsProveedor = new kendo.data.DataSource({
+                    transport: {
+                        read: {
+                            url: ari_hosts.webapi + "/api/Proveedores?tk=" + getCookie("ari_tique"),
+                            dataType: "json",
+                            type: "GET",
+                            contentType: "application/json",
+                            serverFiltering: true,
+                            serverPaging: true
+                        },
+                        parameterMap: function (data, type) {
+                            if (type != "GET")
+                                return kendo.stringify(data);
+                        }
+                    },
+                    schema: {
+                        model: {
+                            id: "ProveedorId",
+                            fields: {
+                                ProveedorId: { type: "number" },
+                                NombreComercial: { type: "string" }
+                            }
+                        }
+                    },
+                    pageSize: 5
+                });
+                $("#Proveedor").kendoAutoComplete({
+                    dataSource: dsProveedor,
+                    filter: "contains",
+                    dataTextField: "NombreComercial",
+                    select: function (e) {
+                        var dataItem = this.dataItem(e.item.index());
+                        // cargar id seleccionado
+                        vm.Proveedor.ProveedorId(dataItem.ProveedorId);
+                    }
+                });
+            }
+            // Carga los controles de campo para los que son fechas.
+            function loadDateFields() {
+                $("#FechaAlta").kendoDatePicker({ culture: "es-Es" });
+            }
+            // salvar los datos del form
+            function saveData(arg) {
+                var verb = "";
+                var url = "";
+                // si el modelo tiene fechas que se han cargado en formato español
+                // hay que volver a pasarlas al inglés
+                var fAlta = moment(vm.FechaAlta(), "DD/MM/YYYY");
+                var userId = getCookie("ari_userId");
+                if (fAlta != null)
+                    vm.FechaAlta(moment(fAlta).format("MM/DD/YYYY"));
+                if (arg == undefined && vm.PedidoId() == "")
+                    arg = "new";
+                if (arg == "new") {
+                    verb = "POST";
+                    url = ari_hosts.webapi + "/api/pedido/?userId=" + userId + "&tk=" + getCookie("ari_tique");
+                }
+                else {
+                    verb = "PUT";
+                    url = ari_hosts.webapi + "/api/pedido/" + vm.PedidoId() + "/?userId=" + userId + "&tk=" + getCookie("ari_tique");
+                }
+                $.ajax({
+                    type: verb,
+                    url: url,
+                    dataType: "json",
+                    contentType: "application/json",
+                    data: ko.toJSON(vm),
+                    success: function (data, textStatus) {
+                        vm.PedidoId(data.PedidoId);
+                        saveLineas(arg);
+                    },
+                });
+            }
+            // salvar las líneas de la factura
+            function saveLineas(arg) {
+                var verb = "";
+                var url = "";
+                verb = "PUT";
+                url = ari_hosts.webapi + "/api/linpedido/?idPed=" + vm.PedidoId() + "&tk=" + getCookie("ari_tique");
+                $.ajax({
+                    type: verb,
+                    url: url,
+                    dataType: "json",
+                    contentType: "application/json",
+                    data: ko.toJSON(vm.LineasPedido()),
+                    success: function (data, textStatus) {
+                        // incluir aqui el tratamiento de los datos recibidos
+                        // refrescamos el grid con los nuevos datos
+                        var ds = gridRefresh();
+                        // el tratamiento es diferente si se trata de altas o ediciones
+                        if (arg == "new") {
+                            // debemos posicionarnos en el teórico último registro del 
+                            // grid que es donde está el registro que acabamos de dar de alta.
+                            var totalPages = ds.totalPages();
+                            ds.page(totalPages);
+                        }
+                        else {
+                            // en edición simplemnete mostramos el grid, se supone
+                            // que ya está donde debía estar.
+                        }
+                        $("#pedido-form").hide();
+                        $("#pedido-grid").show();
+                        $("#pedido-seleccion").show();
+                    },
+                });
+            }
+            // salvar el modelo actual en una cookie
+            function saveDataCookie() {
+                var data = ko.toJSON(vm);
+                setCookie("pedido", data, 1);
+            }
+            // recuperar el modelo desde la cookie
+            function loadDataCookie() {
+                var dataS = getCookie("pedido");
+                var data = JSON.parse(dataS);
+            
+                loadModel(data);
+            }
+            // llamada externa para búsquedas
+            function formSearch(option) {
+                saveDataCookie();
+                switch (option) {
+                    case "Proveedor":
+                        window.open("proveedor2.html?mode=S&caller=pedido", '_self');
+                        break;
+                }
+            }
+            // construir los controles de upload
+            function sendPdf() {
+                saveDataCookie();
+                var ownURL = document.URL;
+                var userId = getCookie("ari_userId");
+                var targetURL = "Uploader2.aspx?ReturnUrl=" + ownURL
+                                + "&Application=PortalPro"
+                                + "&UserId=" + userId
+                                + "&FormId=Pedido"
+                                + "&FieldId=PDF"
+                                + "&Extension=.pdf";
+                window.open(targetURL, null, "width=500, height=500");
+            }
+            function sendXml() {
+                alert("No disponible de momento");
+            }
+            function senPdfReturn() {
+                alert("Send PDF Return");
+            }
+        </script>
+
+        <!-- Script en arranque -->
+        <script type="text/javascript">
+            (function ($) {
+                $(document).ready(function () {
+                    // tratamiento general de errores Ajax
+                    generalAjaxErrorTreatment();
+                    // en cualquier página hay que verificar la autorización
+                    checkAutorizationProveedor();
+                    // cargar el menú superior
+                    loadTopBarProveedor();
+                    // cargar el menú lateral
+                    loadSideBarProveedor();
+                    // quién y como nos ha llamado.
+                    mode = gup("mode");
+                    caller = gup("caller");
+                    // cargar los templates que se usarán en el grid
+                    loadTemplates();
+                    // cargar el grid
+                    gridBuild();
+                    // establecer el idioma
+                    kendo.culture("es-ES");
+                    // cargar el nombre de la empresa (ahora hay que hacer otra cosa)
+                    // $("#company-name").text("Empresa: " + getCookie("ari_empresa"));
+                    loadEmpresas();
+                    // comprobar como hemos sido llamados 
+                    switch (caller) {
+                        case "proveedor":
+                            // regresamos de la búsqueda de grupo para
+                            // el usuario;
+                            loadDataCookie();
+                            loadCombos();
+                            $("#pedido-grid").hide();
+                            $("#pedido-seleccion").hide();
+                            $("#pedido-form").show();
+                            break;
+                        case "loader":
+                            loadDataCookie();
+                            loadCombos();
+                            $("#pedido-grid").hide();
+                            $("#pedido-seleccion").hide();
+                            $("#pedido-form").show();
+                            break;
+                    }
+                });
+            })(jQuery);
+        </script>
+    </body>
+</html>

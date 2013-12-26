@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippet Format="1.1.0" xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <Header>
+    <SnippetTypes>
+      <SnippetType>Expansion</SnippetType>
+      <SnippetType>SurroundsWith</SnippetType>
+    </SnippetTypes>
+    <Title>jqAjax</Title>
+    <Author>Rafael Garcia</Author>
+    <Description>Fragmento de código para una instrucción JQuery Ajax personalizada</Description>
+    <HelpUrl>
+    </HelpUrl>
+    <Shortcut>jqAjax</Shortcut>
+  </Header>
+  <Snippet>
+    <Declarations>
+      <Literal Editable="true">
+        <ID>verb</ID>
+        <ToolTip>verb</ToolTip>
+        <Default>verb</Default>
+        <Function>
+        </Function>
+      </Literal>
+      <Literal Editable="true">
+        <ID>urlwebapi</ID>
+        <ToolTip>urlwebapi</ToolTip>
+        <Default>urlwebapi</Default>
+        <Function>
+        </Function>
+      </Literal>
+      <Literal Editable="true">
+        <ID>JQuery</ID>
+        <ToolTip>JQuery</ToolTip>
+        <Default>$</Default>
+        <Function>
+        </Function>
+      </Literal>
+    </Declarations>
+    <Code Language="javascript"><![CDATA[$JQuery$.ajax({
+        type: "$verb$",
+        url: $urlwebapi$,
+        dataType: "json",
+        contentType: "application/json",
+        success: function (data, textStatus) {
+            // incluir aqui el tratamiento de los datos recibidos
+        },
+        error: function (xhr, textStatus, errorThrwon) {
+            // tratar el error producido
+            var message = ari_formatErrorMessage(JSON.parse(xhr.responseText));
+            bootbox.dialog(message, [
+                {
+                    "label": "OK",
+                    "class": "btn-small btn-primary",
+                    "callback": function () {
+                    }
+                }
+            ]);
+        }
+    });]]></Code>
+  </Snippet>
+</CodeSnippet>
