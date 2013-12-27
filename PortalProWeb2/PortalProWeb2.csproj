@@ -336,6 +336,7 @@
     <Content Include="js2\pekeUpload.js" />
     <Content Include="pedidoH.html" />
     <Content Include="pedido2.html" />
+    <Content Include="solicitudproveedorfrm2.html" />
     <Content Include="usuarioproveedor2.html" />
     <Content Include="css\ace-ie.min.css" />
     <Content Include="css\ace-responsive.min.css" />
@@ -445,7 +446,6 @@
     <Content Include="sidebar2.html" />
     <Content Include="solicitudlog2.html" />
     <Content Include="solicitudproveedor2.html" />
-    <Content Include="solicitudproveedorfrm2.html" />
     <Content Include="test2.html" />
     <Content Include="tipodocumento2.html" />
     <Content Include="topbar2.html" />
@@ -523,7 +523,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties UseJQuerySupport="True" UseAjaxifiedTemplates="True" />
+      <UserProperties UseAjaxifiedTemplates="True" UseJQuerySupport="True" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

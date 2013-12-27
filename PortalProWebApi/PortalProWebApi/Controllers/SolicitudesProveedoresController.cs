@@ -172,12 +172,7 @@ namespace PortalProWebApi.Controllers
                                                 select ss).FirstOrDefault<SolicitudStatus>();
                 // dar de alta el objeto en la base de datos y devolverlo en el mensaje
                 ctx.Add(solProveedor);
-                // eliminamos los documentos asociados si los hay
-                // los dará de alta otro proceso.
-                foreach (Documento d in solProveedor.Documentos)
-                {
-                    PortalProWebUtility.EliminarDocumento(d, ctx);
-                }
+
                 if (grupoProveedorId != 0)
                 {
                     solProveedor.GrupoProveedor = (from gp in ctx.GrupoProveedors
@@ -191,6 +186,12 @@ namespace PortalProWebApi.Controllers
                                                     select ss).FirstOrDefault<SolicitudStatus>();
                 }
                 ctx.SaveChanges();
+                // eliminamos los documentos asociados si los hay
+                // los dará de alta otro proceso.
+                foreach (Documento d in solProveedor.Documentos)
+                {
+                    PortalProWebUtility.EliminarDocumento(d, ctx);
+                }
                 // preparamos y enviamos el correo de confirmación por defecto (por si falla la plantilla).
                 string asunto = "[PortalPro] Recibida solicitud";
                 string cuerpo = String.Format("Su solicitud con ID:{0} ha sido recibida. No responda este mensaje", solProveedor.SolicitudProveedorId);
@@ -301,8 +302,6 @@ namespace PortalProWebApi.Controllers
             }
         }
 
-
-
         public virtual bool Put(int idSolPro, IEnumerable<Documento> documentos, string userId, string tk)
         {
             using (PortalProContext ctx = new PortalProContext())
@@ -323,24 +322,14 @@ namespace PortalProWebApi.Controllers
                                              select s).FirstOrDefault<SolicitudProveedor>();
                 if (solPro == null)
                 {
-                    throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotFound, "No hay una solicitud con el id proporcionado (Solicitd roveedores)"));
+                    throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotFound, "No hay una solicitud con el id proporcionado (Solicitud proveedores)"));
                 }
                 // primero eliminamos los posibles documentos anteriores
                 foreach (Documento d in solPro.Documentos)
                 {
                     PortalProWebUtility.EliminarDocumento(d, ctx);
                 }
-                // La aplicación ahora depende del comienzo del usuario
-                string application = "PortalPro";
-                switch (userId.Substring(0, 1))
-                {
-                    case "U":
-                        application = "PortalPro2";
-                        break;
-                    case "G":
-                        application = "PortalPro";
-                        break;
-                }
+
                 // Ahora cargamos las lineas nuevas
                 foreach (Documento doc in documentos)
                 {
@@ -351,11 +340,9 @@ namespace PortalProWebApi.Controllers
                                             select t).FirstOrDefault<TipoDocumento>();
                         if (tp != null)
                         {
-                            string fieldId = String.Format("PDFT{0}", doc.TipoDocumento.TipoDocumentoId);
-                            string fpdf = PortalProWebUtility.BuscarArchivoCargado(application, userId, "SolicitudProveedor", fieldId);
-                            if (fpdf != "")
+                            Documento vDoc = PortalProWebUtility.CrearFicheroDocumento(userId, "DOCF" + doc.TipoDocumento.TipoDocumentoId, doc, ctx);
+                            if (vDoc != null)
                             {
-                                Documento vDoc = PortalProWebUtility.CrearDocumentoDesdeArchivoCargado(application, fpdf, ctx);
                                 vDoc.TipoDocumento = tp;
                                 vDoc.SolicitudProveedor = solPro;
                                 ctx.SaveChanges();

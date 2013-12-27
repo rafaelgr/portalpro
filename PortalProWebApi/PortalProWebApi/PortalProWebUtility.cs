@@ -312,6 +312,14 @@ namespace PortalProWebApi
 
         public static void EliminarDocumento(Documento d, PortalProContext ctx)
         {
+            if (d.DocumentoId == 0)
+            {
+                // el documento está vacío
+                return;
+            }
+            // hay que considerar que si eliminamos el documento
+            // puede dar error de clave referencial.
+
             EliminarFicheroDocumento(d);
             ctx.Delete(d);
             ctx.SaveChanges();
@@ -381,6 +389,8 @@ namespace PortalProWebApi
                 string nomDestino = String.Format("{0:000000}-{1}", d.DocumentoId, d.NomFichero);
                 string destino = Path.Combine(repoDirectory, nomDestino);
                 File.Copy(origen, destino, true);
+                // una vez copiado ha de borrase el subido
+                File.Delete(origen);
             }
             else
             {
@@ -437,6 +447,8 @@ namespace PortalProWebApi
                     File.Copy(origen, destino, true);
                     ctx.SaveChanges();
                     d = doc;
+                    // una vez copiado ha de borrase el subido
+                    File.Delete(origen);
                 }
             }
             return d;
