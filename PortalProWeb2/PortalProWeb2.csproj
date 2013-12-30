@@ -329,6 +329,7 @@
     <Content Include="css\kendo.bootstrap.min.css" />
     <Content Include="css\kendo.common-bootstrap.min.css" />
     <Content Include="facturaH.html" />
+    <Content Include="images\ajax-loader.gif" />
     <Content Include="js2\es-ES.js" />
     <Content Include="js2\es.js" />
     <Content Include="js2\handlebars-v1.1.2.js" />
@@ -523,7 +524,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties UseAjaxifiedTemplates="True" UseJQuerySupport="True" />
+      <UserProperties UseJQuerySupport="True" UseAjaxifiedTemplates="True" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

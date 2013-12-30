@@ -375,11 +375,11 @@ namespace PortalProWebApi
                 if (pos > -1) extension = archivo.Substring(pos + 1);
                 // creamos el documento
                 d = new Documento();
-                d.Comentario = "";
                 d.DescargaUrl = "";
                 d.Extension = extension;
                 d.NomFichero = nomFichero;
                 d.TipoDocumento = doc.TipoDocumento;
+                d.Comentario = doc.Comentario;
                 ctx.Add(d);
                 ctx.SaveChanges();
                 int id = d.DocumentoId;

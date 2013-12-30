@@ -23,7 +23,6 @@ function valida_nif_cif_nie(a) {
             }
         }
 
-
         //algoritmo para comprobacion de codigos tipo CIF
         suma = parseInt(a.charAt(2)) + parseInt(a.charAt(4)) + parseInt(a.charAt(6));
 
@@ -100,13 +99,15 @@ function str_replace(search, position, replace, subject) {
 
     while (j = 0, i--) {
         if (s[i]) {
-            while (s[p] = s[p].split(f[j]).join(ra ? r[j] || "" : r[0]), ++j in f) { };
+            while (s[p] = s[p].split(f[j]).join(ra ? r[j] || "" : r[0]), ++j in f) {
+            }
+            ;
         }
-    };
+    }
+    ;
 
     return sa ? s : s[0];
 }
-
 
 function validarIBAN(iban) {
     // comprobamos la longitud de cadena
@@ -134,7 +135,8 @@ function validarIBAN(iban) {
         if (cuentaFormateada.length >= 6) {
             aux = aux + cuentaFormateada.substring(0, 6);
             cuentaFormateada = cuentaFormateada.substring(6);
-        } else {
+        }
+        else {
             aux = aux + cuentaFormateada;
             cuentaFormateada = "";
         }
@@ -153,12 +155,10 @@ function validarIBAN(iban) {
     return true;
 }
 
-
 function getnumIBAN(letra) {
     ls_letras = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     return ls_letras.search(letra) + 10;
 }
-
 
 function validarCuenta(i_entidad, i_oficina, i_digito, i_cuenta) {
     // VALIDACIÓN DE CUALQUIER LIBRETA DE CUALQUIER ENTIDAD BANCARIA.
@@ -225,8 +225,12 @@ function validarCuenta(i_entidad, i_oficina, i_digito, i_cuenta) {
     wresto = wtotal - (wcociente * 11);
     //
     wtotal = 11 - wresto;
-    if (wtotal == 11) { wtotal = 0; }
-    if (wtotal == 10) { wtotal = 1; }
+    if (wtotal == 11) {
+        wtotal = 0;
+    }
+    if (wtotal == 10) {
+        wtotal = 1;
+    }
 
     if (wtotal != i_digito.charAt(1)) {
         //alert(wtotal+' y no '+i_digito.charAt(1));
@@ -235,4 +239,13 @@ function validarCuenta(i_entidad, i_oficina, i_digito, i_cuenta) {
     // hemos validado la cuenta corriente
 
     return true;
+}
+
+function swift_validate(swift) {
+    var regSWIFT = /^([a-zA-Z]){4}([a-zA-Z]){2}([0-9a-zA-Z]){2}([0-9a-zA-Z]{3})?$/;
+
+    if (regSWIFT.test(swift) == false)
+        return false;
+    else
+        return true;
 }

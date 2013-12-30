@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 using PortalProModelo;
 using Telerik.OpenAccess.FetchOptimization;
@@ -115,8 +116,14 @@ namespace PortalProWebApi.Controllers
                         IEnumerable<Documento> docs = (from d in ctx.Documentos
                                                        where d.SolicitudProveedor.SolicitudProveedorId == idSolPro
                                                        select d).ToList<Documento>();
-                        // La aplicación ahora depende del comienzo del usuario
-                        string application = "PortalPro";
+                        //
+                        HttpRequest request = HttpContext.Current.Request;
+                        // hay que obtener la URL de descarga para cada uno de los documentos
+                        foreach (Documento d in docs)
+                        {
+                            string item = String.Format("DOCF{0}", d.TipoDocumento.TipoDocumentoId);
+                            d.DescargaUrl = PortalProWebUtility.CargarUrlDocumento(d, userId, item, request);
+                        }
                         FetchStrategy fs = new FetchStrategy();
                         fs.LoadWith<Documento>(x => x.TipoDocumento);
                         IEnumerable<Documento> documentos = ctx.CreateDetachedCopy<IEnumerable<Documento>>(docs, fs);
@@ -278,6 +285,11 @@ namespace PortalProWebApi.Controllers
                 {
                     grupoProveedorId = solProveedor.GrupoProveedor.GrupoProveedorId;
                     solProveedor.GrupoProveedor = null;
+                }
+                if (solProveedor.SolicitudStatus != null)
+                {
+                    solicitudStatusId = solProveedor.SolicitudStatus.SolicitudStatusId;
+                    solProveedor.SolicitudStatus = null;
                 }
                 // modificar el objeto
                 ctx.AttachCopy<SolicitudProveedor>(solProveedor);

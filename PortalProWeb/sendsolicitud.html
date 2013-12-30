@@ -67,7 +67,17 @@
                             Enviar solicitud de alta a proveedor <i class="icon-envelope"></i>
                         </h1>
                     </div>
-                    <div id="send-form" class="row-fluid"> <!-- send-form -->
+                    <div id="send-image-loader">
+                        <div class="row-fluid">
+                            <div class="span4"></div>
+                            <div class="span4 center">
+                                <img src="images/ajax-loader.gif" />
+                            </div>
+                            <div class="span4"></div>
+                        </div>
+                    </div>
+                    <div id="send-form" class="row-fluid">
+                        <!-- send-form -->
                         <div class="row-fluid">
                             <div class="span12">
                                 <label>
@@ -151,6 +161,7 @@
                     url: "Introduzca una dirección válida"
                 }
             }).data("kendoValidator");
+        
         </script>
         <!-- ViewModel -->
         <script type="text/javascript">
@@ -165,7 +176,7 @@
             }
             
             var vm = new ModelView();
-        
+            
             ko.applyBindings(vm);
         </script>
         <script type="text/javascript">
@@ -254,13 +265,15 @@
             function saveData() {
                 var verb = "";
                 var url = "";
+                $("#send-image-loader").show();
+                $("#send-form").hide();
                 // http://localhost:49573/solicitudproveedorfrm.html?GrupoProveedorId=2
-                var link = "http://" + window.location.host +"/solicitudproveedorfrm.html?GrupoProveedorId=" + vm.GrupoProveedor.GrupoProveedorId();
+                var link = ari_hosts.webapi + "/whtml/solicitudproveedorfrm2.html?GrupoProveedorId=" + vm.GrupoProveedor.GrupoProveedorId();
                 verb = "POST";
                 url = ari_hosts.webapi + "/api/solicitudesproveedores/?email=" + vm.Email() +
-                    "&link=" + link +
-                    "&comentarios=" + vm.Comentarios() +
-                    "&tk=" + getCookie("ari_tique");
+                      "&link=" + link +
+                      "&comentarios=" + vm.Comentarios() +
+                      "&tk=" + getCookie("ari_tique");
                 $.ajax({
                     type: verb,
                     url: url,
@@ -268,6 +281,8 @@
                     contentType: "application/json",
                     data: ko.toJSON(vm),
                     success: function (data, textStatus) {
+                        $("#send-image-loader").hide();
+                        $("#send-form").show();
                         // incluir aqui el tratamiento de los datos recibidos
                         bootbox.alert("Se ha enviado el correo al proveedor", "Aceptar");
                     },
@@ -300,6 +315,8 @@
                             loadCombos();
                             break;
                     }
+                    $("#send-image-loader").hide();
+                    $("#send-form").show();
                 });
             })(jQuery);
         </script>

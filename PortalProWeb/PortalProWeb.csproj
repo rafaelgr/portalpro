@@ -321,6 +321,7 @@
     <Content Include="css\custom.css" />
     <Content Include="css\kendo.bootstrap.min.css" />
     <Content Include="css\kendo.common-bootstrap.min.css" />
+    <Content Include="images\ajax-loader.gif" />
     <Content Include="importacion.html" />
     <Content Include="js\handlebars-v1.1.2.js" />
     <Content Include="js\jquery.dataTables.js" />
@@ -521,7 +522,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties UseJQuerySupport="True" UseAjaxifiedTemplates="True" />
+      <UserProperties UseAjaxifiedTemplates="True" UseJQuerySupport="True" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
