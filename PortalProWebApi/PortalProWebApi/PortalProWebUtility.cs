@@ -639,7 +639,7 @@ namespace PortalProWebApi
                 if (facAbierto)
                 {
                     factura.Estado = "RECIBIDA2";
-                    factura.Historial += String.Format("{0:dd/MM/yyyy hh:mm:ss} La factura {1} pasa a estado {3} debido a que el pedido {4} linea {5} no está recibido, se espera a su aceptación manual <br/>",
+                    factura.Historial += String.Format("{0:dd/MM/yyyy hh:mm:ss} La factura {1} pasa a estado INCIDENCIA debido a que el pedido {4} linea {5} no está recibido, se espera a su aceptación manual <br/>",
                         DateTime.Now, factura.NumFactura, factura.TotalFactura, factura.Estado, lp.NumPedido, lp.NumLinea);
                 }
                 else
@@ -656,6 +656,14 @@ namespace PortalProWebApi
             factura.Empresa = p.Empresa;
             factura.Responsable = p.Responsable;
             l.CabFactura = factura;
+            // antes de salir conmprobamos si el total facturado supera
+            // el margen de control PDF
+            if (factura.TotalFactura > parametro.MaxImportePdf)
+            {
+                factura.Estado = "RECIBIDA2";
+                factura.Historial += String.Format("{0:dd/MM/yyyy hh:mm:ss} La factura {1} pasa a estado INCIDENCIA debido a que su total {2} supera al margen de control PDF {4} <br/>",
+                    DateTime.Now, factura.NumFactura, factura.TotalFactura, factura.Estado, parametro.MaxImportePdf);
+            }
             ctx.Add(l);
             ctx.SaveChanges();
             return m;

@@ -308,6 +308,7 @@
     <Content Include="avatars\avatar3.png" />
     <Content Include="avatars\avatar4.png" />
     <Content Include="avatars\user.jpg" />
+    <Content Include="css\ariadna-style.css" />
     <Content Include="css\Bootstrap\editor.png" />
     <Content Include="css\Bootstrap\imagebrowser.png" />
     <Content Include="css\Bootstrap\indeterminate.gif" />
@@ -522,7 +523,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties UseAjaxifiedTemplates="True" UseJQuerySupport="True" />
+      <UserProperties UseJQuerySupport="True" UseAjaxifiedTemplates="True" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
