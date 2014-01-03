@@ -490,7 +490,37 @@ namespace PortalProWebApi.Controllers
                 {
                     throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotFound, "No hay pedidos seleccionados para la generación (CabFactura)"));
                 }
-                CabFactura factura = PortalProWebUtility.GenerarFacturaDesdePedidos(pedidosSeleccionados, ctx);
+                // las facturas sobre pedidos de suscripción se realizan una a una.
+                bool hayPedidoSuscripcion = PortalProWebUtility.PedidoSuscripcionHayUno(pedidosSeleccionados, ctx);
+                CabFactura factura = null;
+                if (pedidosSeleccionados.Length > 1 && hayPedidoSuscripcion)
+                {
+                    throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotFound, "No puede seleccionar más de un pedido de suscripción a la vez (CabFactura)"));
+                }
+                if (hayPedidoSuscripcion)
+                {
+                    // solo hay un pedido y es de suscripción
+                    Pedido pedido = (from p in ctx.Pedidos
+                                     where p.PedidoId == pedidosSeleccionados[0]
+                                     select p).FirstOrDefault<Pedido>();
+                    if (pedido != null)
+                    {
+                        decimal totalAFacturar = PortalProWebUtility.PedidoSuscripcionImporteFacturable(pedido, DateTime.Now, ctx);
+                        if (totalAFacturar == 0)
+                        {
+                            throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotFound, "El pedido de suscripción o ya ha sido facturado este mes o se ha superado la fecha límite. (CabFactura)"));
+                        }
+                        else
+                        {
+                            factura = PortalProWebUtility.PedidoSuscripcionGenerarFactura(pedido, totalAFacturar, ctx);
+                        }
+                    }
+                }
+                else
+                {
+                    // los pedidos son normales (no de suscripcíon)
+                    factura = PortalProWebUtility.GenerarFacturaDesdePedidos(pedidosSeleccionados, ctx);
+                }
                 if (factura == null)
                 {
                     throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotFound, "Se ha producido un error en la generación de la factura (CabFactura)"));

@@ -481,14 +481,14 @@
         <orm:field name="_responsable" property="Responsable" behavior="readwrite" uniqueId="d1d1a890-ad20-44e5-aa4c-6075976a6a75" type="PortalProModelo.Responsable">
           <orm:reference uniqueId="41aadbf5-fa68-4555-9c91-c7056c324382" />
         </orm:field>
-        <orm:field name="_linFacturas" property="LinFacturas" behavior="readwrite" uniqueId="92a6a4d5-d147-4f2f-8a42-950f64a46158" type="PortalProModelo.LinFactura">
-          <orm:collection element-class="PortalProModelo.LinFactura" inverse-field="_cabFactura" order-by="" uniqueId="99479ba3-b941-4d39-94d2-f99068cc96b7" />
-        </orm:field>
         <orm:field name="_documento1" property="DocumentoXml" behavior="readwrite" uniqueId="e16c2a38-d715-4fad-8f00-da6102f3bb22" type="PortalProModelo.Documento">
           <orm:reference uniqueId="4b96947a-19bb-42b7-8990-05c9813aed7d" />
         </orm:field>
         <orm:field name="_documento" property="DocumentoPdf" behavior="readwrite" uniqueId="5f008862-41ca-4f8e-bd54-361c6d5cc2c6" type="PortalProModelo.Documento">
           <orm:reference uniqueId="65acfdff-8576-4f23-859e-280a6e557001" />
+        </orm:field>
+        <orm:field name="_linFacturas" property="LinFacturas" behavior="readwrite" uniqueId="92a6a4d5-d147-4f2f-8a42-950f64a46158" type="PortalProModelo.LinFactura">
+          <orm:collection element-class="PortalProModelo.LinFactura" inverse-field="_cabFactura" order-by="" uniqueId="99479ba3-b941-4d39-94d2-f99068cc96b7" />
         </orm:field>
         <orm:index name="idx_CabFactura_ProveedorId">
           <orm:columnMapping>
@@ -600,11 +600,11 @@
         <orm:field name="_responsable" property="Responsable" behavior="readwrite" uniqueId="dc980d38-7d89-44bb-95f9-983a5c3272a6" type="PortalProModelo.Responsable">
           <orm:reference uniqueId="c2c93ca7-1241-402d-9399-398bc2bafe79" />
         </orm:field>
-        <orm:field name="_linPedidos" property="LinPedidos" behavior="readwrite" uniqueId="aa2d3426-6723-4a19-8203-7ae728255acd" type="PortalProModelo.LinPedido">
-          <orm:collection element-class="PortalProModelo.LinPedido" inverse-field="_pedido" order-by="" uniqueId="2ef9c0aa-d285-45b6-98ff-c8b852d61572" />
-        </orm:field>
         <orm:field name="_documento" property="DocumentoPdf" behavior="readwrite" uniqueId="a24e4085-402a-4960-922b-1af8fff25fb5" type="PortalProModelo.Documento">
           <orm:reference uniqueId="ce7ef598-0cdd-42a6-a384-133861d81017" />
+        </orm:field>
+        <orm:field name="_linPedidos" property="LinPedidos" behavior="readwrite" uniqueId="aa2d3426-6723-4a19-8203-7ae728255acd" type="PortalProModelo.LinPedido">
+          <orm:collection element-class="PortalProModelo.LinPedido" inverse-field="_pedido" order-by="" uniqueId="2ef9c0aa-d285-45b6-98ff-c8b852d61572" />
         </orm:field>
         <orm:index name="idx_Pedido_DocumentoPdf_DocumentoId">
           <orm:columnMapping>

@@ -312,6 +312,7 @@ namespace PortalProWebApi
 
         public static void EliminarDocumento(Documento d, PortalProContext ctx)
         {
+            if (d == null) return;
             if (d.DocumentoId == 0)
             {
                 // el documento está vacío
@@ -598,6 +599,11 @@ namespace PortalProWebApi
                 m = String.Format("El pedido {0} no existe.", l.NumeroPedido);
                 return m;
             }
+            // Si el pedido es de suscripción lo maneja otra rutina
+            if (p.TipoPedido == "SUSCRIPCION")
+            {
+                return PortalProWebUtility.ComprobarLineaFacturaContraPedidoSuscripcion(factura, l, ctx);
+            }
             // ahora se compara contra línea, luego hay que buscar la línea correspondiente
             LinPedido lp = (from linped in ctx.LinPedidos
                             where linped.NumPedido == l.NumeroPedido
@@ -655,6 +661,8 @@ namespace PortalProWebApi
             // actualizar empresa y responsables
             factura.Empresa = p.Empresa;
             factura.Responsable = p.Responsable;
+            if (factura.FechaEmision != null)
+                l.FechaEmision = (DateTime)factura.FechaEmision;
             l.CabFactura = factura;
             // antes de salir conmprobamos si el total facturado supera
             // el margen de control PDF

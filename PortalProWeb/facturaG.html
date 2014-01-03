@@ -202,7 +202,7 @@
                                         <tr>
                                             <td data-bind="text: LinFacturaId" class="hidden-480"></td>
                                             <td class="hidden-480">
-                                                <span data-bind="text: NumeroPedido"></span>
+                                                <a data-bind="text: NumeroPedido, click: $root.seePedido"></a>
                                             </td>
                                             <td>
                                                 <span data-bind="text: Descripcion"></span>
@@ -396,6 +396,11 @@
                 }
                 self.removeLineaFactura = function(linea) {
                     self.LineasFactura.remove(linea);
+                }
+                self.seePedido = function (linea) {
+                    // abrir en una ventana la consulta de pedido.
+                    var url = "/verPedido.html?numPedido=" + linea.NumeroPedido;
+                    window.open(url);
                 }
             }
             

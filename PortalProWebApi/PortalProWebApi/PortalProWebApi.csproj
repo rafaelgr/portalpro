@@ -226,6 +226,7 @@
     <Compile Include="IResponseDocumentationProvider.cs" />
     <Compile Include="PortalProMailController.cs" />
     <Compile Include="PortalProWebUtility.cs" />
+    <Compile Include="PPWU_PedidosSuscripcion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UploadResponse.cs" />
   </ItemGroup>

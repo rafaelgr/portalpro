@@ -1283,5 +1283,55 @@
             <param name="ctx">Contexto de OpenAccess usado por el proceso.</param>
             <returns>Una cadena vacía en el caso de que todo haya sido correcto y si no el mensaje explicativo</returns>
         </member>
+        <member name="M:PortalProWebApi.PortalProWebUtility.PedidoSuscripcionImporteFacturable(PortalProModelo.Pedido,System.DateTime,PortalProModelo.PortalProContext)">
+            <summary>
+            Calcula el importe que se puede facturar en el mes de la fecha
+            contra el pedido de suscripción pasado. Si este importe es cero
+            no se puede facturar. Si el pedido no es de suscripción devuelve
+            cero igualmente. Si hay fecha límite y se ha sobrepasado 
+            devuelve cero también.
+            </summary>
+            <param name="pedido">Posible pedido de suscripción</param>
+            <param name="fecha">Fecha de la factura</param>
+            <param name="ctx">Contexto OpenAccess</param>
+            <returns>Importe pediente de facturar para el mes de la fecha</returns>
+        </member>
+        <member name="M:PortalProWebApi.PortalProWebUtility.PedidoSuscripcionImporteFacturable(PortalProModelo.Pedido,PortalProModelo.CabFactura,PortalProModelo.PortalProContext)">
+            <summary>
+            Devueleve lo que queda por facturar de un pedido de suscripción, excluyendo
+            la factura pasada
+            </summary>
+            <param name="pedido">Pedido de suscripción</param>
+            <param name="factura">Factura de referencia</param>
+            <param name="ctx">Contexto OpenAccess</param>
+            <returns>Importe pendiente o cero si no se puede facturar.</returns>
+        </member>
+        <member name="M:PortalProWebApi.PortalProWebUtility.PedidoSuscripcionHayUno(System.Collections.Generic.IList{PortalProModelo.Pedido})">
+            <summary>
+            Verifica si en la lista pasado hay algun pedido
+            de suscripción
+            </summary>
+            <param name="pedidos">Lista de pedidos</param>
+            <returns>true = hay - false = no hay</returns>
+        </member>
+        <member name="M:PortalProWebApi.PortalProWebUtility.PedidoSuscripcionHayUno(System.Int32[],PortalProModelo.PortalProContext)">
+            <summary>
+            A partir de los identificadores de una lista de pedidos
+            verifica si en la lista hay alguno de suscripción
+            </summary>
+            <param name="pedidoIds">Lista de identificadores de pedidos</param>
+            <param name="ctx">Contexto OpenAccess</param>
+            <returns></returns>
+        </member>
+        <member name="M:PortalProWebApi.PortalProWebUtility.PedidoSuscripcionGenerarFactura(PortalProModelo.Pedido,System.Decimal,PortalProModelo.PortalProContext)">
+            <summary>
+            Genera una factura de una sola linea con el importe
+            pasado y a partir del pedido indicado.
+            </summary>
+            <param name="pedido">Pedido para el que se genera la factura</param>
+            <param name="importe">Importe a facturar</param>
+            <param name="ctx">Contexto OpenAccess</param>
+            <returns></returns>
+        </member>
     </members>
 </doc>

@@ -260,6 +260,37 @@ namespace PortalProWebApi.Controllers
             }
         }
 
+        public virtual Pedido Get(string numPedido, string userId, string tk)
+        {
+            using (PortalProContext ctx = new PortalProContext())
+            {
+                if (CntWebApiSeguridad.CheckTicket(tk, ctx))
+                {
+                    HttpRequest rq = HttpContext.Current.Request;
+                    Pedido pedido = (from f in ctx.Pedidos
+                                     where f.NumPedido == numPedido
+                                     orderby f.FechaAlta descending
+                                     select f).FirstOrDefault<Pedido>();
+                    if (pedido != null)
+                    {
+                        //
+                        if (pedido.DocumentoPdf != null)
+                            pedido.DocumentoPdf.DescargaUrl = PortalProWebUtility.CargarUrlDocumento(pedido.DocumentoPdf, userId, "ITEM", rq);
+                        pedido = ctx.CreateDetachedCopy<Pedido>(pedido, x => x.Proveedor, x => x.DocumentoPdf, x => x.Empresa, x => x.Responsable);
+                        return pedido;
+                    }
+                    else
+                    {
+                        throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotFound, "No hay un pedido con el id proporcionado (Pedido)"));
+                    }
+                }
+                else
+                {
+                    throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.Unauthorized, "Se necesita tique de autorización (Pedido)"));
+                }
+            }
+        }
+
         /// <summary>
         /// Crear un nueva cabecera de pedido
         /// </summary>
