@@ -18,17 +18,28 @@ namespace PortalProWebApi
             threadId = Thread.CurrentThread.ManagedThreadId;
             // abrir conexiones 
             PortalProContext ctx = new PortalProContext();
+            // Actualizar los registros de proceso para dejar bloqueada la barra
+            Progresos progreso = (from p in ctx.Progresos
+                                  where p.ProgresoId == 1
+                                  select p).FirstOrDefault<Progresos>();
+            if (progreso != null)
+            {
+                progreso.NumReg = 0;
+                progreso.TotReg = 1;
+                ctx.SaveChanges();
+            }
+
             string strConnect = ConfigurationManager.ConnectionStrings["PortalProTestConnection"].ConnectionString;
             SqlConnection con = new SqlConnection(strConnect);
             con.Open();
-            string sql = "SELECT COUNT(*) FROM [PortalProTest].[dbo].[Cau_PortalPro_VEmpresas]";
+            string sql = "SELECT COUNT(*) FROM [dbo].[Cau_PortalPro_VEmpresas]";
             SqlCommand cmd = new SqlCommand(sql, con);
             int totreg = (int)cmd.ExecuteScalar();
             int numreg = 0;
             sql = @"SELECT  
                         [IDEMPRESA]
                         ,[NOMBRE]
-                    FROM [PortalProTest].[dbo].[Cau_PortalPro_VEmpresas]";
+                    FROM [dbo].[Cau_PortalPro_VEmpresas]";
             cmd = new SqlCommand(sql, con);
             SqlDataReader dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -48,7 +59,7 @@ namespace PortalProWebApi
                 emp2.Nombre = dr.GetString(1);
                 ctx.SaveChanges();
                 // Actualizar los registros de proceso
-                Progresos progreso = (from p in ctx.Progresos
+                progreso = (from p in ctx.Progresos
                                       where p.ProgresoId == 1
                                       select p).FirstOrDefault<Progresos>();
                 if (progreso != null)

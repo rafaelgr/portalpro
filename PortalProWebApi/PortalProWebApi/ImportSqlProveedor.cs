@@ -18,10 +18,20 @@ namespace PortalProWebApi
             threadId = Thread.CurrentThread.ManagedThreadId;
             // abrir conexiones 
             PortalProContext ctx = new PortalProContext();
+            // Actualizar los registros de proceso
+            Progresos progreso = (from p in ctx.Progresos
+                                  where p.ProgresoId == 2
+                                  select p).FirstOrDefault<Progresos>();
+            if (progreso != null)
+            {
+                progreso.NumReg = 0;
+                progreso.TotReg = 1;
+                ctx.SaveChanges();
+            }
             string strConnect = ConfigurationManager.ConnectionStrings["PortalProTestConnection"].ConnectionString;
             SqlConnection con = new SqlConnection(strConnect);
             con.Open();
-            string sql = "SELECT COUNT(*) FROM [PortalProTest].[dbo].[Cau_PortalPro_VProveedores]";
+            string sql = "SELECT COUNT(*) FROM [dbo].[Cau_PortalPro_VProveedores]";
             SqlCommand cmd = new SqlCommand(sql, con);
             int totreg = (int)cmd.ExecuteScalar();
             int numreg = 0;
@@ -42,7 +52,7 @@ namespace PortalProWebApi
                         ,[CAUPORTALPROEMAIL]
                         ,[BANKIBAN]
                         ,[CAUPORTALPROALLOWINVOICE]
-                    FROM [PortalProTest].[dbo].[Cau_PortalPro_VProveedores]";
+                    FROM [dbo].[Cau_PortalPro_VProveedores]";
             cmd = new SqlCommand(sql, con);
             SqlDataReader dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -74,7 +84,7 @@ namespace PortalProWebApi
                 if (!dr.IsDBNull(14)) pr2.IBAN = dr.GetString(14);
                 ctx.SaveChanges();
                 // Actualizar los registros de proceso
-                Progresos progreso = (from p in ctx.Progresos
+                progreso = (from p in ctx.Progresos
                                       where p.ProgresoId == 2
                                       select p).FirstOrDefault<Progresos>();
                 if (progreso != null)

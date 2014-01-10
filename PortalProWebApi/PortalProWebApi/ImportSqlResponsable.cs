@@ -18,10 +18,20 @@ namespace PortalProWebApi
             threadId = Thread.CurrentThread.ManagedThreadId;
             // abrir conexiones 
             PortalProContext ctx = new PortalProContext();
+            // Actualizar los registros de proceso
+            Progresos progreso = (from p in ctx.Progresos
+                                  where p.ProgresoId == 5
+                                  select p).FirstOrDefault<Progresos>();
+            if (progreso != null)
+            {
+                progreso.NumReg = 0;
+                progreso.TotReg = 1;
+                ctx.SaveChanges();
+            }
             string strConnect = ConfigurationManager.ConnectionStrings["PortalProTestConnection"].ConnectionString;
             SqlConnection con = new SqlConnection(strConnect);
             con.Open();
-            string sql = "SELECT COUNT(*) FROM [PortalProTest].[dbo].[Cau_PortalPro_VResponsable]";
+            string sql = "SELECT COUNT(*) FROM [dbo].[Cau_PortalPro_VResponsable]";
             SqlCommand cmd = new SqlCommand(sql, con);
             int totreg = (int)cmd.ExecuteScalar();
             int numreg = 0;
@@ -29,7 +39,7 @@ namespace PortalProWebApi
                         [ID]
                         ,[NAME]
                         ,[EMAIL]
-                    FROM [PortalProTest].[dbo].[Cau_PortalPro_VResponsable]";
+                    FROM [dbo].[Cau_PortalPro_VResponsable]";
             cmd = new SqlCommand(sql, con);
             SqlDataReader dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -50,7 +60,7 @@ namespace PortalProWebApi
                 res2.Email = dr.GetString(2);
                 ctx.SaveChanges();
                 // Actualizar los registros de proceso
-                Progresos progreso = (from p in ctx.Progresos
+                progreso = (from p in ctx.Progresos
                                       where p.ProgresoId == 5
                                       select p).FirstOrDefault<Progresos>();
                 if (progreso != null)

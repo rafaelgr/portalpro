@@ -18,10 +18,20 @@ namespace PortalProWebApi
             threadId = Thread.CurrentThread.ManagedThreadId;
             // abrir conexiones 
             PortalProContext ctx = new PortalProContext();
+            // Actualizar los registros de proceso
+            Progresos progreso = (from p in ctx.Progresos
+                                  where p.ProgresoId == 4
+                                  select p).FirstOrDefault<Progresos>();
+            if (progreso != null)
+            {
+                progreso.NumReg = 0;
+                progreso.TotReg = 1;
+                ctx.SaveChanges();
+            }
             string strConnect = ConfigurationManager.ConnectionStrings["PortalProTestConnection"].ConnectionString;
             SqlConnection con = new SqlConnection(strConnect);
             con.Open();
-            string sql = "SELECT COUNT(*) FROM [PortalProTest].[dbo].[Cau_PortalPro_VCabFactura]";
+            string sql = "SELECT COUNT(*) FROM [dbo].[Cau_PortalPro_VCabFactura]";
             SqlCommand cmd = new SqlCommand(sql, con);
             int totreg = (int)cmd.ExecuteScalar();
             int numreg = 0;
@@ -34,7 +44,7 @@ namespace PortalProWebApi
                         ,[FECHAPAGO]
                         ,[ESTADI]
                         ,[FECHAVENCIMIENTO]
-                    FROM [PortalProTest].[dbo].[Cau_PortalPro_VCabFactura]";
+                    FROM [dbo].[Cau_PortalPro_VCabFactura]";
             cmd = new SqlCommand(sql, con);
             SqlDataReader dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -94,7 +104,7 @@ namespace PortalProWebApi
                 {
                 }
                 // Actualizar los registros de proceso
-                Progresos progreso = (from p in ctx.Progresos
+                progreso = (from p in ctx.Progresos
                                       where p.ProgresoId == 4
                                       select p).FirstOrDefault<Progresos>();
                 if (progreso != null)
@@ -128,7 +138,7 @@ namespace PortalProWebApi
                               ,[PURCHID]
                               ,[LINEAMOUNT]
                               ,[PORIVA]
-                          FROM [PortalProTest].[dbo].[Cau_portalpro_VLinFactura] WHERE [INVOICEID] = '{0}' AND [INVOICEDATE] = '{1:yyyMMdd}';";
+                          FROM [dbo].[Cau_portalpro_VLinFactura] WHERE [INVOICEID] = '{0}' AND [INVOICEDATE] = '{1:yyyMMdd}';";
             string sql = String.Format(sqlb, numFactura, fechaFactura);
             SqlCommand cmd = new SqlCommand(sql, con);
             SqlDataReader dr = cmd.ExecuteReader();

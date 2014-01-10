@@ -19,10 +19,20 @@ namespace PortalProWebApi
             threadId = Thread.CurrentThread.ManagedThreadId;
             // abrir conexiones 
             PortalProContext ctx = new PortalProContext();
+            // Actualizar los registros de proceso
+            Progresos progreso = (from p in ctx.Progresos
+                                  where p.ProgresoId == 3
+                                  select p).FirstOrDefault<Progresos>();
+            if (progreso != null)
+            {
+                progreso.NumReg = 0;
+                progreso.TotReg = 1;
+                ctx.SaveChanges();
+            }
             string strConnect = ConfigurationManager.ConnectionStrings["PortalProTestConnection"].ConnectionString;
             SqlConnection con = new SqlConnection(strConnect);
             con.Open();
-            string sql = "SELECT COUNT(*) FROM [PortalProTest].[dbo].[Cau_PortalPro_VCabPedido]";
+            string sql = "SELECT COUNT(*) FROM [dbo].[Cau_PortalPro_VCabPedido]";
             SqlCommand cmd = new SqlCommand(sql, con);
             int totreg = (int)cmd.ExecuteScalar();
             int numreg = 0;
@@ -37,7 +47,7 @@ namespace PortalProWebApi
                         ,[CREATEDDATE]
                         ,[FECHARECEPCION]
                         ,[FECHALIMITE]
-                    FROM [PortalProTest].[dbo].[Cau_PortalPro_VCabPedido]";
+                    FROM [dbo].[Cau_PortalPro_VCabPedido]";
             cmd = new SqlCommand(sql, con);
             SqlDataReader dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -109,7 +119,7 @@ namespace PortalProWebApi
                 // cargar las lineas
                 LoadAssociateLines(numpedido);
                 // Actualizar los registros de proceso
-                Progresos progreso = (from p in ctx.Progresos
+                progreso = (from p in ctx.Progresos
                                       where p.ProgresoId == 3
                                       select p).FirstOrDefault<Progresos>();
                 if (progreso != null)
@@ -148,7 +158,7 @@ namespace PortalProWebApi
                               ,[REMAINPURCHPHYSICAL]
                               ,[REMAINPURCHFINANCIAL]
                               ,[FECHARECEPCION]
-                          FROM [PortalProTest].[dbo].[Cau_PortalPro_VLinPedido]  WHERE [PURCHID] = '{0}';";
+                          FROM [dbo].[Cau_PortalPro_VLinPedido]  WHERE [PURCHID] = '{0}';";
             string sql = String.Format(sqlb, numPedido);
             SqlCommand cmd = new SqlCommand(sql, con);
             SqlDataReader dr = cmd.ExecuteReader();
