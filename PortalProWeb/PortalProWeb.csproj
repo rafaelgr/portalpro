@@ -326,6 +326,7 @@
     <Content Include="importacion.html" />
     <Content Include="js\handlebars-v1.1.2.js" />
     <Content Include="js\jquery.dataTables.js" />
+    <Content Include="js\kendo.web.js" />
     <Content Include="js\pekeUpload.js" />
     <Content Include="test_tablas.html" />
     <Content Include="responsable.html" />
@@ -430,7 +431,6 @@
     <Content Include="js\kendo.culture.es-ES.min.js" />
     <Content Include="js\kendo.editor.js" />
     <Content Include="js\kendo.upload.js" />
-    <Content Include="js\kendo.web.js" />
     <Content Include="js\kendo.web.min.js" />
     <Content Include="js\knockout-2.2.1.js" />
     <Content Include="js\knockout-kendo.js" />
@@ -524,7 +524,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties UseAjaxifiedTemplates="True" UseJQuerySupport="True" />
+      <UserProperties UseJQuerySupport="True" UseAjaxifiedTemplates="True" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

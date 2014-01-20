@@ -70,7 +70,7 @@
                     <div class="row-fluid">
                         <h4 class="blue">
                             Sincronizar empresas
-                            <button class="btn btn-small btn-primary" onclick ="launchImport('Empresa')">
+                            <button id="btnImpEmpresa" class="btn btn-small btn-primary" onclick ="launchImport('Empresa')">
                                 <i class="icon-exchange icon-white"></i>
                             </button>
                         </h4>
@@ -86,7 +86,7 @@
                     <div class="row-fluid">
                         <h4 class="blue">
                             Sincronizar responsables
-                            <button class="btn btn-small btn-primary" onclick ="launchImport('Responsable')">
+                            <button id="btnImpResponsable" class="btn btn-small btn-primary" onclick ="launchImport('Responsable')">
                                 <i class="icon-exchange icon-white"></i>
                             </button>
                         </h4>
@@ -102,7 +102,7 @@
                     <div class="row-fluid">
                         <h4 class="blue">
                             Sincronizar proveedores
-                            <button class="btn btn-small btn-primary" onclick ="launchImport('Proveedor')">
+                            <button id="btnImpProveedor" class="btn btn-small btn-primary" onclick ="launchImport('Proveedor')">
                                 <i class="icon-exchange icon-white"></i>
                             </button>
                         </h4>
@@ -118,7 +118,7 @@
                     <div class="row-fluid">
                         <h4 class="blue">
                             Sincronizar pedidos
-                            <button class="btn btn-small btn-primary" onclick ="launchImport('Pedido')">
+                            <button id="btnImpPedido" class="btn btn-small btn-primary" onclick ="launchImport('Pedido')">
                                 <i class="icon-exchange icon-white"></i>
                             </button>
                         </h4>
@@ -134,7 +134,7 @@
                     <div class="row-fluid">
                         <h4 class="blue">
                             Sincronizar facturas
-                            <button class="btn btn-small btn-primary" onclick ="launchImport('Factura')">
+                            <button id="btnImpFactura" class="btn btn-small btn-primary" onclick ="launchImport('Factura')">
                                 <i class="icon-exchange icon-white"></i>
                             </button>
                         </h4>
@@ -252,6 +252,8 @@
                 if (numreg == totreg) {
                     per = 100;
                     mes = code + " proceso completado";
+                    var buttonId = "btnImp" + code;
+                    $('#' + buttonId).prop("disabled", true);
                     clearInterval(timer);
                 }
                 $("#txt" + code).text(mes);

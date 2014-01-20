@@ -284,6 +284,19 @@ namespace PortalProModelo
 			}
 		}
 		
+		private DateTime _actualizado;
+		public virtual DateTime Actualizado
+		{
+			get
+			{
+				return this._actualizado;
+			}
+			set
+			{
+				this._actualizado = value;
+			}
+		}
+		
 		private string _nif;
 		public virtual string Nif
 		{

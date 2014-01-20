@@ -200,6 +200,9 @@
           <orm:column name="FacAbierto" sql-type="bit" nullable="true" length="1" scale="0" ado-type="" />
         </orm:field>
         <orm:field name="_nif" property="Nif" uniqueId="f5142d9d-9def-4ed7-9f7c-b8c083655907" type="System.String" />
+        <orm:field name="_actualizado" property="Actualizado" uniqueId="0f5d17e6-f111-4ce9-a85f-bc1cca5bda02" type="System.DateTime">
+          <orm:column nullable="true" scale="0" length="0" sql-type="timestamp" name="Actualizado" ado-type="" />
+        </orm:field>
         <orm:field name="_grupoProveedor" property="GrupoProveedor" behavior="readwrite" uniqueId="770bad8d-fa9f-4718-81ce-4d10a60b42b8" type="PortalProModelo.GrupoProveedor">
           <orm:reference uniqueId="b14ef8f6-9864-4a68-b3e8-b658ea48dedb" />
         </orm:field>
@@ -472,6 +475,9 @@
         <orm:field name="_generada" property="Generada" uniqueId="6d8a0cb6-70cc-4d59-9290-5a4872bc3fca" type="System.Boolean">
           <orm:column name="Generada" sql-type="bit" nullable="false" length="0" scale="0" converter="OpenAccessRuntime.Data.Bit2BooleanConverter" ado-type="Bit" />
         </orm:field>
+        <orm:field name="_actualizado" property="Actualizado" uniqueId="0ea71354-93a4-49c0-87fe-d935451c5c58" type="System.DateTime">
+          <orm:column nullable="true" scale="0" length="0" sql-type="timestamp" name="Actualizado" ado-type="" />
+        </orm:field>
         <orm:field name="_proveedor" property="Proveedor" behavior="readwrite" uniqueId="a0e7d402-f8cd-4e92-9322-d8fc12ad4d93" type="PortalProModelo.Proveedor">
           <orm:reference uniqueId="9750b7fa-84d1-4309-8275-c1b1677043e2" />
         </orm:field>
@@ -588,6 +594,9 @@
         <orm:field name="_fechaRecepcion" property="FechaRecepcion" uniqueId="6460576d-4a09-4c3e-9ada-2ac7e42d9470" type="System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]">
           <orm:column name="FechaRecepcion" sql-type="datetime" nullable="true" length="0" scale="0" ado-type="" />
         </orm:field>
+        <orm:field name="_actualizado" property="Actualizado" uniqueId="dcbc8030-b46b-463a-a068-fc5c1588b650" type="System.DateTime">
+          <orm:column nullable="true" scale="0" length="0" sql-type="timestamp" name="Actualizado" ado-type="" />
+        </orm:field>
         <orm:field name="_proveedor" property="Proveedor" behavior="readwrite" uniqueId="be5b168f-c016-4e54-97f9-75cd7a2dba5f" type="PortalProModelo.Proveedor">
           <orm:reference uniqueId="eade228d-17d6-4ca7-a17f-2f5f674a5e44" />
         </orm:field>
@@ -684,7 +693,8 @@
           <orm:column name="MaxImportePdf" sql-type="integer" nullable="false" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
         </orm:field>
       </orm:class>
-      <orm:class name="Empresa" use-default-mapping="true" uniqueId="58c8b7e2-f73c-4e59-8611-e575a9f94303">
+      <orm:class name="Empresa" uniqueId="58c8b7e2-f73c-4e59-8611-e575a9f94303">
+        <orm:table name="Empresa" />
         <orm:identity>
           <orm:key-generator name="autoinc" />
           <orm:single-field field-name="_empresaId" />
@@ -698,6 +708,9 @@
         <orm:field name="_codAx" property="CodAx" uniqueId="f5646b3b-ae2d-4fed-9e4e-2e8c6cef882c" type="System.String">
           <orm:column name="CodAx" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
         </orm:field>
+        <orm:field name="_actualizado" property="Actualizado" uniqueId="169a618c-9c28-4297-badf-53ff99fe274c" type="System.DateTime">
+          <orm:column nullable="false" scale="0" length="0" sql-type="timestamp" name="Actualizado" ado-type="" />
+        </orm:field>
         <orm:field name="_pedidos" property="Pedidos" behavior="readwrite" uniqueId="ee0da0cb-62b7-47e2-b25e-0de2ee7dc9ea" type="PortalProModelo.Pedido">
           <orm:collection element-class="PortalProModelo.Pedido" inverse-field="_empresa" order-by="" uniqueId="3dae946b-4d15-4bc7-ac48-89cc8a2e11ee" />
         </orm:field>
@@ -705,7 +718,8 @@
           <orm:collection element-class="PortalProModelo.CabFactura" inverse-field="_empresa" order-by="" uniqueId="5d701a62-9825-4d27-a40b-0c4500637c2e" />
         </orm:field>
       </orm:class>
-      <orm:class name="Responsable" use-default-mapping="true" uniqueId="39a335b8-01a4-4d75-9974-fc756883a9b5">
+      <orm:class name="Responsable" uniqueId="39a335b8-01a4-4d75-9974-fc756883a9b5">
+        <orm:table name="Responsable" />
         <orm:identity>
           <orm:key-generator name="autoinc" />
           <orm:single-field field-name="_responsableId" />
@@ -721,6 +735,9 @@
         </orm:field>
         <orm:field name="_codAx" property="CodAx" uniqueId="70d6e3ff-c636-4c59-bd38-61664f072e64" type="System.String">
           <orm:column name="CodAx" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        </orm:field>
+        <orm:field name="_actualizado" property="Actualizado" uniqueId="63d53327-efb4-4011-9b3b-435841699965" type="System.DateTime">
+          <orm:column nullable="false" scale="0" length="0" sql-type="timestamp" name="Actualizado" ado-type="" />
         </orm:field>
         <orm:field name="_usuario" property="Usuario" behavior="readwrite" uniqueId="28e639b8-9e74-4557-abf3-4ac9d8f4cb55" type="PortalProModelo.Usuario">
           <orm:reference uniqueId="a9cdcd44-79bc-4641-ba75-e0fe78212878" />
@@ -803,6 +820,7 @@
         <orm:column name="ActividadPrincipal" sql-type="varchar" nullable="true" length="255" scale="0" ado-type="" />
         <orm:column name="CodAx" sql-type="varchar" nullable="true" length="10" scale="0" ado-type="" />
         <orm:column name="FacAbierto" sql-type="bit" nullable="true" length="1" scale="0" ado-type="" />
+        <orm:column nullable="true" scale="0" length="0" sql-type="timestamp" name="Actualizado" ado-type="" />
       </orm:table>
       <orm:table name="Documento">
         <orm:column name="DocumentoId" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" backend-calculated="true" ado-type="Int32" />
@@ -895,6 +913,7 @@
         <orm:column name="DocumentoXml_DocumentoId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
         <orm:column name="FechaLimite" sql-type="datetime" nullable="true" length="0" scale="0" ado-type="" />
         <orm:column name="FechaRecepcion" sql-type="datetime" nullable="true" length="0" scale="0" ado-type="" />
+        <orm:column nullable="true" scale="0" length="0" sql-type="timestamp" name="Actualizado" ado-type="" />
         <orm:index name="idx_Pedido_DocumentoPdf_DocumentoId">
           <orm:columnMapping>
             <orm:column name="DocumentoPdf_DocumentoId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
@@ -925,6 +944,7 @@
         <orm:column name="ProveedorId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
         <orm:column name="DocumentoPdf_DocumentoId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
         <orm:column name="DocumentoXml_DocumentoId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+        <orm:column nullable="true" scale="0" length="0" sql-type="timestamp" name="Actualizado" ado-type="" />
         <orm:index name="idx_CabFactura_ProveedorId">
           <orm:columnMapping>
             <orm:column name="ProveedorId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
@@ -962,6 +982,25 @@
         <orm:index name="idx_LinFactura_CabFacturaId">
           <orm:columnMapping>
             <orm:column name="CabFacturaId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+          </orm:columnMapping>
+        </orm:index>
+      </orm:table>
+      <orm:table name="Empresa">
+        <orm:column name="EmpresaId" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" backend-calculated="true" ado-type="Int32" />
+        <orm:column name="Nombre" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        <orm:column name="CodAx" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        <orm:column nullable="false" scale="0" length="0" sql-type="timestamp" name="Actualizado" ado-type="" />
+      </orm:table>
+      <orm:table name="Responsable">
+        <orm:column name="ResponsableId" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" backend-calculated="true" ado-type="Int32" />
+        <orm:column name="Nombre" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        <orm:column name="Email" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        <orm:column name="CodAx" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
+        <orm:column name="UsuarioId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+        <orm:column nullable="false" scale="0" length="0" sql-type="timestamp" name="Actualizado" ado-type="" />
+        <orm:index name="idx_Responsable_UsuarioId">
+          <orm:columnMapping>
+            <orm:column name="UsuarioId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
           </orm:columnMapping>
         </orm:index>
       </orm:table>
@@ -1184,6 +1223,7 @@
       <Property Id="dd2b4782-b024-4f59-8707-98e9e5a31409" name="ActividadPrincipal" label="ActividadPrincipal : String" fieldName="_actividadPrincipal" />
       <Property Id="44ec3302-0f77-4475-9c4a-72c4c1355f9d" name="CodAx" label="CodAx : String" fieldName="_codAx" />
       <Property Id="ccc2361a-b5bc-4b01-ab15-15dbd05083b1" name="FacAbierto" type="Boolean" label="FacAbierto : Boolean" fieldName="_facAbierto" />
+      <Property Id="0f5d17e6-f111-4ce9-a85f-bc1cca5bda02" name="Actualizado" type="DateTime" label="Actualizado : DateTime" fieldName="_actualizado" />
       <AssociationTargets>
         <Association Id="b14ef8f6-9864-4a68-b3e8-b658ea48dedb" SourceMultiplicity="ZeroOne" name="ProveedorHasGrupoProveedor">
           <DomainClassMoniker name="/PortalProContext/GrupoProveedor" />
@@ -1459,6 +1499,7 @@
       <Property Id="be508709-6b5f-4000-bec8-ba794ff0c94b" name="FechaPrevistaCobro" type="DateTime" label="FechaPrevistaCobro : DateTime" nullable="true" fieldName="_fechaPrevistaCobro" />
       <Property Id="5d33bb1e-9680-4a1d-b998-051940701df7" name="FechaCobro" type="DateTime" label="FechaCobro : DateTime" nullable="true" fieldName="_fechaCobro" />
       <Property Id="6d8a0cb6-70cc-4d59-9290-5a4872bc3fca" name="Generada" type="Boolean" label="Generada : Boolean" fieldName="_generada" />
+      <Property Id="0ea71354-93a4-49c0-87fe-d935451c5c58" name="Actualizado" type="DateTime" label="Actualizado : DateTime" fieldName="_actualizado" />
       <AssociationTargets>
         <Association Id="9750b7fa-84d1-4309-8275-c1b1677043e2" SourceMultiplicity="ZeroOne" name="CabFacturaHasProveedor">
           <DomainClassMoniker name="/PortalProContext/Proveedor" />
@@ -1618,6 +1659,7 @@
       <Property Id="12c9768c-c872-471b-94dd-10ce9daa4102" name="TipoPedido" label="TipoPedido : String" fieldName="_tipoPedido" />
       <Property Id="89a4c960-a2e0-4ca1-ab88-98c4697b9d88" name="FechaLimite" type="DateTime" label="FechaLimite : DateTime" nullable="true" fieldName="_fechaLimite" />
       <Property Id="6460576d-4a09-4c3e-9ada-2ac7e42d9470" name="FechaRecepcion" type="DateTime" label="FechaRecepcion : DateTime" nullable="true" fieldName="_fechaRecepcion" />
+      <Property Id="dcbc8030-b46b-463a-a068-fc5c1588b650" name="Actualizado" type="DateTime" label="Actualizado : DateTime" fieldName="_actualizado" />
       <AssociationTargets>
         <Association Id="eade228d-17d6-4ca7-a17f-2f5f674a5e44" SourceMultiplicity="ZeroOne" name="PedidoHasProveedor">
           <DomainClassMoniker name="/PortalProContext/Proveedor" />
@@ -1748,6 +1790,7 @@
       <Property Id="7573cb1e-bc23-463c-90b5-2bcc93668f2c" name="EmpresaId" type="System.Int32" label="EmpresaId : System.Int32" identity="true" fieldName="_empresaId" />
       <Property Id="47cefd7f-d069-46da-b8c6-0dd8a74a4b46" name="Nombre" label="Nombre : String" fieldName="_nombre" />
       <Property Id="f5646b3b-ae2d-4fed-9e4e-2e8c6cef882c" name="CodAx" label="CodAx : String" fieldName="_codAx" />
+      <Property Id="169a618c-9c28-4297-badf-53ff99fe274c" name="Actualizado" type="DateTime" label="Actualizado : DateTime" fieldName="_actualizado" />
       <navigationalProperties>
         <classHasNavigationalProperties Id="207c59d4-820d-4118-bd15-198b7a0023fc">
           <NavigationalProperty Id="ee0da0cb-62b7-47e2-b25e-0de2ee7dc9ea" name="Pedidos" type="IList&lt;Pedido&gt;" label="Pedidos : IList&lt;Pedido&gt;" nullable="true" kind="Persistent" fieldName="_pedidos" isDependent="false" isManaged="false" />
@@ -1762,6 +1805,7 @@
       <Property Id="6403f658-a3d7-4682-9f91-945ee6edcb18" name="Nombre" label="Nombre : String" fieldName="_nombre" />
       <Property Id="c49c6e3a-d96a-4b69-bede-eaf5d7c74241" name="Email" label="Email : String" fieldName="_email" />
       <Property Id="70d6e3ff-c636-4c59-bd38-61664f072e64" name="CodAx" label="CodAx : String" fieldName="_codAx" />
+      <Property Id="63d53327-efb4-4011-9b3b-435841699965" name="Actualizado" type="DateTime" label="Actualizado : DateTime" fieldName="_actualizado" />
       <AssociationTargets>
         <Association Id="a9cdcd44-79bc-4641-ba75-e0fe78212878" SourceMultiplicity="ZeroOne" name="ResponsableHasUsuario">
           <DomainClassMoniker name="/PortalProContext/Usuario" />

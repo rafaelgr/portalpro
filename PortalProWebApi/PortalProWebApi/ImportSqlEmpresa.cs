@@ -57,6 +57,7 @@ namespace PortalProWebApi
                 }
                 emp2.CodAx = codax;
                 emp2.Nombre = dr.GetString(1);
+                emp2.Actualizado = DateTime.Now;
                 ctx.SaveChanges();
                 // Actualizar los registros de proceso
                 progreso = (from p in ctx.Progresos

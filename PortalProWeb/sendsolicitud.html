@@ -82,12 +82,11 @@
                             <div class="span12">
                                 <label>
                                     Grupo de proveedores
-                                    <a onclick="formSearch('GrupoProveedor');">
-                                        <i class="icon-search"></i>
-                                    </a>
                                 </label>
-                                <input id="GrupoProveedor" data-bind="value: GrupoProveedor.Nombre" style="width:100%;" onblur="onBlurGrupoProveedor()" />
+                                <select id="grupoProveedor" class="span12" data-bind="options: Grupos, optionsText: 'Nombre', optionsValue: 'GrupoProveedorId'"></select>
+<!--                                <input id="GrupoProveedor" data-bind="value: GrupoProveedor.Nombre" style="width:100%;" onblur="onBlurGrupoProveedor()" />
                                 <input id="GrupoProveedorId" data-bind="value: GrupoProveedor.GrupoProveedorId" type="hidden" />
+-->
                             </div>
                         </div>
                         <div class="row-fluid">
@@ -165,14 +164,23 @@
         </script>
         <!-- ViewModel -->
         <script type="text/javascript">
+            function Grupo(id, name) {
+                this.GrupoProveedorId = id;
+                this.Nombre = name;
+            }
             function ModelView() {
                 var self = this;
                 self.GrupoProveedor = {
                     GrupoProveedorId: ko.observable(),
                     Nombre: ko.observable()
                 };
+                self.GrupoSeleccionado = ko.observable();
                 self.Email = ko.observable();
                 self.Comentarios = ko.observable();
+                self.Grupos = ko.observableArray([]);
+                self.addGrupo = function (id, name) {
+                    self.Grupos().push(new Grupo(id,name));
+                };
             }
             
             var vm = new ModelView();
@@ -180,6 +188,35 @@
             ko.applyBindings(vm);
         </script>
         <script type="text/javascript">
+            // loadGrupos:
+            // Carga en un desplegable los grupos de proveedores existentes
+            // para que las escoja el usuario.
+            function loadGrupos() {
+                $.ajax({
+                    type: "GET",
+                    url: ari_hosts.webapi + "/api/GruposProveedores?tk=" + getCookie("ari_tique"),
+                    dataType: "json",
+                    contentType: "application/json",
+                    success: function (data, textStatus) {
+                        vm.Grupos([]);
+                        for (i = 0; i < data.length; i++) {
+                            var e = data[i];
+                            vm.addGrupo(e.GrupoProveedorId, e.Nombre);
+                        }
+                        ko.applyBindings(vm);
+                    },
+                    error: function (xhr, textStatus, errorThrwon) {
+                        console.log("Ajax error");
+                        var message = ari_formatErrorMessage(JSON.parse(xhr.responseText));
+                        bootbox.dialog(message, [
+                            {
+                                "label": "OK",
+                                "class": "btn-small btn-primary"
+                            }
+                        ]);
+                    }
+                });
+            }
             // cargar las opciones del desplegable
             function loadCombos(id, nombre) {
                 // datasource para el desplegable de grupos
@@ -267,8 +304,9 @@
                 var url = "";
                 $("#send-image-loader").show();
                 $("#send-form").hide();
+                var grp = $('#grupoProveedor').val();
                 // http://localhost:49573/solicitudproveedorfrm.html?GrupoProveedorId=2
-                var link = ari_hosts.webapi + "/whtml/solicitudproveedorfrm2.html?GrupoProveedorId=" + vm.GrupoProveedor.GrupoProveedorId();
+                var link = ari_hosts.webapi + "/whtml/solicitudproveedorfrm2.html?GrupoProveedorId=" + grp;
                 verb = "POST";
                 url = ari_hosts.webapi + "/api/solicitudesproveedores/?email=" + vm.Email() +
                       "&link=" + link +
@@ -306,7 +344,8 @@
                     // aplicar idioma
                     kendo.culture("es-Es");
                     // 
-                    loadCombos();
+                    // loadCombos();
+                    loadGrupos();
                     switch (caller) {
                         case "grupoproveedor":
                             // regresamos de la búsqueda de grupo para

@@ -58,6 +58,7 @@ namespace PortalProWebApi
                 res2.CodAx = codax;
                 res2.Nombre = dr.GetString(1);
                 res2.Email = dr.GetString(2);
+                res2.Actualizado = DateTime.Now;
                 ctx.SaveChanges();
                 // Actualizar los registros de proceso
                 progreso = (from p in ctx.Progresos

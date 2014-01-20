@@ -76,6 +76,19 @@ namespace PortalProModelo
 			}
 		}
 		
+		private DateTime _actualizado;
+		public virtual DateTime Actualizado
+		{
+			get
+			{
+				return this._actualizado;
+			}
+			set
+			{
+				this._actualizado = value;
+			}
+		}
+		
 		private Usuario _usuario;
 		public virtual Usuario Usuario
 		{

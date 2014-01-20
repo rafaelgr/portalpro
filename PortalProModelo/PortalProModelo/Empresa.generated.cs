@@ -63,6 +63,19 @@ namespace PortalProModelo
 			}
 		}
 		
+		private DateTime _actualizado;
+		public virtual DateTime Actualizado
+		{
+			get
+			{
+				return this._actualizado;
+			}
+			set
+			{
+				this._actualizado = value;
+			}
+		}
+		
 		private IList<Pedido> _pedidos = new List<Pedido>();
 		public virtual IList<Pedido> Pedidos
 		{

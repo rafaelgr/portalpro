@@ -82,6 +82,7 @@ namespace PortalProWebApi
                 if (!dr.IsDBNull(11)) pr2.PersonaContacto = dr.GetString(11);
                 pr2.EmailFacturas = dr.GetString(13);
                 if (!dr.IsDBNull(14)) pr2.IBAN = dr.GetString(14);
+                pr2.Actualizado = DateTime.Now;
                 ctx.SaveChanges();
                 // Actualizar los registros de proceso
                 progreso = (from p in ctx.Progresos

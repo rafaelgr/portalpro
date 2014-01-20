@@ -574,7 +574,7 @@
                 $("#form-title").text("Nueva factura");
                 clearData();
                 loadCombos();
-                loadDateFields();
+                // loadDateFields();
                 $("#Proveedor").focus();
             }
             // botón editar (del grid)
@@ -585,7 +585,7 @@
                 $("#form-title").text("Gestionar factura");
                 loadData(id);
                 loadCombos();
-                loadDateFields();
+                // loadDateFields();
                 $("#Proveedor").focus();
             }
             // botón aceptar / salvar
@@ -777,16 +777,6 @@
                     },
                     pageSize: 5
                 });
-                $("#Proveedor").kendoAutoComplete({
-                    dataSource: dsProveedor,
-                    filter: "contains",
-                    dataTextField: "NombreComercial",
-                    select: function (e) {
-                        var dataItem = this.dataItem(e.item.index());
-                        // cargar id seleccionado
-                        vm.Proveedor.ProveedorId(dataItem.ProveedorId);
-                    }
-                });
             }
             // Carga los controles de campo para los que son fechas.
             function loadDateFields() {
@@ -913,13 +903,13 @@
         <script type="text/javascript">
             // abrir una window Kendo UI y mostrar la url pasada
             function formLoadWindow2(newStatus, title) {
-                var window = $("#window-area");
-                if (!window.data("kendoWindow")) {
-                    window.kendoWindow({
+                var wd = $("#window-area");
+                if (!wd.data("kendoWindow")) {
+                    wd.kendoWindow({
                         actions: ["Refresh", "Maximize", "Minimize", "Close"],
                         width: "400px",
                         height: "500px"
-                    });
+                    })
                 }
                 switch (newStatus) {
                     case 2:
@@ -941,8 +931,8 @@
                 $("#password").val("");
                 $("#comentarios").val("");
                 $("#password").focus();
-                window.data("kendoWindow").title("Confirmación");
-                window.data("kendoWindow").center().open();
+                wd.data("kendoWindow").title("Confirmación");
+                wd.data("kendoWindow").center().open();
             }
 
             function formApproval() {

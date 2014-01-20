@@ -83,6 +83,7 @@ namespace PortalProWebApi
                         fac.Estado = "PROCESADA";
                         break;
                 }
+                fac.Actualizado = DateTime.Now;
                 fac.TotalFactura = dr.GetDecimal(4);
                 if (!dr.IsDBNull(5))
                     fac.FechaCobro = dr.GetDateTime(5);

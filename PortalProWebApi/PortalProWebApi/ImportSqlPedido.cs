@@ -70,6 +70,7 @@ namespace PortalProWebApi
                 ped2.Empresa = (from e in ctx.Empresas
                                     where e.CodAx == dr.GetString(2)
                                     select e).FirstOrDefault<Empresa>();
+                ped2.Actualizado = DateTime.Now;
                 if (!dr.IsDBNull(3))
                 {
                     switch (dr.GetString(3))
