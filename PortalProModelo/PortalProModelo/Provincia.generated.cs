@@ -22,31 +22,18 @@ using PortalProModelo;
 
 namespace PortalProModelo	
 {
-	public partial class Empresa
+	public partial class Provincia
 	{
-		private int _empresaId;
-		public virtual int EmpresaId
+		private int _provinciaId;
+		public virtual int ProvinciaId
 		{
 			get
 			{
-				return this._empresaId;
+				return this._provinciaId;
 			}
 			set
 			{
-				this._empresaId = value;
-			}
-		}
-		
-		private string _nombre;
-		public virtual string Nombre
-		{
-			get
-			{
-				return this._nombre;
-			}
-			set
-			{
-				this._nombre = value;
+				this._provinciaId = value;
 			}
 		}
 		
@@ -63,34 +50,29 @@ namespace PortalProModelo
 			}
 		}
 		
-		private DateTime? _actualizado;
-		public virtual DateTime? Actualizado
+		private string _nombre;
+		public virtual string Nombre
 		{
 			get
 			{
-				return this._actualizado;
+				return this._nombre;
 			}
 			set
 			{
-				this._actualizado = value;
+				this._nombre = value;
 			}
 		}
 		
-		private IList<Pedido> _pedidos = new List<Pedido>();
-		public virtual IList<Pedido> Pedidos
+		private Comunidad _comunidad;
+		public virtual Comunidad Comunidad
 		{
 			get
 			{
-				return this._pedidos;
+				return this._comunidad;
 			}
-		}
-		
-		private IList<CabFactura> _cabFacturas = new List<CabFactura>();
-		public virtual IList<CabFactura> CabFacturas
-		{
-			get
+			set
 			{
-				return this._cabFacturas;
+				this._comunidad = value;
 			}
 		}
 		

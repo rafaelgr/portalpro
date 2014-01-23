@@ -141,8 +141,8 @@ namespace PortalProModelo
 			}
 		}
 		
-		private DateTime _actualizado;
-		public virtual DateTime Actualizado
+		private DateTime? _actualizado;
+		public virtual DateTime? Actualizado
 		{
 			get
 			{

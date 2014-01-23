@@ -18,35 +18,21 @@ using Telerik.OpenAccess.Metadata;
 using Telerik.OpenAccess.Data.Common;
 using Telerik.OpenAccess.Metadata.Fluent;
 using Telerik.OpenAccess.Metadata.Fluent.Advanced;
-using PortalProModelo;
 
 namespace PortalProModelo	
 {
-	public partial class Empresa
+	public partial class ActividadPrincipal
 	{
-		private int _empresaId;
-		public virtual int EmpresaId
+		private int _actividadPrincipalId;
+		public virtual int ActividadPrincipalId
 		{
 			get
 			{
-				return this._empresaId;
+				return this._actividadPrincipalId;
 			}
 			set
 			{
-				this._empresaId = value;
-			}
-		}
-		
-		private string _nombre;
-		public virtual string Nombre
-		{
-			get
-			{
-				return this._nombre;
-			}
-			set
-			{
-				this._nombre = value;
+				this._actividadPrincipalId = value;
 			}
 		}
 		
@@ -63,34 +49,16 @@ namespace PortalProModelo
 			}
 		}
 		
-		private DateTime? _actualizado;
-		public virtual DateTime? Actualizado
+		private string _nombre;
+		public virtual string Nombre
 		{
 			get
 			{
-				return this._actualizado;
+				return this._nombre;
 			}
 			set
 			{
-				this._actualizado = value;
-			}
-		}
-		
-		private IList<Pedido> _pedidos = new List<Pedido>();
-		public virtual IList<Pedido> Pedidos
-		{
-			get
-			{
-				return this._pedidos;
-			}
-		}
-		
-		private IList<CabFactura> _cabFacturas = new List<CabFactura>();
-		public virtual IList<CabFactura> CabFacturas
-		{
-			get
-			{
-				return this._cabFacturas;
+				this._nombre = value;
 			}
 		}
 		

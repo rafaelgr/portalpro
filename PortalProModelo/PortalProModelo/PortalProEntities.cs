@@ -218,6 +218,38 @@ namespace PortalProModelo
 			}
 		}
 		
+		public IQueryable<ActividadPrincipal> ActividadPrincipals 
+		{
+			get
+			{
+				return this.GetAll<ActividadPrincipal>();
+			}
+		}
+		
+		public IQueryable<Pais> Pais 
+		{
+			get
+			{
+				return this.GetAll<Pais>();
+			}
+		}
+		
+		public IQueryable<Comunidad> Comunidads 
+		{
+			get
+			{
+				return this.GetAll<Comunidad>();
+			}
+		}
+		
+		public IQueryable<Provincia> Provincias 
+		{
+			get
+			{
+				return this.GetAll<Provincia>();
+			}
+		}
+		
 		public static BackendConfiguration GetBackendConfiguration()
 		{
 			BackendConfiguration backend = new BackendConfiguration();
@@ -311,6 +343,22 @@ namespace PortalProModelo
 			get;
 		}
 		IQueryable<Progresos> Progresos
+		{
+			get;
+		}
+		IQueryable<ActividadPrincipal> ActividadPrincipals
+		{
+			get;
+		}
+		IQueryable<Pais> Pais
+		{
+			get;
+		}
+		IQueryable<Comunidad> Comunidads
+		{
+			get;
+		}
+		IQueryable<Provincia> Provincias
 		{
 			get;
 		}

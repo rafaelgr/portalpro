@@ -50,5 +50,38 @@ namespace PortalProWebApi
             IAsyncResult result = caller.BeginInvoke(out threadId, null, null);
             return true;
         }
+        public static bool ImportarActividadesPrincipales()
+        {
+            int threadId;
+            ImportSqlActividadPrincipal impActividadPrincipal = new ImportSqlActividadPrincipal();
+            AsyncLaunchSqlActividadPrincipal caller = new AsyncLaunchSqlActividadPrincipal(impActividadPrincipal.LaunchActividadPrincipal);
+            IAsyncResult result = caller.BeginInvoke(out threadId, null, null);
+            return true;
+        }
+        public static bool ImportarPaises()
+        {
+            int threadId;
+            ImportSqlPais impPais = new ImportSqlPais();
+            AsyncLaunchSqlPais caller = new AsyncLaunchSqlPais(impPais.LaunchEmpresa);
+            IAsyncResult result = caller.BeginInvoke(out threadId, null, null);
+            return true;
+        }
+        public static bool ImportarComunidades()
+        {
+            int threadId;
+            ImportSqlComunidad impComunidad = new ImportSqlComunidad();
+            AsyncLaunchSqlComunidad caller = new AsyncLaunchSqlComunidad(impComunidad.LaunchComunidad);
+            IAsyncResult result = caller.BeginInvoke(out threadId, null, null);
+            return true;
+        }
+        public static bool ImportarProvincias()
+        {
+            int threadId;
+            ImportSqlProvincia impProvincia = new ImportSqlProvincia();
+            AsyncLaunchSqlProvincia caller = new AsyncLaunchSqlProvincia(impProvincia.LaunchProvincia);
+            IAsyncResult result = caller.BeginInvoke(out threadId, null, null);
+            return true;
+        }
+
     }
 }

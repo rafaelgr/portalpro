@@ -35,6 +35,18 @@ namespace PortalProWebApi.Controllers
                         case "Responsable":
                             procesoId = 5;
                             break;
+                        case "ActividadPrincipal":
+                            procesoId = 6;
+                            break;
+                        case "Pais":
+                            procesoId = 7;
+                            break;
+                        case "Comunidad":
+                            procesoId = 8;
+                            break;
+                        case "Provincia":
+                            procesoId = 9;
+                            break;
                     }
                     pgs = (from p in ctx.Progresos
                            where p.ProgresoId == procesoId
@@ -70,6 +82,18 @@ namespace PortalProWebApi.Controllers
                             break;
                         case "Factura":
                             CntAxapta.ImportarFacturas();
+                            break;
+                        case "ActividadPrincipal":
+                            CntAxapta.ImportarActividadesPrincipales();
+                            break;
+                        case "Pais":
+                            CntAxapta.ImportarPaises();
+                            break;
+                        case "Comunidad":
+                            CntAxapta.ImportarComunidades();
+                            break;
+                        case "Provincia":
+                            CntAxapta.ImportarProvincias();
                             break;
                     }
 

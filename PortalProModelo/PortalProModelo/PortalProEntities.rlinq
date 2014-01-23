@@ -199,10 +199,10 @@
         <orm:field name="_facAbierto" property="FacAbierto" uniqueId="ccc2361a-b5bc-4b01-ab15-15dbd05083b1" type="System.Boolean">
           <orm:column name="FacAbierto" sql-type="bit" nullable="true" length="1" scale="0" ado-type="" />
         </orm:field>
-        <orm:field name="_nif" property="Nif" uniqueId="f5142d9d-9def-4ed7-9f7c-b8c083655907" type="System.String" />
-        <orm:field name="_actualizado" property="Actualizado" uniqueId="0f5d17e6-f111-4ce9-a85f-bc1cca5bda02" type="System.DateTime">
-          <orm:column nullable="true" scale="0" length="0" sql-type="timestamp" name="Actualizado" ado-type="" />
+        <orm:field name="_actualizado" property="Actualizado" uniqueId="0f5d17e6-f111-4ce9-a85f-bc1cca5bda02" type="System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]">
+          <orm:column name="Actualizado" sql-type="timestamp" nullable="true" length="0" scale="0" ado-type="" />
         </orm:field>
+        <orm:field name="_nif" property="Nif" uniqueId="f5142d9d-9def-4ed7-9f7c-b8c083655907" type="System.String" />
         <orm:field name="_grupoProveedor" property="GrupoProveedor" behavior="readwrite" uniqueId="770bad8d-fa9f-4718-81ce-4d10a60b42b8" type="PortalProModelo.GrupoProveedor">
           <orm:reference uniqueId="b14ef8f6-9864-4a68-b3e8-b658ea48dedb" />
         </orm:field>
@@ -475,8 +475,8 @@
         <orm:field name="_generada" property="Generada" uniqueId="6d8a0cb6-70cc-4d59-9290-5a4872bc3fca" type="System.Boolean">
           <orm:column name="Generada" sql-type="bit" nullable="false" length="0" scale="0" converter="OpenAccessRuntime.Data.Bit2BooleanConverter" ado-type="Bit" />
         </orm:field>
-        <orm:field name="_actualizado" property="Actualizado" uniqueId="0ea71354-93a4-49c0-87fe-d935451c5c58" type="System.DateTime">
-          <orm:column nullable="true" scale="0" length="0" sql-type="timestamp" name="Actualizado" ado-type="" />
+        <orm:field name="_actualizado" property="Actualizado" uniqueId="0ea71354-93a4-49c0-87fe-d935451c5c58" type="System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]">
+          <orm:column name="Actualizado" sql-type="timestamp" nullable="true" length="0" scale="0" ado-type="" />
         </orm:field>
         <orm:field name="_proveedor" property="Proveedor" behavior="readwrite" uniqueId="a0e7d402-f8cd-4e92-9322-d8fc12ad4d93" type="PortalProModelo.Proveedor">
           <orm:reference uniqueId="9750b7fa-84d1-4309-8275-c1b1677043e2" />
@@ -594,8 +594,8 @@
         <orm:field name="_fechaRecepcion" property="FechaRecepcion" uniqueId="6460576d-4a09-4c3e-9ada-2ac7e42d9470" type="System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]">
           <orm:column name="FechaRecepcion" sql-type="datetime" nullable="true" length="0" scale="0" ado-type="" />
         </orm:field>
-        <orm:field name="_actualizado" property="Actualizado" uniqueId="dcbc8030-b46b-463a-a068-fc5c1588b650" type="System.DateTime">
-          <orm:column nullable="true" scale="0" length="0" sql-type="timestamp" name="Actualizado" ado-type="" />
+        <orm:field name="_actualizado" property="Actualizado" uniqueId="dcbc8030-b46b-463a-a068-fc5c1588b650" type="System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]">
+          <orm:column name="Actualizado" sql-type="timestamp" nullable="true" length="0" scale="0" ado-type="" />
         </orm:field>
         <orm:field name="_proveedor" property="Proveedor" behavior="readwrite" uniqueId="be5b168f-c016-4e54-97f9-75cd7a2dba5f" type="PortalProModelo.Proveedor">
           <orm:reference uniqueId="eade228d-17d6-4ca7-a17f-2f5f674a5e44" />
@@ -708,8 +708,8 @@
         <orm:field name="_codAx" property="CodAx" uniqueId="f5646b3b-ae2d-4fed-9e4e-2e8c6cef882c" type="System.String">
           <orm:column name="CodAx" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
         </orm:field>
-        <orm:field name="_actualizado" property="Actualizado" uniqueId="169a618c-9c28-4297-badf-53ff99fe274c" type="System.DateTime">
-          <orm:column nullable="false" scale="0" length="0" sql-type="timestamp" name="Actualizado" ado-type="" />
+        <orm:field name="_actualizado" property="Actualizado" uniqueId="169a618c-9c28-4297-badf-53ff99fe274c" type="System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]">
+          <orm:column name="Actualizado" sql-type="timestamp" nullable="false" length="0" scale="0" ado-type="" />
         </orm:field>
         <orm:field name="_pedidos" property="Pedidos" behavior="readwrite" uniqueId="ee0da0cb-62b7-47e2-b25e-0de2ee7dc9ea" type="PortalProModelo.Pedido">
           <orm:collection element-class="PortalProModelo.Pedido" inverse-field="_empresa" order-by="" uniqueId="3dae946b-4d15-4bc7-ac48-89cc8a2e11ee" />
@@ -736,8 +736,8 @@
         <orm:field name="_codAx" property="CodAx" uniqueId="70d6e3ff-c636-4c59-bd38-61664f072e64" type="System.String">
           <orm:column name="CodAx" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
         </orm:field>
-        <orm:field name="_actualizado" property="Actualizado" uniqueId="63d53327-efb4-4011-9b3b-435841699965" type="System.DateTime">
-          <orm:column nullable="false" scale="0" length="0" sql-type="timestamp" name="Actualizado" ado-type="" />
+        <orm:field name="_actualizado" property="Actualizado" uniqueId="63d53327-efb4-4011-9b3b-435841699965" type="System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]">
+          <orm:column name="Actualizado" sql-type="timestamp" nullable="false" length="0" scale="0" ado-type="" />
         </orm:field>
         <orm:field name="_usuario" property="Usuario" behavior="readwrite" uniqueId="28e639b8-9e74-4557-abf3-4ac9d8f4cb55" type="PortalProModelo.Usuario">
           <orm:reference uniqueId="a9cdcd44-79bc-4641-ba75-e0fe78212878" />
@@ -770,6 +770,54 @@
         </orm:field>
         <orm:field name="_totReg" property="TotReg" uniqueId="ff6b0050-722c-4ab4-99f0-76ee35b6da2c" type="System.Int32">
           <orm:column name="TotReg" sql-type="integer" nullable="false" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+        </orm:field>
+      </orm:class>
+      <orm:class name="ActividadPrincipal" uniqueId="cfeeeb45-cf31-4b13-9f92-0de3c79106ac">
+        <orm:identity>
+          <orm:key-generator name="autoinc" />
+          <orm:single-field field-name="_actividadPrincipalId" />
+        </orm:identity>
+        <orm:field name="_actividadPrincipalId" property="ActividadPrincipalId" uniqueId="b527af7b-47d0-4726-a79d-b6eb7e45ee8f" type="System.Int32" />
+        <orm:field name="_codAx" property="CodAx" uniqueId="98d2dfc8-50c6-4915-823a-3772cf9b6b1b" type="System.String" />
+        <orm:field name="_nombre" property="Nombre" uniqueId="85347f88-6d02-41bd-b2c7-148d690c043f" type="System.String" />
+      </orm:class>
+      <orm:class name="Pais" uniqueId="2f1a857f-3481-4cc4-b89f-2a5fcb11327f">
+        <orm:identity>
+          <orm:key-generator name="autoinc" />
+          <orm:single-field field-name="_paisId" />
+        </orm:identity>
+        <orm:field name="_paisId" property="PaisId" uniqueId="706b6a53-8f96-4c03-a3e0-a7029e3d211a" type="System.Int32" />
+        <orm:field name="_codAx" property="CodAx" uniqueId="87d97f2d-b431-4956-adf0-97cf4b1dfabc" type="System.String" />
+        <orm:field name="_nombre" property="Nombre" uniqueId="8bd96565-9f57-443b-b217-9c425ec801b2" type="System.String" />
+        <orm:field name="_comunidads" property="Comunidads" behavior="readwrite" uniqueId="2006cd2c-6606-40cb-bade-70d5ea14765d" type="PortalProModelo.Comunidad">
+          <orm:collection element-class="PortalProModelo.Comunidad" inverse-field="_pais" order-by="" uniqueId="de6186fa-d4d1-4e6f-beef-e0c247009599" />
+        </orm:field>
+      </orm:class>
+      <orm:class name="Comunidad" uniqueId="c4d5e92a-6e1e-4607-8dd7-b67bbff4cd51">
+        <orm:identity>
+          <orm:key-generator name="autoinc" />
+          <orm:single-field field-name="_comunidadId" />
+        </orm:identity>
+        <orm:field name="_comunidadId" property="ComunidadId" uniqueId="8d361ed0-41fc-4d3e-9cfe-0bbea88499aa" type="System.Int32" />
+        <orm:field name="_codAx" property="CodAx" uniqueId="f6daad92-de31-4746-9bff-e509293710aa" type="System.String" />
+        <orm:field name="_nombre" property="Nombre" uniqueId="b8d83037-2c15-4848-a389-218a65f2273a" type="System.String" />
+        <orm:field name="_pais" property="Pais" behavior="readwrite" uniqueId="1051714c-cf74-4894-a48b-d59e87a9f6b9" type="PortalProModelo.Pais">
+          <orm:reference uniqueId="de6186fa-d4d1-4e6f-beef-e0c247009599" />
+        </orm:field>
+        <orm:field name="_provincias" property="Provincias" behavior="readwrite" uniqueId="63043aa2-d361-4b3a-9224-f025ea5a0ce8" type="PortalProModelo.Provincia">
+          <orm:collection element-class="PortalProModelo.Provincia" inverse-field="_comunidad" order-by="" uniqueId="d09f6a11-1792-4f0b-adad-e7befc4ce427" />
+        </orm:field>
+      </orm:class>
+      <orm:class name="Provincia" uniqueId="4c046750-5f07-48ce-923d-dc35bc0fffde">
+        <orm:identity>
+          <orm:key-generator name="autoinc" />
+          <orm:single-field field-name="_provinciaId" />
+        </orm:identity>
+        <orm:field name="_provinciaId" property="ProvinciaId" uniqueId="2c9fe2c8-fc72-4ec5-ab7b-c1e73541a993" type="System.Int32" />
+        <orm:field name="_codAx" property="CodAx" uniqueId="d1f76b3b-4a59-4f08-917f-4f8b2c143409" type="System.String" />
+        <orm:field name="_nombre" property="Nombre" uniqueId="31a1080a-7d51-4c0f-b2c0-274f434b7ca3" type="System.String" />
+        <orm:field name="_comunidad" property="Comunidad" behavior="readwrite" uniqueId="b497b22b-526a-410a-a9bb-d48bb120079d" type="PortalProModelo.Comunidad">
+          <orm:reference uniqueId="d09f6a11-1792-4f0b-adad-e7befc4ce427" />
         </orm:field>
       </orm:class>
     </orm:namespace>
@@ -820,7 +868,7 @@
         <orm:column name="ActividadPrincipal" sql-type="varchar" nullable="true" length="255" scale="0" ado-type="" />
         <orm:column name="CodAx" sql-type="varchar" nullable="true" length="10" scale="0" ado-type="" />
         <orm:column name="FacAbierto" sql-type="bit" nullable="true" length="1" scale="0" ado-type="" />
-        <orm:column nullable="true" scale="0" length="0" sql-type="timestamp" name="Actualizado" ado-type="" />
+        <orm:column name="Actualizado" sql-type="timestamp" nullable="true" length="0" scale="0" ado-type="" />
       </orm:table>
       <orm:table name="Documento">
         <orm:column name="DocumentoId" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" backend-calculated="true" ado-type="Int32" />
@@ -913,7 +961,7 @@
         <orm:column name="DocumentoXml_DocumentoId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
         <orm:column name="FechaLimite" sql-type="datetime" nullable="true" length="0" scale="0" ado-type="" />
         <orm:column name="FechaRecepcion" sql-type="datetime" nullable="true" length="0" scale="0" ado-type="" />
-        <orm:column nullable="true" scale="0" length="0" sql-type="timestamp" name="Actualizado" ado-type="" />
+        <orm:column name="Actualizado" sql-type="timestamp" nullable="true" length="0" scale="0" ado-type="" />
         <orm:index name="idx_Pedido_DocumentoPdf_DocumentoId">
           <orm:columnMapping>
             <orm:column name="DocumentoPdf_DocumentoId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
@@ -944,7 +992,7 @@
         <orm:column name="ProveedorId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
         <orm:column name="DocumentoPdf_DocumentoId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
         <orm:column name="DocumentoXml_DocumentoId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
-        <orm:column nullable="true" scale="0" length="0" sql-type="timestamp" name="Actualizado" ado-type="" />
+        <orm:column name="Actualizado" sql-type="timestamp" nullable="true" length="0" scale="0" ado-type="" />
         <orm:index name="idx_CabFactura_ProveedorId">
           <orm:columnMapping>
             <orm:column name="ProveedorId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
@@ -989,7 +1037,7 @@
         <orm:column name="EmpresaId" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" backend-calculated="true" ado-type="Int32" />
         <orm:column name="Nombre" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
         <orm:column name="CodAx" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
-        <orm:column nullable="false" scale="0" length="0" sql-type="timestamp" name="Actualizado" ado-type="" />
+        <orm:column name="Actualizado" sql-type="timestamp" nullable="false" length="0" scale="0" ado-type="" />
       </orm:table>
       <orm:table name="Responsable">
         <orm:column name="ResponsableId" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" backend-calculated="true" ado-type="Int32" />
@@ -997,7 +1045,7 @@
         <orm:column name="Email" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
         <orm:column name="CodAx" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
         <orm:column name="UsuarioId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
-        <orm:column nullable="false" scale="0" length="0" sql-type="timestamp" name="Actualizado" ado-type="" />
+        <orm:column name="Actualizado" sql-type="timestamp" nullable="false" length="0" scale="0" ado-type="" />
         <orm:index name="idx_Responsable_UsuarioId">
           <orm:columnMapping>
             <orm:column name="UsuarioId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
@@ -1223,7 +1271,7 @@
       <Property Id="dd2b4782-b024-4f59-8707-98e9e5a31409" name="ActividadPrincipal" label="ActividadPrincipal : String" fieldName="_actividadPrincipal" />
       <Property Id="44ec3302-0f77-4475-9c4a-72c4c1355f9d" name="CodAx" label="CodAx : String" fieldName="_codAx" />
       <Property Id="ccc2361a-b5bc-4b01-ab15-15dbd05083b1" name="FacAbierto" type="Boolean" label="FacAbierto : Boolean" fieldName="_facAbierto" />
-      <Property Id="0f5d17e6-f111-4ce9-a85f-bc1cca5bda02" name="Actualizado" type="DateTime" label="Actualizado : DateTime" fieldName="_actualizado" />
+      <Property Id="0f5d17e6-f111-4ce9-a85f-bc1cca5bda02" name="Actualizado" type="DateTime" label="Actualizado : DateTime" nullable="true" fieldName="_actualizado" />
       <AssociationTargets>
         <Association Id="b14ef8f6-9864-4a68-b3e8-b658ea48dedb" SourceMultiplicity="ZeroOne" name="ProveedorHasGrupoProveedor">
           <DomainClassMoniker name="/PortalProContext/GrupoProveedor" />
@@ -1499,7 +1547,7 @@
       <Property Id="be508709-6b5f-4000-bec8-ba794ff0c94b" name="FechaPrevistaCobro" type="DateTime" label="FechaPrevistaCobro : DateTime" nullable="true" fieldName="_fechaPrevistaCobro" />
       <Property Id="5d33bb1e-9680-4a1d-b998-051940701df7" name="FechaCobro" type="DateTime" label="FechaCobro : DateTime" nullable="true" fieldName="_fechaCobro" />
       <Property Id="6d8a0cb6-70cc-4d59-9290-5a4872bc3fca" name="Generada" type="Boolean" label="Generada : Boolean" fieldName="_generada" />
-      <Property Id="0ea71354-93a4-49c0-87fe-d935451c5c58" name="Actualizado" type="DateTime" label="Actualizado : DateTime" fieldName="_actualizado" />
+      <Property Id="0ea71354-93a4-49c0-87fe-d935451c5c58" name="Actualizado" type="DateTime" label="Actualizado : DateTime" nullable="true" fieldName="_actualizado" />
       <AssociationTargets>
         <Association Id="9750b7fa-84d1-4309-8275-c1b1677043e2" SourceMultiplicity="ZeroOne" name="CabFacturaHasProveedor">
           <DomainClassMoniker name="/PortalProContext/Proveedor" />
@@ -1659,7 +1707,7 @@
       <Property Id="12c9768c-c872-471b-94dd-10ce9daa4102" name="TipoPedido" label="TipoPedido : String" fieldName="_tipoPedido" />
       <Property Id="89a4c960-a2e0-4ca1-ab88-98c4697b9d88" name="FechaLimite" type="DateTime" label="FechaLimite : DateTime" nullable="true" fieldName="_fechaLimite" />
       <Property Id="6460576d-4a09-4c3e-9ada-2ac7e42d9470" name="FechaRecepcion" type="DateTime" label="FechaRecepcion : DateTime" nullable="true" fieldName="_fechaRecepcion" />
-      <Property Id="dcbc8030-b46b-463a-a068-fc5c1588b650" name="Actualizado" type="DateTime" label="Actualizado : DateTime" fieldName="_actualizado" />
+      <Property Id="dcbc8030-b46b-463a-a068-fc5c1588b650" name="Actualizado" type="DateTime" label="Actualizado : DateTime" nullable="true" fieldName="_actualizado" />
       <AssociationTargets>
         <Association Id="eade228d-17d6-4ca7-a17f-2f5f674a5e44" SourceMultiplicity="ZeroOne" name="PedidoHasProveedor">
           <DomainClassMoniker name="/PortalProContext/Proveedor" />
@@ -1790,7 +1838,7 @@
       <Property Id="7573cb1e-bc23-463c-90b5-2bcc93668f2c" name="EmpresaId" type="System.Int32" label="EmpresaId : System.Int32" identity="true" fieldName="_empresaId" />
       <Property Id="47cefd7f-d069-46da-b8c6-0dd8a74a4b46" name="Nombre" label="Nombre : String" fieldName="_nombre" />
       <Property Id="f5646b3b-ae2d-4fed-9e4e-2e8c6cef882c" name="CodAx" label="CodAx : String" fieldName="_codAx" />
-      <Property Id="169a618c-9c28-4297-badf-53ff99fe274c" name="Actualizado" type="DateTime" label="Actualizado : DateTime" fieldName="_actualizado" />
+      <Property Id="169a618c-9c28-4297-badf-53ff99fe274c" name="Actualizado" type="DateTime" label="Actualizado : DateTime" nullable="true" fieldName="_actualizado" />
       <navigationalProperties>
         <classHasNavigationalProperties Id="207c59d4-820d-4118-bd15-198b7a0023fc">
           <NavigationalProperty Id="ee0da0cb-62b7-47e2-b25e-0de2ee7dc9ea" name="Pedidos" type="IList&lt;Pedido&gt;" label="Pedidos : IList&lt;Pedido&gt;" nullable="true" kind="Persistent" fieldName="_pedidos" isDependent="false" isManaged="false" />
@@ -1805,7 +1853,7 @@
       <Property Id="6403f658-a3d7-4682-9f91-945ee6edcb18" name="Nombre" label="Nombre : String" fieldName="_nombre" />
       <Property Id="c49c6e3a-d96a-4b69-bede-eaf5d7c74241" name="Email" label="Email : String" fieldName="_email" />
       <Property Id="70d6e3ff-c636-4c59-bd38-61664f072e64" name="CodAx" label="CodAx : String" fieldName="_codAx" />
-      <Property Id="63d53327-efb4-4011-9b3b-435841699965" name="Actualizado" type="DateTime" label="Actualizado : DateTime" fieldName="_actualizado" />
+      <Property Id="63d53327-efb4-4011-9b3b-435841699965" name="Actualizado" type="DateTime" label="Actualizado : DateTime" nullable="true" fieldName="_actualizado" />
       <AssociationTargets>
         <Association Id="a9cdcd44-79bc-4641-ba75-e0fe78212878" SourceMultiplicity="ZeroOne" name="ResponsableHasUsuario">
           <DomainClassMoniker name="/PortalProContext/Usuario" />
@@ -1839,6 +1887,74 @@
       <Property Id="04ce7d52-67af-434b-9203-56051110fb9d" name="NumReg" type="Int32" label="NumReg : Int32" fieldName="_numReg" />
       <Property Id="ff6b0050-722c-4ab4-99f0-76ee35b6da2c" name="TotReg" type="Int32" label="TotReg : Int32" fieldName="_totReg" />
     </DomainClass>
+    <DomainClass Id="cfeeeb45-cf31-4b13-9f92-0de3c79106ac" name="ActividadPrincipal" namespace="PortalProModelo" showPropertiesCompartment="true" identityMechanism="DatabaseServerCalculated" showNavigationCompartment="true" showImplementationCompartment="true">
+      <Property Id="b527af7b-47d0-4726-a79d-b6eb7e45ee8f" name="ActividadPrincipalId" type="System.Int32" label="ActividadPrincipalId : System.Int32" identity="true" fieldName="_actividadPrincipalId" />
+      <Property Id="98d2dfc8-50c6-4915-823a-3772cf9b6b1b" name="CodAx" label="CodAx : String" fieldName="_codAx" />
+      <Property Id="85347f88-6d02-41bd-b2c7-148d690c043f" name="Nombre" label="Nombre : String" fieldName="_nombre" />
+    </DomainClass>
+    <DomainClass Id="2f1a857f-3481-4cc4-b89f-2a5fcb11327f" name="Pais" namespace="PortalProModelo" showPropertiesCompartment="true" identityMechanism="DatabaseServerCalculated" showNavigationCompartment="true" showImplementationCompartment="true">
+      <Property Id="706b6a53-8f96-4c03-a3e0-a7029e3d211a" name="PaisId" type="System.Int32" label="PaisId : System.Int32" identity="true" fieldName="_paisId" />
+      <Property Id="87d97f2d-b431-4956-adf0-97cf4b1dfabc" name="CodAx" label="CodAx : String" fieldName="_codAx" />
+      <Property Id="8bd96565-9f57-443b-b217-9c425ec801b2" name="Nombre" label="Nombre : String" fieldName="_nombre" />
+      <navigationalProperties>
+        <classHasNavigationalProperties Id="0f3d75b9-6b1b-49f2-b5ae-e3581e2a2aa9">
+          <NavigationalProperty Id="2006cd2c-6606-40cb-bade-70d5ea14765d" name="Comunidads" type="IList&lt;Comunidad&gt;" label="Comunidads : IList&lt;Comunidad&gt;" nullable="true" kind="Persistent" fieldName="_comunidads" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
+      </navigationalProperties>
+    </DomainClass>
+    <DomainClass Id="c4d5e92a-6e1e-4607-8dd7-b67bbff4cd51" name="Comunidad" namespace="PortalProModelo" showPropertiesCompartment="true" identityMechanism="DatabaseServerCalculated" showNavigationCompartment="true" showImplementationCompartment="true">
+      <Property Id="8d361ed0-41fc-4d3e-9cfe-0bbea88499aa" name="ComunidadId" type="System.Int32" label="ComunidadId : System.Int32" identity="true" fieldName="_comunidadId" />
+      <Property Id="f6daad92-de31-4746-9bff-e509293710aa" name="CodAx" label="CodAx : String" fieldName="_codAx" />
+      <Property Id="b8d83037-2c15-4848-a389-218a65f2273a" name="Nombre" label="Nombre : String" fieldName="_nombre" />
+      <AssociationTargets>
+        <Association Id="de6186fa-d4d1-4e6f-beef-e0c247009599" SourceMultiplicity="ZeroOne" name="ComunidadHasPais">
+          <DomainClassMoniker name="/PortalProContext/Pais" />
+          <targetNavigationalProperty>
+            <associationDefinesTargetProperty Id="c3fa8629-c09d-4ac5-a3a7-a91c8942af99">
+              <NavigationalPropertyMoniker name="/PortalProContext/Pais/Comunidads" />
+            </associationDefinesTargetProperty>
+          </targetNavigationalProperty>
+          <sourceNavigationalProperty>
+            <associationDefinesSourceProperty Id="6049cdf0-f489-4411-a588-23546d7645d1">
+              <NavigationalPropertyMoniker name="/PortalProContext/Comunidad/Pais" />
+            </associationDefinesSourceProperty>
+          </sourceNavigationalProperty>
+        </Association>
+      </AssociationTargets>
+      <navigationalProperties>
+        <classHasNavigationalProperties Id="e57a35d0-1fd9-4e5c-bf68-43d055b0521c">
+          <NavigationalProperty Id="1051714c-cf74-4894-a48b-d59e87a9f6b9" name="Pais" type="Pais" label="Pais : Pais" nullable="true" kind="Persistent" fieldName="_pais" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
+        <classHasNavigationalProperties Id="3ca5dae3-fb08-4a27-bac2-6937df875bc3">
+          <NavigationalProperty Id="63043aa2-d361-4b3a-9224-f025ea5a0ce8" name="Provincias" type="IList&lt;Provincia&gt;" label="Provincias : IList&lt;Provincia&gt;" nullable="true" kind="Persistent" fieldName="_provincias" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
+      </navigationalProperties>
+    </DomainClass>
+    <DomainClass Id="4c046750-5f07-48ce-923d-dc35bc0fffde" name="Provincia" namespace="PortalProModelo" showPropertiesCompartment="true" identityMechanism="DatabaseServerCalculated" showNavigationCompartment="true" showImplementationCompartment="true">
+      <Property Id="2c9fe2c8-fc72-4ec5-ab7b-c1e73541a993" name="ProvinciaId" type="System.Int32" label="ProvinciaId : System.Int32" identity="true" fieldName="_provinciaId" />
+      <Property Id="d1f76b3b-4a59-4f08-917f-4f8b2c143409" name="CodAx" label="CodAx : String" fieldName="_codAx" />
+      <Property Id="31a1080a-7d51-4c0f-b2c0-274f434b7ca3" name="Nombre" label="Nombre : String" fieldName="_nombre" />
+      <AssociationTargets>
+        <Association Id="d09f6a11-1792-4f0b-adad-e7befc4ce427" SourceMultiplicity="ZeroOne" name="ProvinciaHasComunidad">
+          <DomainClassMoniker name="/PortalProContext/Comunidad" />
+          <targetNavigationalProperty>
+            <associationDefinesTargetProperty Id="d87738fa-03b2-4802-ae5e-6b4a2a5f70d3">
+              <NavigationalPropertyMoniker name="/PortalProContext/Comunidad/Provincias" />
+            </associationDefinesTargetProperty>
+          </targetNavigationalProperty>
+          <sourceNavigationalProperty>
+            <associationDefinesSourceProperty Id="a6cee26d-aba7-4df4-8999-e1f1285b0bb9">
+              <NavigationalPropertyMoniker name="/PortalProContext/Provincia/Comunidad" />
+            </associationDefinesSourceProperty>
+          </sourceNavigationalProperty>
+        </Association>
+      </AssociationTargets>
+      <navigationalProperties>
+        <classHasNavigationalProperties Id="b943c1b4-8243-439a-ab28-a2d4839b2645">
+          <NavigationalProperty Id="b497b22b-526a-410a-a9bb-d48bb120079d" name="Comunidad" type="Comunidad" label="Comunidad : Comunidad" nullable="true" kind="Persistent" fieldName="_comunidad" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
+      </navigationalProperties>
+    </DomainClass>
   </Types>
   <domainContext>
     <domainModelHasDomainContext Id="b8a488e5-d05f-45aa-83ff-cddf4131e366">
@@ -1864,6 +1980,10 @@
         <entitySetProperty name="Empresas" namespace="PortalProModelo" type="Empresa" label="Empresas : IQueryable&lt;PortalProModelo.Empresa&gt;" />
         <entitySetProperty name="Responsables" namespace="PortalProModelo" type="Responsable" label="Responsables : IQueryable&lt;PortalProModelo.Responsable&gt;" />
         <entitySetProperty name="Progresos" namespace="PortalProModelo" type="Progresos" label="Progresos : IQueryable&lt;PortalProModelo.Progresos&gt;" />
+        <entitySetProperty name="ActividadPrincipals" namespace="PortalProModelo" type="ActividadPrincipal" label="ActividadPrincipals : IQueryable&lt;PortalProModelo.ActividadPrincipal&gt;" />
+        <entitySetProperty name="Pais" namespace="PortalProModelo" type="Pais" label="Pais : IQueryable&lt;PortalProModelo.Pais&gt;" />
+        <entitySetProperty name="Comunidads" namespace="PortalProModelo" type="Comunidad" label="Comunidads : IQueryable&lt;PortalProModelo.Comunidad&gt;" />
+        <entitySetProperty name="Provincias" namespace="PortalProModelo" type="Provincia" label="Provincias : IQueryable&lt;PortalProModelo.Provincia&gt;" />
       </domainContainer>
     </domainModelHasDomainContext>
   </domainContext>

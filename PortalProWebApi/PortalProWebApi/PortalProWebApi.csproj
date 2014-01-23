@@ -210,6 +210,10 @@
     <Compile Include="Controllers\GruposUsuariosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="ImportSqlProvincia.cs" />
+    <Compile Include="ImportSqlComunidad.cs" />
+    <Compile Include="ImportSqlPais.cs" />
+    <Compile Include="ImportSqlActividadPrincipal.cs" />
     <Compile Include="ImportSqlFactura.cs" />
     <Compile Include="ImportSqlPedido.cs" />
     <Compile Include="ImportSqlResponsable.cs" />
