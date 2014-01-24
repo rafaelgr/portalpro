@@ -343,6 +343,18 @@
         <orm:field name="_solicitudLogs" property="SolicitudLogs" behavior="readwrite" uniqueId="fe880eda-7872-4fa8-8091-aa74b7ed9440" type="PortalProModelo.SolicitudLog">
           <orm:collection element-class="PortalProModelo.SolicitudLog" inverse-field="_solicitudProveedor" order-by="" uniqueId="8b01bc97-c240-4b45-a044-c716db625aef" />
         </orm:field>
+        <orm:field name="_pais1" property="Pais1" behavior="readwrite" uniqueId="09bc1277-a87f-4c77-aaf7-66f4b9263ba8" type="PortalProModelo.Pais">
+          <orm:reference uniqueId="0560c3ef-ed61-4f7d-9ba9-a69eef9446dd" />
+        </orm:field>
+        <orm:field name="_comunidad1" property="Comunidad1" behavior="readwrite" uniqueId="1186c93c-9db1-4cd7-803a-f397855292c5" type="PortalProModelo.Comunidad">
+          <orm:reference uniqueId="16e6e369-3627-4756-9722-3f15bf7af8c3" />
+        </orm:field>
+        <orm:field name="_provincia1" property="Provincia1" behavior="readwrite" uniqueId="02b5905a-9529-4209-a556-4a9985fecfc2" type="PortalProModelo.Provincia">
+          <orm:reference uniqueId="540b76bf-d6a0-4059-85af-11d5533e94d2" />
+        </orm:field>
+        <orm:field name="_actividadPrincipal1" property="ActividadPrincipal1" behavior="readwrite" uniqueId="65b68275-b4a3-4b12-b270-9075d0a4164f" type="PortalProModelo.ActividadPrincipal">
+          <orm:reference uniqueId="e078c225-3531-4cd5-9ef5-4678449fa9af" />
+        </orm:field>
         <orm:index name="idx_SolicitudProveedor_GrupoProveedorId">
           <orm:columnMapping>
             <orm:column name="GrupoProveedorId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
@@ -780,6 +792,9 @@
         <orm:field name="_actividadPrincipalId" property="ActividadPrincipalId" uniqueId="b527af7b-47d0-4726-a79d-b6eb7e45ee8f" type="System.Int32" />
         <orm:field name="_codAx" property="CodAx" uniqueId="98d2dfc8-50c6-4915-823a-3772cf9b6b1b" type="System.String" />
         <orm:field name="_nombre" property="Nombre" uniqueId="85347f88-6d02-41bd-b2c7-148d690c043f" type="System.String" />
+        <orm:field name="_solicitudProveedors" property="SolicitudProveedors" behavior="readwrite" uniqueId="e0cbd6d9-a544-4175-a9c8-3c7c10db4320" type="PortalProModelo.SolicitudProveedor">
+          <orm:collection element-class="PortalProModelo.SolicitudProveedor" inverse-field="_actividadPrincipal1" order-by="" uniqueId="e078c225-3531-4cd5-9ef5-4678449fa9af" />
+        </orm:field>
       </orm:class>
       <orm:class name="Pais" uniqueId="2f1a857f-3481-4cc4-b89f-2a5fcb11327f">
         <orm:identity>
@@ -791,6 +806,9 @@
         <orm:field name="_nombre" property="Nombre" uniqueId="8bd96565-9f57-443b-b217-9c425ec801b2" type="System.String" />
         <orm:field name="_comunidads" property="Comunidads" behavior="readwrite" uniqueId="2006cd2c-6606-40cb-bade-70d5ea14765d" type="PortalProModelo.Comunidad">
           <orm:collection element-class="PortalProModelo.Comunidad" inverse-field="_pais" order-by="" uniqueId="de6186fa-d4d1-4e6f-beef-e0c247009599" />
+        </orm:field>
+        <orm:field name="_solicitudProveedors" property="SolicitudProveedors" behavior="readwrite" uniqueId="cbf8c7c3-67d6-4553-8749-f3872c9490a8" type="PortalProModelo.SolicitudProveedor">
+          <orm:collection element-class="PortalProModelo.SolicitudProveedor" inverse-field="_pais1" order-by="" uniqueId="0560c3ef-ed61-4f7d-9ba9-a69eef9446dd" />
         </orm:field>
       </orm:class>
       <orm:class name="Comunidad" uniqueId="c4d5e92a-6e1e-4607-8dd7-b67bbff4cd51">
@@ -807,6 +825,9 @@
         <orm:field name="_provincias" property="Provincias" behavior="readwrite" uniqueId="63043aa2-d361-4b3a-9224-f025ea5a0ce8" type="PortalProModelo.Provincia">
           <orm:collection element-class="PortalProModelo.Provincia" inverse-field="_comunidad" order-by="" uniqueId="d09f6a11-1792-4f0b-adad-e7befc4ce427" />
         </orm:field>
+        <orm:field name="_solicitudProveedors" property="SolicitudProveedors" behavior="readwrite" uniqueId="20b2047b-3000-4e5a-907c-38a62bbb9442" type="PortalProModelo.SolicitudProveedor">
+          <orm:collection element-class="PortalProModelo.SolicitudProveedor" inverse-field="_comunidad1" order-by="" uniqueId="16e6e369-3627-4756-9722-3f15bf7af8c3" />
+        </orm:field>
       </orm:class>
       <orm:class name="Provincia" uniqueId="4c046750-5f07-48ce-923d-dc35bc0fffde">
         <orm:identity>
@@ -818,6 +839,9 @@
         <orm:field name="_nombre" property="Nombre" uniqueId="31a1080a-7d51-4c0f-b2c0-274f434b7ca3" type="System.String" />
         <orm:field name="_comunidad" property="Comunidad" behavior="readwrite" uniqueId="b497b22b-526a-410a-a9bb-d48bb120079d" type="PortalProModelo.Comunidad">
           <orm:reference uniqueId="d09f6a11-1792-4f0b-adad-e7befc4ce427" />
+        </orm:field>
+        <orm:field name="_solicitudProveedors" property="SolicitudProveedors" behavior="readwrite" uniqueId="f81c6692-b981-439f-bd92-a6c46ce29970" type="PortalProModelo.SolicitudProveedor">
+          <orm:collection element-class="PortalProModelo.SolicitudProveedor" inverse-field="_provincia1" order-by="" uniqueId="540b76bf-d6a0-4059-85af-11d5533e94d2" />
         </orm:field>
       </orm:class>
     </orm:namespace>
@@ -1425,6 +1449,58 @@
             </associationDefinesSourceProperty>
           </sourceNavigationalProperty>
         </Association>
+        <Association Id="0560c3ef-ed61-4f7d-9ba9-a69eef9446dd" SourceMultiplicity="ZeroOne" name="SolicitudProveedorHasPais">
+          <DomainClassMoniker name="/PortalProContext/Pais" />
+          <targetNavigationalProperty>
+            <associationDefinesTargetProperty Id="81b07bb5-89b7-4b24-a7b3-b000d2f4cd3c">
+              <NavigationalPropertyMoniker name="/PortalProContext/Pais/SolicitudProveedors" />
+            </associationDefinesTargetProperty>
+          </targetNavigationalProperty>
+          <sourceNavigationalProperty>
+            <associationDefinesSourceProperty Id="45f27094-b43f-46b7-adbc-3cef50595e89">
+              <NavigationalPropertyMoniker name="/PortalProContext/SolicitudProveedor/Pais1" />
+            </associationDefinesSourceProperty>
+          </sourceNavigationalProperty>
+        </Association>
+        <Association Id="16e6e369-3627-4756-9722-3f15bf7af8c3" SourceMultiplicity="ZeroOne" name="SolicitudProveedorHasComunidad">
+          <DomainClassMoniker name="/PortalProContext/Comunidad" />
+          <targetNavigationalProperty>
+            <associationDefinesTargetProperty Id="a050c91c-cc64-4361-a649-dea999ceb094">
+              <NavigationalPropertyMoniker name="/PortalProContext/Comunidad/SolicitudProveedors" />
+            </associationDefinesTargetProperty>
+          </targetNavigationalProperty>
+          <sourceNavigationalProperty>
+            <associationDefinesSourceProperty Id="591db07f-0df1-465d-a164-e46d4d281466">
+              <NavigationalPropertyMoniker name="/PortalProContext/SolicitudProveedor/Comunidad1" />
+            </associationDefinesSourceProperty>
+          </sourceNavigationalProperty>
+        </Association>
+        <Association Id="540b76bf-d6a0-4059-85af-11d5533e94d2" SourceMultiplicity="ZeroOne" name="SolicitudProveedorHasProvincia">
+          <DomainClassMoniker name="/PortalProContext/Provincia" />
+          <targetNavigationalProperty>
+            <associationDefinesTargetProperty Id="149058bd-bd1e-4ffe-99d5-5023e0315880">
+              <NavigationalPropertyMoniker name="/PortalProContext/Provincia/SolicitudProveedors" />
+            </associationDefinesTargetProperty>
+          </targetNavigationalProperty>
+          <sourceNavigationalProperty>
+            <associationDefinesSourceProperty Id="a187e2b4-ccc9-426b-9330-8c5f95d67a84">
+              <NavigationalPropertyMoniker name="/PortalProContext/SolicitudProveedor/Provincia1" />
+            </associationDefinesSourceProperty>
+          </sourceNavigationalProperty>
+        </Association>
+        <Association Id="e078c225-3531-4cd5-9ef5-4678449fa9af" SourceMultiplicity="ZeroOne" name="SolicitudProveedorHasActividadPrincipal">
+          <DomainClassMoniker name="/PortalProContext/ActividadPrincipal" />
+          <targetNavigationalProperty>
+            <associationDefinesTargetProperty Id="87349c3f-f394-4807-aef7-97482d29db7b">
+              <NavigationalPropertyMoniker name="/PortalProContext/ActividadPrincipal/SolicitudProveedors" />
+            </associationDefinesTargetProperty>
+          </targetNavigationalProperty>
+          <sourceNavigationalProperty>
+            <associationDefinesSourceProperty Id="36ccfbae-bd1a-413b-aa4e-2cb112e07c67">
+              <NavigationalPropertyMoniker name="/PortalProContext/SolicitudProveedor/ActividadPrincipal1" />
+            </associationDefinesSourceProperty>
+          </sourceNavigationalProperty>
+        </Association>
       </AssociationTargets>
       <navigationalProperties>
         <classHasNavigationalProperties Id="1b149754-a932-45d2-a528-f826f087567f">
@@ -1438,6 +1514,18 @@
         </classHasNavigationalProperties>
         <classHasNavigationalProperties Id="825a137e-6ebe-4817-bae3-e33c72a86907">
           <NavigationalProperty Id="fe880eda-7872-4fa8-8091-aa74b7ed9440" name="SolicitudLogs" type="IList&lt;SolicitudLog&gt;" label="SolicitudLogs : IList&lt;SolicitudLog&gt;" nullable="true" kind="Persistent" fieldName="_solicitudLogs" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
+        <classHasNavigationalProperties Id="f5c405f9-9fdb-49bd-b980-d4a3578e43fc">
+          <NavigationalProperty Id="09bc1277-a87f-4c77-aaf7-66f4b9263ba8" name="Pais1" type="Pais" label="Pais1 : Pais" nullable="true" kind="Persistent" fieldName="_pais1" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
+        <classHasNavigationalProperties Id="4feb39fd-ece4-438a-840f-10dccfd0940c">
+          <NavigationalProperty Id="1186c93c-9db1-4cd7-803a-f397855292c5" name="Comunidad1" type="Comunidad" label="Comunidad1 : Comunidad" nullable="true" kind="Persistent" fieldName="_comunidad1" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
+        <classHasNavigationalProperties Id="7433951b-142f-4ac9-91dd-e40db42b30ee">
+          <NavigationalProperty Id="02b5905a-9529-4209-a556-4a9985fecfc2" name="Provincia1" type="Provincia" label="Provincia1 : Provincia" nullable="true" kind="Persistent" fieldName="_provincia1" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
+        <classHasNavigationalProperties Id="91aa1deb-e156-4885-b658-d03cba6b0795">
+          <NavigationalProperty Id="65b68275-b4a3-4b12-b270-9075d0a4164f" name="ActividadPrincipal1" type="ActividadPrincipal" label="ActividadPrincipal1 : ActividadPrincipal" nullable="true" kind="Persistent" fieldName="_actividadPrincipal1" isDependent="false" isManaged="false" />
         </classHasNavigationalProperties>
       </navigationalProperties>
     </DomainClass>
@@ -1891,6 +1979,11 @@
       <Property Id="b527af7b-47d0-4726-a79d-b6eb7e45ee8f" name="ActividadPrincipalId" type="System.Int32" label="ActividadPrincipalId : System.Int32" identity="true" fieldName="_actividadPrincipalId" />
       <Property Id="98d2dfc8-50c6-4915-823a-3772cf9b6b1b" name="CodAx" label="CodAx : String" fieldName="_codAx" />
       <Property Id="85347f88-6d02-41bd-b2c7-148d690c043f" name="Nombre" label="Nombre : String" fieldName="_nombre" />
+      <navigationalProperties>
+        <classHasNavigationalProperties Id="90487efc-89b4-4af1-aea9-41715124be4b">
+          <NavigationalProperty Id="e0cbd6d9-a544-4175-a9c8-3c7c10db4320" name="SolicitudProveedors" type="IList&lt;SolicitudProveedor&gt;" label="SolicitudProveedors : IList&lt;SolicitudProveedor&gt;" nullable="true" kind="Persistent" fieldName="_solicitudProveedors" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
+      </navigationalProperties>
     </DomainClass>
     <DomainClass Id="2f1a857f-3481-4cc4-b89f-2a5fcb11327f" name="Pais" namespace="PortalProModelo" showPropertiesCompartment="true" identityMechanism="DatabaseServerCalculated" showNavigationCompartment="true" showImplementationCompartment="true">
       <Property Id="706b6a53-8f96-4c03-a3e0-a7029e3d211a" name="PaisId" type="System.Int32" label="PaisId : System.Int32" identity="true" fieldName="_paisId" />
@@ -1899,6 +1992,9 @@
       <navigationalProperties>
         <classHasNavigationalProperties Id="0f3d75b9-6b1b-49f2-b5ae-e3581e2a2aa9">
           <NavigationalProperty Id="2006cd2c-6606-40cb-bade-70d5ea14765d" name="Comunidads" type="IList&lt;Comunidad&gt;" label="Comunidads : IList&lt;Comunidad&gt;" nullable="true" kind="Persistent" fieldName="_comunidads" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
+        <classHasNavigationalProperties Id="d350f835-4fb9-4eba-9021-36c0b434a8f4">
+          <NavigationalProperty Id="cbf8c7c3-67d6-4553-8749-f3872c9490a8" name="SolicitudProveedors" type="IList&lt;SolicitudProveedor&gt;" label="SolicitudProveedors : IList&lt;SolicitudProveedor&gt;" nullable="true" kind="Persistent" fieldName="_solicitudProveedors" isDependent="false" isManaged="false" />
         </classHasNavigationalProperties>
       </navigationalProperties>
     </DomainClass>
@@ -1928,6 +2024,9 @@
         <classHasNavigationalProperties Id="3ca5dae3-fb08-4a27-bac2-6937df875bc3">
           <NavigationalProperty Id="63043aa2-d361-4b3a-9224-f025ea5a0ce8" name="Provincias" type="IList&lt;Provincia&gt;" label="Provincias : IList&lt;Provincia&gt;" nullable="true" kind="Persistent" fieldName="_provincias" isDependent="false" isManaged="false" />
         </classHasNavigationalProperties>
+        <classHasNavigationalProperties Id="3a815e98-4279-4b92-94c6-b3b9988d188c">
+          <NavigationalProperty Id="20b2047b-3000-4e5a-907c-38a62bbb9442" name="SolicitudProveedors" type="IList&lt;SolicitudProveedor&gt;" label="SolicitudProveedors : IList&lt;SolicitudProveedor&gt;" nullable="true" kind="Persistent" fieldName="_solicitudProveedors" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
       </navigationalProperties>
     </DomainClass>
     <DomainClass Id="4c046750-5f07-48ce-923d-dc35bc0fffde" name="Provincia" namespace="PortalProModelo" showPropertiesCompartment="true" identityMechanism="DatabaseServerCalculated" showNavigationCompartment="true" showImplementationCompartment="true">
@@ -1952,6 +2051,9 @@
       <navigationalProperties>
         <classHasNavigationalProperties Id="b943c1b4-8243-439a-ab28-a2d4839b2645">
           <NavigationalProperty Id="b497b22b-526a-410a-a9bb-d48bb120079d" name="Comunidad" type="Comunidad" label="Comunidad : Comunidad" nullable="true" kind="Persistent" fieldName="_comunidad" isDependent="false" isManaged="false" />
+        </classHasNavigationalProperties>
+        <classHasNavigationalProperties Id="c4313cc5-ed88-40f0-a399-e98c599a8c77">
+          <NavigationalProperty Id="f81c6692-b981-439f-bd92-a6c46ce29970" name="SolicitudProveedors" type="IList&lt;SolicitudProveedor&gt;" label="SolicitudProveedors : IList&lt;SolicitudProveedor&gt;" nullable="true" kind="Persistent" fieldName="_solicitudProveedors" isDependent="false" isManaged="false" />
         </classHasNavigationalProperties>
       </navigationalProperties>
     </DomainClass>

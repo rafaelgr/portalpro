@@ -18,6 +18,7 @@ using Telerik.OpenAccess.Metadata;
 using Telerik.OpenAccess.Data.Common;
 using Telerik.OpenAccess.Metadata.Fluent;
 using Telerik.OpenAccess.Metadata.Fluent.Advanced;
+using PortalProModelo;
 
 namespace PortalProModelo	
 {
@@ -59,6 +60,15 @@ namespace PortalProModelo
 			set
 			{
 				this._nombre = value;
+			}
+		}
+		
+		private IList<SolicitudProveedor> _solicitudProveedors = new List<SolicitudProveedor>();
+		public virtual IList<SolicitudProveedor> SolicitudProveedors
+		{
+			get
+			{
+				return this._solicitudProveedors;
 			}
 		}
 		

@@ -107,20 +107,20 @@
                 </div>
                 <!-- Provincia, comunidad y pais -->
                 <div class="row-fluid">
-                    <div class="span6">
-                        <label>Provincia</label>
-                        <input id="Provincia" class="span12" type="text" data-bind="value: Provincia" 
-                               name="Provincia" required />
+                    <div class="span3">
+                        <label>Pais (*)</label>
+                        <input id="Pais" class="span12" type="text" data-bind="value: Pais"
+                               name="Pais" required/>
                     </div>
                     <div class="span3">
                         <label>Comunidad / Estado</label>
                         <input id="Comunidad" class="span12" type="text" data-bind="value: Comunidad"
                                name="Comunidad" required/>
                     </div>
-                    <div class="span3">
-                        <label>Pais</label>
-                        <input id="Pais" class="span12" type="text" data-bind="value: Pais"
-                               name="Pais" required/>
+                    <div class="span6">
+                        <label>Provincia</label>
+                        <input id="Provincia" class="span12" type="text" data-bind="value: Provincia" 
+                               name="Provincia" required />
                     </div>
                 </div>
                 <!-- teléfono, fax, movil, correo, url -->
@@ -158,7 +158,7 @@
                                name="PersonaContacto" />
                     </div>
                     <div class="span6">
-                        <label>Página web</label>
+                        <label>Página web (no olvide http:// o https://)</label>
                         <input id="Url" class="span12" type="url" data-bind="value:Url" name="Url" />
                     </div>
                 </div>
@@ -166,13 +166,13 @@
                     <div class="span6">
                         <label>IBAN </label>
                         <input id="IBAN" class="span12" type="text" data-bind="value: IBAN" 
-                               name="IBAN" />
+                               name="IBAN" required />
 
                     </div>
                     <div class="span6">
                         <label>BIC/SWIFT </label>
                         <input id="BIC" class="span12" type="text" data-bind="value: BIC" 
-                               name="BIC" />
+                               name="BIC" required />
 
                     </div>
                 </div>

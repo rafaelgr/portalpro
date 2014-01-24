@@ -323,6 +323,58 @@ namespace PortalProModelo
 			}
 		}
 		
+		private Pais _pais1;
+		public virtual Pais Pais1
+		{
+			get
+			{
+				return this._pais1;
+			}
+			set
+			{
+				this._pais1 = value;
+			}
+		}
+		
+		private Comunidad _comunidad1;
+		public virtual Comunidad Comunidad1
+		{
+			get
+			{
+				return this._comunidad1;
+			}
+			set
+			{
+				this._comunidad1 = value;
+			}
+		}
+		
+		private Provincia _provincia1;
+		public virtual Provincia Provincia1
+		{
+			get
+			{
+				return this._provincia1;
+			}
+			set
+			{
+				this._provincia1 = value;
+			}
+		}
+		
+		private ActividadPrincipal _actividadPrincipal1;
+		public virtual ActividadPrincipal ActividadPrincipal1
+		{
+			get
+			{
+				return this._actividadPrincipal1;
+			}
+			set
+			{
+				this._actividadPrincipal1 = value;
+			}
+		}
+		
 		private IList<Documento> _documentos = new List<Documento>();
 		public virtual IList<Documento> Documentos
 		{

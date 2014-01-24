@@ -132,6 +132,7 @@
     <Content Include="assets\css\ace-responsive.min.css" />
     <Content Include="assets\css\ace-skins.min.css" />
     <Content Include="assets\css\ace.min.css" />
+    <Content Include="css\ace-skins.min.css" />
     <Content Include="css\ariadna-style.css" />
     <Content Include="assets\css\bootstrap-responsive.min.css" />
     <Content Include="assets\css\bootstrap-timepicker.css" />
@@ -524,7 +525,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties UseJQuerySupport="True" UseAjaxifiedTemplates="True" />
+      <UserProperties UseAjaxifiedTemplates="True" UseJQuerySupport="True" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

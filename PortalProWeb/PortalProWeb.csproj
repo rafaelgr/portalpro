@@ -308,6 +308,7 @@
     <Content Include="avatars\avatar3.png" />
     <Content Include="avatars\avatar4.png" />
     <Content Include="avatars\user.jpg" />
+    <Content Include="css\ace-skins.min.css" />
     <Content Include="css\ariadna-style.css" />
     <Content Include="css\Bootstrap\editor.png" />
     <Content Include="css\Bootstrap\imagebrowser.png" />
@@ -524,7 +525,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties UseJQuerySupport="True" UseAjaxifiedTemplates="True" />
+      <UserProperties UseAjaxifiedTemplates="True" UseJQuerySupport="True" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
