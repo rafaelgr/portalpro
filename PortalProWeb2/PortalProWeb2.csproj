@@ -447,7 +447,6 @@
     <Content Include="registros2.html" />
     <Content Include="sidebar2.html" />
     <Content Include="solicitudlog2.html" />
-    <Content Include="solicitudproveedor2.html" />
     <Content Include="test2.html" />
     <Content Include="tipodocumento2.html" />
     <Content Include="topbar2.html" />
@@ -525,7 +524,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties UseAjaxifiedTemplates="True" UseJQuerySupport="True" />
+      <UserProperties UseJQuerySupport="True" UseAjaxifiedTemplates="True" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

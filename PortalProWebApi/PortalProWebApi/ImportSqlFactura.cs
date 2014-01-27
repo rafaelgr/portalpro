@@ -139,7 +139,7 @@ namespace PortalProWebApi
                               ,[PURCHID]
                               ,[LINEAMOUNT]
                               ,[PORIVA]
-                          FROM [dbo].[Cau_portalpro_VLinFactura] WHERE [INVOICEID] = '{0}' AND [INVOICEDATE] = '{1:yyyMMdd}';";
+                          FROM [dbo].[Cau_PortalPro_VLinFactura] WHERE [INVOICEID] = '{0}' AND [INVOICEDATE] = '{1:yyyMMdd}';";
             string sql = String.Format(sqlb, numFactura, fechaFactura);
             SqlCommand cmd = new SqlCommand(sql, con);
             SqlDataReader dr = cmd.ExecuteReader();

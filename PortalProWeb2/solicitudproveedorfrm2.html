@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 <html lang="es">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -83,7 +84,8 @@
                 <div class="row-fluid">
                     <div class="span12">
                         <label>Actividad principal</label>
-                        <select id="actividadPrincipal" class="span12" data-bind="options: ActividadesPrincipales, optionsText: 'Nombre', optionsValue: 'ActividadPrincipalId', optionsCaption: 'Elija actividad...'"></select>
+                        <select id="ActividadPrincipal" class="span12" 
+                            data-bind="options:ActividadesPrincipales, optionsText:'Nombre', optionsValue:'ActividadPrincipalId', optionsCaption:'Elija actividad...'"></select>
                     </div>
                 </div>
                 <!-- Calle, código postal y ciudad -->
@@ -110,10 +112,11 @@
                         <label>Pais</label>
                         <select id="Pais" class="span12" onblur="onBlurPais()" 
                             data-bind="options: Paises, optionsText: 'Nombre', optionsValue: 'PaisId', optionsCaption: 'Elija pais...'"></select>
+
                     </div>
                     <div class="span3">
                         <label>Comunidad / Estado</label>
-                        <select id="Comunidad" class="span12" onblur="onBlurComunidad()" 
+                        <select id="Comunidad" class="span12" onblur="onBlurComunidad()"
                             data-bind="options: Comunidades, optionsText: 'Nombre', optionsValue: 'ComunidadId', optionsCaption: 'Elija comunidad...'"></select>
                     </div>
                     <div class="span6">
@@ -294,26 +297,6 @@
                 this.TipoDocumento = tipo;
             }
 
-            function ActividadPrincipal(id, name) {
-                this.ActividadPrincipalId = id;
-                this.Nombre = name;
-            }
-
-            function Pais(id, name) {
-                this.PaisId = id;
-                this.Nombre = name;
-            }
-
-            function Comunidad(id, name) {
-                this.ComunidadId = id;
-                this.Nombre = name;
-            }
-
-            function Provincia(id, name) {
-                this.ProvinciaId = id;
-                this.Nombre = name;
-            }
-
             // modelo de datos knockout
             function viewModel() {
                 var self = this;
@@ -346,36 +329,20 @@
                     SolicitudStatusId: ko.observable(),
                     Nombre: ko.observable()
                 };
-                self.ActividadPrincipal1 = {
-                    ActividadPrincipalId: ko.observable(),
-                    Nombre: ko.observable()
-                };
-                self.Pais1 = {
-                    PaisId: ko.observable(),
-                    Nombre: ko.observable()
-                };
-                self.Comunidad1 = {
-                    ComunidadId: ko.observable(),
-                    Nombre: ko.observable()
-                };
-                self.Provincia1 = {
-                    ProvinciaId: ko.observable(),
-                    Nombre: ko.observable()
-                };
                 self.Documentos = ko.observableArray([
                     ko.observable(
                         {
-                            DocumentoId: ko.observable(),
-                            NomFichero: ko.observable(),
-                            Extension: ko.observable(),
-                            DescargaUrl: ko.observable(),
-                            Comentario: ko.observable(),
-                            TipoDocumento: {
+                        DocumentoId: ko.observable(),
+                        NomFichero: ko.observable(),
+                        Extension: ko.observable(),
+                        DescargaUrl: ko.observable(),
+                        Comentario: ko.observable(),
+                        TipoDocumento: {
                                 TipoDocumentoId: ko.observable(),
                                 Nombre: ko.observable(),
                                 Obligatorio: ko.observable()
                             },
-                        })
+                    })
                 ]);
                 self.addNewDocumento = function (documento) {
                     self.Documentos.push(documento);
@@ -386,22 +353,26 @@
                 self.removeDocumento = function (documento) {
                     self.Documentos.remove(documento);
                 };
+
                 self.ActividadesPrincipales = ko.observableArray([]);
-                self.addActividadPrincipal = function (id, name) {
-                    self.ActividadesPrincipales().push(new ActividadPrincipal(id, name));
-                };
+                self.addActividadPrincipal = function (id, nombre) {
+                    self.ActividadesPrincipales.push(new ActividadPrincipal(id, nombre));
+                }
+
                 self.Paises = ko.observableArray([]);
-                self.addPais = function (id, name) {
-                    self.Paises().push(new Pais(id, name));
-                };
+                self.addPais = function (id, nombre) {
+                    self.Paises.push(new Pais(id, nombre));
+                }
+
                 self.Comunidades = ko.observableArray([]);
-                self.addComunidad = function (id, name) {
-                    self.Comunidades().push(new Comunidad(id, name));
-                };
+                self.addComunidad = function (id, nombre) {
+                    self.Comunidades.push(new Comunidad(id, nombre));
+                }
+
                 self.Provincias = ko.observableArray([]);
-                self.addProvincia = function (id, name) {
-                    self.Provincias().push(new Provincia(id, name));
-                };
+                self.addProvincia = function (id, nombre) {
+                    self.Provincias.push(new Provincia(id, nombre));
+                }
             }
 
             var vm = new viewModel();
@@ -410,9 +381,12 @@
 
         </script>
 
-        <!-- Manejo de los desplegables -->
+        <!-- Actividades principales -->
         <script type="text/javascript">
-            // loadActividadesPrincipales:
+            function ActividadPrincipal(id, nombre) {
+                this.ActividadPrincipalId = id;
+                this.Nombre = nombre;
+            }
             function loadActividadesPrincipales() {
                 $.ajax({
                     type: "GET",
@@ -425,7 +399,7 @@
                             var e = data[i];
                             vm.addActividadPrincipal(e.ActividadPrincipalId, e.Nombre);
                         }
-                        ko.applyBindings(vm);
+                        ko.applyBindings(vm, document.getElementById('ActividadPrincipal'));
                     },
                     error: function (xhr, textStatus, errorThrwon) {
                         console.log("Ajax error");
@@ -439,8 +413,14 @@
                     }
                 });
             }
+        </script>
 
-            // loadPaises
+        <!-- Paises -->
+        <script type="text/javascript">
+            function Pais(id, nombre) {
+                this.PaisId = id;
+                this.Nombre = nombre;
+            }
             function loadPaises() {
                 $.ajax({
                     type: "GET",
@@ -453,7 +433,7 @@
                             var e = data[i];
                             vm.addPais(e.PaisId, e.Nombre);
                         }
-                        ko.applyBindings(vm);
+                        ko.applyBindings(vm, document.getElementById('Pais'));
                     },
                     error: function (xhr, textStatus, errorThrwon) {
                         console.log("Ajax error");
@@ -472,10 +452,20 @@
                 var pais = $("#Pais").val();
                 vm.Comunidades([]);
                 vm.Provincias([]);
-                if (pais == "") return;
-                $("#Comunidad").prop('disable', false);
+                if (pais === "") {
+                    return;
+                }
+                loadComunidades(pais);
+            }
+        </script>
 
-                // activarlo y cargar sus elementos
+        <!-- Comunidades -->
+        <script type="text/javascript">
+            function Comunidad(id, nombre) {
+                this.ComunidadId = id;
+                this.Nombre = nombre;
+            }
+            function loadComunidades(pais) {
                 $.ajax({
                     type: "GET",
                     url: ari_hosts.webapi + "/api/Comunidades?pais=" + pais + "&tk=" + "solicitud",
@@ -483,11 +473,12 @@
                     contentType: "application/json",
                     success: function (data, textStatus) {
                         vm.Comunidades([]);
+                        vm.Provincias([]);
                         for (i = 0; i < data.length; i++) {
                             var e = data[i];
                             vm.addComunidad(e.ComunidadId, e.Nombre);
                         }
-                        ko.applyBindings(vm);
+                        ko.applyBindings(vm, document.getElementById('Comunidad'));
                     },
                     error: function (xhr, textStatus, errorThrwon) {
                         console.log("Ajax error");
@@ -501,13 +492,25 @@
                     }
                 });
             }
-
             function onBlurComunidad() {
                 // obtener los controles
                 var comunidad = $("#Comunidad").val();
                 vm.Provincias([]);
-                if (comunidad == "") return;
-                // activarlo y cargar sus elementos
+                if (comunidad === "") {
+                    return;
+                }
+                loadProvincias(comunidad);
+            }
+
+        </script>
+
+        <!-- Provincias -->
+        <script type="text/javascript">
+            function Provincia(id, nombre) {
+                this.ProvinciaId = id;
+                this.Nombre = nombre;
+            }
+            function loadProvincias(comunidad) {
                 $.ajax({
                     type: "GET",
                     url: ari_hosts.webapi + "/api/Provincias?comunidad=" + comunidad + "&tk=" + "solicitud",
@@ -519,7 +522,7 @@
                             var e = data[i];
                             vm.addProvincia(e.ProvinciaId, e.Nombre);
                         }
-                        ko.applyBindings(vm);
+                        ko.applyBindings(vm, document.getElementById('Provincia'));
                     },
                     error: function (xhr, textStatus, errorThrwon) {
                         console.log("Ajax error");
@@ -653,7 +656,7 @@
                 if (data.Documentos != null)
                     vm.Documentos(data.Documentos);
             }
-
+            
             function loadDocumentos(id) {
                 // si no hay factura no se pueden cargar sus lineas
                 if (id == "") {
@@ -671,7 +674,7 @@
                     });
                 }
             }
-
+            
             // La idea es cargar el campo del grupo de proveedor y mostrar los
             // campos adecuados para poder subir los ficheros.
             function loadGrupoProveedor(id) {
@@ -688,7 +691,7 @@
                     },
                 });
             }
-
+            
             // salvar los datos del form
             function saveData(arg) {
                 // hay que marcar como pendiente la solicitud
@@ -724,7 +727,7 @@
                     },
                 });
             }
-
+            
             // salvar los documentos asociados
             function saveDocumentosAsociados(arg) {
                 var verb = "";
@@ -752,7 +755,7 @@
                     },
                 });
             }
-
+            
             // salvar el modelo actual en una cookie
             function saveDataCookie() {
                 var data = ko.toJSON(vm);
@@ -764,7 +767,7 @@
                 var data = JSON.parse(dataS);
                 loadModel(data);
             }
-
+            
             // comprobar en la lista de ficheros que lo obligatorios figuran
             function verifyFiles() {
                 var r = true;
@@ -777,9 +780,9 @@
                 }
                 return r;
             }
-
+        
         </script>
-
+        
         <!-- Zona para cargas de ficheros -->
         <script id="uploadTemplate" type="text/x-handlebars-template">
             <div class="row-fluid">
@@ -805,11 +808,11 @@
             </div>
             </div>
         </script>
-
+        
         <script type="text/javascript">
             // Array que llevará un elmento por cada control de upload que figure en la página
             var uploadArray = [];
-
+            
             // Función para cargar los elementos del array anterior.
             function uploadElement(fileId, description, container, item, tipo, dUrl) {
                 this.fileId = fileId;
@@ -819,17 +822,17 @@
                 this.tipo = tipo;
                 this.dUrl = dUrl;
             }
-
+            
             function setLoaders() {
                 for (i = 0; i < uploadArray.length; i++) {
                     var e = uploadArray[i];
                     setLoader(e.fileId, e.description, e.container, e.item, e.tipo, e.dUrl);
                 }
             }
-
+            
             function errUpload(file, data) {
             }
-
+            
             function sucUpload(file, data) {
                 // buscar en el array el valor del item
                 var r = $.grep(uploadArray, function (e, i) {
@@ -851,7 +854,7 @@
                     }
                 }
             }
-
+            
             function setLoader(fileId, description, container, item, tipo, dUrl) {
                 var source = $("#uploadTemplate").html();
                 var template = Handlebars.compile(source);
@@ -879,7 +882,7 @@
                     $("#hrf" + fileId).attr("href", "#");
                 }
             }
-
+            
             function deleteUpload(fileId) {
                 // preguntamos antes de intentar el borrado
                 var message = "<h4>¿Desea borrar el fichero subido? Siempre puede subir otro nuevo haciendo clic en 'Elegir fichero'</h4>"
@@ -924,9 +927,9 @@
                     }
                 ]);
             }
-
+        
         </script>
-
+        
         <!-- Montaje de los controles para carga de documentos  y funciones auxiliares-->
         <script type="text/javascript">
             function createFileControls(grupoProveedorId) {
@@ -961,7 +964,7 @@
                 });
             }
         </script>
-
+        
         <!-- Script en arranque -->
         <script type="text/javascript">
             (function ($) {
@@ -971,8 +974,6 @@
                     // quién y como nos ha llamado.
                     mode = gup("mode");
                     caller = gup("caller");
-                    loadActividadesPrincipales();
-                    loadPaises();
                     if (caller == "loader") {
                         var dataS = getCookie("SolicitudProveedor");
                         var data = JSON.parse(dataS);
@@ -990,6 +991,9 @@
                     }
                     $("#proveedor-image-loader").hide();
                     //
+                    loadActividadesPrincipales();
+                    //
+                    loadPaises();
                 });
             })(jQuery);
         </script>

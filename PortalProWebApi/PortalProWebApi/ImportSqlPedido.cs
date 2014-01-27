@@ -109,7 +109,7 @@ namespace PortalProWebApi
                                     select r).FirstOrDefault<Responsable>();
                 ped2.FechaAlta = dr.GetDateTime(7);
                 if (!dr.IsDBNull(8)) ped2.FechaRecepcion = dr.GetDateTime(8);
-                if (!dr.IsDBNull(9)) ped2.FechaRecepcion = dr.GetDateTime(9);
+                if (!dr.IsDBNull(9)) ped2.FechaLimite = dr.GetDateTime(9);
                 try
                 {
                     ctx.SaveChanges();
