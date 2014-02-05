@@ -337,12 +337,6 @@
         <orm:field name="_solicitudStatus" property="SolicitudStatus" behavior="readwrite" uniqueId="a87ddbfa-7bfe-4c82-acff-99169acc58bb" type="PortalProModelo.SolicitudStatus">
           <orm:reference uniqueId="a459ed92-5212-4e9c-a261-ce02eca7b45c" />
         </orm:field>
-        <orm:field name="_documentos" property="Documentos" behavior="readwrite" uniqueId="eef56a64-62a5-4e99-a6e6-6a2029d5d26e" type="PortalProModelo.Documento">
-          <orm:collection element-class="PortalProModelo.Documento" inverse-field="_solicitudProveedor" order-by="" uniqueId="38fb6818-4bb8-47aa-a77c-dbc923a4c7c5" />
-        </orm:field>
-        <orm:field name="_solicitudLogs" property="SolicitudLogs" behavior="readwrite" uniqueId="fe880eda-7872-4fa8-8091-aa74b7ed9440" type="PortalProModelo.SolicitudLog">
-          <orm:collection element-class="PortalProModelo.SolicitudLog" inverse-field="_solicitudProveedor" order-by="" uniqueId="8b01bc97-c240-4b45-a044-c716db625aef" />
-        </orm:field>
         <orm:field name="_pais1" property="Pais1" behavior="readwrite" uniqueId="09bc1277-a87f-4c77-aaf7-66f4b9263ba8" type="PortalProModelo.Pais">
           <orm:reference uniqueId="0560c3ef-ed61-4f7d-9ba9-a69eef9446dd" />
         </orm:field>
@@ -354,6 +348,12 @@
         </orm:field>
         <orm:field name="_actividadPrincipal1" property="ActividadPrincipal1" behavior="readwrite" uniqueId="65b68275-b4a3-4b12-b270-9075d0a4164f" type="PortalProModelo.ActividadPrincipal">
           <orm:reference uniqueId="e078c225-3531-4cd5-9ef5-4678449fa9af" />
+        </orm:field>
+        <orm:field name="_documentos" property="Documentos" behavior="readwrite" uniqueId="eef56a64-62a5-4e99-a6e6-6a2029d5d26e" type="PortalProModelo.Documento">
+          <orm:collection element-class="PortalProModelo.Documento" inverse-field="_solicitudProveedor" order-by="" uniqueId="38fb6818-4bb8-47aa-a77c-dbc923a4c7c5" />
+        </orm:field>
+        <orm:field name="_solicitudLogs" property="SolicitudLogs" behavior="readwrite" uniqueId="fe880eda-7872-4fa8-8091-aa74b7ed9440" type="PortalProModelo.SolicitudLog">
+          <orm:collection element-class="PortalProModelo.SolicitudLog" inverse-field="_solicitudProveedor" order-by="" uniqueId="8b01bc97-c240-4b45-a044-c716db625aef" />
         </orm:field>
         <orm:index name="idx_SolicitudProveedor_GrupoProveedorId">
           <orm:columnMapping>
@@ -547,6 +547,9 @@
         <orm:field name="_fechaEmision" property="FechaEmision" uniqueId="7950713e-ab26-4333-b522-da5837920efa" type="System.DateTime">
           <orm:column name="FechaEmision" sql-type="datetime" nullable="false" length="0" scale="0" ado-type="" />
         </orm:field>
+        <orm:field name="_inventTransId" property="InventTransId" uniqueId="01f46f99-4217-4826-9aaf-01a0189a9fdd" type="System.String">
+          <orm:column nullable="true" scale="0" length="255" sql-type="varchar" name="InventTransId" ado-type="" />
+        </orm:field>
         <orm:field name="_cabFactura" property="CabFactura" behavior="readwrite" uniqueId="45a0f306-e10b-4a8f-b1b8-7042a7b8e87d" type="PortalProModelo.CabFactura">
           <orm:reference uniqueId="99479ba3-b941-4d39-94d2-f99068cc96b7" />
         </orm:field>
@@ -675,6 +678,9 @@
         </orm:field>
         <orm:field name="_estado" property="Estado" uniqueId="ad94b63e-1639-477f-a0a6-b03704e26f73" type="System.String">
           <orm:column name="Estado" sql-type="varchar" nullable="true" length="255" scale="0" ado-type="" />
+        </orm:field>
+        <orm:field name="_inventTransId" property="InventTransId" uniqueId="fe3b7326-a8cd-404b-a3c5-4bbda3b42f83" type="System.String">
+          <orm:column nullable="true" scale="0" length="255" sql-type="varchar" name="InventTransId" ado-type="" />
         </orm:field>
         <orm:field name="_pedido" property="Pedido" behavior="readwrite" uniqueId="10bcefdf-c30e-42b3-86cf-511f65f3ab1d" type="PortalProModelo.Pedido">
           <orm:reference uniqueId="2ef9c0aa-d285-45b6-98ff-c8b852d61572" />
@@ -1034,6 +1040,7 @@
         <orm:column name="FechaRecepcion" sql-type="datetime" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.Timestamp2DateTimeConverter" ado-type="DateTime" />
         <orm:column name="PedidoId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
         <orm:column name="Estado" sql-type="varchar" nullable="true" length="255" scale="0" ado-type="" />
+        <orm:column nullable="true" scale="0" length="255" sql-type="varchar" name="InventTransId" ado-type="" />
         <orm:index name="idx_LinPedido_PedidoId">
           <orm:columnMapping>
             <orm:column name="PedidoId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
@@ -1051,6 +1058,7 @@
         <orm:column name="NumFactura" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
         <orm:column name="NumLineaFactura" sql-type="integer" nullable="false" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
         <orm:column name="FechaEmision" sql-type="datetime" nullable="false" length="0" scale="0" ado-type="" />
+        <orm:column nullable="true" scale="0" length="255" sql-type="varchar" name="InventTransId" ado-type="" />
         <orm:index name="idx_LinFactura_CabFacturaId">
           <orm:columnMapping>
             <orm:column name="CabFacturaId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
@@ -1734,6 +1742,7 @@
       <Property Id="698c20df-577c-404f-8734-44c77b4d91c5" name="NumFactura" label="NumFactura : String" fieldName="_numFactura" />
       <Property Id="7eff67d8-de9b-478b-b7f6-bc697e9f4b33" name="NumLineaFactura" type="Int32" label="NumLineaFactura : Int32" fieldName="_numLineaFactura" />
       <Property Id="7950713e-ab26-4333-b522-da5837920efa" name="FechaEmision" type="DateTime" label="FechaEmision : DateTime" fieldName="_fechaEmision" />
+      <Property Id="01f46f99-4217-4826-9aaf-01a0189a9fdd" name="InventTransId" label="InventTransId : String" fieldName="_inventTransId" />
       <AssociationTargets>
         <Association Id="99479ba3-b941-4d39-94d2-f99068cc96b7" SourceMultiplicity="ZeroOne" name="LinFacturaHasCabFactura">
           <DomainClassMoniker name="/PortalProContext/CabFactura" />
@@ -1894,6 +1903,7 @@
       <Property Id="3f790d98-d08a-430a-a2b9-1314091b0740" name="Facturado" type="Decimal" label="Facturado : Decimal" fieldName="_facturado" />
       <Property Id="44dfbd69-e008-4704-951c-b154b951a968" name="FechaRecepcion" type="DateTime" label="FechaRecepcion : DateTime" nullable="true" fieldName="_fechaRecepcion" />
       <Property Id="ad94b63e-1639-477f-a0a6-b03704e26f73" name="Estado" label="Estado : String" fieldName="_estado" />
+      <Property Id="fe3b7326-a8cd-404b-a3c5-4bbda3b42f83" name="InventTransId" label="InventTransId : String" fieldName="_inventTransId" />
       <AssociationTargets>
         <Association Id="2ef9c0aa-d285-45b6-98ff-c8b852d61572" SourceMultiplicity="ZeroOne" name="LinPedidoHasPedido">
           <DomainClassMoniker name="/PortalProContext/Pedido" />

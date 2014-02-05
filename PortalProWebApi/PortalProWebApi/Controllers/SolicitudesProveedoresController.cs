@@ -30,6 +30,10 @@ namespace PortalProWebApi.Controllers
                     FetchStrategy fs = new FetchStrategy();
                     fs.LoadWith<SolicitudProveedor>(x => x.GrupoProveedor);
                     fs.LoadWith<SolicitudProveedor>(x => x.SolicitudStatus);
+                    fs.LoadWith<SolicitudProveedor>(x => x.ActividadPrincipal1);
+                    fs.LoadWith<SolicitudProveedor>(x => x.Pais1);
+                    fs.LoadWith<SolicitudProveedor>(x => x.Comunidad1);
+                    fs.LoadWith<SolicitudProveedor>(x => x.Provincia1);
                     solProveedores = ctx.CreateDetachedCopy<IEnumerable<SolicitudProveedor>>(solProveedores, fs);
                     return solProveedores;
                 }
@@ -87,7 +91,7 @@ namespace PortalProWebApi.Controllers
                                                        select sp).FirstOrDefault<SolicitudProveedor>();
                     if (solProveedor != null)
                     {
-                        solProveedor = ctx.CreateDetachedCopy<SolicitudProveedor>(solProveedor, x => x.GrupoProveedor, x => x.SolicitudStatus);
+                        solProveedor = ctx.CreateDetachedCopy<SolicitudProveedor>(solProveedor, x => x.GrupoProveedor, x => x.SolicitudStatus, x => x.SolicitudStatus, x => x.ActividadPrincipal1, x => x.Pais1, x => x.Comunidad1, x => x.Provincia1);
                         return solProveedor;
                     }
                     else
@@ -170,7 +174,30 @@ namespace PortalProWebApi.Controllers
                     grupoProveedorId = solProveedor.GrupoProveedor.GrupoProveedorId;
                     solProveedor.GrupoProveedor = null;
                 }
-                
+                int actividadPrincipalId = 0;
+                if (solProveedor.ActividadPrincipal1 != null)
+                {
+                    actividadPrincipalId = solProveedor.ActividadPrincipal1.ActividadPrincipalId;
+                    solProveedor.ActividadPrincipal1 = null;
+                }
+                int paisId = 0;
+                if (solProveedor.Pais1 != null)
+                {
+                    paisId = solProveedor.Pais1.PaisId;
+                    solProveedor.Pais1 = null;
+                }
+                int comunidadId = 0;
+                if (solProveedor.Comunidad1 != null)
+                {
+                    comunidadId = solProveedor.Comunidad1.ComunidadId;
+                    solProveedor.Comunidad1 = null;
+                }
+                int provinciaId = 0;
+                if (solProveedor.Provincia1 != null)
+                {
+                    provinciaId = solProveedor.Provincia1.ProvinciaId;
+                    solProveedor.Provincia1 = null;
+                }
                 // justo antes de darlo de alta le ponemos el sello
                 solProveedor.Sello = DateTime.Now;
                 // por defecto su estado es pendiente ID=1
@@ -192,6 +219,31 @@ namespace PortalProWebApi.Controllers
                                                     where ss.SolicitudStatusId == solicitudStatusId
                                                     select ss).FirstOrDefault<SolicitudStatus>();
                 }
+                if (actividadPrincipalId != 0)
+                {
+                    solProveedor.ActividadPrincipal1 = (from ap in ctx.ActividadPrincipals
+                                                        where ap.ActividadPrincipalId == actividadPrincipalId
+                                                        select ap).FirstOrDefault<ActividadPrincipal>();
+                }
+                if (paisId != 0)
+                {
+                    solProveedor.Pais1 = (from p in ctx.Pais
+                                          where p.PaisId == paisId
+                                          select p).FirstOrDefault<Pais>();
+                }
+                if (comunidadId != 0)
+                {
+                    solProveedor.Comunidad1 = (from c in ctx.Comunidads
+                                               where c.ComunidadId == comunidadId
+                                               select c).FirstOrDefault<Comunidad>();
+                }
+                if (provinciaId != 0)
+                {
+                    solProveedor.Provincia1 = (from pr in ctx.Provincias
+                                               where pr.ProvinciaId == provinciaId
+                                               select pr).FirstOrDefault<Provincia>();
+                }
+
                 ctx.SaveChanges();
                 // eliminamos los documentos asociados si los hay
                 // los dará de alta otro proceso.
@@ -216,7 +268,7 @@ namespace PortalProWebApi.Controllers
                         solProveedor.Movil, solProveedor.Email, solProveedor.Url, solProveedor.Nif);
                 }
                 PortalProMailController.SendEmail(solProveedor.Email, asunto, cuerpo);
-                return ctx.CreateDetachedCopy<SolicitudProveedor>(solProveedor, x => x.GrupoProveedor);
+                return ctx.CreateDetachedCopy<SolicitudProveedor>(solProveedor, x => x.GrupoProveedor, x => x.SolicitudStatus, x => x.ActividadPrincipal1, x => x.Pais1, x => x.Comunidad1, x => x.Provincia1);
             }
         }
 
@@ -291,6 +343,30 @@ namespace PortalProWebApi.Controllers
                     solicitudStatusId = solProveedor.SolicitudStatus.SolicitudStatusId;
                     solProveedor.SolicitudStatus = null;
                 }
+                int actividadPrincipalId = 0;
+                if (solProveedor.ActividadPrincipal1 != null)
+                {
+                    actividadPrincipalId = solProveedor.ActividadPrincipal1.ActividadPrincipalId;
+                    solProveedor.ActividadPrincipal1 = null;
+                }
+                int paisId = 0;
+                if (solProveedor.Pais1 != null)
+                {
+                    paisId = solProveedor.Pais1.PaisId;
+                    solProveedor.Pais1 = null;
+                }
+                int comunidadId = 0;
+                if (solProveedor.Comunidad1 != null)
+                {
+                    comunidadId = solProveedor.Comunidad1.ComunidadId;
+                    solProveedor.Comunidad1 = null;
+                }
+                int provinciaId = 0;
+                if (solProveedor.Provincia1 != null)
+                {
+                    provinciaId = solProveedor.Provincia1.ProvinciaId;
+                    solProveedor.Provincia1 = null;
+                }
                 // modificar el objeto
                 ctx.AttachCopy<SolicitudProveedor>(solProveedor);
                 // volvemos a leer el objecto para que lo maneje este contexto.
@@ -309,8 +385,33 @@ namespace PortalProWebApi.Controllers
                                                     where ss.SolicitudStatusId == solicitudStatusId
                                                     select ss).FirstOrDefault<SolicitudStatus>();
                 }
+                if (actividadPrincipalId != 0)
+                {
+                    solProveedor.ActividadPrincipal1 = (from ap in ctx.ActividadPrincipals
+                                                        where ap.ActividadPrincipalId == actividadPrincipalId
+                                                        select ap).FirstOrDefault<ActividadPrincipal>();
+                }
+                if (paisId != 0)
+                {
+                    solProveedor.Pais1 = (from p in ctx.Pais
+                                          where p.PaisId == paisId
+                                          select p).FirstOrDefault<Pais>();
+                }
+                if (comunidadId != 0)
+                {
+                    solProveedor.Comunidad1 = (from c in ctx.Comunidads
+                                               where c.ComunidadId == comunidadId
+                                               select c).FirstOrDefault<Comunidad>();
+                }
+                if (provinciaId != 0)
+                {
+                    solProveedor.Provincia1 = (from pr in ctx.Provincias
+                                               where pr.ProvinciaId == provinciaId
+                                               select pr).FirstOrDefault<Provincia>();
+                }
+
                 ctx.SaveChanges();
-                return ctx.CreateDetachedCopy<SolicitudProveedor>(solProveedor, x => x.GrupoProveedor, x => x.SolicitudStatus);
+                return ctx.CreateDetachedCopy<SolicitudProveedor>(solProveedor, x => x.GrupoProveedor, x => x.SolicitudStatus, x=> x.ActividadPrincipal1, x=> x.Pais1, x=>x.Comunidad1, x=>x.Provincia1);
             }
         }
 

@@ -141,6 +141,19 @@ namespace PortalProModelo
 			}
 		}
 		
+		private string _inventTransId;
+		public virtual string InventTransId
+		{
+			get
+			{
+				return this._inventTransId;
+			}
+			set
+			{
+				this._inventTransId = value;
+			}
+		}
+		
 		private CabFactura _cabFactura;
 		public virtual CabFactura CabFactura
 		{

@@ -517,18 +517,22 @@ namespace PortalProWebApi
                 // caso (1) es el más sencillo, una factura con tantas líneas como tenga el pedido
                 foreach (LinPedido lp in p.LinPedidos)
                 {
-                    ctx.Add(new LinFactura()
+                    if (lp.Estado != "FACTURADO")
                     {
-                        LinFacturaId = 0,
-                        NumeroPedido = p.NumPedido,
-                        Importe = lp.Importe,
-                        Descripcion = lp.Descripcion,
-                        PorcentajeIva = 0,
-                        CabFactura = f
-                    });
-                    f.TotalFactura += lp.Importe;
-                    p.TotalFacturado += lp.Importe;
-                    ctx.SaveChanges();
+                        ctx.Add(new LinFactura()
+                        {
+                            LinFacturaId = 0,
+                            NumeroPedido = p.NumPedido,
+                            Importe = lp.Importe,
+                            Descripcion = lp.Descripcion,
+                            InventTransId = lp.InventTransId,
+                            PorcentajeIva = 0,
+                            CabFactura = f
+                        });
+                        f.TotalFactura += lp.Importe;
+                        p.TotalFacturado += lp.Importe;
+                        ctx.SaveChanges();
+                    }
                 }
             }
             else
@@ -787,7 +791,7 @@ namespace PortalProWebApi
             foreach (LinPedido lp in pedido.LinPedidos)
             {
                 // la primera condición es que quede algo que facturar
-                if (lp.Facturado < lp.Importe)
+                if (lp.Facturado < lp.Importe && lp.Estado != "FACTURADO")
                 {
                     decimal importe = lp.Importe - lp.Facturado;
                     LinFactura lf = new LinFactura();
@@ -796,6 +800,7 @@ namespace PortalProWebApi
                     lf.Importe = importe;
                     lf.NumeroPedido = lp.NumPedido;
                     lf.NumLineaPedido = lp.NumLinea;
+                    lf.InventTransId = lp.InventTransId;
                     factura.TotalFactura += importe;
                     ctx.Add(lf);
                     ctx.SaveChanges();

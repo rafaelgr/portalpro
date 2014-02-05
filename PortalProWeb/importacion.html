@@ -70,7 +70,7 @@
                     <div class="row-fluid">
                         <h4 class="blue">
                             Sincronizar actividades
-                            <button id="btnActividadPrincipal" class="btn btn-small btn-primary" onclick ="launchImport('ActividadPrincipal')">
+                            <button id="btnImpActividadPrincipal" class="btn btn-small btn-primary" onclick ="launchImport('ActividadPrincipal')">
                                 <i class="icon-exchange icon-white"></i>
                             </button>
                         </h4>
@@ -85,7 +85,7 @@
                     <div class="row-fluid">
                         <h4 class="blue">
                             Sincronizar paises
-                            <button id="btnPais" class="btn btn-small btn-primary" onclick ="launchImport('Pais')">
+                            <button id="btnImpPais" class="btn btn-small btn-primary" onclick ="launchImport('Pais')">
                                 <i class="icon-exchange icon-white"></i>
                             </button>
                         </h4>
@@ -100,7 +100,7 @@
                     <div class="row-fluid">
                         <h4 class="blue">
                             Sincronizar Comunidades / Estados
-                            <button id="btnComunidad" class="btn btn-small btn-primary" onclick ="launchImport('Comunidad')">
+                            <button id="btnImpComunidad" class="btn btn-small btn-primary" onclick ="launchImport('Comunidad')">
                                 <i class="icon-exchange icon-white"></i>
                             </button>
                         </h4>
@@ -115,7 +115,7 @@
                     <div class="row-fluid">
                         <h4 class="blue">
                             Sincronizar Provincias
-                            <button id="btnProvincia" class="btn btn-small btn-primary" onclick ="launchImport('Provincia')">
+                            <button id="btnImpProvincia" class="btn btn-small btn-primary" onclick ="launchImport('Provincia')">
                                 <i class="icon-exchange icon-white"></i>
                             </button>
                         </h4>
@@ -252,7 +252,7 @@
             function launchImport(proceso) {
                 $.ajax({
                     type: "POST",
-                    url: ari_hosts.webapi + "/api/Importar?proceso=" + proceso + "&tk=" + getCookie("ari_tique"),
+                    url: ari_hosts.webapi + "/api/Importar?proceso=" + proceso + "&tk=solicitud",
                     dataType: "json",
                     contentType: "application/json",
                     success: function (data, textStatus) {

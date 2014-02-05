@@ -329,6 +329,28 @@
                     SolicitudStatusId: ko.observable(),
                     Nombre: ko.observable()
                 };
+
+                self.ActividadPrincipal1 = {
+                    ActividadPrincipalId: ko.observable(),
+                    Nombre: ko.observable()
+                }
+
+                self.Pais1 = {
+                    PaisId: ko.observable(),
+                    Nombre: ko.observable()
+                };
+
+                self.Comunidad1= {
+                    ComunidadId: ko.observable(),
+                    Nombre: ko.observable()
+                }
+
+                self.Provincia1 = {
+                    ProvinciaId: ko.observable(),
+                    Nombre: ko.observable()
+                }
+
+
                 self.Documentos = ko.observableArray([
                     ko.observable(
                         {
@@ -563,10 +585,37 @@
                 // controlamos si queremos no asignar grupo
                 if (vm.GrupoProveedor.Nombre() == "")
                     vm.GrupoProveedor.GrupoProveedorId("");
+                // Control de actividad y pais
+                var actividad = $("#ActividadPrincipal").val();
+                if (actividad == "") {
+                    var message = "Debe escoger una actividad principal";
+                    bootbox.dialog(message, [
+                        {
+                            "label": "Aceptar",
+                            "class": "btn-small btn-success",
+                            "callback": function () {
+                            }
+                        }
+                    ])
+                    return false;
+                }
+                var pais = $("#Pais").val();
+                if (pais == "") {
+                    var message2 = "Debe escoger un pais";
+                    bootbox.dialog(message2, [
+                        {
+                            "label": "Aceptar",
+                            "class": "btn-small btn-success",
+                            "callback": function () {
+                            }
+                        }
+                    ])
+                    return false;
+                }
                 // comprobar que los obligatorios han sido cargados
                 if (!verifyFiles()) {
-                    var message = "Hay ficheros obligatorios que no han sido cargados";
-                    bootbox.dialog(message, [
+                    var message3 = "Hay ficheros obligatorios que no han sido cargados";
+                    bootbox.dialog(message3, [
                         {
                             "label": "Aceptar",
                             "class": "btn-small btn-success",
@@ -701,7 +750,33 @@
                 documentos = vm.Documentos();
                 // limpiamos los documentos para que no se produzca alta automática.
                 vm.Documentos([]);
-                //
+                // cargamos los objetos adicionales 
+                // Actividad prinicipal (es obligatorio)
+                vm.ActividadPrincipal1.ActividadPrincipalId($("#ActividadPrincipal").val());
+                vm.ActividadPrincipal1.Nombre($("#ActividadPrincipal :selected").text());
+                vm.ActividadPrincipal($("#ActividadPrincipal :selected").text());
+                // Pais (también obligatorio)
+                vm.Pais1.PaisId($("#Pais").val());
+                vm.Pais1.Nombre($("#Pais :selected").text());
+                vm.Pais($("#Pais :selected").text());
+                // Comunidad (opcional xq hay paises sin comunidades en BD)
+                var comunidadId = $("#Comunidad").val();
+                if (comunidadId != "") {
+                    vm.Comunidad1.ComunidadId($("#Comunidad").val());
+                    vm.Comunidad1.Nombre($("#Comunidad :selected").text());
+                    vm.Comunidad($("#Comunidad :selected").text());
+                } else {
+                    vm.Comunidad1 = null;
+                }
+                // Provincia (opcional xq hay comunidades sin provincias en BD)
+                var provinciaId = $("#Provincia").val();
+                if (provinciaId != "") {
+                    vm.Provincia1.ProvinciaId($("#Provincia").val());
+                    vm.Provincia1.Nombre($("#Provincia :selected").text());
+                    vm.Provincia($("#Provincia :selected").text());
+                } else {
+                    vm.Provincia1 = null;
+                }
                 $("#proveedor-form").hide();
                 $("#proveedor-image-loader").show();
                 //

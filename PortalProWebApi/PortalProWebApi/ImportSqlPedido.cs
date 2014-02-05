@@ -159,11 +159,13 @@ namespace PortalProWebApi
                               ,[REMAINPURCHPHYSICAL]
                               ,[REMAINPURCHFINANCIAL]
                               ,[FECHARECEPCION]
+                              ,[INVENTTRANSID]
                           FROM [dbo].[Cau_PortalPro_VLinPedido]  WHERE [PURCHID] = '{0}';";
             string sql = String.Format(sqlb, numPedido);
             SqlCommand cmd = new SqlCommand(sql, con);
             SqlDataReader dr = cmd.ExecuteReader();
             decimal totalPedido = 0;
+            decimal totalFacturado = 0;
             while (dr.Read())
             {
                 int numLinea = (int)(dr.GetDecimal(1));
@@ -180,6 +182,7 @@ namespace PortalProWebApi
                 lped.Pedido = pedido;
                 lped.NumPedido = numPedido;
                 lped.NumLinea = numLinea;
+                lped.InventTransId = dr.GetString(12);
                 lped.Descripcion = dr.GetString(3);
                 lped.Importe = dr.GetDecimal(7);
                 totalPedido += lped.Importe;
@@ -188,6 +191,7 @@ namespace PortalProWebApi
                 {
                     case "Facturado":
                         lped.Estado = "FACTURADO";
+                        totalFacturado += lped.Importe;
                         break;
                     case "Recibido":
                         lped.Estado = "RECIBIDO";
@@ -200,6 +204,7 @@ namespace PortalProWebApi
                 if (!dr.IsDBNull(11)) lped.FechaRecepcion = dr.GetDateTime(11);
             }
             pedido.TotalPedido = totalPedido;
+            pedido.TotalFacturado = totalFacturado;
             try
             {
                 ctx.SaveChanges();
