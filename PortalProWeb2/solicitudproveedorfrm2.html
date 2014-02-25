@@ -741,6 +741,19 @@
                 });
             }
             
+            function loadParameters() {
+                $.ajax({
+                    type: "GET",
+                    url: ari_hosts.webapi + "/api/parametros/1/?tk=solicitud",
+                    dataType: "json",
+                    contentType: "application/json",
+                    success: function (data, textStatus) {
+                        setCookie("ari_maxsize", data.MaxFichero, 1);
+                    },
+                });
+            }
+
+
             // salvar los datos del form
             function saveData(arg) {
                 // hay que marcar como pendiente la solicitud
@@ -942,9 +955,11 @@
                 $("#" + context.fileId).pekeUpload({
                     theme: "bootstrap",
                     multi: false,
+                    maxSize: getCookie("ari_maxsize"),
                     btnText: "Elija el fichero",
                     allowedExtensions: "pdf",
                     invalidExtError: "Solo se permiten ficheros PDF",
+                    sizeError: "El tamaño de fichero supera el máximo permitido (" + getCookie("ari_maxsize") + " MB)",
                     url: ari_hosts.webapi + "/api/uploads?usuario=" + getCookie("ari_userId") + "&item=" + item + "&tipo=" + tipo + "&tk=" + getCookie("ari_tique"),
                     onFileError: errUpload,
                     onFileSuccess: sucUpload,
@@ -1038,12 +1053,25 @@
                     },
                 });
             }
+            function loadParameters() {
+                $.ajax({
+                    type: "GET",
+                    url: ari_hosts.webapi + "/api/parametros/1/?tk=solicitud",
+                    dataType: "json",
+                    contentType: "application/json",
+                    success: function (data, textStatus) {
+                        setCookie("ari_maxsize", data.MaxFichero, 1);
+                    },
+                });
+            }
         </script>
         
         <!-- Script en arranque -->
         <script type="text/javascript">
             (function ($) {
                 $(document).ready(function () {
+                    // cargar parámetros
+                    loadParameters();
                     // tratamiento general de errores Ajax
                     generalAjaxErrorTreatment();
                     // quién y como nos ha llamado.
@@ -1056,6 +1084,7 @@
                         $("#lineas-documento").focus();
                     }
                     else {
+                        loadParameters();
                         // generar un usuario inventado US
                         var userNumber = Math.floor(Math.random() * 100);
                         setCookie("ari_userId", "US" + userNumber, 1);

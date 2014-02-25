@@ -689,11 +689,14 @@ namespace PortalProWebApi
                 Pedido ped = (from p in ctx.Pedidos
                               where p.NumPedido == l.NumeroPedido
                               select p).FirstOrDefault<Pedido>();
+                string estado = null;
                 if (ped != null)
                 {
                     ped.TotalFacturado = ped.TotalFacturado - l.Importe;
                     if (ped.TotalFacturado < 0)
                         ped.TotalFacturado = 0;
+                    // guardamos el estado del pedido para retrotraer las líneas.
+                    estado = ped.Estado;
                 }
                 // lo mismo para las lineas
                 LinPedido lped = (from lp in ctx.LinPedidos
@@ -704,6 +707,8 @@ namespace PortalProWebApi
                 {
                     lped.Facturado = lped.Facturado - l.Importe;
                     if (lped.Facturado < 0) lped.Facturado = 0;
+                    // retrotremos el estado de la línea al original del pedido
+                    lped.Estado = estado;
                 }
                 l.CabFactura.TotalFactura = l.CabFactura.TotalFactura - l.Importe;
                 ctx.Delete(l);
@@ -803,6 +808,9 @@ namespace PortalProWebApi
                     lf.InventTransId = lp.InventTransId;
                     factura.TotalFactura += importe;
                     ctx.Add(lf);
+                    // actualizamos lo facturado de esa línea
+                    lp.Facturado += importe;
+                    if (lp.Importe == lp.Facturado) lp.Estado = "FACTURADO";
                     ctx.SaveChanges();
                 }
             }

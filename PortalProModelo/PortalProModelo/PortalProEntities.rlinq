@@ -548,7 +548,7 @@
           <orm:column name="FechaEmision" sql-type="datetime" nullable="false" length="0" scale="0" ado-type="" />
         </orm:field>
         <orm:field name="_inventTransId" property="InventTransId" uniqueId="01f46f99-4217-4826-9aaf-01a0189a9fdd" type="System.String">
-          <orm:column nullable="true" scale="0" length="255" sql-type="varchar" name="InventTransId" ado-type="" />
+          <orm:column name="InventTransId" sql-type="varchar" nullable="true" length="255" scale="0" ado-type="" />
         </orm:field>
         <orm:field name="_cabFactura" property="CabFactura" behavior="readwrite" uniqueId="45a0f306-e10b-4a8f-b1b8-7042a7b8e87d" type="PortalProModelo.CabFactura">
           <orm:reference uniqueId="99479ba3-b941-4d39-94d2-f99068cc96b7" />
@@ -680,7 +680,7 @@
           <orm:column name="Estado" sql-type="varchar" nullable="true" length="255" scale="0" ado-type="" />
         </orm:field>
         <orm:field name="_inventTransId" property="InventTransId" uniqueId="fe3b7326-a8cd-404b-a3c5-4bbda3b42f83" type="System.String">
-          <orm:column nullable="true" scale="0" length="255" sql-type="varchar" name="InventTransId" ado-type="" />
+          <orm:column name="InventTransId" sql-type="varchar" nullable="true" length="255" scale="0" ado-type="" />
         </orm:field>
         <orm:field name="_pedido" property="Pedido" behavior="readwrite" uniqueId="10bcefdf-c30e-42b3-86cf-511f65f3ab1d" type="PortalProModelo.Pedido">
           <orm:reference uniqueId="2ef9c0aa-d285-45b6-98ff-c8b852d61572" />
@@ -691,7 +691,8 @@
           </orm:columnMapping>
         </orm:index>
       </orm:class>
-      <orm:class name="Parametro" use-default-mapping="true" uniqueId="198f86b2-057a-4565-961b-7d5be50cf6ca">
+      <orm:class name="Parametro" uniqueId="198f86b2-057a-4565-961b-7d5be50cf6ca">
+        <orm:table name="Parametro" />
         <orm:identity>
           <orm:single-field field-name="_parametroId" />
         </orm:identity>
@@ -701,8 +702,8 @@
         <orm:field name="_facturaAbierto" property="FacturaAbierto" uniqueId="4ce6a683-6248-44b5-b5aa-0bee2c49fb76" type="System.Boolean">
           <orm:column name="FacturaAbierto" sql-type="bit" nullable="false" length="0" scale="0" converter="OpenAccessRuntime.Data.Bit2BooleanConverter" ado-type="Bit" />
         </orm:field>
-        <orm:field name="_maxFichero" property="MaxFichero" uniqueId="b9bfd556-4bcc-4d77-82aa-8fd578e4c487" type="System.Int32">
-          <orm:column name="MaxFichero" sql-type="integer" nullable="false" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+        <orm:field name="_maxFichero" property="MaxFichero" uniqueId="b9bfd556-4bcc-4d77-82aa-8fd578e4c487" type="System.Decimal">
+          <orm:column name="MaxFichero" sql-type="decimal" nullable="false" length="10" scale="2" ado-type="Int32" />
         </orm:field>
         <orm:field name="_margenFactura" property="MargenFactura" uniqueId="19a2eb0c-cc58-45de-8205-5898c67b92e0" type="System.Int32">
           <orm:column name="MargenFactura" sql-type="integer" nullable="false" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
@@ -1040,7 +1041,7 @@
         <orm:column name="FechaRecepcion" sql-type="datetime" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.Timestamp2DateTimeConverter" ado-type="DateTime" />
         <orm:column name="PedidoId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
         <orm:column name="Estado" sql-type="varchar" nullable="true" length="255" scale="0" ado-type="" />
-        <orm:column nullable="true" scale="0" length="255" sql-type="varchar" name="InventTransId" ado-type="" />
+        <orm:column name="InventTransId" sql-type="varchar" nullable="true" length="255" scale="0" ado-type="" />
         <orm:index name="idx_LinPedido_PedidoId">
           <orm:columnMapping>
             <orm:column name="PedidoId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
@@ -1058,7 +1059,7 @@
         <orm:column name="NumFactura" sql-type="varchar" nullable="true" length="255" scale="0" converter="OpenAccessRuntime.Data.VariableLengthStringConverter" ado-type="Varchar" />
         <orm:column name="NumLineaFactura" sql-type="integer" nullable="false" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
         <orm:column name="FechaEmision" sql-type="datetime" nullable="false" length="0" scale="0" ado-type="" />
-        <orm:column nullable="true" scale="0" length="255" sql-type="varchar" name="InventTransId" ado-type="" />
+        <orm:column name="InventTransId" sql-type="varchar" nullable="true" length="255" scale="0" ado-type="" />
         <orm:index name="idx_LinFactura_CabFacturaId">
           <orm:columnMapping>
             <orm:column name="CabFacturaId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
@@ -1083,6 +1084,13 @@
             <orm:column name="UsuarioId" sql-type="integer" nullable="true" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
           </orm:columnMapping>
         </orm:index>
+      </orm:table>
+      <orm:table name="Parametro">
+        <orm:column name="ParametroId" sql-type="integer" nullable="false" length="0" scale="0" primary-key="true" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+        <orm:column name="FacturaAbierto" sql-type="bit" nullable="false" length="0" scale="0" converter="OpenAccessRuntime.Data.Bit2BooleanConverter" ado-type="Bit" />
+        <orm:column name="MaxFichero" sql-type="decimal" nullable="false" length="10" scale="2" ado-type="Int32" />
+        <orm:column name="MargenFactura" sql-type="integer" nullable="false" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
+        <orm:column name="MaxImportePdf" sql-type="integer" nullable="false" length="0" scale="0" converter="OpenAccessRuntime.Data.IntConverter" ado-type="Int32" />
       </orm:table>
     </orm:schema>
     <orm:relational-naming-settings>
@@ -1928,7 +1936,7 @@
     <DomainClass Id="198f86b2-057a-4565-961b-7d5be50cf6ca" name="Parametro" namespace="PortalProModelo" showPropertiesCompartment="true" showNavigationCompartment="true" showImplementationCompartment="true">
       <Property Id="d94875ed-8974-4774-8d22-7bf8b9ccb583" name="ParametroId" type="System.Int32" label="ParametroId : System.Int32" identity="true" fieldName="_parametroId" />
       <Property Id="4ce6a683-6248-44b5-b5aa-0bee2c49fb76" name="FacturaAbierto" type="Boolean" label="FacturaAbierto : Boolean" fieldName="_facturaAbierto" />
-      <Property Id="b9bfd556-4bcc-4d77-82aa-8fd578e4c487" name="MaxFichero" type="Int32" label="MaxFichero : Int32" fieldName="_maxFichero" />
+      <Property Id="b9bfd556-4bcc-4d77-82aa-8fd578e4c487" name="MaxFichero" type="Decimal" label="MaxFichero : Decimal" fieldName="_maxFichero" />
       <Property Id="19a2eb0c-cc58-45de-8205-5898c67b92e0" name="MargenFactura" type="Int32" label="MargenFactura : Int32" fieldName="_margenFactura" />
       <Property Id="fa565b7d-f242-4b98-89d5-9ff113a2109f" name="MaxImportePdf" type="Int32" label="MaxImportePdf : Int32" fieldName="_maxImportePdf" />
     </DomainClass>

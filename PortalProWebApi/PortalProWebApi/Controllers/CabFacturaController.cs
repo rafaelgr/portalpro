@@ -495,7 +495,7 @@ namespace PortalProWebApi.Controllers
                 CabFactura factura = null;
                 if (pedidosSeleccionados.Length > 1 && hayPedidoSuscripcion)
                 {
-                    throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotFound, "No puede seleccionar más de un pedido de suscripción a la vez (CabFactura)"));
+                    throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.NotFound, "Los pedidos de suscripción se facturan individualmente (CabFactura)"));
                 }
                 if (hayPedidoSuscripcion)
                 {

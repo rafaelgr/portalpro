@@ -48,9 +48,10 @@ namespace PortalProWebApi.Controllers
                 hpf.SaveAs(savedFileName);
             }
             // obtener la raiz del servidor
-            // comenzar a partir de 8 es para evitar '//'
+            // comenzar a partir de 8 es para evitar '//' 
+            // Y ahora 9 porque hay https
             uR.Url = "url";
-            int pos = request.Url.AbsoluteUri.IndexOf("/", 8);
+            int pos = request.Url.AbsoluteUri.IndexOf("/", 9);
             if (pos > -1)
                 uR.Url = request.Url.AbsoluteUri.Substring(0, pos) + "/uploads/" + fileName;
             uR.Status = 1;

@@ -49,8 +49,8 @@ namespace PortalProModelo
 			}
 		}
 		
-		private int _maxFichero;
-		public virtual int MaxFichero
+		private decimal _maxFichero;
+		public virtual decimal MaxFichero
 		{
 			get
 			{

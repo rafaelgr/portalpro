@@ -200,6 +200,8 @@
     <Content Include="SQL\PortalproConnection%282014-01-24 08-30-54%29.rlinq.sql" />
     <Content Include="SQL\PortalproConnection%282014-01-28 11-46-09%29.rlinq.sql" />
     <Content Include="SQL\PortalproConnection%282014-02-04 08-49-15%29.rlinq.sql" />
+    <Content Include="SQL\PortalproConnection%282014-02-17 17-12-04%29.rlinq.sql" />
+    <Content Include="SQL\PortalproConnection%282014-02-24 08-37-05%29.rlinq.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

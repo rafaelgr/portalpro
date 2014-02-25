@@ -106,7 +106,7 @@
         <script type="text/javascript">
             var uploadArray = [
                 { fileId: 'pdf1', descripcion: 'Fichero PDF factura', container: 'cpdf1', item:'PDF1', tipo:0 },
-                { fileId: 'pdf2', descripcion: 'Fichero PDF factura (2)', container: 'cpdf2', item:'PDF2', tipo:0 },
+                { fileId: 'pdf2', descripcion: 'Fichero PDF factura (2)', container: 'cpdf2', item:'PDF2', tipo:0},
             ]
             
             function setLoaders() {
@@ -139,6 +139,7 @@
                 $("#" + context.fileId).pekeUpload({
                     theme: "bootstrap",
                     multi: false,
+                    maxSize: 0.2,
                     btnText: "Elija el fichero",
                     url: ari_hosts.webapi + "/api/uploads?usuario=" + "U22" + "&item=" + item + "&tipo=" + tipo + "&tk=" + "solicitud",
                     onFileError: errUpload,

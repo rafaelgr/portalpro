@@ -109,14 +109,22 @@ namespace PortalProWebApi
                                     select r).FirstOrDefault<Responsable>();
                 ped2.FechaAlta = dr.GetDateTime(7);
                 if (!dr.IsDBNull(8)) ped2.FechaRecepcion = dr.GetDateTime(8);
-                if (!dr.IsDBNull(9)) ped2.FechaLimite = dr.GetDateTime(9);
-                try
-                {
+                if (!dr.IsDBNull(9)) 
+                { 
+                    ped2.FechaLimite = dr.GetDateTime(9);
+                    // hay que controlar le fecha nula AX (01/01/1900)
+                    if (String.Format("{0:dd/MM/yyyy}", ped2.FechaLimite) == "01/01/1900")
+                    {
+                        ped2.FechaLimite = null;
+                    }
+                }
+                //try
+                //{
                     ctx.SaveChanges();
-                }
-                catch (Exception ex)
-                {
-                }
+                //}
+                //catch (Exception ex)
+                //{
+                //}
                 // cargar las lineas
                 LoadAssociateLines(numpedido);
                 // Actualizar los registros de proceso
@@ -191,6 +199,7 @@ namespace PortalProWebApi
                 {
                     case "Facturado":
                         lped.Estado = "FACTURADO";
+                        lped.Facturado = lped.Importe;
                         totalFacturado += lped.Importe;
                         break;
                     case "Recibido":

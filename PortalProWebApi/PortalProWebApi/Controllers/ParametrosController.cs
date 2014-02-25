@@ -43,7 +43,7 @@ namespace PortalProWebApi.Controllers
         {
             using (PortalProContext ctx = new PortalProContext())
             {
-                if (CntWebApiSeguridad.CheckTicket(tk, ctx))
+                if (CntWebApiSeguridad.CheckTicket(tk, ctx) || tk == "solicitud")
                 {
                     Parametro Parametro = (from pl in ctx.Parametros1
                                                      where pl.ParametroId == id

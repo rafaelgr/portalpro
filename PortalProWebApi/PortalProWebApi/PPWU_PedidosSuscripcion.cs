@@ -160,6 +160,7 @@ namespace PortalProWebApi
             lfactura.PorcentajeIva = lpedido.PorcentajeIva;
             lfactura.NumeroPedido = lpedido.NumPedido;
             lfactura.NumLineaPedido = lpedido.NumLinea;
+            lpedido.Facturado += importe;
             if (factura.FechaEmision != null)
                 lfactura.FechaEmision = (DateTime)factura.FechaEmision;
             ctx.Add(lfactura);
